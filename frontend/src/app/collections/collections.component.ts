@@ -10,10 +10,10 @@ import { ProductService, IProduct } from '../services/product.service';
   styleUrl: './collections.component.css'
 })
 export class CollectionsComponent implements OnInit {
-  collections: ICollection[] = this.getFallbackCollections();
+  collections: ICollection[] = [];
   featuredProducts: IProduct[] = [];
   allProducts: IProduct[] = [];
-  selectedCollection: ICollection | null = this.getFallbackCollections()[0];
+  selectedCollection: ICollection | null = null;
 
   constructor(
     private _route: ActivatedRoute,
@@ -38,25 +38,17 @@ export class CollectionsComponent implements OnInit {
       }
     });
 
-    // 1. Nạp danh sách bộ sưu tập từ MongoDB API
+    // 1. Nạp danh sách bộ sưu tập trực tiếp từ MongoDB CSDL
     this._masterDataService.getCollections().subscribe({
       next: (list) => {
         if (list && list.length > 0) {
-          this.collections = list.map(c => {
-            const fallbackImg = (c.slug || '').includes('moon')
-              ? 'https://i.pinimg.com/736x/53/a4/0f/53a40fcf65d77d5dcc8a9efcb531ac32.jpg'
-              : ((c.slug || '').includes('muse') || (c.name || '').includes('Nàng Thơ'))
-                ? 'https://i.pinimg.com/736x/88/cc/a9/88cca9873ac223970e511970e84f478d.jpg'
-                : 'https://i.pinimg.com/736x/d2/c1/cd/d2c1cd50bee4cf66b8a095b253a55beb.jpg';
-
-            return {
-              name: c.name,
-              tag: c.tag || ((c.slug || '').includes('moon') ? 'Thiên thể & Chiêm tinh' : (c.slug || '').includes('mystic') ? 'Cổ điển & Huyền bí' : 'Dịu dàng & Lãng mạn'),
-              desc: c.desc || (c as any).description || 'Bộ sưu tập trang sức phong thủy độc bản chế tác thủ công từ đá quý thiên nhiên.',
-              image: c.coverImage || c.image || fallbackImg,
-              slug: c.slug || c.name.toLowerCase().replace(/[^a-z0-9]+/g, '-')
-            };
-          });
+          this.collections = list.map(c => ({
+            name: c.name,
+            tag: c.tag || '',
+            desc: c.desc || (c as any).description || '',
+            image: c.image || (c as any).coverImage || '',
+            slug: c.slug || c.name.toLowerCase().replace(/[^a-z0-9]+/g, '-')
+          }));
 
           if (routeSlug) {
             const found = this.collections.find(c =>
@@ -71,9 +63,6 @@ export class CollectionsComponent implements OnInit {
           }
           this.filterProductsForCollection();
         }
-      },
-      error: () => {
-        // Fallback đã được gán sẵn lúc khởi tạo
       }
     });
 
@@ -82,8 +71,7 @@ export class CollectionsComponent implements OnInit {
       next: (products) => {
         this.allProducts = products || [];
         this.filterProductsForCollection();
-      },
-      error: () => {}
+      }
     });
   }
 
@@ -114,31 +102,5 @@ export class CollectionsComponent implements OnInit {
       filtered = this.allProducts;
     }
     this.featuredProducts = filtered.slice(0, 6);
-  }
-
-  private getFallbackCollections(): ICollection[] {
-    return [
-      {
-        name: 'Mystical Vintage',
-        slug: 'mystical-vintage',
-        tag: 'Cổ điển & Huyền bí',
-        desc: 'Dấu ấn hoàng gia phương Tây kết hợp chiều sâu chiêm nghiệm phương Đông, dành cho người yêu nét đẹp hoài niệm vĩnh cửu.',
-        image: 'https://i.pinimg.com/736x/d2/c1/cd/d2c1cd50bee4cf66b8a095b253a55beb.jpg'
-      },
-      {
-        name: 'Moon & Stars',
-        slug: 'moon-and-stars',
-        tag: 'Thiên thể & Chiêm tinh',
-        desc: 'Cảm hứng chu kỳ trăng tròn và 12 chòm sao dẫn lối, tượng trưng cho trực giác nhạy bén và nguồn ánh sáng soi rọi bóng đêm.',
-        image: 'https://i.pinimg.com/736x/53/a4/0f/53a40fcf65d77d5dcc8a9efcb531ac32.jpg'
-      },
-      {
-        name: 'Nàng Thơ (The Muse)',
-        slug: 'nang-tho',
-        tag: 'Dịu dàng & Lãng mạn',
-        desc: 'Vẻ đẹp tinh tế của ngọc trai tự nhiên và đá Moonstone, đánh thức trọn vẹn sự dịu dàng và lòng trắc ẩn của tâm hồn.',
-        image: 'https://i.pinimg.com/736x/88/cc/a9/88cca9873ac223970e511970e84f478d.jpg'
-      }
-    ];
   }
 }

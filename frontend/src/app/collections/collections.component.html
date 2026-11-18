@@ -15,9 +15,7 @@
     @for (c of collections; track c.name) {
       <article class="col-card" [class.active]="selectedCollection?.name === c.name" (click)="selectCollection(c)">
         <div class="col-card__media">
-          <img [src]="c.image || 'https://i.pinimg.com/736x/d2/c1/cd/d2c1cd50bee4cf66b8a095b253a55beb.jpg'" 
-               [alt]="c.name"
-               (error)="$any($event.target).src = 'https://i.pinimg.com/736x/d2/c1/cd/d2c1cd50bee4cf66b8a095b253a55beb.jpg'">
+          <img [src]="c.image" [alt]="c.name">
           <div class="col-card__overlay">
             <span class="col-card__tag">{{ c.tag || 'Bộ sưu tập' }}</span>
             <h2 class="col-card__name serif">{{ c.name }}</h2>
@@ -45,9 +43,7 @@
         @for (p of featuredProducts; track p.name) {
           <article class="p-card" [routerLink]="['/products', p.slug || p.id]">
             <div class="p-media">
-              <img [src]="p.image || (p.images && p.images[0]) || 'https://i.pinimg.com/736x/d4/3c/3d/d43c3d69296b0badad1636033dd34e9c.jpg'" 
-                   [alt]="p.name"
-                   (error)="$any($event.target).src = 'https://i.pinimg.com/736x/d4/3c/3d/d43c3d69296b0badad1636033dd34e9c.jpg'">
+              <img [src]="p.image" [alt]="p.name">
             </div>
             <div class="p-info">
               <span class="p-stone">{{ p.stone }}</span>

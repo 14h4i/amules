@@ -292,10 +292,7 @@
                 <!-- Media -->
                 <div class="p-card__media">
                   <a [routerLink]="['/products', p.slug || p.id]">
-                    <img [src]="p.image || 'https://i.pinimg.com/736x/d4/3c/3d/d43c3d69296b0badad1636033dd34e9c.jpg'" 
-                         [alt]="p.name" 
-                         loading="lazy"
-                         (error)="$any($event.target).src = 'https://i.pinimg.com/736x/d4/3c/3d/d43c3d69296b0badad1636033dd34e9c.jpg'">
+                    <img [src]="p.image" [alt]="p.name" loading="lazy">
                   </a>
 
                   <!-- Badge nhãn nổi bật -->
