@@ -17,16 +17,30 @@
       <!-- CỘT TRÁI: DANH SÁCH BẢO VẬT TRONG GIỎ -->
       <section class="cart-list-col">
         <div class="cart-table-head">
-          <span>Bảo vật</span>
-          <span>Đơn giá</span>
-          <span>Số lượng</span>
-          <span>Tạm tính</span>
-          <span></span>
+          <label class="col-check" title="Chọn hoặc bỏ chọn tất cả">
+            <input type="checkbox" class="custom-chk" [checked]="isAllSelected" (change)="toggleSelectAll($event)">
+            <span>Tất cả</span>
+          </label>
+          <span class="col-product">Bảo vật</span>
+          <span class="col-price">Đơn giá</span>
+          <span class="col-qty">Số lượng</span>
+          <span class="col-total">Tạm tính</span>
+          <span class="col-action">Thao tác</span>
         </div>
 
         <div class="cart-items">
           @for (item of cartItems; track $index) {
-            <article class="cart-item">
+            <article class="cart-item" [class.item-unselected]="item.selected === false">
+              <div class="item-check">
+                <input
+                  type="checkbox"
+                  class="custom-chk"
+                  [checked]="item.selected !== false"
+                  (change)="toggleItemSelect($index, $event)"
+                  [title]="'Tích chọn ' + item.name"
+                >
+              </div>
+
               <div class="item-info">
                 <img [src]="item.image || 'images/lac_tay_bien.png'" [alt]="item.name" class="item-img">
                 <div>
@@ -55,8 +69,9 @@
               </div>
 
               <div class="item-action">
-                <button type="button" class="btn-remove" (click)="removeItem($index)" aria-label="Xóa bảo vật">
-                  &times;
+                <button type="button" class="btn-remove" (click)="removeItem($index)" [title]="'Xóa ' + item.name + ' khỏi giỏ'">
+                  <app-icon name="trash" [size]="15"></app-icon>
+                  <span class="btn-remove-text">Xóa</span>
                 </button>
               </div>
             </article>
@@ -67,9 +82,16 @@
           <a routerLink="/products" class="btn-continue">
             &larr; Tiếp tục khám phá bảo vật
           </a>
-          <button type="button" class="btn-clear" (click)="clearCart()">
-            Xóa toàn bộ giỏ
-          </button>
+          <div class="bottom-actions">
+            @if (selectedCount > 0) {
+              <button type="button" class="btn-remove-selected" (click)="removeSelected()">
+                <app-icon name="trash" [size]="14"></app-icon> Xóa mục đã chọn ({{ selectedCount }})
+              </button>
+            }
+            <button type="button" class="btn-clear" (click)="clearCart()">
+              Xóa toàn bộ giỏ
+            </button>
+          </div>
         </div>
       </section>
 
@@ -97,7 +119,7 @@
           <!-- Chi tiết giá tiền -->
           <div class="summary-rows">
             <div class="row">
-              <span>Tạm tính ({{ _cartService.cartCount() }} sản phẩm):</span>
+              <span>Tạm tính ({{ selectedCount }}/{{ cartItems.length }} sản phẩm đã chọn):</span>
               <strong>{{ subtotal | number }}đ</strong>
             </div>
 
@@ -140,9 +162,16 @@
             }
           </div>
 
+          @if (selectedCount === 0) {
+            <div class="selection-notice">
+              <app-icon name="sparkle" [size]="14"></app-icon>
+              <span>Vui lòng tích chọn bảo vật để đặt hàng.</span>
+            </div>
+          }
+
           <!-- Nút Đặt Hàng -->
-          <button type="button" class="btn-checkout" (click)="goToCheckout()">
-            Tiến Hành Đặt Hàng <app-icon name="arrow-right" [size]="18"></app-icon>
+          <button type="button" class="btn-checkout" (click)="goToCheckout()" [disabled]="selectedCount === 0">
+            Tiến Hành Đặt Hàng ({{ selectedCount }}) <app-icon name="arrow-right" [size]="18"></app-icon>
           </button>
 
           <div class="trust-badges">

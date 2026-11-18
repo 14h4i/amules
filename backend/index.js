@@ -1380,11 +1380,25 @@ app.post('/api/cart/update', (req, res) => {
 
 app.post('/api/cart/remove', (req, res) => {
   if (!req.session.cart) req.session.cart = [];
-  const { index } = req.body;
-  if (index !== undefined && index >= 0 && index < req.session.cart.length) {
+  const { index, productId, size } = req.body;
+  if (productId) {
+    const idx = req.session.cart.findIndex(i => i.productId === productId && (!size || i.size === size));
+    if (idx !== -1) {
+      req.session.cart.splice(idx, 1);
+    } else if (index !== undefined && index >= 0 && index < req.session.cart.length) {
+      req.session.cart.splice(index, 1);
+    }
+  } else if (index !== undefined && index >= 0 && index < req.session.cart.length) {
     req.session.cart.splice(index, 1);
   }
   res.json({ cart: req.session.cart, count: req.session.cart.length });
+});
+
+app.post('/api/cart/sync', (req, res) => {
+  if (Array.isArray(req.body.cart)) {
+    req.session.cart = req.body.cart;
+  }
+  res.json({ cart: req.session.cart || [], count: (req.session.cart || []).length });
 });
 
 app.delete('/api/cart', (req, res) => {
@@ -1549,7 +1563,13 @@ const handleCheckout = async (req, res) => {
       console.error('[Checkout] Lỗi sync file orders.json:', syncErr.message);
     }
 
-    req.session.cart = []; // Xóa giỏ tạm sau khi đặt hàng thành công
+    // Chỉ xóa các món đã mua khỏi session giỏ hàng, giữ lại các món chưa mua
+    if (req.session.cart && Array.isArray(req.session.cart)) {
+      const purchasedKeys = new Set(cartItems.map(i => `${i.productId}_${i.size || ''}`));
+      req.session.cart = req.session.cart.filter(i => !purchasedKeys.has(`${i.productId}_${i.size || ''}`));
+    } else {
+      req.session.cart = [];
+    }
     res.status(200).json({
       message: 'Đặt hàng thành công!',
       orderCode,

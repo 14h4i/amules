@@ -43,7 +43,8 @@
 }
 .cart-table-head {
   display: grid;
-  grid-template-columns: 3fr 1.2fr 1.2fr 1.2fr 40px;
+  grid-template-columns: 50px 3fr 1.2fr 1.2fr 1.2fr 70px;
+  align-items: center;
   padding-bottom: 14px;
   border-bottom: 1px solid var(--pink-line);
   font-size: 12.5px;
@@ -52,16 +53,44 @@
   text-transform: uppercase;
   letter-spacing: .06em;
 }
+.col-check {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  user-select: none;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--ink);
+}
+.custom-chk {
+  width: 19px;
+  height: 19px;
+  border-radius: 5px;
+  cursor: pointer;
+  accent-color: var(--plum, #8a2c6b);
+}
 .cart-items {
   display: flex;
   flex-direction: column;
 }
 .cart-item {
   display: grid;
-  grid-template-columns: 3fr 1.2fr 1.2fr 1.2fr 40px;
+  grid-template-columns: 50px 3fr 1.2fr 1.2fr 1.2fr 70px;
   align-items: center;
-  padding: 20px 0;
+  padding: 20px 8px;
   border-bottom: 1px dashed var(--pink-line);
+  transition: all .2s ease;
+}
+.item-unselected {
+  opacity: 0.65;
+  background: #faf7f8;
+  border-radius: 12px;
+}
+.item-check {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
 }
 .item-info {
   display: flex;
@@ -125,22 +154,33 @@
   font-size: 15px;
   color: var(--plum);
 }
+.item-action {
+  display: flex;
+  justify-content: flex-end;
+}
 .btn-remove {
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  border: 0;
-  background: transparent;
-  color: #a08c99;
-  font-size: 20px;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 6px 10px;
+  border-radius: 8px;
+  border: 1px solid #fed7df;
+  background: #fff5f7;
+  color: #c93b58;
+  font-size: 12.5px;
+  font-weight: 600;
   cursor: pointer;
-  display: grid;
-  place-items: center;
-  transition: all .15s;
+  transition: all .2s ease;
 }
 .btn-remove:hover {
-  background: #fdecef;
-  color: var(--danger);
+  background: #e63956;
+  color: #fff;
+  border-color: #e63956;
+  box-shadow: 0 4px 12px rgba(230, 57, 86, 0.25);
+  transform: translateY(-1px);
+}
+.btn-remove-text {
+  font-size: 12px;
 }
 
 .cart-bottom-bar {
@@ -148,6 +188,8 @@
   justify-content: space-between;
   align-items: center;
   padding-top: 20px;
+  flex-wrap: wrap;
+  gap: 12px;
 }
 .btn-continue {
   font-size: 13.5px;
@@ -155,6 +197,29 @@
   color: var(--plum);
 }
 .btn-continue:hover { text-decoration: underline; }
+.bottom-actions {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.btn-remove-selected {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 14px;
+  border-radius: 10px;
+  border: 1px solid #fecdd3;
+  background: #fff1f2;
+  color: #be123c;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all .15s ease;
+}
+.btn-remove-selected:hover {
+  background: #be123c;
+  color: #fff;
+}
 .btn-clear {
   background: none;
   border: 0;
@@ -319,9 +384,30 @@
   font-weight: 600;
   cursor: pointer;
   box-shadow: 0 10px 24px rgba(138, 44, 107, 0.28);
-  transition: all .15s;
+  transition: all .2s;
 }
-.btn-checkout:hover { background: var(--plum-dark); }
+.btn-checkout:hover:not(:disabled) {
+  background: var(--plum-dark);
+}
+.btn-checkout:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  background: #a891a0;
+  box-shadow: none;
+}
+.selection-notice {
+  margin-top: 12px;
+  margin-bottom: 6px;
+  padding: 8px 12px;
+  background: #fff7ed;
+  border: 1px solid #ffedd5;
+  border-radius: 10px;
+  font-size: 12px;
+  color: #c2410c;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
 .trust-badges {
   display: flex;
   justify-content: center;
@@ -383,6 +469,24 @@
 
 @media (max-width: 900px) {
   .cart-grid { grid-template-columns: 1fr; }
-  .cart-table-head { display: none; }
-  .cart-item { grid-template-columns: 1fr; gap: 12px; }
+  .cart-table-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .cart-table-head .col-product,
+  .cart-table-head .col-price,
+  .cart-table-head .col-qty,
+  .cart-table-head .col-total,
+  .cart-table-head .col-action {
+    display: none;
+  }
+  .cart-item {
+    grid-template-columns: 36px 1fr auto;
+    gap: 12px;
+    align-items: flex-start;
+  }
+  .item-price, .item-qty, .item-total {
+    margin-left: 36px;
+  }
 }

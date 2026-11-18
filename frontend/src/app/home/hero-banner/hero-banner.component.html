@@ -11,46 +11,52 @@
     <div class="viewport">
       <div class="track" [style.transform]="'translateX(-' + current * 100 + '%)'">
         @for (s of slides; track s.id) {
-          <article class="slide">
-            <div class="slide__text">
-              <span class="chip hero-chip"><app-icon name="chevron-left" [size]="11"></app-icon> {{ s.chip }} <app-icon name="sparkle" [size]="11"></app-icon></span>
-              <h1>{{ s.titleLine1 }}<br><em>{{ s.titleLine2 }}</em></h1>
-              <p>{{ s.desc }}</p>
-              <div class="slide__cta">
-                <a [routerLink]="s.cta1Link" class="btn btn--primary">{{ s.cta1 }} <app-icon name="arrow-right" [size]="16"></app-icon></a>
-                <a [routerLink]="s.cta2Link" class="btn btn--soft">{{ s.cta2 }} <app-icon name="arrow-right" [size]="16"></app-icon></a>
-              </div>
-              <ul class="bullets">
-                <li><i></i> 100% Tự nhiên đã qua kiểm định</li>
-                <li><i class="pink"></i> Bảo hành &amp; thanh tẩy năng lượng miễn phí</li>
-              </ul>
+        <article class="slide">
+          <div class="slide__text">
+            <span class="chip hero-chip"><app-icon name="chevron-left" [size]="11"></app-icon> {{ s.chip }} <app-icon
+                name="sparkle" [size]="11"></app-icon></span>
+            <h1>{{ s.titleLine1 }}<br><em>{{ s.titleLine2 }}</em></h1>
+            <p>{{ s.desc }}</p>
+            <div class="slide__cta">
+              <a [routerLink]="s.cta1Link" class="btn btn--primary">{{ s.cta1 }} <app-icon name="arrow-right"
+                  [size]="16"></app-icon></a>
+              <a [routerLink]="s.cta2Link" class="btn btn--soft">{{ s.cta2 }} <app-icon name="arrow-right"
+                  [size]="16"></app-icon></a>
             </div>
+            <ul class="bullets">
+              <li><i></i> 100% Tự nhiên đã qua kiểm định</li>
+              <li><i class="pink"></i> Bảo hành &amp; thanh tẩy năng lượng miễn phí</li>
+            </ul>
+          </div>
 
-            <div class="slide__visual">
-              <a [routerLink]="['/products', s.featured.slug]" class="slide__visual-link" [attr.aria-label]="'Xem chi tiết bảo vật ' + s.featured.name">
-                <img [src]="s.image" [alt]="s.titleLine1 + ' ' + s.titleLine2">
-              </a>
-              <a [routerLink]="['/products', s.featured.slug]" class="featured" [attr.aria-label]="'Xem chi tiết tác phẩm ' + s.featured.name" title="Nhấp để xem chi tiết & đặt mua">
-                <span class="featured__icon"><app-icon name="sparkle" [size]="20"></app-icon></span>
-                <div class="featured__info">
-                  <small>{{ s.featured.label }}</small>
-                  <strong>{{ s.featured.name }}</strong>
-                  <span class="featured__cta-hint">Xem chi tiết bảo vật &rarr;</span>
-                </div>
-                <div class="featured__price">
-                  <del>{{ s.featured.oldPrice | number }}đ</del>
-                  <b>{{ s.featured.price | number }}đ</b>
-                </div>
-              </a>
-            </div>
-          </article>
+          <div class="slide__visual">
+            <a [routerLink]="['/products', s.featured.slug]" class="slide__visual-link"
+              [attr.aria-label]="'Xem chi tiết bảo vật ' + s.featured.name">
+              <img [src]="s.image" [alt]="s.titleLine1 + ' ' + s.titleLine2">
+            </a>
+            <a [routerLink]="['/products', s.featured.slug]" class="featured"
+              [attr.aria-label]="'Xem chi tiết tác phẩm ' + s.featured.name" title="Nhấp để xem chi tiết & đặt mua">
+              <span class="featured__icon"><app-icon name="sparkle" [size]="20"></app-icon></span>
+              <div class="featured__info">
+                <small>{{ s.featured.label }}</small>
+                <strong>{{ s.featured.name }}</strong>
+                <span class="featured__cta-hint">Xem chi tiết bảo vật &rarr;</span>
+              </div>
+              <div class="featured__price">
+                <del>{{ s.featured.oldPrice | number }}đ</del>
+                <b>{{ s.featured.price | number }}đ</b>
+              </div>
+            </a>
+          </div>
+        </article>
         }
       </div>
     </div>
 
     <div class="dots">
       @for (s of slides; track s.id; let i = $index) {
-        <button [class.active]="i === current" (click)="goTo(i)" [attr.aria-label]="'Chuyển đến banner ' + (i + 1)"></button>
+      <button [class.active]="i === current" (click)="goTo(i)"
+        [attr.aria-label]="'Chuyển đến banner ' + (i + 1)"></button>
       }
     </div>
   </div>

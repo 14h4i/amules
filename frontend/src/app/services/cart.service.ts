@@ -13,6 +13,7 @@ export interface CartItem {
   stone?: string;
   size?: string;
   element?: string;
+  selected?: boolean;
 }
 
 @Injectable({
@@ -24,11 +25,25 @@ export class CartService {
   cartItems = signal<CartItem[]>([]);
   cartCount = computed(() => this.cartItems().length);
   cartTotalQuantity = computed(() => this.cartItems().reduce((acc, item) => acc + item.quantity, 0));
-  subtotal = computed(() => this.cartItems().reduce((acc, item) => acc + (item.price * item.quantity), 0));
-  shippingFee = computed(() => (this.subtotal() >= 500000 || this.cartItems().length === 0) ? 0 : 30000);
+
+  // TÍCH CHỌN MUA BẢO VẬT TRONG GIỎ HÀNG
+  selectedItems = computed(() => this.cartItems().filter(i => i.selected !== false));
+  selectedCount = computed(() => this.selectedItems().length);
+  selectedTotalQuantity = computed(() => this.selectedItems().reduce((acc, item) => acc + item.quantity, 0));
+  selectedSubtotal = computed(() => this.selectedItems().reduce((acc, item) => acc + (item.price * item.quantity), 0));
+  selectedShippingFee = computed(() => (this.selectedSubtotal() >= 500000 || this.selectedItems().length === 0) ? 0 : 30000);
+
   appliedVoucher = signal<{ code: string; discountAmount: number; title: string } | null>(null);
   discount = computed(() => this.appliedVoucher() ? (this.appliedVoucher()?.discountAmount || 0) : 0);
-  totalAmount = computed(() => Math.max(0, this.subtotal() - this.discount() + this.shippingFee()));
+  selectedDiscount = computed(() => this.discount());
+  selectedTotalAmount = computed(() => Math.max(0, this.selectedSubtotal() - this.discount() + this.selectedShippingFee()));
+
+  // Giữ alias tương thích các component khác
+  subtotal = computed(() => this.selectedSubtotal());
+  shippingFee = computed(() => this.selectedShippingFee());
+  totalAmount = computed(() => this.selectedTotalAmount());
+
+  isAllSelected = computed(() => this.cartItems().length > 0 && this.cartItems().every(i => i.selected !== false));
 
   constructor(private _http: HttpClient) {
     this.initCart();
@@ -112,14 +127,37 @@ export class CartService {
     );
   }
 
+  toggleItemSelect(index: number, selected?: boolean): void {
+    const current = [...this.cartItems()];
+    if (index >= 0 && index < current.length) {
+      const isCurrentSelected = current[index].selected !== false;
+      current[index] = {
+        ...current[index],
+        selected: selected !== undefined ? selected : !isCurrentSelected
+      };
+      this.cartItems.set(current);
+      this.persistLocal();
+    }
+  }
+
+  toggleSelectAll(selectAll: boolean): void {
+    const current = this.cartItems().map(item => ({
+      ...item,
+      selected: selectAll
+    }));
+    this.cartItems.set(current);
+    this.persistLocal();
+  }
+
   addToCart(item: CartItem): Observable<any> {
     // Optimistic update
     const current = [...this.cartItems()];
     const existing = current.find(i => i.productId === item.productId && i.size === item.size);
     if (existing) {
       existing.quantity += item.quantity || 1;
+      existing.selected = true; // Luôn tích chọn lại khi thêm món
     } else {
-      current.push({ ...item, quantity: item.quantity || 1 });
+      current.push({ ...item, quantity: item.quantity || 1, selected: true });
     }
     this.cartItems.set(current);
     this.persistLocal();
@@ -148,15 +186,48 @@ export class CartService {
 
   removeItem(index: number): Observable<any> {
     const current = [...this.cartItems()];
+    let removedItem: CartItem | null = null;
     if (index >= 0 && index < current.length) {
+      removedItem = current[index];
       current.splice(index, 1);
       this.cartItems.set(current);
       this.persistLocal();
     }
 
-    return this._http.post<any>(`${this.API}/remove`, { index }, { withCredentials: true }).pipe(
+    const payload: any = { index };
+    if (removedItem) {
+      payload.productId = removedItem.productId;
+      payload.size = removedItem.size;
+    }
+
+    return this._http.post<any>(`${this.API}/remove`, payload, { withCredentials: true }).pipe(
       catchError(() => of({ cart: this.cartItems() }))
     );
+  }
+
+  removeSelected(): Observable<any> {
+    const remaining = this.cartItems().filter(i => i.selected === false);
+    this.cartItems.set(remaining);
+    this.persistLocal();
+    this.syncCartToBackend();
+    return of({ cart: remaining });
+  }
+
+  removePurchasedItems(purchasedItems: CartItem[]): void {
+    if (!purchasedItems || purchasedItems.length === 0) {
+      this.clearCart();
+      return;
+    }
+    const purchasedKeys = new Set(purchasedItems.map(p => `${p.productId}_${p.size || ''}`));
+    const remaining = this.cartItems().filter(item => !purchasedKeys.has(`${item.productId}_${item.size || ''}`));
+    this.cartItems.set(remaining);
+    this.appliedVoucher.set(null);
+    this.persistLocal();
+    this.syncCartToBackend();
+  }
+
+  syncCartToBackend(): void {
+    this._http.post<any>(`${this.API}/sync`, { cart: this.cartItems() }, { withCredentials: true }).subscribe({ error: () => {} });
   }
 
   clearCart(): void {
@@ -207,18 +278,19 @@ export class CartService {
 
   checkout(orderPayload: any): Observable<any> {
     const payload = {
-      items: (orderPayload && orderPayload.items && orderPayload.items.length) ? orderPayload.items : this.cartItems(),
-      subtotal: orderPayload?.subtotal !== undefined ? orderPayload.subtotal : this.subtotal(),
-      discount: orderPayload?.discount !== undefined ? orderPayload.discount : this.discount(),
-      shippingFee: orderPayload?.shippingFee !== undefined ? orderPayload.shippingFee : this.shippingFee(),
-      totalAmount: orderPayload?.totalAmount !== undefined ? orderPayload.totalAmount : this.totalAmount(),
+      items: (orderPayload && orderPayload.items && orderPayload.items.length) ? orderPayload.items : this.selectedItems(),
+      subtotal: orderPayload?.subtotal !== undefined ? orderPayload.subtotal : this.selectedSubtotal(),
+      discount: orderPayload?.discount !== undefined ? orderPayload.discount : this.selectedDiscount(),
+      shippingFee: orderPayload?.shippingFee !== undefined ? orderPayload.shippingFee : this.selectedShippingFee(),
+      totalAmount: orderPayload?.totalAmount !== undefined ? orderPayload.totalAmount : this.selectedTotalAmount(),
       ...orderPayload
     };
 
     return this._http.post<any>(`${this.API}/checkout`, payload, { withCredentials: true }).pipe(
       timeout(5000),
       tap((res) => {
-        this.clearCart();
+        // Chỉ xóa sản phẩm được mua trong đơn này, giữ lại sản phẩm chưa chọn mua!
+        this.removePurchasedItems(payload.items);
         this.saveOrderLocally(res?.order || res || payload);
       }),
       catchError((err) => {
@@ -233,7 +305,7 @@ export class CartService {
           carrier: payload.carrier || 'Giao Hàng Nhanh (GHN Express)',
           customer: payload.customer || {},
           shippingAddress: payload.shippingAddress || {},
-          items: payload.items || this.cartItems(),
+          items: payload.items || this.selectedItems(),
           shippingMethod: payload.shippingMethod || 'STANDARD',
           shippingFee: payload.shippingFee || 0,
           subtotal: payload.subtotal || 0,
@@ -247,7 +319,7 @@ export class CartService {
           createdAt: new Date().toISOString()
         };
         this.saveOrderLocally(fallbackOrder);
-        this.clearCart();
+        this.removePurchasedItems(payload.items);
         return of({
           message: 'Đặt hàng thành công!',
           orderCode,

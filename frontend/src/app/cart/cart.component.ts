@@ -25,6 +25,18 @@ export class CartComponent {
     return this._cartService.cartItems();
   }
 
+  get selectedItems(): CartItem[] {
+    return this._cartService.selectedItems();
+  }
+
+  get selectedCount(): number {
+    return this._cartService.selectedCount();
+  }
+
+  get isAllSelected(): boolean {
+    return this._cartService.isAllSelected();
+  }
+
   get subtotal(): number {
     return this._cartService.subtotal();
   }
@@ -41,14 +53,35 @@ export class CartComponent {
     return this._cartService.totalAmount();
   }
 
+  toggleItemSelect(index: number, event: Event): void {
+    const input = event.target as HTMLInputElement;
+    this._cartService.toggleItemSelect(index, input ? input.checked : undefined);
+  }
+
+  toggleSelectAll(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    if (input) {
+      this._cartService.toggleSelectAll(input.checked);
+    }
+  }
+
   updateQuantity(index: number, quantity: number): void {
-    // BUG FIX: phải subscribe() để request HTTP thực sự được gửi đến backend
     this._cartService.updateQuantity(index, quantity).subscribe({ error: () => {} });
   }
 
   removeItem(index: number): void {
-    // BUG FIX: phải subscribe() để request HTTP thực sự được gửi đến backend
-    this._cartService.removeItem(index).subscribe({ error: () => {} });
+    const item = this.cartItems[index];
+    const name = item ? `"${item.name}"` : 'sản phẩm này';
+    if (confirm(`Bạn có chắc muốn xóa ${name} khỏi giỏ hàng?`)) {
+      this._cartService.removeItem(index).subscribe({ error: () => {} });
+    }
+  }
+
+  removeSelected(): void {
+    if (this.selectedCount === 0) return;
+    if (confirm(`Bạn có chắc muốn xóa ${this.selectedCount} sản phẩm đã chọn khỏi giỏ hàng?`)) {
+      this._cartService.removeSelected().subscribe({ error: () => {} });
+    }
   }
 
   clearCart(): void {
@@ -83,6 +116,10 @@ export class CartComponent {
   }
 
   goToCheckout(): void {
+    if (this.selectedCount === 0) {
+      alert('Vui lòng tích chọn ít nhất 1 bảo vật để tiến hành đặt hàng!');
+      return;
+    }
     this._router.navigate(['/checkout']);
   }
 }

@@ -50,7 +50,7 @@ export class CheckoutComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    if (this._cartService.cartItems().length === 0) {
+    if (this._cartService.selectedItems().length === 0) {
       this._router.navigate(['/cart']);
       return;
     }
@@ -83,12 +83,12 @@ export class CheckoutComponent implements OnInit, OnDestroy {
 
   get f() { return this.checkoutForm.controls; }
 
-  get cartItems(): CartItem[] { return this._cartService.cartItems(); }
-  get subtotal(): number { return this._cartService.subtotal(); }
-  get discount(): number { return this._cartService.discount(); }
+  get cartItems(): CartItem[] { return this._cartService.selectedItems(); }
+  get subtotal(): number { return this._cartService.selectedSubtotal(); }
+  get discount(): number { return this._cartService.selectedDiscount(); }
   get shippingFee(): number {
     if (this.cartItems.length === 0) return 0;
-    const base = this._cartService.shippingFee();
+    const base = this._cartService.selectedShippingFee();
     return this.selectedShipping === 'EXPRESS' ? base + 25000 : base;
   }
   get totalAmount(): number {
