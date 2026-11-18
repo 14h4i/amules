@@ -1,14 +1,4 @@
 # AMULES - NỀN TẢNG THƯƠNG MẠI ĐIỆN TỬ TRANG SỨC & BÙA HỘ MỆNH CHIÊM TINH
-
-> **TRƯỜNG ĐẠI HỌC KINH TẾ - LUẬT (UEL) – ĐHQG TP.HCM**  
-> **KHOA HỆ THỐNG THÔNG TIN**  
-> **Môn học:** Phát triển Web Kinh doanh Nâng cao  
-> **Giảng viên hướng dẫn:** TS. Trần Duy Thanh  
-> **Sinh viên thực hiện:**
-> - Họ và tên: *[Điền họ và tên]*
-> - Mã số sinh viên (MSSV): *[Điền MSSV]*
-> - Lớp: *[Điền mã lớp, ví dụ: K24406H]*
-
 ---
 
 ## 🌟 GIỚI THIỆU DỰ ÁN
