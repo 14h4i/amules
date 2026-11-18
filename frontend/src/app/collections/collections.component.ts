@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { MasterDataService, ICollection } from '../services/master-data.service';
 import { ProductService, IProduct } from '../services/product.service';
 
@@ -15,11 +16,28 @@ export class CollectionsComponent implements OnInit {
   selectedCollection: ICollection | null = this.getFallbackCollections()[0];
 
   constructor(
+    private _route: ActivatedRoute,
     private _masterDataService: MasterDataService,
     private _productService: ProductService
   ) {}
 
   ngOnInit(): void {
+    let routeSlug = '';
+    this._route.params.subscribe(params => {
+      routeSlug = (params['slug'] || '').toLowerCase();
+      if (routeSlug && this.collections.length > 0) {
+        const found = this.collections.find(c =>
+          (c.slug && c.slug.toLowerCase() === routeSlug) ||
+          c.name.toLowerCase().includes(routeSlug) ||
+          routeSlug.includes(c.name.toLowerCase())
+        );
+        if (found) {
+          this.selectedCollection = found;
+          this.filterProductsForCollection();
+        }
+      }
+    });
+
     // 1. Nạp danh sách bộ sưu tập từ MongoDB API
     this._masterDataService.getCollections().subscribe({
       next: (list) => {
@@ -29,9 +47,20 @@ export class CollectionsComponent implements OnInit {
             tag: c.tag || ((c.slug || '').includes('moon') ? 'Thiên thể & Chiêm tinh' : (c.slug || '').includes('mystic') ? 'Cổ điển & Huyền bí' : 'Dịu dàng & Lãng mạn'),
             desc: c.desc || (c as any).description || 'Bộ sưu tập trang sức phong thủy độc bản chế tác thủ công từ đá quý thiên nhiên.',
             image: c.image || (c as any).coverImage || 'images/banner_mys.jpg',
-            slug: c.slug
+            slug: c.slug || c.name.toLowerCase().replace(/[^a-z0-9]+/g, '-')
           }));
-          this.selectedCollection = this.collections[0];
+
+          if (routeSlug) {
+            const found = this.collections.find(c =>
+              (c.slug && c.slug.toLowerCase() === routeSlug) ||
+              c.name.toLowerCase().includes(routeSlug) ||
+              routeSlug.includes(c.name.toLowerCase())
+            );
+            if (found) this.selectedCollection = found;
+            else this.selectedCollection = this.collections[0];
+          } else {
+            this.selectedCollection = this.collections[0];
+          }
           this.filterProductsForCollection();
         }
       },

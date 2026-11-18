@@ -151,8 +151,8 @@ Từ thư mục gốc `amules`:
 ## 🔄 QUY TRÌNH ĐỒNG BỘ DỮ LIỆU NHÓM (DATABASE SYNC WORKFLOW)
 Để cả nhóm luôn có cùng dữ liệu MongoDB mới nhất mà không cần thao tác thủ công phức tạp:
 
-1. **Khi bạn có dữ liệu mới (thêm sản phẩm, sửa giá, tạo đơn hàng test...) muốn gửi cho nhóm:**
-   Chỉ cần chạy 1 lệnh để xuất toàn bộ MongoDB ra thư mục `amules-database` rồi push lên Git:
+1. **Khi có dữ liệu mới (thêm sản phẩm, sửa giá, tạo đơn hàng test...):**
+   Chạy lệnh để xuất toàn bộ MongoDB ra thư mục `amules-database` rồi push lên Git:
    ```bash
    npm run export:db
    git add .
@@ -160,19 +160,9 @@ Từ thư mục gốc `amules`:
    git push origin main
    ```
 
-2. **Khi thành viên khác kéo code mới về máy (`git pull`):**
-   Chỉ cần chạy 1 lệnh để cập nhật toàn bộ MongoDB trên máy của họ khớp 100% với dữ liệu mới:
+2. **Kéo code mới về máy (`git pull`):**
+   Chạy 1 lệnh để cập nhật toàn bộ MongoDB trên máy của họ khớp 100% với dữ liệu mới:
    ```bash
    npm run import:db
    ```
-   *(Hệ thống sẽ tự động nạp toàn bộ 22 collections vào MongoDB của họ chỉ trong 2 giây).*
-
 ---
-
-## 💡 CÁC TIÊU CHÍ KỸ THUẬT ĐẠT CHUẨN MÔN HỌC
-- **Angular Core & Modern Architecture:** Áp dụng Reactive Signals (`signal()`, `set()`, `update()`), Computed values và Dependency Injection đồng nhất.
-- **New Control Flow:** Toàn bộ template sử dụng cú pháp compile-time mới `@if`, `@else`, `@for (... track ...)`, `@empty`.
-- **Reactive Forms & Validation:** Hệ thống form đăng ký, thanh toán, đổi mật khẩu được kiểm tra tính hợp lệ chặt chẽ (Pattern, MinLength, Custom Validators).
-- **Navigation & Route Guards:** Bảo vệ các tuyến đường riêng tư với `AuthGuard`, `AdminGuard`, `CheckoutGuard`, đồng thời lưu trữ lịch sử điều hướng.
-- **RESTful API & Database Integration:** Đầy đủ chuẩn CRUD (Create, Read, Update, Delete) với Express Router và MongoDB native collections.
-- **Session & Cookie Security:** Quản lý phiên làm việc bằng `express-session`, bảo mật cookie và xác thực phân quyền giữa Khách hàng và Admin.

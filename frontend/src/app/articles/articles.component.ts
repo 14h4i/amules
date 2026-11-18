@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 
 @Component({
@@ -12,16 +13,36 @@ export class ArticlesComponent implements OnInit {
   selectedArticle: any = null;
   loading = true;
 
-  constructor(private _http: HttpClient) { }
+  constructor(
+    private _route: ActivatedRoute,
+    private _http: HttpClient
+  ) { }
 
   ngOnInit(): void {
+    let routeSlug = '';
+    this._route.params.subscribe(params => {
+      routeSlug = (params['slug'] || '').toLowerCase();
+      if (routeSlug && this.articles.length > 0) {
+        const found = this.articles.find(a => (a.slug || '').toLowerCase() === routeSlug || (a._id && a._id === routeSlug));
+        if (found) this.selectedArticle = found;
+      }
+    });
+
     this._http.get<any[]>('/api/articles').subscribe({
       next: (data) => {
-        this.articles = data || [];
+        this.articles = (data && data.length > 0) ? data : this.getFallbackArticles();
+        if (routeSlug) {
+          const found = this.articles.find(a => (a.slug || '').toLowerCase() === routeSlug || (a._id && a._id === routeSlug));
+          if (found) this.selectedArticle = found;
+        }
         this.loading = false;
       },
       error: () => {
         this.articles = this.getFallbackArticles();
+        if (routeSlug) {
+          const found = this.articles.find(a => (a.slug || '').toLowerCase() === routeSlug);
+          if (found) this.selectedArticle = found;
+        }
         this.loading = false;
       }
     });

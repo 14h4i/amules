@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 import { ProductService, IProduct } from '../services/product.service';
 import { MasterDataService, ICategory, ICollection, IArticle } from '../services/master-data.service';
 
@@ -21,7 +23,8 @@ interface ProductItem {
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent implements OnInit, OnDestroy {
+  private _destroy$ = new Subject<void>();
   // 5 the cam ket duoi banner
   perks = [
     { icon: 'check-circle', title: '100% Tự nhiên', sub: 'Đá quý tuyển chọn' },
@@ -77,7 +80,7 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void {
     // 1. Tải danh mục từ MongoDB API
-    this._masterDataService.getCategories().subscribe({
+    this._masterDataService.getCategories().pipe(takeUntil(this._destroy$)).subscribe({
       next: (data) => {
         if (data && data.length > 0) {
           this.categories = data;
@@ -87,7 +90,7 @@ export class HomeComponent implements OnInit {
     });
 
     // 2. Tải sản phẩm thật từ MongoDB API
-    this._productService.getProducts().subscribe({
+    this._productService.getProducts().pipe(takeUntil(this._destroy$)).subscribe({
       next: (data) => {
         if (data && data.length > 0) {
           // Ánh xạ sang cấu trúc giao diện
@@ -109,7 +112,7 @@ export class HomeComponent implements OnInit {
     });
 
     // 3. Tải bài viết từ MongoDB API với ảnh bìa hợp lệ
-    this._masterDataService.getArticles().subscribe({
+    this._masterDataService.getArticles().pipe(takeUntil(this._destroy$)).subscribe({
       next: (articles) => {
         if (articles && articles.length > 0) {
           const fallbackImgs = ['images/moonstone.jpg', 'images/thanh_tay.png', 'images/phoi.jpg'];
@@ -134,6 +137,11 @@ export class HomeComponent implements OnInit {
       },
       error: () => { }
     });
+  }
+
+  ngOnDestroy(): void {
+    this._destroy$.next();
+    this._destroy$.complete();
   }
 
   onPostImageError(event: Event, post: any): void {

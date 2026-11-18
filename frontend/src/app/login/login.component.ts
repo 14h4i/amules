@@ -1,6 +1,6 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
 
 @Component({
@@ -23,6 +23,7 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private _auth: AuthService,
+    private _route: ActivatedRoute,
     private _router: Router,
     private _cdr: ChangeDetectorRef
   ) { }
@@ -146,8 +147,9 @@ export class LoginComponent implements OnInit {
     if (form.invalid) { return; }
     this.submitting = true;
     this.errorMsg = '';
+    const returnUrl = this._route.snapshot.queryParams['returnUrl'] || '/';
     this._auth.login(this.user).subscribe({
-      next: () => this._router.navigate(['/']),
+      next: () => this._router.navigateByUrl(returnUrl),
       error: (err: Error) => {
         this.errorMsg = err.message;
         this.submitting = false;

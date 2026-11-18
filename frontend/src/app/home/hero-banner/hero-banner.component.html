@@ -17,8 +17,8 @@
               <h1>{{ s.titleLine1 }}<br><em>{{ s.titleLine2 }}</em></h1>
               <p>{{ s.desc }}</p>
               <div class="slide__cta">
-                <a routerLink="/collections" class="btn btn--primary">{{ s.cta1 }} <app-icon name="arrow-right" [size]="16"></app-icon></a>
-                <a routerLink="/mystic-match" class="btn btn--soft">{{ s.cta2 }} <app-icon name="arrow-right" [size]="16"></app-icon></a>
+                <a [routerLink]="s.cta1Link" class="btn btn--primary">{{ s.cta1 }} <app-icon name="arrow-right" [size]="16"></app-icon></a>
+                <a [routerLink]="s.cta2Link" class="btn btn--soft">{{ s.cta2 }} <app-icon name="arrow-right" [size]="16"></app-icon></a>
               </div>
               <ul class="bullets">
                 <li><i></i> 100% Tự nhiên đã qua kiểm định</li>

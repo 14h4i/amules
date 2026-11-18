@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { ProductService, IProduct } from '../services/product.service';
 import { INITIAL_PRODUCTS } from '../data/initial-products';
@@ -38,12 +39,29 @@ export class ThemesComponent implements OnInit {
   };
 
   constructor(
+    private _route: ActivatedRoute,
     private _http: HttpClient,
     private _productService: ProductService
   ) {}
 
   ngOnInit(): void {
+    let routeSlug = '';
+    this._route.params.subscribe(params => {
+      routeSlug = (params['slug'] || '').toLowerCase();
+      if (routeSlug) {
+        const found = this.themes.find(th => th.slug === routeSlug);
+        if (found) {
+          this.selectedTheme = found;
+          this.filterProductsForTheme(this.selectedTheme);
+        }
+      }
+    });
+
     // 1. Lọc sản phẩm ngay lập tức từ kho dữ liệu tĩnh (0ms latency, không giật màn hình)
+    if (routeSlug) {
+      const initFound = this.themes.find(th => th.slug === routeSlug);
+      if (initFound) this.selectedTheme = initFound;
+    }
     this.filterProductsForTheme(this.selectedTheme);
 
     // 2. Lấy danh sách sản phẩm từ ProductService
@@ -76,7 +94,7 @@ export class ThemesComponent implements OnInit {
           });
 
           // Giữ nguyên chủ đề người dùng đang chọn hoặc chọn chủ đề đầu tiên
-          const currentSlug = this.selectedTheme?.slug;
+          const currentSlug = routeSlug || this.selectedTheme?.slug;
           const found = this.themes.find(th => th.slug === currentSlug);
           this.selectedTheme = found || this.themes[0];
           this.filterProductsForTheme(this.selectedTheme);

@@ -9,10 +9,12 @@
       <img src="logo.png" alt="AMULES" class="logo-img">
     </a>
 
-    <label class="search">
-      <app-icon name="search" [size]="16"></app-icon>
+    <div class="search">
+      <button type="button" class="search-btn" (click)="onSearch()" aria-label="Tìm kiếm">
+        <app-icon name="search" [size]="16"></app-icon>
+      </button>
       <input type="search" name="search_keywords" autocomplete="off" autocorrect="off" spellcheck="false" [(ngModel)]="keyword" (keyup.enter)="onSearch()" placeholder="Tìm kiếm trang sức, loại đá phong thủy, mệnh ngũ hành...">
-    </label>
+    </div>
 
     <div class="header__actions">
       <a routerLink="/mystic-match" class="pill-btn">

@@ -42,11 +42,13 @@ export class CartComponent {
   }
 
   updateQuantity(index: number, quantity: number): void {
-    this._cartService.updateQuantity(index, quantity);
+    // BUG FIX: phải subscribe() để request HTTP thực sự được gửi đến backend
+    this._cartService.updateQuantity(index, quantity).subscribe({ error: () => {} });
   }
 
   removeItem(index: number): void {
-    this._cartService.removeItem(index);
+    // BUG FIX: phải subscribe() để request HTTP thực sự được gửi đến backend
+    this._cartService.removeItem(index).subscribe({ error: () => {} });
   }
 
   clearCart(): void {

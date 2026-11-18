@@ -104,7 +104,15 @@ export class ProductListComponent implements OnInit {
   ngOnInit(): void {
     // Lắng nghe query parameters từ URL
     this._route.queryParams.subscribe(params => {
-      if (params['category']) this.filters.category = params['category'];
+      const catParam = params['category'] || params['cat'];
+      if (catParam) {
+        if (catParam === 'rings') this.filters.category = 'Nhẫn';
+        else if (catParam === 'bracelets') this.filters.category = 'Vòng tay';
+        else if (catParam === 'necklaces') this.filters.category = 'Dây chuyền';
+        else if (catParam === 'earrings') this.filters.category = 'Bông tai';
+        else if (catParam === 'charms') this.filters.category = 'Charm đá';
+        else this.filters.category = catParam;
+      }
       if (params['element']) this.filters.element = params['element'];
       if (params['gemstone']) this.filters.gemstone = params['gemstone'];
       if (params['material']) this.filters.material = params['material'];
@@ -280,11 +288,12 @@ export class ProductListComponent implements OnInit {
 
   formatElement(el?: string): string {
     if (!el) return '';
-    const parts = el.split(/&|,|\+/).map(p => p.trim()).filter(Boolean);
-    const unique = [...new Set(parts)];
+    const parts = el.split(/&|\+|,|\bvà\b/i)
+      .map(p => p.replace(/mệnh/gi, '').trim())
+      .filter(Boolean);
+    const unique = [...new Set(parts.map(p => p.charAt(0).toUpperCase() + p.slice(1).toLowerCase()))];
     if (unique.length === 0) return el;
-    if (unique.length === 1) return unique[0];
-    return unique.join(' & ');
+    return unique.map(m => `Mệnh ${m}`).join(' & ');
   }
 
   normalizeProductImage(p: IProduct): string {

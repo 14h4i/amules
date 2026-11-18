@@ -63,8 +63,10 @@ export class HeaderComponent {
   }
 
   onSearch(): void {
-    if (this.keyword.trim()) {
+    if (this.keyword && this.keyword.trim()) {
       this._router.navigate(['/products'], { queryParams: { search: this.keyword.trim() } });
+    } else {
+      this._router.navigate(['/products']);
     }
   }
 }

@@ -15,11 +15,11 @@ export class FooterComponent {
     {
       title: 'Cửa hàng',
       links: [
-        { label: 'Nhẫn đá quý', route: '/products', query: { cat: 'rings' } },
-        { label: 'Vòng tay phong thủy', route: '/products', query: { cat: 'bracelets' } },
-        { label: 'Dây chuyền bùa hộ mệnh', route: '/products', query: { cat: 'necklaces' } },
-        { label: 'Bông tai ngọc bích & thạch anh', route: '/products', query: { cat: 'earrings' } },
-        { label: 'Charm năng lượng', route: '/products', query: { cat: 'charms' } },
+        { label: 'Nhẫn đá quý', route: '/products', query: { category: 'Nhẫn' } },
+        { label: 'Vòng tay phong thủy', route: '/products', query: { category: 'Vòng tay' } },
+        { label: 'Dây chuyền bùa hộ mệnh', route: '/products', query: { category: 'Dây chuyền' } },
+        { label: 'Bông tai ngọc bích & thạch anh', route: '/products', query: { category: 'Bông tai' } },
+        { label: 'Charm năng lượng', route: '/products', query: { category: 'Charm đá' } },
         { label: 'Bộ sưu tập độc bản', route: '/collections' }
       ]
     },

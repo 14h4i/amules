@@ -218,3 +218,110 @@
   .success-actions { flex-direction: column; }
   .success-card { padding: 32px 20px; }
 }
+
+
+/* Online Payment Block */
+.online-payment-card {
+  margin: 24px 0;
+  background: #fffbfa;
+  border: 1.5px solid #f2cfdf;
+  border-radius: 20px;
+  padding: 22px;
+  text-align: left;
+}
+.online-pay-head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--primary);
+  margin-bottom: 18px;
+}
+.online-pay-head h3 {
+  font-size: 16px;
+  font-weight: 600;
+  margin: 0;
+}
+.online-pay-body {
+  display: grid;
+  grid-template-columns: 180px 1fr;
+  gap: 24px;
+  align-items: center;
+}
+@media (max-width: 600px) {
+  .online-pay-body {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+}
+.qr-col {
+  text-align: center;
+}
+.pay-qr-img {
+  width: 160px;
+  height: 160px;
+  border-radius: 12px;
+  border: 1px solid #ebd3df;
+  padding: 6px;
+  background: #fff;
+  display: block;
+  margin: 0 auto 8px;
+}
+.qr-col small {
+  font-size: 11.5px;
+  color: var(--muted);
+}
+.info-col {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.pay-field {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 13.5px;
+  padding-bottom: 8px;
+  border-bottom: 1px dashed #f0d5e2;
+}
+.pay-amount {
+  color: var(--primary);
+  font-size: 16px;
+}
+.copy-box {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.btn-copy-sm {
+  background: #f5e4ec;
+  border: none;
+  color: var(--primary);
+  font-size: 11px;
+  font-weight: 600;
+  padding: 3px 8px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+.btn-copy-sm:hover {
+  background: var(--primary);
+  color: #fff;
+}
+.btn-paid-confirm {
+  margin-top: 8px;
+  background: #2f8f5b;
+  color: #fff;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 12px;
+  font-size: 13px;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+.btn-paid-confirm:hover {
+  opacity: 0.9;
+}

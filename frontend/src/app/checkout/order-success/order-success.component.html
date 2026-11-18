@@ -34,6 +34,53 @@
       </div>
     </div>
 
+    <!-- Khối Thanh Toán Trực Tuyến (Nếu chọn VNPAY, MOMO hoặc VIETQR) -->
+    @if (paymentGateway && !isPaid) {
+      <div class="online-payment-card">
+        <div class="online-pay-head">
+          <app-icon name="sparkle" [size]="18"></app-icon>
+          <h3>Quét Mã Hoàn Tất Thanh Toán ({{ paymentGateway === 'BANKING' ? 'Chuyển khoản VietQR' : paymentGateway }})</h3>
+        </div>
+        <div class="online-pay-body">
+          <div class="qr-col">
+            <img [src]="qrUrl" alt="Mã thanh toán QR" class="pay-qr-img">
+            <small>Mở ứng dụng Ngân hàng hoặc ví để quét mã</small>
+          </div>
+          <div class="info-col">
+            <div class="pay-field">
+              <span>Số tiền:</span>
+              <strong class="pay-amount">{{ totalAmount | number }}đ</strong>
+            </div>
+            <div class="pay-field">
+              <span>Ngân hàng:</span>
+              <strong>{{ bankName }}</strong>
+            </div>
+            <div class="pay-field">
+              <span>Số tài khoản:</span>
+              <div class="copy-box">
+                <strong>{{ accountNo }}</strong>
+                <button type="button" class="btn-copy-sm" (click)="copyInfo(accountNo, 'stk')">
+                  {{ copiedText === 'stk' ? 'Đã sao chép' : 'Sao chép' }}
+                </button>
+              </div>
+            </div>
+            <div class="pay-field">
+              <span>Nội dung chuyển khoản:</span>
+              <div class="copy-box">
+                <strong>AMU {{ orderCode }}</strong>
+                <button type="button" class="btn-copy-sm" (click)="copyInfo('AMU ' + orderCode, 'memo')">
+                  {{ copiedText === 'memo' ? 'Đã sao chép' : 'Sao chép' }}
+                </button>
+              </div>
+            </div>
+            <button type="button" class="btn-paid-confirm" (click)="confirmPayment()">
+              <app-icon name="check" [size]="16"></app-icon> Tôi Đã Chuyển Khoản Thành Công
+            </button>
+          </div>
+        </div>
+      </div>
+    }
+
     <!-- Khối Tích Hợp Vận Chuyển Bên Thứ 3 (GHN Express) -->
     <div class="logistics-3rd-box">
       <div class="logistics-left">

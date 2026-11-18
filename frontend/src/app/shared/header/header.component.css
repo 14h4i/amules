@@ -68,6 +68,20 @@
   color: var(--muted);
 }
 
+.search-btn {
+  background: none;
+  border: none;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  color: var(--muted);
+  cursor: pointer;
+  outline: none;
+}
+.search-btn:hover {
+  color: var(--primary);
+}
+
 .search input {
   flex: 1;
   border: 0;

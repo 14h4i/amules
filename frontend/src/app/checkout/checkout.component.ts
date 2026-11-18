@@ -177,42 +177,12 @@ export class CheckoutComponent implements OnInit, OnDestroy {
         const code = res.orderCode || (res.order && res.order.orderCode) || `AMU-${Date.now().toString().slice(-6)}`;
         this.pendingOrderCode = code;
 
-        // Nếu thanh toán tiền mặt COD -> điều hướng ngay đến trang thành công
-        if (this.selectedPayment === 'COD') {
-          this._router.navigate(['/order-success', code]);
-          return;
-        }
-
-        // Nếu chọn cổng bên thứ 3 (VNPAY, MOMO, VIETQR) -> Khởi tạo dữ liệu và mở modal ngay lập tức
-        this.activeGateway = this.selectedPayment;
-        this.gatewayData = {
-          orderCode: code,
-          amount: finalAmount,
-          vnpayQrUrl: `https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=AMULES_VNPAY_${code}`,
-          momoQrUrl: `https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=AMULES_MOMO_${code}`,
-          vietQrUrl: `https://img.vietqr.io/image/MB-0988888888-compact2.png?amount=${finalAmount}&addInfo=AMU%20${code}&accountName=CONG%20TY%20TNHH%20AMULES%20VIETNAM`,
-          bankInfo: {
-            bankName: 'MB Bank (Ngân hàng Quân Đội)',
-            accountNo: '0988 888 888',
-            accountName: 'CONG TY TNHH AMULES VIETNAM',
-            transferContent: `AMU ${code}`
+        // Luôn chuyển tiếp mượt mà sang bước Đặt hàng thành công
+        this._router.navigate(['/order-success', code], {
+          queryParams: {
+            gateway: this.selectedPayment !== 'COD' ? this.selectedPayment : undefined,
+            amount: finalAmount
           }
-        };
-        this.showPaymentModal = true;
-        this.startCountdown();
-
-        // Tự động gọi API backend lấy URL sandbox nếu có (bất đồng bộ, không chặn UI)
-        this._http.post<any>('/api/payments/create-url', {
-          orderCode: code,
-          amount: finalAmount,
-          paymentMethod: this.selectedPayment
-        }).subscribe({
-          next: (payRes) => {
-            if (payRes) {
-              this.gatewayData = { ...this.gatewayData, ...payRes };
-            }
-          },
-          error: () => {}
         });
       },
       error: (err) => {
