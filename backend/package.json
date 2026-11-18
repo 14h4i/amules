@@ -6,7 +6,8 @@
   "scripts": {
     "start": "node index.js",
     "dev": "nodemon index.js",
-    "export:db": "node scripts/export-db.js"
+    "export:db": "node scripts/export-db.js",
+    "import:db": "node scripts/import-db.js"
   },
   "keywords": [
     "amules",

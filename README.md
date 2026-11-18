@@ -148,6 +148,27 @@ Từ thư mục gốc `amules`:
 
 ---
 
+## 🔄 QUY TRÌNH ĐỒNG BỘ DỮ LIỆU NHÓM (DATABASE SYNC WORKFLOW)
+Để cả nhóm luôn có cùng dữ liệu MongoDB mới nhất mà không cần thao tác thủ công phức tạp:
+
+1. **Khi bạn có dữ liệu mới (thêm sản phẩm, sửa giá, tạo đơn hàng test...) muốn gửi cho nhóm:**
+   Chỉ cần chạy 1 lệnh để xuất toàn bộ MongoDB ra thư mục `amules-database` rồi push lên Git:
+   ```bash
+   npm run export:db
+   git add .
+   git commit -m "update: database snapshot"
+   git push origin main
+   ```
+
+2. **Khi thành viên khác kéo code mới về máy (`git pull`):**
+   Chỉ cần chạy 1 lệnh để cập nhật toàn bộ MongoDB trên máy của họ khớp 100% với dữ liệu mới:
+   ```bash
+   npm run import:db
+   ```
+   *(Hệ thống sẽ tự động nạp toàn bộ 22 collections vào MongoDB của họ chỉ trong 2 giây).*
+
+---
+
 ## 💡 CÁC TIÊU CHÍ KỸ THUẬT ĐẠT CHUẨN MÔN HỌC
 - **Angular Core & Modern Architecture:** Áp dụng Reactive Signals (`signal()`, `set()`, `update()`), Computed values và Dependency Injection đồng nhất.
 - **New Control Flow:** Toàn bộ template sử dụng cú pháp compile-time mới `@if`, `@else`, `@for (... track ...)`, `@empty`.
