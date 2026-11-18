@@ -1,0 +1,69 @@
+<div class="articles-page container">
+  <nav class="crumb-nav">
+    <a routerLink="/">Trang chủ</a> <span>/</span> <b>Cẩm nang về đá quý &amp; Năng lượng</b>
+  </nav>
+
+  @if (!selectedArticle) {
+    <!-- Danh sách bài viết -->
+    <header class="articles-hero">
+      <span class="eyebrow"><app-icon name="sparkle" [size]="14"></app-icon> Tri thức đá quý AMULES</span>
+      <h1 class="articles-title serif">Cẩm Nang Về Đá Quý &amp; Năng Lượng Thiên Thể</h1>
+      <p class="articles-sub">Khám phá ý nghĩa phong thủy, khoa học khoáng vật và nghệ thuật nuôi dưỡng tâm thức cùng bảo vật hộ mệnh.</p>
+    </header>
+
+    <div class="articles-grid">
+      @for (a of articles; track a.title) {
+        <article class="article-card" (click)="readArticle(a)">
+          <div class="article-media">
+            <img [src]="a.image || 'images/banner_mys.jpg'" [alt]="a.title">
+            <span class="article-badge">{{ a.category || 'CẨM NANG' }}</span>
+          </div>
+          <div class="article-body">
+            <div class="article-meta">
+              <span><app-icon name="clock" [size]="13"></app-icon> {{ a.readTime || '5 phút đọc' }}</span>
+              <span>• AMULES Wisdom</span>
+            </div>
+            <h2 class="article-title serif">{{ a.title }}</h2>
+            <p class="article-excerpt">{{ a.excerpt || a.description }}</p>
+            <div class="article-read-more">
+              Đọc tiếp bài viết &rarr;
+            </div>
+          </div>
+        </article>
+      }
+    </div>
+  } @else {
+    <!-- Chi tiết bài viết -->
+    <article class="article-detail">
+      <button type="button" class="btn-back" (click)="backToList()">
+        &larr; Quay lại danh sách cẩm nang
+      </button>
+
+      <header class="detail-head">
+        <span class="article-badge">{{ selectedArticle.category || 'CẨM NANG NĂNG LƯỢNG' }}</span>
+        <h1 class="serif">{{ selectedArticle.title }}</h1>
+        <div class="detail-meta">
+          <span><app-icon name="clock" [size]="14"></app-icon> {{ selectedArticle.readTime || '5 phút đọc' }}</span>
+          <span>• Tác giả: Chuyên gia Ngọc học AMULES</span>
+        </div>
+      </header>
+
+      <div class="detail-hero-img">
+        <img [src]="selectedArticle.image || 'images/banner_mys.jpg'" [alt]="selectedArticle.title">
+      </div>
+
+      <div class="detail-content">
+        <p class="lead">{{ selectedArticle.excerpt }}</p>
+        <div class="body-text">
+          <p>{{ selectedArticle.content }}</p>
+        </div>
+      </div>
+
+      <div class="detail-foot">
+        <button type="button" class="btn btn--primary" (click)="backToList()">
+          Xem thêm các bài viết khác
+        </button>
+      </div>
+    </article>
+  }
+</div>

@@ -1,0 +1,180 @@
+<!-- 1. BANNER CHẠY QUA CHẠY LẠI -->
+<app-hero-banner></app-hero-banner>
+
+<!-- 2. THẺ CAM KẾT -->
+<section class="perks">
+  <div class="container perks__grid">
+    @for (p of perks; track p.title) {
+    <div class="perk">
+      <span class="perk__icon"><app-icon [name]="p.icon" [size]="18"></app-icon></span>
+      <div><strong>{{ p.title }}</strong><small>{{ p.sub }}</small></div>
+    </div>
+    }
+  </div>
+</section>
+
+<!-- 3. DANH MỤC TRANG SỨC -->
+<section class="container section">
+  <div class="section__head">
+    <div>
+      <span class="eyebrow">Danh mục trang sức</span>
+      <h2 class="section__title">Tìm cảm xúc theo dáng hình</h2>
+    </div>
+    <a routerLink="/products" class="link-arrow">Xem tất cả danh mục <app-icon name="arrow-right"
+        [size]="15"></app-icon></a>
+  </div>
+  <div class="cat-grid">
+    @for (c of categories; track c.name) {
+    <a [routerLink]="['/products']" [queryParams]="{ category: c.name }" class="cat">
+      <img [src]="c.image" [alt]="c.name">
+      <span>{{ c.name }}</span>
+    </a>
+    }
+  </div>
+</section>
+
+<!-- 4. MYSTIC MATCH - NGŨ HÀNH -->
+<section class="band">
+  <div class="container">
+    <div class="center">
+      <span class="chip chip--outline"><app-icon name="target" [size]="12"></app-icon> Trải nghiệm độc bản Mystic
+        Match</span>
+      <h2 class="section__title center-title">Khám phá viên đá dành riêng cho bạn</h2>
+      <p class="section__desc">Tìm cảm hứng từ cung hoàng đạo, ngũ hành và màu phong thủy bạn yêu thích để kết nối với
+        nguồn năng lượng cộng hưởng sâu sắc nhất.</p>
+    </div>
+    <div class="el-grid">
+      @for (e of elements; track e.tag) {
+      <article class="el-card">
+        <span class="el-card__icon"><app-icon [name]="e.icon" [size]="18"></app-icon></span>
+        <small class="el-card__tag">{{ e.tag }}</small>
+        <h3>{{ e.title }}</h3>
+        <p>{{ e.desc }}</p>
+        <div class="el-card__stones"><i [style.background]="e.dot"></i> {{ e.stones }}</div>
+        <a [routerLink]="['/products']" [queryParams]="{ element: e.tag }" class="el-card__link">Xem đá hợp mệnh
+          <app-icon name="arrow-right" [size]="12"></app-icon></a>
+      </article>
+      }
+    </div>
+    <div class="center">
+      <a routerLink="/mystic-match" class="btn btn--primary quiz-btn"><app-icon name="sparkle" [size]="16"></app-icon>
+        Làm bài trắc nghiệm năng lượng trong 60 giây <app-icon name="sparkle" [size]="14"></app-icon></a>
+    </div>
+  </div>
+</section>
+
+<!-- 5. SẢN PHẨM ĐƯỢC YÊU THÍCH -->
+<section class="container section">
+  <div class="section__head">
+    <div>
+      <span class="eyebrow"><app-icon name="award" [size]="13"></app-icon> Tác phẩm được yêu thích nhất</span>
+      <h2 class="section__title">Những nốt chạm tinh hoa của AMULES</h2>
+    </div>
+    <a routerLink="/products" class="btn btn--soft sm">Xem toàn bộ kiệt tác</a>
+  </div>
+  <div class="product-grid">
+    @for (p of products; track p.name) {
+    <article class="product">
+      <div class="product__img">
+        <a [routerLink]="['/products', p.slug || p.id || 'san-pham']">
+          <img [src]="p.image" [alt]="p.name">
+        </a>
+        <div class="product__tags">
+          <span class="tag tag--pink">{{ p.badge }}</span>
+          @if (p.element) { <span class="tag tag--white">{{ p.element }}</span> }
+        </div>
+        <button class="heart" [class.liked]="p.liked" (click)="toggleLike(p)" aria-label="Yêu thích">
+          <app-icon name="heart" [size]="16"></app-icon>
+        </button>
+      </div>
+      <div class="product__body">
+        <small>{{ p.stone }}</small>
+        <h3><a [routerLink]="['/products', p.slug || p.id || 'san-pham']">{{ p.name }}</a></h3>
+        <div class="product__foot">
+          <b>{{ p.price | number }}đ</b>
+          <span>Đã bán {{ p.sold }}</span>
+        </div>
+      </div>
+    </article>
+    }
+  </div>
+</section>
+
+<!-- 6. BỘ SƯU TẬP BIÊN TẬP -->
+<section class="band band--collection">
+  <div class="container">
+    <div class="center">
+      <span class="eyebrow">Bộ sưu tập biên tập</span>
+      <h2 class="section__title center-title">Những chương chuyện kỳ diệu</h2>
+      <p class="section__desc">Mỗi bộ sưu tập là một cuộc hội ngộ giữa nghệ thuật chế tác và vẻ đẹp thiêng liêng từ
+        thiên nhiên.</p>
+    </div>
+    <div class="col-grid">
+      @for (c of collections; track c.name) {
+      <a routerLink="/collections" class="col-card">
+        <img [src]="c.image" [alt]="c.name">
+        <div class="col-card__body">
+          <small>{{ c.tag }}</small>
+          <h3>{{ c.name }}</h3>
+          <p>{{ c.desc }}</p>
+          <span>Khám phá bộ sưu tập <app-icon name="arrow-right" [size]="14"></app-icon></span>
+        </div>
+      </a>
+      }
+    </div>
+  </div>
+</section>
+
+<!-- 7. CẨM NANG -->
+<section class="container section">
+  <div class="section__head">
+    <div>
+      <span class="eyebrow"><app-icon name="book" [size]="13"></app-icon> Cẩm nang về đá &amp; lối sống</span>
+      <h2 class="section__title">Kiến thức nuôi dưỡng năng lượng</h2>
+    </div>
+    <a routerLink="/articles" class="link-arrow">Xem tất cả bài viết <app-icon name="arrow-right"
+        [size]="15"></app-icon></a>
+  </div>
+  <div class="post-grid">
+    @for (b of posts; track b.title) {
+    <article class="post">
+      <div class="post__img">
+        <img [src]="b.image" (error)="onPostImageError($event, b)" [alt]="b.title">
+        <span class="tag tag--pink">{{ b.tag }}</span>
+      </div>
+      <div class="post__body">
+        <div class="post__meta">
+          <span><app-icon name="clock" [size]="13"></app-icon> {{ b.read }}</span>
+          <span><app-icon name="calendar" [size]="13"></app-icon> {{ b.date }}</span>
+        </div>
+        <h3>{{ b.title }}</h3>
+        <p>{{ b.excerpt }}</p>
+        <a routerLink="/articles" class="link-arrow sm">Đọc tiếp <app-icon name="arrow-right"
+            [size]="13"></app-icon></a>
+      </div>
+    </article>
+    }
+  </div>
+</section>
+
+<!-- 8. ĐĂNG KÝ NHẬN TIN -->
+<section class="container section">
+  <div class="news">
+    <svg class="news__star" viewBox="0 0 100 100" aria-hidden="true">
+      <path d="M50 0C54 32 68 46 100 50 68 54 54 68 50 100 46 68 32 54 0 50 32 46 46 32 50 0z" fill="#f4cfdf" />
+    </svg>
+    <span class="news__icon"><app-icon name="mail" [size]="22"></app-icon></span>
+    <span class="eyebrow">Cộng đồng yêu đá AMULES Circle</span>
+    <h2>Đón nhận nguồn năng lượng bình an mỗi tuần</h2>
+    <p>Đăng ký để nhận cẩm nang chiêm tinh theo chu kỳ mặt trăng, thông điệp bài Tarot định kỳ và ưu đãi độc quyền 10%
+      cho đơn hàng đầu tiên của bạn.</p>
+    <div class="news__form">
+      <input type="email" [(ngModel)]="email" placeholder="Nhập địa chỉ email của bạn...">
+      <button class="btn btn--primary" (click)="subscribe()">
+        {{ subscribed ? 'Đã đăng ký' : 'Nhận ưu đãi' }} <app-icon [name]="subscribed ? 'check' : 'heart'"
+          [size]="15"></app-icon>
+      </button>
+    </div>
+    <small>Chúng tôi trân quý sự riêng tư của bạn. Bạn có thể hủy đăng ký bất cứ lúc nào.</small>
+  </div>
+</section>

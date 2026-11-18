@@ -1,0 +1,929 @@
+<div class="vouchers-page">
+  <!-- Top Segmented Navigation Switcher -->
+  <div class="top-nav-switcher">
+    <div class="nav-switcher-wrap">
+      <button type="button" class="switch-tab-btn" [class.active]="mainSection === 'vouchers'" (click)="mainSection = 'vouchers'">
+        <app-icon name="ticket" [size]="16"></app-icon>
+        <span>QUẢN LÝ VOUCHER &amp; MÃ GIẢM GIÁ</span>
+        <span class="tab-count-badge">{{ totalVouchersCount }}</span>
+      </button>
+      <button type="button" class="switch-tab-btn" [class.active]="mainSection === 'articles'" (click)="mainSection = 'articles'">
+        <app-icon name="book-open" [size]="16"></app-icon>
+        <span>QUẢN LÝ NỘI DUNG &amp; BÀI VIẾT CẨM NANG</span>
+        <span class="tab-count-badge">{{ articles.length }}</span>
+      </button>
+    </div>
+  </div>
+
+  @if (toastMsg) {
+    <div class="admin-toast-banner">
+      <app-icon name="check-circle" [size]="16"></app-icon>
+      <span>{{ toastMsg }}</span>
+    </div>
+  }
+
+  <!-- ======================================================== -->
+  <!-- SECTION 1: QUẢN LÝ VOUCHER & MÃ GIẢM GIÁ                 -->
+  <!-- ======================================================== -->
+  @if (mainSection === 'vouchers') {
+    <!-- Breadcrumb -->
+    <div class="page-breadcrumb">
+      <span>TRANG CHỦ</span>
+      <span class="crumb-sep">&gt;</span>
+      <span>KHUYẾN MÃI &amp; NỘI DUNG</span>
+      <span class="crumb-sep">&gt;</span>
+      <span class="crumb-active">QUẢN LÝ VOUCHER &amp; MÃ GIẢM GIÁ</span>
+    </div>
+
+    <div class="page-head">
+      <div>
+        <h1 class="page-title serif">Quản Lý Voucher &amp; Mã Khuyến Mãi</h1>
+        <p class="page-sub">Thiết lập chiến dịch giảm giá, chiết khấu và quà tặng kích cầu mua sắm tác phẩm trang sức phong thủy AMULES.</p>
+      </div>
+      <div class="head-actions">
+        <button type="button" class="btn-action-outline" (click)="showToast('Đã xuất báo cáo chiến dịch khuyến mãi!')">
+          <app-icon name="download" [size]="14"></app-icon> Xuất Báo Cáo Chiến Dịch
+        </button>
+        <button type="button" class="btn-action-primary" (click)="openCreateModal()">
+          <app-icon name="plus" [size]="14"></app-icon> Tạo Voucher Mới
+        </button>
+      </div>
+    </div>
+
+    <!-- 4 Metric KPI Cards (Dynamic Values) -->
+    <div class="vouchers-kpi-grid">
+      <div class="voucher-kpi-box">
+        <div class="kpi-box-top">
+          <span class="kpi-box-label">TỔNG VOUCHER</span>
+          <div class="kpi-icon-pill ico-ticket"><app-icon name="ticket" [size]="15"></app-icon></div>
+        </div>
+        <div class="kpi-box-number">
+          {{ totalVouchersCount }} <small>chương trình</small>
+        </div>
+        <div class="kpi-box-sub text-up">
+          <span>📈 Đang hoạt động:</span> {{ activeVouchersCount }} mã
+        </div>
+      </div>
+
+      <div class="voucher-kpi-box">
+        <div class="kpi-box-top">
+          <span class="kpi-box-label">ĐANG HOẠT ĐỘNG</span>
+          <div class="kpi-icon-pill ico-active"><app-icon name="sparkle" [size]="15"></app-icon></div>
+        </div>
+        <div class="kpi-box-number">
+          {{ activeVouchersCount }} <small>mã đang mở</small>
+        </div>
+        <div class="kpi-box-sub text-green">
+          <span class="dot-green">●</span> Realtime Active
+        </div>
+      </div>
+
+      <div class="voucher-kpi-box">
+        <div class="kpi-box-top">
+          <span class="kpi-box-label">SẮP DIỄN RA</span>
+          <div class="kpi-icon-pill ico-wait"><app-icon name="calendar" [size]="15"></app-icon></div>
+        </div>
+        <div class="kpi-box-number">
+          {{ upcomingVouchersCount }} <small>chương trình</small>
+        </div>
+        <div class="kpi-box-sub">
+          <span class="dot-amber">🕒</span> Chiến dịch Tháng 11
+        </div>
+      </div>
+
+      <div class="voucher-kpi-box">
+        <div class="kpi-box-top">
+          <span class="kpi-box-label">TỔNG LƯỢT SỬ DỤNG</span>
+          <div class="kpi-icon-pill ico-bag"><app-icon name="bag" [size]="15"></app-icon></div>
+        </div>
+        <div class="kpi-box-number">
+          {{ totalUsesCount }} <small>lượt áp dụng</small>
+        </div>
+        <div class="kpi-box-sub text-up">
+          <span>📈 Tỷ lệ dùng</span> hợp lệ
+        </div>
+      </div>
+    </div>
+
+    <!-- 5 Filter Tabs with Dynamic Counts -->
+    <div class="vouchers-tabs-bar">
+      <button type="button" class="voucher-tab-btn" [class.active]="activeTab === 'all'" (click)="activeTab = 'all'">
+        <span>Tất cả</span>
+        <span class="count-pill">{{ totalVouchersCount }}</span>
+      </button>
+      <button type="button" class="voucher-tab-btn" [class.active]="activeTab === 'active'" (click)="activeTab = 'active'">
+        <span>Đang hoạt động</span>
+        <span class="count-pill">{{ activeVouchersCount }}</span>
+      </button>
+      <button type="button" class="voucher-tab-btn" [class.active]="activeTab === 'upcoming'" (click)="activeTab = 'upcoming'">
+        <span>Sắp diễn ra</span>
+        <span class="count-pill">{{ upcomingVouchersCount }}</span>
+      </button>
+      <button type="button" class="voucher-tab-btn" [class.active]="activeTab === 'expired'" (click)="activeTab = 'expired'">
+        <span>Đã hết hạn</span>
+        <span class="count-pill">{{ expiredVouchersCount }}</span>
+      </button>
+      <button type="button" class="voucher-tab-btn" [class.active]="activeTab === 'disabled'" (click)="activeTab = 'disabled'">
+        <span>Đã vô hiệu hóa</span>
+        <span class="count-pill">0</span>
+      </button>
+    </div>
+
+    <!-- Filter Toolbar -->
+    <div class="vouchers-toolbar">
+      <div class="search-field">
+        <app-icon name="search" [size]="15"></app-icon>
+        <input type="text" [(ngModel)]="searchQuery" placeholder="Tìm theo mã voucher, tên chương trình...">
+      </div>
+
+      <div class="filter-dropdowns">
+        <div class="select-pill">
+          <select [(ngModel)]="typeFilter">
+            <option value="all">Tất cả loại ưu đãi</option>
+            <option value="fixed">Giảm cố định</option>
+            <option value="percentage">Theo %</option>
+            <option value="gift">Quà tặng kèm</option>
+            <option value="freeship">Freeship</option>
+          </select>
+        </div>
+
+        <div class="select-pill">
+          <span>Khoảng ngày hiệu lực</span>
+          <app-icon name="calendar" [size]="13"></app-icon>
+        </div>
+
+        <button type="button" class="btn-adv-filter">
+          <app-icon name="sliders" [size]="13"></app-icon> Bộ lọc nâng cao
+        </button>
+
+        <button type="button" class="btn-refresh-pill" (click)="loadVouchers()">
+          <app-icon name="refresh" [size]="13"></app-icon>
+        </button>
+      </div>
+    </div>
+
+    <!-- Vouchers Table -->
+    <div class="vouchers-table-card">
+      <table class="vouchers-table">
+        <thead>
+          <tr>
+            <th>MÃ VOUCHER</th>
+            <th>TÊN CHƯƠNG TRÌNH &amp; MỤC TIÊU</th>
+            <th>LOẠI GIẢM GIÁ</th>
+            <th>MỨC ƯU ĐÃI</th>
+            <th>ĐƠN TỐI THIỂU</th>
+            <th>LƯỢT DÙNG / HẠN MỨC</th>
+            <th>THỜI GIAN HIỆU LỰC</th>
+            <th>THAO TÁC</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (v of filteredVouchers; track v._id || v.code) {
+            <tr>
+              <td>
+                <span class="voucher-code-badge">{{ v.code }}</span>
+              </td>
+              <td>
+                <div class="program-title-cell">
+                  <strong>{{ v.title }}</strong>
+                </div>
+              </td>
+              <td>
+                <span class="type-pill" [class.type-fixed]="v.discountType === 'fixed'" [class.type-gift]="v.discountType === 'gift'" [class.type-pct]="v.discountType === 'percentage'" [class.type-free]="v.discountType === 'freeship'">
+                  {{ v.discountTypeLabel }}
+                </span>
+              </td>
+              <td>
+                <span class="discount-val-text">{{ v.discountValueLabel }}</span>
+              </td>
+              <td>
+                <span class="min-order-val">{{ v.minOrderLabel }}</span>
+              </td>
+              <td>
+                <div class="usage-progress-cell">
+                  <div class="usage-text-row">
+                    <span>{{ v.usedCount }} / {{ v.totalLimit }} lượt</span>
+                    <small>{{ v.usagePercent }}%</small>
+                  </div>
+                  <div class="progress-track">
+                    <div class="progress-bar" [style.width.%]="v.usagePercent"></div>
+                  </div>
+                </div>
+              </td>
+              <td>
+                <span class="valid-range-text">{{ v.validRange }}</span>
+              </td>
+              <td>
+                <button type="button" class="btn-table-icon btn-delete" (click)="deleteVoucher(v)" title="Xóa voucher">
+                  <app-icon name="trash" [size]="14"></app-icon>
+                </button>
+              </td>
+            </tr>
+          } @empty {
+            <tr>
+              <td colspan="8" class="empty-table-row">
+                Không tìm thấy voucher nào phù hợp.
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+
+      <div class="table-foot-pag">
+        <span>Hiển thị 1 - {{ filteredVouchers.length }} trên {{ vouchers.length }} mã ưu đãi</span>
+        <div class="pag-btns">
+          <span>Trang 1 / 1</span>
+          <button type="button" class="btn-pag">&lsaquo;</button>
+          <button type="button" class="btn-pag active">1</button>
+          <button type="button" class="btn-pag">&rsaquo;</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom Insight Card -->
+    <div class="voucher-insight-card">
+      <div class="insight-left">
+        <div class="insight-lamp-icon"><app-icon name="sparkle" [size]="18"></app-icon></div>
+        <div class="insight-lamp-text">
+          <div class="campaign-tag-row">
+            <strong>MẸO CHIẾN DỊCH QUÝ IV</strong>
+            <span class="badge-tag-conv">Tăng chuyển đổi</span>
+          </div>
+          <h4>Kích cầu phân khúc Cao Cấp qua Voucher Trực Tiếp</h4>
+          <p>Các mã giảm giá dạng quà tặng hộp nhung và khăn lau chuyên dụng tăng tỷ lệ chốt đơn tới <strong>34%</strong> đối với khách mua trang sức vàng &amp; đá quý phong thủy.</p>
+        </div>
+      </div>
+      <div class="insight-right-gauge">
+        <small>Tỷ lệ chuyển đổi Voucher</small>
+        <div class="gauge-number-row">
+          <strong>28.6%</strong>
+          <div class="mini-trend-curve">📈</div>
+        </div>
+      </div>
+    </div>
+  }
+
+  <!-- ======================================================== -->
+  <!-- SECTION 2: QUẢN LÝ NỘI DUNG (EDITORIAL SUITE)            -->
+  <!-- Faithful to AMULES – Admin – Quản Lý Nội Dung            -->
+  <!-- ======================================================== -->
+  @if (mainSection === 'articles') {
+    <!-- Breadcrumb -->
+    <div class="page-breadcrumb">
+      <span>Trang chủ</span>
+      <span class="crumb-sep">&gt;</span>
+      <span>Khuyến mãi &amp; Nội dung</span>
+      <span class="crumb-sep">&gt;</span>
+      <span class="crumb-active">Quản lý bài viết cẩm nang đá quý</span>
+    </div>
+
+    <!-- Page Head -->
+    <div class="page-head">
+      <div>
+        <div class="title-with-pill">
+          <h1 class="page-title serif">Quản Lý Bài Viết Cẩm Nang</h1>
+          <span class="badge-editorial">EDITORIAL SUITE</span>
+        </div>
+        <p class="page-sub">Biên tập kho tàng tri thức về đá quý tự nhiên, năng lượng ngũ hành và hướng dẫn bảo hộ tâm linh AMULES.</p>
+      </div>
+      <div class="head-actions">
+        <button type="button" class="btn-action-outline" (click)="articleCategoryFilter = 'all'">
+          <app-icon name="sliders" [size]="14"></app-icon> Bộ Lọc Danh Mục
+        </button>
+        <button type="button" class="btn-action-primary" (click)="openCreateArticleModal()">
+          <app-icon name="edit" [size]="14"></app-icon> + Viết Bài Mới
+        </button>
+      </div>
+    </div>
+
+    <!-- Sub-tabs bar matching Mockup -->
+    <div class="content-subtabs-bar">
+      <button type="button" class="content-subtab-btn" [class.active]="articleSubTab === 'banners'" (click)="articleSubTab = 'banners'">
+        <app-icon name="layers" [size]="15"></app-icon>
+        <span>Banner Website</span>
+        <span class="subtab-pill">3 hoạt động</span>
+      </button>
+      <button type="button" class="content-subtab-btn" [class.active]="articleSubTab === 'articles'" (click)="articleSubTab = 'articles'">
+        <app-icon name="book-open" [size]="15"></app-icon>
+        <span>Bài Viết Cẩm Nang</span>
+        <span class="subtab-pill pill-active">{{ articles.length }} đã đăng</span>
+      </button>
+      <button type="button" class="content-subtab-btn" [class.active]="articleSubTab === 'comments'" (click)="articleSubTab = 'comments'">
+        <app-icon name="chat" [size]="15"></app-icon>
+        <span>Bình Luận Độc Giả</span>
+        <span class="subtab-pill">286 phản hồi</span>
+      </button>
+    </div>
+
+    <!-- 4 KPI Metric Cards (Faithful to Mockup) -->
+    <div class="vouchers-kpi-grid content-kpi-grid">
+      <div class="voucher-kpi-box">
+        <div class="kpi-box-top">
+          <span class="kpi-box-label">TỔNG QUAN TÀI LIỆU</span>
+          <div class="kpi-icon-pill ico-doc"><app-icon name="book-open" [size]="15"></app-icon></div>
+        </div>
+        <div class="kpi-box-number">
+          {{ articles.length }} <small>bài cẩm nang</small>
+        </div>
+        <div class="kpi-box-sub">
+          <span class="dot-green">●</span> {{ publishedArticlesCount }} đã xuất bản • {{ draftArticlesCount }} bản nháp
+        </div>
+      </div>
+
+      <div class="voucher-kpi-box">
+        <div class="kpi-box-top">
+          <span class="kpi-box-label">LƯU LƯỢNG TRUY CẬP</span>
+          <div class="kpi-icon-pill ico-trend"><app-icon name="sparkle" [size]="15"></app-icon></div>
+        </div>
+        <div class="kpi-box-number">
+          45.890 <small>lượt đọc</small>
+        </div>
+        <div class="kpi-box-sub text-up">
+          <span>📈 +32%</span> organic traffic từ Google
+        </div>
+      </div>
+
+      <div class="voucher-kpi-box">
+        <div class="kpi-box-top">
+          <span class="kpi-box-label">TƯƠNG TÁC ĐỘC GIẢ</span>
+          <div class="kpi-icon-pill ico-chat"><app-icon name="chat" [size]="15"></app-icon></div>
+        </div>
+        <div class="kpi-box-number">
+          286 <small>hỏi đáp</small>
+        </div>
+        <div class="kpi-box-sub text-purple-pill">
+          <span>✨ Yêu cầu thỉnh đá hộ mệnh cá nhân</span>
+        </div>
+      </div>
+
+      <div class="voucher-kpi-box">
+        <div class="kpi-box-top">
+          <span class="kpi-box-label">HỆ THỐNG PHÂN MỤC</span>
+          <div class="kpi-icon-pill ico-cat"><app-icon name="layers" [size]="15"></app-icon></div>
+        </div>
+        <div class="kpi-box-number">
+          4 <small>chuyên mục</small>
+        </div>
+        <div class="kpi-box-sub cat-list-pill">
+          <span>Thạch học • Ngũ hành • Talisman</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Filter & Search Bar for Articles -->
+    <div class="vouchers-toolbar content-toolbar">
+      <div class="search-field">
+        <app-icon name="search" [size]="15"></app-icon>
+        <input type="text" [(ngModel)]="articleSearchQuery" placeholder="Tìm theo tiêu đề bài viết, tác giả, thẻ tag...">
+      </div>
+
+      <div class="filter-dropdowns">
+        <div class="select-pill">
+          <select [(ngModel)]="articleCategoryFilter">
+            <option value="all">Tất cả chuyên mục (4)</option>
+            <option value="Thạch học & Đá quý">Thạch học &amp; Đá quý</option>
+            <option value="Hướng dẫn Talisman">Hướng dẫn Talisman</option>
+            <option value="Phong thủy Ngũ hành">Phong thủy Ngũ hành</option>
+            <option value="Phong cách & Lối sống">Phong cách &amp; Lối sống</option>
+          </select>
+        </div>
+
+        <div class="select-pill">
+          <select [(ngModel)]="articleStatusFilter">
+            <option value="all">Tất cả trạng thái</option>
+            <option value="published">Đã xuất bản</option>
+            <option value="draft">Bản nháp</option>
+          </select>
+        </div>
+
+        <div class="select-pill">
+          <span>Mới xuất bản gần đây</span>
+          <app-icon name="chevron-down" [size]="13"></app-icon>
+        </div>
+
+        <button type="button" class="btn-refresh-pill" (click)="loadArticles()" title="Tải lại">
+          <app-icon name="refresh" [size]="13"></app-icon>
+        </button>
+      </div>
+    </div>
+
+    <!-- Articles Table (Faithful to Mockup) -->
+    <div class="vouchers-table-card">
+      <table class="vouchers-table articles-table">
+        <thead>
+          <tr>
+            <th>BÀI VIẾT &amp; HÌNH ẢNH</th>
+            <th>CHUYÊN MỤC</th>
+            <th>TÁC GIẢ</th>
+            <th>NGÀY ĐĂNG</th>
+            <th>LƯỢT ĐỌC</th>
+            <th>SEO SCORE</th>
+            <th>TRẠNG THÁI</th>
+            <th>THAO TÁC</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (art of filteredArticles; track art._id || art.code) {
+            <tr>
+              <!-- 1. Bài viết & Hình ảnh -->
+              <td>
+                <div class="article-cell">
+                  <img [src]="art.image || 'images/nhan_tinh_tu.png'" alt="thumb" class="article-thumb" (error)="art.image = 'images/dch_mix_da.png'">
+                  <div class="article-meta">
+                    <div class="eyebrow-row">
+                      <span class="art-eyebrow">{{ art.eyebrow || 'THẠCH HỌC TÂM LINH' }}</span>
+                      @if (art.isTopView) {
+                        <span class="badge-top-view">TOP VIEW</span>
+                      }
+                    </div>
+                    <a href="javascript:void(0)" class="article-title-link" (click)="openEditArticleModal(art)">
+                      {{ art.title }}
+                    </a>
+                    <p class="article-excerpt-text">{{ art.excerpt }}</p>
+                  </div>
+                </div>
+              </td>
+
+              <!-- 2. Chuyên mục -->
+              <td>
+                <span class="cat-pill-badge" [class.cat-gem]="(art.category || '').includes('Thạch')" [class.cat-talisman]="(art.category || '').includes('Talisman')" [class.cat-fengshui]="(art.category || '').includes('Phong')" [class.cat-style]="(art.category || '').includes('Phong cách')">
+                  {{ art.category }}
+                </span>
+              </td>
+
+              <!-- 3. Tác giả -->
+              <td>
+                <div class="author-cell">
+                  <div class="author-avatar">{{ art.authorInitial || 'VL' }}</div>
+                  <div class="author-text">
+                    <strong>{{ art.author || 'Vũ Hoàng Linh' }}</strong>
+                    <small>{{ art.authorRole || 'Admin' }}</small>
+                  </div>
+                </div>
+              </td>
+
+              <!-- 4. Ngày đăng -->
+              <td>
+                <span class="date-text">{{ art.date || '28/10/2026' }}</span>
+              </td>
+
+              <!-- 5. Lượt đọc -->
+              <td>
+                <div class="reads-cell">
+                  <strong>{{ (art.views || 8420).toLocaleString('vi-VN') }}</strong>
+                  <small [class.text-green]="(art.growthText || '').includes('+')">{{ art.growthText || '+18% tuần này' }}</small>
+                </div>
+              </td>
+
+              <!-- 6. SEO Score -->
+              <td>
+                <span class="seo-score-badge">
+                  <span class="dot-seo">●</span> {{ art.seoScore || 96 }}/100
+                </span>
+              </td>
+
+              <!-- 7. Trạng thái -->
+              <td>
+                @if (art.status === 'published') {
+                  <span class="status-pub-badge">
+                    <span class="dot-green">●</span> ĐÃ XUẤT BẢN
+                  </span>
+                } @else {
+                  <span class="status-draft-badge">
+                    <span class="dot-gold">●</span> BẢN NHÁP
+                  </span>
+                }
+              </td>
+
+              <!-- 8. Thao tác -->
+              <td>
+                <div class="article-actions-cell">
+                  <button type="button" class="btn-table-icon" (click)="openEditArticleModal(art)" title="Chỉnh sửa bài viết">
+                    <app-icon name="edit" [size]="14"></app-icon>
+                  </button>
+                  <button type="button" class="btn-table-icon" (click)="toggleArticlePublish(art)" [title]="art.status === 'published' ? 'Chuyển về bản nháp' : 'Xuất bản ngay'">
+                    <app-icon [name]="art.status === 'published' ? 'eye-off' : 'eye'" [size]="14"></app-icon>
+                  </button>
+                  <button type="button" class="btn-table-icon btn-delete" (click)="deleteArticle(art)" title="Xóa bài viết">
+                    <app-icon name="trash" [size]="14"></app-icon>
+                  </button>
+                </div>
+              </td>
+            </tr>
+          } @empty {
+            <tr>
+              <td colspan="8" class="empty-table-row">
+                Không tìm thấy bài viết cẩm nang nào phù hợp bộ lọc.
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+
+      <div class="table-foot-pag">
+        <span>Hiển thị 1 - {{ filteredArticles.length }} trong tổng số {{ articles.length }} bài viết cẩm nang</span>
+        <div class="pag-btns">
+          <span>Trang 1 / 1</span>
+          <button type="button" class="btn-pag">&lsaquo;</button>
+          <button type="button" class="btn-pag active">1</button>
+          <button type="button" class="btn-pag">&rsaquo;</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom Advisory Card (Faithful to Mockup) -->
+    <div class="article-advice-card">
+      <div class="advice-left">
+        <div class="advice-bulb-icon"><app-icon name="sparkle" [size]="20"></app-icon></div>
+        <div class="advice-text">
+          <div class="advice-title-row">
+            <h4>Mẹo Tối Ưu Hóa Bài Viết Cẩm Nang AMULES</h4>
+            <span class="badge-seo-fengshui">SEO PHONG THỦY</span>
+          </div>
+          <p>Các bài viết có liên kết sản phẩm đá phong thủy tương ứng đạt tỷ lệ chuyển đổi cao hơn <strong>+48%</strong> so với bài viết thông thường. Hãy nhớ gắn thẻ sản phẩm vào phần cuối mỗi bài viết.</p>
+        </div>
+      </div>
+      <div class="advice-right-actions">
+        <button type="button" class="btn-advice-outline" (click)="showToast('Mở tài liệu quy chuẩn viết bài chuẩn SEO')">
+          Xem hướng dẫn viết bài
+        </button>
+        <button type="button" class="btn-advice-solid" (click)="showToast('Chỉ số SEO tổng thể đạt 94.6/100!')">
+          Kiểm tra chỉ số SEO tổng thể
+        </button>
+      </div>
+    </div>
+  }
+</div>
+
+<!-- ======================================================== -->
+<!-- MODAL SOẠN THẢO BÀI VIẾT (Trình Soạn Thảo & Xuất Bản)     -->
+<!-- Faithful to AMULES – Admin – Trình Soạn Thảo & Xuất Bản  -->
+<!-- ======================================================== -->
+@if (showArticleModal) {
+  <div class="modal-overlay" (click)="closeArticleModal()">
+    <div class="editor-modal-card" (click)="$event.stopPropagation()">
+      <!-- Editor Header -->
+      <div class="editor-modal-head">
+        <div>
+          <div class="editor-head-breadcrumb">
+            <span>Khuyến mãi &amp; Nội dung</span> / <span>Bài viết</span> / <b>Soạn thảo bài viết mới</b>
+          </div>
+          <div class="auto-save-status">
+            <span class="dot-green">●</span> TỰ ĐỘNG LƯU: VỪA XONG &nbsp;•&nbsp; Mã CMS: <code>#AML-ART-{{ currentEditingArticle.code }}</code>
+          </div>
+          <div class="title-with-pill" style="margin-top: 0.25rem;">
+            <h2 class="serif">{{ isEditingArticle ? 'Chỉnh Sửa Bài Viết Cẩm Nang' : 'Soạn Thảo Bài Viết Cẩm Nang' }}</h2>
+            <span class="badge-editorial">BẢN CHUẨN HÓA</span>
+          </div>
+          <p class="editor-head-sub">Soạn thảo nội dung phong thủy và kiến thức thạch học chuẩn SEO cho website thương hiệu trang sức AMULES.</p>
+        </div>
+        <div class="editor-head-actions">
+          <button type="button" class="btn-action-outline" (click)="closeArticleModal()">Hủy</button>
+          <button type="button" class="btn-action-outline" (click)="saveArticle(false)">
+            <app-icon name="edit" [size]="13"></app-icon> Lưu bản nháp
+          </button>
+          <button type="button" class="btn-action-primary" (click)="saveArticle(true)">
+            <app-icon name="check" [size]="14"></app-icon> Xuất Bản Bài Viết
+          </button>
+        </div>
+      </div>
+
+      <!-- Editor 2-Column Body -->
+      <div class="editor-modal-body">
+        <!-- CỘT TRÁI: SOẠN NỘI DUNG CHÍNH -->
+        <div class="editor-col-main">
+          <!-- Title H1 -->
+          <div class="form-group">
+            <label class="editor-field-label">TIÊU ĐỀ BÀI VIẾT CẨM NANG (H1) *</label>
+            <input type="text" [(ngModel)]="currentEditingArticle.title" class="input-editor-title serif" placeholder="Nhập tiêu đề bài viết...">
+          </div>
+
+          <!-- Slug / Permalink -->
+          <div class="permalink-box">
+            <span class="perm-prefix">https://amules.vn/cam-nang/</span>
+            <input type="text" [(ngModel)]="currentEditingArticle.slug" class="input-slug">
+            <button type="button" class="btn-copy-link" (click)="showToast('Đã sao chép link!')">
+              <app-icon name="copy" [size]="12"></app-icon> Sao chép link
+            </button>
+          </div>
+
+          <!-- Excerpt -->
+          <div class="form-group">
+            <div class="label-guide-row">
+              <label class="editor-field-label">ĐOẠN TÓM TẮT MỞ ĐẦU (EXCERPT)</label>
+              <small class="char-count">{{ currentEditingArticle.excerpt?.length || 0 }} / 300 ký tự</small>
+            </div>
+            <textarea [(ngModel)]="currentEditingArticle.excerpt" rows="3" class="textarea-base" placeholder="Mô tả tóm tắt nội dung để hiển thị trên thẻ bài viết và meta description Google..."></textarea>
+          </div>
+
+          <!-- WYSIWYG Toolbar Simulation -->
+          <div class="editor-toolbar">
+            <select class="toolbar-select">
+              <option>Tiêu đề H2 (Heading 2)</option>
+              <option>Tiêu đề H3 (Heading 3)</option>
+              <option>Đoạn văn (Paragraph)</option>
+            </select>
+            <div class="toolbar-divider"></div>
+            <button type="button" class="tool-btn" title="Đậm"><b>B</b></button>
+            <button type="button" class="tool-btn" title="Nghiêng"><i>I</i></button>
+            <button type="button" class="tool-btn" title="Gạch chân"><u>U</u></button>
+            <button type="button" class="tool-btn" title="Gạch ngang"><s>S</s></button>
+            <div class="toolbar-divider"></div>
+            <button type="button" class="tool-btn">Căn trái</button>
+            <button type="button" class="tool-btn">Căn giữa</button>
+            <button type="button" class="tool-btn">Trích dẫn</button>
+            <button type="button" class="tool-btn">Danh sách</button>
+            <div class="toolbar-divider"></div>
+            <button type="button" class="tool-btn tool-btn-highlight">
+              <app-icon name="image" [size]="13"></app-icon> + Chèn Hình Ảnh Đá Quý
+            </button>
+          </div>
+
+          <!-- Rich Content Body -->
+          <div class="form-group">
+            <textarea [(ngModel)]="currentEditingArticle.content" rows="12" class="textarea-content" placeholder="Soạn thảo toàn văn bài viết cẩm nang tại đây..."></textarea>
+          </div>
+
+          <div class="editor-word-count-bar">
+            <span>1,248 từ &nbsp;•&nbsp; 6,840 ký tự &nbsp;•&nbsp; Thời gian đọc ước tính: 4.5 phút &nbsp;•&nbsp; <span class="text-green">✔ Đã kiểm tra ngữ pháp tiếng Việt</span></span>
+          </div>
+        </div>
+
+        <!-- CỘT PHẢI: METADATA & SEO SETTINGS -->
+        <div class="editor-col-side">
+          <!-- Card 1: Thiết lập xuất bản -->
+          <div class="side-card">
+            <div class="side-card-head">
+              <strong>Thiết Lập Xuất Bản</strong>
+              <span class="status-pub-badge" [class.badge-draft]="currentEditingArticle.status === 'draft'">
+                {{ currentEditingArticle.status === 'published' ? 'Đã xuất bản (Published)' : 'Bản nháp (Draft)' }}
+              </span>
+            </div>
+            <div class="side-card-body">
+              <div class="form-group">
+                <label>TÁC GIẢ BÀI VIẾT</label>
+                <select [(ngModel)]="currentEditingArticle.author" class="select-side">
+                  <option value="Vũ Hoàng Linh (Quản trị viên)">Vũ Hoàng Linh (Quản trị viên)</option>
+                  <option value="Ban Cố Vấn Phong Thủy">Ban Cố Vấn Phong Thủy</option>
+                  <option value="Nguyễn Mai Trang (Biên tập viên)">Nguyễn Mai Trang (Biên tập viên)</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label>LỊCH XUẤT BẢN TRÊN WEB</label>
+                <input type="text" [(ngModel)]="currentEditingArticle.date" class="input-side">
+              </div>
+
+              <div class="seo-readiness-box">
+                <div class="seo-score-top">
+                  <span class="text-green">✔ Chỉ số sẵn sàng SEO</span>
+                  <strong>{{ currentEditingArticle.seoScore || 96 }} / 100</strong>
+                </div>
+                <p>Điểm xuất sắc: Đầy đủ từ khóa, thẻ alt ảnh &amp; độ dài bài viết chuẩn SEO.</p>
+              </div>
+
+              <label class="comment-allow-row">
+                <input type="checkbox" [(ngModel)]="currentEditingArticle.allowComments">
+                <span>Cho phép độc giả để lại bình luận &amp; câu hỏi tư vấn phong thủy trực tiếp</span>
+              </label>
+            </div>
+          </div>
+
+          <!-- Card 2: Ảnh đại diện bài viết -->
+          <div class="side-card">
+            <div class="side-card-head">
+              <strong>Ảnh Đại Diện (Featured)</strong>
+              <span class="badge-hero">HERO 16:9</span>
+            </div>
+            <div class="side-card-body">
+              <div class="featured-image-box">
+                <img [src]="currentEditingArticle.image || 'images/nhan_tinh_tu.png'" alt="hero" class="featured-preview" (error)="currentEditingArticle.image = 'images/dch_mix_da.png'">
+              </div>
+              <div class="featured-actions">
+                <button type="button" class="btn-side-action" (click)="currentEditingArticle.image = 'images/dch_mix_da.png'">
+                  <app-icon name="image" [size]="12"></app-icon> Đổi ảnh đại diện
+                </button>
+              </div>
+              <small class="img-rec-note">* Khuyến nghị: Tỷ lệ 16:9 (1200x675px), định dạng tối ưu WebP hoặc JPG nén, dung lượng &lt; 350KB.</small>
+            </div>
+          </div>
+
+          <!-- Card 3: Phân loại & Thẻ tag -->
+          <div class="side-card">
+            <div class="side-card-head">
+              <strong>Phân Loại &amp; Thẻ Tag</strong>
+            </div>
+            <div class="side-card-body">
+              <div class="form-group">
+                <label>CHUYÊN MỤC CHÍNH</label>
+                <select [(ngModel)]="currentEditingArticle.category" class="select-side">
+                  <option value="Thạch học & Đá quý">Thạch học &amp; Đá quý</option>
+                  <option value="Hướng dẫn Talisman">Hướng dẫn Talisman</option>
+                  <option value="Phong thủy Ngũ hành">Phong thủy Ngũ hành</option>
+                  <option value="Phong cách & Lối sống">Phong cách &amp; Lối sống</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label>TỪ KHÓA LIÊN KẾT (TAGS)</label>
+                <div class="tags-cloud">
+                  @for (t of currentEditingArticle.tags; track t) {
+                    <span class="tag-pill">{{ t }}</span>
+                  }
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 4: Mô phỏng Google Search -->
+          <div class="side-card">
+            <div class="side-card-head">
+              <strong>Mô Phỏng Google Search</strong>
+              <app-icon name="search" [size]="13"></app-icon>
+            </div>
+            <div class="side-card-body">
+              <div class="google-snippet-box">
+                <div class="google-snippet-url">https://amules.vn/cam-nang/{{ currentEditingArticle.slug }}</div>
+                <div class="google-snippet-title">{{ currentEditingArticle.title }} | AMULES</div>
+                <div class="google-snippet-desc">{{ currentEditingArticle.excerpt }}</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+}
+
+<!-- ======================================================== -->
+<!-- MODAL TẠO MÃ GIẢM GIÁ MỚI (Vouchers Modal)               -->
+<!-- ======================================================== -->
+@if (showModal) {
+  <div class="modal-overlay" (click)="closeModal()">
+    <div class="voucher-modal-card" (click)="$event.stopPropagation()">
+      <div class="voucher-modal-head">
+        <div class="head-gift-icon">
+          <app-icon name="gift" [size]="20"></app-icon>
+        </div>
+        <div class="head-title-wrap">
+          <div class="title-with-pill">
+            <h2>Tạo Mã Giảm Giá Mới</h2>
+            <span class="badge-privilege">TALISMAN PRIVILÈGE</span>
+          </div>
+          <p>Thiết lập tham số khuyến mãi, điều kiện áp dụng và giới hạn phát hành của AMULES.</p>
+        </div>
+        <button type="button" class="btn-close-modal" (click)="closeModal()">✕</button>
+      </div>
+
+      <div class="voucher-modal-body">
+        <!-- 1. THÔNG TIN CƠ BẢN -->
+        <div class="section-divider-row">
+          <span class="section-title">● 1. THÔNG TIN CƠ BẢN</span>
+          <small class="required-note">* Trường bắt buộc điền</small>
+        </div>
+
+        <div class="form-group">
+          <div class="label-guide-row">
+            <label>Tên chương trình ưu đãi *</label>
+            <small>Tối đa 80 ký tự</small>
+          </div>
+          <input type="text" [(ngModel)]="newVoucher.title" class="input-base" placeholder="Ưu đãi Đặc Quyền Mùa Trăng Rằm - Tháng 11">
+        </div>
+
+        <div class="form-row-code-type">
+          <div class="form-group col-code">
+            <label>Mã voucher (Promo Code) *</label>
+            <div class="code-gen-input">
+              <input type="text" [(ngModel)]="newVoucher.code" class="input-base text-code-val" placeholder="MOONFEST2026">
+              <button type="button" class="btn-gen-code" (click)="generateRandomCode()">
+                🎲 Tạo ngẫu nhiên
+              </button>
+            </div>
+            <small class="hint-text">Khách nhập tại thanh toán</small>
+          </div>
+
+          <div class="form-group col-type">
+            <label>Loại ưu đãi *</label>
+            <div class="type-segmented-btns">
+              <button type="button" class="btn-seg" [class.active]="newVoucher.discountType === 'percentage'" (click)="newVoucher.discountType = 'percentage'">
+                % Giảm %
+              </button>
+              <button type="button" class="btn-seg" [class.active]="newVoucher.discountType === 'fixed'" (click)="newVoucher.discountType = 'fixed'">
+                $ Số tiền cố định
+              </button>
+              <button type="button" class="btn-seg" [class.active]="newVoucher.discountType === 'gift'" (click)="newVoucher.discountType = 'gift'">
+                🎁 Quà tặng
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="discount-values-box">
+          <div class="val-input-col">
+            <label>Mức giảm giá *</label>
+            <div class="input-unit-wrap">
+              <input type="number" [(ngModel)]="newVoucher.discountValue" class="input-clean-num">
+              <span class="unit-text">%</span>
+            </div>
+            <small>Giảm {{ newVoucher.discountValue }}% tổng giá trị món trang sức</small>
+          </div>
+
+          <div class="val-input-col">
+            <label>Mức giảm tối đa</label>
+            <div class="input-unit-wrap">
+              <input type="number" [(ngModel)]="newVoucher.maxDiscountValue" class="input-clean-num">
+              <span class="unit-text">VNĐ</span>
+            </div>
+            <small>Giới hạn số tiền khấu trừ cao nhất</small>
+          </div>
+        </div>
+
+        <!-- 2. ĐIỀU KIỆN & GIỚI HẠN ÁP DỤNG -->
+        <div class="section-divider-row">
+          <span class="section-title">● 2. ĐIỀU KIỆN &amp; GIỚI HẠN ÁP DỤNG</span>
+        </div>
+
+        <div class="form-two-cols">
+          <div class="form-group">
+            <label>Giá trị đơn hàng tối thiểu</label>
+            <div class="input-unit-wrap">
+              <input type="number" [(ngModel)]="newVoucher.minOrderValue" class="input-clean-num">
+              <span class="unit-text">VNĐ</span>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Tổng số lượng phát hành</label>
+            <div class="input-unit-wrap">
+              <input type="number" [(ngModel)]="newVoucher.totalQuantity" class="input-clean-num">
+              <span class="unit-text">Mã</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-two-cols">
+          <div class="form-group">
+            <label>Giới hạn / mỗi khách hàng</label>
+            <div class="input-unit-wrap">
+              <input type="number" [(ngModel)]="newVoucher.limitPerCustomer" class="input-clean-num">
+              <span class="unit-text">Lần / TK</span>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Áp dụng cho danh mục / BST</label>
+            <select [(ngModel)]="newVoucher.appliedCollection" class="input-base">
+              <option value="Bộ sưu tập: Moonlight & Stars">Bộ sưu tập: Moonlight &amp; Stars</option>
+              <option value="Tất cả sản phẩm">Tất cả sản phẩm</option>
+              <option value="Danh mục Vòng tay">Danh mục Vòng tay</option>
+              <option value="Danh mục Nhẫn đá quý">Danh mục Nhẫn đá quý</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- 3. THỜI GIAN HIỆU LỰC & KÍCH HOẠT -->
+        <div class="section-divider-row">
+          <span class="section-title">● 3. THỜI GIAN HIỆU LỰC &amp; KÍCH HOẠT</span>
+        </div>
+
+        <div class="form-two-cols">
+          <div class="form-group">
+            <label><app-icon name="calendar" [size]="13"></app-icon> Ngày &amp; Giờ bắt đầu</label>
+            <input type="datetime-local" [(ngModel)]="newVoucher.startDate" class="input-base">
+          </div>
+          <div class="form-group">
+            <label><app-icon name="calendar" [size]="13"></app-icon> Ngày &amp; Giờ kết thúc</label>
+            <input type="datetime-local" [(ngModel)]="newVoucher.endDate" class="input-base">
+          </div>
+        </div>
+
+        <div class="activation-toggle-card">
+          <div class="act-text">
+            <strong>Kích hoạt ngay khi tạo</strong>
+            <p>Voucher sẽ sẵn sàng sử dụng khi khách hàng đạt đủ điều kiện.</p>
+          </div>
+          <label class="switch-toggle">
+            <input type="checkbox" [(ngModel)]="newVoucher.isActive">
+            <span class="slider"></span>
+          </label>
+        </div>
+
+        <label class="checkbox-banner-row">
+          <input type="checkbox" [(ngModel)]="newVoucher.showPublic">
+          <div>
+            <strong>Hiển thị mã công khai trên Banner và Trang Giỏ Hàng</strong>
+            <p>Khách hàng sẽ nhìn thấy nhãn mã ưu đãi này để kích hoạt 1 chạm trong giỏ hàng.</p>
+          </div>
+        </label>
+      </div>
+
+      <div class="voucher-modal-foot">
+        <button type="button" class="btn-cancel-modal" (click)="closeModal()">Hủy bỏ</button>
+        <button type="button" class="btn-draft-modal" (click)="closeModal()">
+          <app-icon name="edit" [size]="14"></app-icon> Lưu bản nháp
+        </button>
+        <button type="button" class="btn-publish-modal" (click)="saveVoucher()">
+          <app-icon name="check" [size]="14"></app-icon> Lưu &amp; Phát Hành Voucher
+        </button>
+      </div>
+    </div>
+  </div>
+}

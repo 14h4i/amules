@@ -1,0 +1,50 @@
+<footer class="footer">
+  <div class="container footer__grid">
+    <div class="brand">
+      <a routerLink="/" class="logo-link" aria-label="AMULES Trang chủ">
+        <img src="logo.png" alt="AMULES" class="logo-img">
+      </a>
+      <div class="tagline">Celestial Talisman &amp; Gemstones</div>
+      <p>Nơi tinh hoa đá quý tự nhiên giao hòa cùng năng lượng thiên thể. Mỗi tác phẩm trang sức là một lá bùa hộ mệnh
+        thiêng liêng đồng hành cùng bạn.</p>
+    </div>
+
+    @for (c of columns; track c.title) {
+    <div>
+      <h4>{{ c.title }}</h4>
+      <ul>
+        @for (l of c.links; track l.label) {
+        <li>
+          <a [routerLink]="l.route" [queryParams]="l.query">{{ l.label }}</a>
+        </li>
+        }
+      </ul>
+    </div>
+    }
+
+    <div>
+      <h4>Đăng ký nhận năng lượng</h4>
+      <p class="small">Nhận bản tin chiêm tinh tuần cùng đặc quyền ưu đãi dành riêng cho thành viên AMULES.</p>
+      <input type="email" class="news-input" [(ngModel)]="email" placeholder="Email của bạn...">
+      <button class="btn btn--primary news-btn" (click)="join()">
+        {{ joined ? 'Cảm ơn bạn đã tham gia!' : 'Tham gia cộng đồng' }}
+        <app-icon name="arrow-right" [size]="15"></app-icon>
+      </button>
+      <div class="follow">Theo dõi hành trình</div>
+      <div class="socials">
+        @for (s of socials; track s.icon) {
+        <a [href]="s.url" target="_blank" rel="noopener noreferrer" [attr.aria-label]="s.icon">
+          <app-icon [name]="s.icon" [size]="15"></app-icon>
+        </a>
+        }
+      </div>
+    </div>
+  </div>
+
+  <div class="container footer__bottom">
+    <span>&copy; {{ year }} AMULES Fine Talismanic Jewelry. Bản quyền đã được bảo hộ.</span>
+    <div class="payments">
+      @for (p of payments; track p) { <span>{{ p }}</span> }
+    </div>
+  </div>
+</footer>

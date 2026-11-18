@@ -1,0 +1,182 @@
+<!-- Header -->
+<div class="acc-page-head">
+  <div>
+    <span class="eyebrow"><i class="dot-sm"></i> HỒ SƠ KHÁCH HÀNG</span>
+    <h1 class="acc-page-head__title">Lịch Sử Đơn Hàng</h1>
+    <p class="acc-page-head__desc">Theo dõi hành trình chế tác, thanh tẩy và vận chuyển các đơn trang sức AMULES của
+      bạn.</p>
+  </div>
+
+  <div class="ord-kpi-box">
+    <div class="ord-kpi">
+      <small>TỔNG TÍCH LŨY</small>
+      <strong>{{ totalSpent | number }}đ</strong>
+    </div>
+    <div class="ord-kpi-sep"></div>
+    <div class="ord-kpi">
+      <small>ĐƠN HOÀN TẤT</small>
+      <b>{{ completedCount < 10 ? '0' + completedCount : completedCount }}</b>
+    </div>
+  </div>
+</div>
+
+<!-- Tabs trạng thái -->
+<div class="ord-tabs">
+  @for (t of tabs; track t.key) {
+  <button type="button" [class.active]="activeTab === t.key" (click)="activeTab = t.key">
+    {{ t.label }}
+    @if (t.dot) { <i class="tab-dot"></i> }
+  </button>
+  }
+</div>
+
+@if (orders.length === 0) {
+<div
+  style="background: #fff; border: 1px solid var(--pink-line); border-radius: 20px; padding: 48px 24px; text-align: center; margin-top: 16px;">
+  <div
+    style="width: 68px; height: 68px; margin: 0 auto 16px; border-radius: 50%; background: var(--plum-soft); color: var(--plum); display: grid; place-items: center;">
+    <app-icon name="receipt" [size]="32"></app-icon>
+  </div>
+  <h3 style="font-family: var(--font-serif); font-size: 20px; color: var(--plum); margin-bottom: 8px;">Bạn chưa có đơn
+    hàng nào</h3>
+  <p style="font-size: 13.5px; color: var(--muted); max-width: 480px; margin: 0 auto 24px; line-height: 1.6;">
+    Lịch sử đơn hàng, phiếu bảo hành và hành trình vận chuyển bảo vật phong thủy sẽ hiển thị chi tiết tại đây ngay sau
+    khi bạn đặt mua tác phẩm đầu tiên.
+  </p>
+  <a routerLink="/products" class="btn btn--primary" style="display: inline-flex; align-items: center; gap: 8px;">
+    <app-icon name="sparkle" [size]="15"></app-icon> Khám Phá Bảo Vật AMULES Ngay
+  </a>
+</div>
+} @else {
+<!-- Thanh tìm kiếm & lọc -->
+<div class="ord-toolbar">
+  <div class="ord-search">
+    <app-icon name="search" [size]="16"></app-icon>
+    <input type="text" [(ngModel)]="searchQuery" placeholder="Tìm kiếm theo Mã đơn hàng hoặc Tên sản phẩm...">
+  </div>
+  <select [(ngModel)]="timeRange" class="ord-select">
+    <option value="6m">Thời gian: 6 tháng gần nhất</option>
+    <option value="2025">Năm 2025</option>
+    <option value="all">Toàn bộ thời gian</option>
+  </select>
+  <button type="button" class="btn btn--outline btn--xs ord-filter-btn">
+    <app-icon name="sliders" [size]="14"></app-icon> Lọc
+  </button>
+</div>
+
+<!-- Danh sách đơn hàng -->
+@for (order of filteredOrders; track order.id) {
+<article class="acc-card ord-card">
+  <!-- Top meta -->
+  <div class="ord-card__top">
+    <div class="ord-meta-group">
+      <div>
+        <small>MÃ ĐƠN HÀNG</small>
+        <strong class="ord-code">{{ order.code }}</strong>
+      </div>
+      <div>
+        <small>THỜI ĐIỂM ĐẶT</small>
+        <span class="ord-date">{{ order.date }}</span>
+      </div>
+    </div>
+    <span class="ord-status-tag" [class.ord-status--ship]="order.statusKey === 'shipping'"
+      [class.ord-status--done]="order.statusKey === 'completed'">
+      <app-icon [name]="order.statusIcon" [size]="14"></app-icon>
+      {{ order.statusLabel }}
+    </span>
+  </div>
+
+  <!-- Thông báo đang giao hỏa tốc -->
+  @if (order.transitBanner) {
+  <div class="ord-transit-banner">
+    <div class="transit-glow"></div>
+    <div class="transit-content">
+      <div class="transit-pulse"></div>
+      <div class="transit-text">
+        <strong>{{ order.transitBanner.title }}</strong>
+        <small>{{ order.transitBanner.sub }}</small>
+      </div>
+    </div>
+    <span class="transit-badge">
+      <app-icon name="sparkle" [size]="12"></app-icon> {{ order.transitBanner.badge }}
+    </span>
+  </div>
+  }
+
+  <!-- Danh sách sản phẩm trong đơn -->
+  <div class="ord-items">
+    @for (item of order.items; track item.name) {
+    <div class="ord-item-row">
+      <img [src]="item.image" [alt]="item.name" class="ord-item-thumb">
+      <div class="ord-item-info">
+        <span class="item-tag">{{ item.elementTag }}</span>
+        <h4 class="item-name">{{ item.name }}</h4>
+        <small class="item-variant">{{ item.variant }}</small>
+        <div class="item-qty-row">
+          <span>Số lượng: <b>x{{ item.qty }}</b></span>
+        </div>
+      </div>
+      <div class="ord-item-price">
+        <b>{{ item.price | number }}đ</b>
+        @if (item.oldPrice) {
+        <del>{{ item.oldPrice | number }}đ</del>
+        }
+      </div>
+    </div>
+    }
+  </div>
+
+  <!-- Foot thanh toán & hành động -->
+  <div class="ord-card__foot">
+    <div class="ord-foot-summary">
+      <div class="pay-method">
+        <small>PHƯƠNG THỨC THANH TOÁN</small>
+        <span>{{ order.paymentMethod }}</span>
+      </div>
+      <div class="ord-total">
+        <small>TỔNG TIỀN THANH TOÁN</small>
+        <b class="ord-total-price">{{ order.total | number }}đ</b>
+      </div>
+    </div>
+
+    <div class="ord-foot-actions">
+      <span class="ship-note">
+        <app-icon name="truck" [size]="14"></app-icon> {{ order.shippingNote }}
+      </span>
+      <div class="ord-action-btns">
+        <a [routerLink]="['/account/orders', order.id]" class="btn btn--outline btn--sm">
+          Chi tiết đơn hàng
+        </a>
+        @if (order.canReview) {
+        <button type="button" class="btn btn--primary btn--sm">
+          <app-icon name="star" [size]="14"></app-icon> Đánh giá sản phẩm
+        </button>
+        }
+      </div>
+    </div>
+  </div>
+</article>
+}
+
+<!-- Phân trang -->
+<div class="ord-pagination">
+  <span>Hiển thị <b>{{ filteredOrders.length }}</b> trên tổng số <b>{{ orders.length }}</b> đơn hàng</span>
+  <div class="ord-page-btns">
+    <button type="button" disabled><app-icon name="chevron-left" [size]="13"></app-icon></button>
+    <button type="button" class="active">1</button>
+    <button type="button" disabled><app-icon name="chevron-right" [size]="13"></app-icon></button>
+    <small>Trang 1 / 1</small>
+  </div>
+</div>
+}
+
+<!-- Banner bảo chứng năng lượng -->
+<div class="acc-card acc-card--tint guarantee-bar">
+  <span class="guarantee-bar__ico"><app-icon name="check-circle" [size]="18"></app-icon></span>
+  <div class="guarantee-bar__body">
+    <strong>Độc quyền bảo chứng năng lượng AMULES</strong>
+    <p>100% tinh thể đá tự nhiên nguyên bản • Bảo hành xâu lại dây trọn đời • Hỗ trợ thanh tẩy năng lượng miễn phí tại
+      showroom</p>
+  </div>
+  <a routerLink="/about" class="btn btn--outline btn--xs">Chính sách bảo hành</a>
+</div>

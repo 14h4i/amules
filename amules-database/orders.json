@@ -1,0 +1,325 @@
+[
+  {
+    "_id": {
+      "$oid": "6afd00cab051d516e9b9baaf"
+    },
+    "orderCode": "AMU-20261118-0006",
+    "trackingCode": "GHN-AMU-356932",
+    "carrier": "GHN Express",
+    "customer": {
+      "fullName": "Trần Phương Anh",
+      "phone": "0345480274",
+      "email": "anhptk24406h@st.uel.edu.vn",
+      "tier": "Hội viên Hoàng Gia",
+      "tierNote": "Khách mua lần đầu"
+    },
+    "shippingAddress": {
+      "street": "THPT Vũng Tàu",
+      "ward": "Phường Tràng Tiền",
+      "district": "Quận Hoàn Kiếm",
+      "province": "Hà Nội",
+      "note": "Giao giờ hành chính, bọc hộp nhung cao cấp"
+    },
+    "items": [
+      {
+        "name": "Dây Chuyền Mặt Trăng Khuyết Moonstone",
+        "categoryTag": "MOONSTONE TỰ NHIÊN • Bạc Ý S925",
+        "specs": "Chế tác chuẩn ni tay khách hàng",
+        "image": "images/lac_tay_bien.png",
+        "price": 650000,
+        "quantity": 1
+      }
+    ],
+    "firstItemName": "Dây Chuyền Mặt Trăng Khuyết Moonstone",
+    "itemsCountLabel": "1 tác phẩm",
+    "subtotal": 650000,
+    "shippingFee": 0,
+    "discount": 0,
+    "voucherCode": null,
+    "totalAmount": 650000,
+    "paymentMethod": "COD",
+    "paymentStatus": "pending_cod",
+    "paymentStatusLabel": "Chờ thu hộ COD",
+    "status": "pending",
+    "orderStatus": "Chờ xác nhận",
+    "hasReturnRequest": false,
+    "returnReason": null,
+    "internalNotes": [
+      {
+        "author": "Admin AMULES (Backoffice)",
+        "time": "08:35:06 18/11/2026",
+        "content": "Tạo đơn hàng thủ công thành công từ hệ thống quản trị."
+      }
+    ],
+    "createdAt": {
+      "$date": "2026-11-18T01:35:06.539Z"
+    },
+    "updatedAt": {
+      "$date": "2026-11-18T01:35:06.539Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "6afcf5ecb051d516e9b9baae"
+    },
+    "orderCode": "AMU-20261118-8420",
+    "trackingCode": "GHN-AMU-8420",
+    "carrier": "Giao Hàng Nhanh (GHN Express)",
+    "userId": {
+      "$oid": "6afcc51cff8e99cc477cf59a"
+    },
+    "customer": {
+      "fullName": "An Nguyễn Thị Thu",
+      "phone": "0878188628",
+      "email": "annttk24406h1@st.uel.edu.vn",
+      "tier": "GEMSTONE VIP",
+      "tierNote": "Gemstone VIP • Mua Lần 4"
+    },
+    "shippingAddress": {
+      "province": "Hồ Chí Minh",
+      "district": "Quận 1",
+      "ward": "Phường Bến Nghé",
+      "street": "123, đường 123",
+      "note": ""
+    },
+    "items": [
+      {
+        "productId": "7caa02962f99fe72f8cfb0d6",
+        "name": "Lắc tay Hơi Thở Biển Xanh",
+        "categoryTag": "AQUAMARINE (NGỌC HẢI LAM) • Bạc Ý S925",
+        "specs": "Tiêu chuẩn nghệ nhân AMULES",
+        "image": "images/lac_tay_bien.png",
+        "price": 590000,
+        "quantity": 2
+      }
+    ],
+    "firstItemName": "Lắc tay Hơi Thở Biển Xanh",
+    "itemsCountLabel": "1 tác phẩm",
+    "shippingMethod": "EXPRESS",
+    "subtotal": 1180000,
+    "discount": 0,
+    "shippingFee": 0,
+    "totalAmount": 1180000,
+    "paymentMethod": "VNPAY",
+    "paymentStatus": "paid",
+    "paymentStatusLabel": "Đã thanh toán",
+    "status": "pending",
+    "orderStatus": "Đã thanh toán (Chờ giao hàng)",
+    "hasReturnRequest": false,
+    "returnReason": null,
+    "internalNotes": [
+      {
+        "author": "Hệ thống AMULES",
+        "time": "07:48:43 18/11/2026",
+        "content": "Khách hàng đặt đơn trực tuyến qua phương thức VNPAY."
+      }
+    ],
+    "createdAt": {
+      "$date": "2026-11-18T00:48:44.553Z"
+    },
+    "updatedAt": {
+      "$date": "2026-11-18T00:48:44.553Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "6afcbefaff8e99cc477cf599"
+    },
+    "orderCode": "AMU-858927",
+    "trackingCode": "GHN-AMU-858927",
+    "carrier": "Giao Hàng Nhanh (GHN Express)",
+    "userId": null,
+    "customer": {
+      "fullName": "Admin An",
+      "phone": "0878188628",
+      "email": "admin.an@amules.com"
+    },
+    "items": [
+      {
+        "productId": "420903a9c3bacabc1ea790a7",
+        "name": "Dây chuyền Bạc Nữ Mix Đá Merlia",
+        "price": 650000,
+        "originalPrice": 650000,
+        "image": "images/dch_mix_da.png",
+        "quantity": 2,
+        "stone": "Moonstone (Đá Mặt Trăng)",
+        "size": "45 cm"
+      }
+    ],
+    "shippingAddress": {
+      "province": "Hồ Chí Minh",
+      "district": "Quận 1",
+      "ward": "Phường Bến Nghé",
+      "street": "123, đường 123",
+      "note": ""
+    },
+    "shippingMethod": "STANDARD",
+    "paymentMethod": "VNPAY",
+    "paymentStatus": "paid",
+    "status": "pending",
+    "orderStatus": "Đã thanh toán (Chờ giao hàng)",
+    "subtotal": 1300000,
+    "discount": 0,
+    "shippingFee": 0,
+    "totalAmount": 1300000,
+    "createdAt": {
+      "$date": "2026-11-17T20:54:18.927Z"
+    },
+    "updatedAt": {
+      "$date": "2026-11-17T20:54:18.927Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "6afcb1d2c9079d24c9fe7a14"
+    },
+    "orderCode": "AMU-490113",
+    "trackingCode": "GHN-AMU-490113",
+    "carrier": "Giao Hàng Nhanh (GHN Express)",
+    "userId": null,
+    "customer": {
+      "fullName": "Admin An",
+      "phone": "0878188628",
+      "email": "admin.an@amules.com"
+    },
+    "items": [
+      {
+        "productId": "wish_1",
+        "name": "Vòng tay Nguyệt Quang Moonstone...",
+        "price": 680000,
+        "originalPrice": 680000,
+        "image": "images/lac_tay_bien.png",
+        "quantity": 1,
+        "stone": "Moonstone Ánh Lam",
+        "size": "15 cm",
+        "addedAt": "2026-11-17T19:56:56.021Z"
+      }
+    ],
+    "shippingAddress": {
+      "province": "Hồ Chí Minh",
+      "district": "Quận 1",
+      "ward": "Phường Bến Nghé",
+      "street": "123, đường 123",
+      "note": ""
+    },
+    "shippingMethod": "STANDARD",
+    "paymentMethod": "COD",
+    "paymentStatus": "unpaid",
+    "status": "cancelled",
+    "orderStatus": "Đã hủy",
+    "subtotal": 680000,
+    "discount": 0,
+    "shippingFee": 0,
+    "totalAmount": 680000,
+    "createdAt": {
+      "$date": "2026-11-17T19:58:10.114Z"
+    },
+    "updatedAt": {
+      "$date": "2026-11-17T21:47:36.268Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "2d387ab98437e5f528a87b03"
+    },
+    "orderCode": "AMU-20261114-0002",
+    "userId": null,
+    "items": [
+      {
+        "productId": "7caa02962f99fe72f8cfb0d6",
+        "productName": "Lắc tay Hơi Thở Biển Xanh",
+        "image": "https://i.pinimg.com/736x/d4/3c/3d/d43c3d69296b0badad1636033dd34e9c.jpg",
+        "selectedColor": "Xanh lam biển",
+        "selectedSize": "15 cm",
+        "quantity": 1,
+        "unitPrice": 590000,
+        "lineTotal": 590000
+      }
+    ],
+    "shippingAddress": {
+      "fullName": "Lê Minh Châu",
+      "phone": "0903111222",
+      "province": "TP. Hồ Chí Minh",
+      "district": "Quận 3",
+      "ward": "Phường Võ Thị Sáu",
+      "street": "12 Lê Quý Đôn"
+    },
+    "subtotal": 590000,
+    "discountAmount": 0,
+    "pointsDiscount": 0,
+    "shippingFee": 35000,
+    "totalAmount": 625000,
+    "voucherCode": null,
+    "pointsUsed": 0,
+    "pointsEarned": 0,
+    "giftWrap": false,
+    "paymentMethod": "VNPay",
+    "paymentStatus": "Đã thanh toán",
+    "orderStatus": "Đang giao",
+    "note": null,
+    "createdAt": {
+      "$date": "2026-11-14T00:00:00.000Z"
+    },
+    "updatedAt": {
+      "$date": "2026-11-15T00:00:00.000Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "f1584b995a4770986ad75bb8"
+    },
+    "orderCode": "AMU-20261105-0001",
+    "userId": {
+      "$oid": "e4774cdda0793f86414e8b91"
+    },
+    "items": [
+      {
+        "productId": "cef158eeb3534491b1bb60b8",
+        "productName": "Dây Chuyền Mặt Trăng Khuyết Moonstone",
+        "image": "https://i.pinimg.com/736x/e6/a9/5d/e6a95dbb226be002601330c99458c286.jpg",
+        "selectedColor": "Trắng ánh xanh",
+        "selectedSize": "45 cm",
+        "quantity": 1,
+        "unitPrice": 650000,
+        "lineTotal": 650000
+      },
+      {
+        "productId": "420903a9c3bacabc1ea790a7",
+        "productName": "Dây chuyền Bạc Nữ Mix Đá Merlia",
+        "image": "https://i.pinimg.com/1200x/5e/19/ca/5e19cae249717d1321564c81f14a1732.jpg",
+        "selectedColor": "Trắng ánh xanh",
+        "selectedSize": "45 cm",
+        "quantity": 1,
+        "unitPrice": 650000,
+        "lineTotal": 650000
+      }
+    ],
+    "shippingAddress": {
+      "fullName": "Nguyễn Hoàng Lan Anh",
+      "phone": "0982456789",
+      "province": "Hà Nội",
+      "district": "Quận Hoàn Kiếm",
+      "ward": "Phường Tràng Tiền",
+      "street": "Số 18 Tràng Tiền Plaza, P. Tràng Tiền"
+    },
+    "subtotal": 1300000,
+    "discountAmount": 100000,
+    "pointsDiscount": 0,
+    "shippingFee": 0,
+    "totalAmount": 1200000,
+    "voucherCode": "AMULESLOVE",
+    "pointsUsed": 0,
+    "pointsEarned": 12000,
+    "giftWrap": true,
+    "paymentMethod": "COD",
+    "paymentStatus": "Đã thanh toán",
+    "orderStatus": "Đã giao",
+    "note": "Giao giờ hành chính",
+    "createdAt": {
+      "$date": "2026-11-05T00:00:00.000Z"
+    },
+    "updatedAt": {
+      "$date": "2026-11-09T00:00:00.000Z"
+    }
+  }
+]

@@ -1,0 +1,20 @@
+[
+  {
+    "_id": {
+      "$oid": "19348ea4e6ed852a7c76a91a"
+    },
+    "userId": {
+      "$oid": "e4774cdda0793f86414e8b91"
+    },
+    "orderId": {
+      "$oid": "f1584b995a4770986ad75bb8"
+    },
+    "type": "earn",
+    "points": 12000,
+    "balanceAfter": 12000,
+    "description": "Tích điểm từ đơn AMU-20261105-0001 (1 AMUPoint = 1 VNĐ)",
+    "createdAt": {
+      "$date": "2026-11-09T00:00:00.000Z"
+    }
+  }
+]

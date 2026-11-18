@@ -1,0 +1,41 @@
+<div class="about-page container">
+  <nav class="crumb-nav">
+    <a routerLink="/">Trang chủ</a> <span>/</span> <b>Về thương hiệu AMULES</b>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="about-hero">
+    <span class="eyebrow"><app-icon name="sparkle" [size]="14"></app-icon> CELESTIAL TALISMAN &amp; GEMSTONES</span>
+    <h1 class="about-title serif">“Một nét chạm, một câu chuyện riêng.”</h1>
+    <p class="about-sub">Nơi tinh hoa đá quý tự nhiên giao hòa cùng năng lượng thiên thể. Mỗi tác phẩm trang sức là một lá bùa hộ mệnh thiêng liêng đồng hành cùng hành trình bình an của bạn.</p>
+  </section>
+
+  <!-- Story Grid -->
+  <div class="story-grid">
+    <div class="story-img">
+      <img src="images/banner_đn.jpg" alt="Câu chuyện AMULES">
+    </div>
+    <div class="story-text">
+      <span class="story-tag">SỨ MỆNH &amp; TRIẾT LÝ</span>
+      <h2 class="serif">Đánh Thức Vẻ Đẹp Nội Tại &amp; Nguồn Năng Lượng Thiêng Liêng</h2>
+      <p>AMULES được sinh ra từ niềm đam mê sâu sắc với vẻ đẹp nguyên bản của khoáng vật tự nhiên và tri thức chiêm tinh học cổ xưa. Chúng tôi tin rằng, mỗi viên đá qua hàng triệu năm kiến tạo dưới lòng đất mẹ đều mang trong mình một tần số rung động thuần khiết.</p>
+      <p>Khi bạn chạm tay vào một tạo tác của AMULES, đó không đơn thuần là một món trang sức làm đẹp, mà là sự kết nối tâm thức sâu sắc, nhắc nhở bạn về sự tĩnh tại, lòng bao dung và sức mạnh nội tại luôn hiện hữu.</p>
+    </div>
+  </div>
+
+  <!-- Core Values -->
+  <section class="values-sec">
+    <h2 class="serif sec-center-title">4 Cam Kết Bất Biến Từ AMULES</h2>
+    <div class="values-grid">
+      @for (v of values; track v.title) {
+        <div class="val-card">
+          <div class="val-ico">
+            <app-icon [name]="v.icon" [size]="22"></app-icon>
+          </div>
+          <h3>{{ v.title }}</h3>
+          <p>{{ v.desc }}</p>
+        </div>
+      }
+    </div>
+  </section>
+</div>

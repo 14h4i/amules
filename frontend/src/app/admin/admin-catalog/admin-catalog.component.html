@@ -1,0 +1,476 @@
+<div class="catalog-page">
+  <!-- Eyebrow & Head -->
+  <div class="page-eyebrow">
+    CƠ SỞ DỮ LIỆU CỐT LÕI • PHÂN LOẠI CAO CẤP
+  </div>
+
+  <div class="page-head">
+    <div class="head-titles">
+      <div class="head-star-icon">
+        <app-icon name="sparkle" [size]="20"></app-icon>
+      </div>
+      <div>
+        <h1 class="page-title serif">Quản Lý Dữ Liệu Nền &amp; Hệ Thống Phong Thủy</h1>
+        <p class="page-sub">Quản lý danh mục sản phẩm và hệ thống dữ liệu phong thủy của AMULES với độ chính xác và tính
+          thẩm mỹ cao cấp.</p>
+      </div>
+    </div>
+    <div class="head-actions">
+      <button type="button" class="btn-action-outline">
+        <app-icon name="sliders" [size]="14"></app-icon> Tùy chỉnh cột
+      </button>
+      <button type="button" class="btn-action-primary" (click)="openEditModal()">
+        <app-icon name="plus" [size]="14"></app-icon>
+        @if (activeTab === 'gemstones') { Thêm Loại Đá Mới }
+        @else if (activeTab === 'collections') { Thêm Bộ Sưu Tập Mới }
+        @else { Thêm Danh Mục Mới }
+      </button>
+    </div>
+  </div>
+
+  @if (toastMsg) {
+  <div class="admin-toast-banner">
+    <app-icon name="check-circle" [size]="16"></app-icon>
+    <span>{{ toastMsg }}</span>
+  </div>
+  }
+
+  <!-- 4 Metric Cards (Faithful to Mockup Tab Loại Đá) -->
+  @if (activeTab === 'gemstones') {
+  <div class="gemstone-kpi-grid">
+    <div class="kpi-mini-card">
+      <div class="mini-card-text">
+        <small>TỔNG CHỦNG LOẠI ĐÁ</small>
+        <strong>{{ formatBadgeCount(gemstones.length) }}</strong>
+      </div>
+      <div class="mini-card-icon ico-gem"><app-icon name="gem" [size]="16"></app-icon></div>
+    </div>
+    <div class="kpi-mini-card">
+      <div class="mini-card-text">
+        <small>SẢN PHẨM ĐÃ LIÊN KẾT</small>
+        <strong>{{ totalLinkedProductsInTab }}</strong>
+      </div>
+      <div class="mini-card-icon ico-tag"><app-icon name="ticket" [size]="16"></app-icon></div>
+    </div>
+    <div class="kpi-mini-card">
+      <div class="mini-card-text">
+        <small>ĐỘ CỨNG MOHS TB</small>
+        <strong>{{ averageMohs }} M</strong>
+      </div>
+      <div class="mini-card-icon ico-shield"><app-icon name="shield" [size]="16"></app-icon></div>
+    </div>
+    <div class="kpi-mini-card">
+      <div class="mini-card-text">
+        <small>TRẠNG THÁI KÍCH HOẠT</small>
+        <strong>{{ activeRate }}%</strong>
+      </div>
+      <div class="mini-card-icon ico-check"><app-icon name="check-circle" [size]="16"></app-icon></div>
+    </div>
+  </div>
+  }
+
+  <!-- 5 Tabs (Faithful to Mockup) -->
+  <div class="catalog-tabs-bar">
+    <button type="button" class="catalog-tab-btn" [class.active]="activeTab === 'categories'"
+      (click)="activeTab = 'categories'">
+      <app-icon name="grid" [size]="14"></app-icon>
+      <span>Danh mục sản phẩm</span>
+      <span class="tab-count-badge">{{ formatBadgeCount(categories.length) }}</span>
+    </button>
+    <button type="button" class="catalog-tab-btn" [class.active]="activeTab === 'gemstones'"
+      (click)="activeTab = 'gemstones'">
+      <app-icon name="gem" [size]="14"></app-icon>
+      <span>2. Loại đá tự nhiên</span>
+      <span class="tab-count-badge">{{ formatBadgeCount(gemstones.length) }}</span>
+    </button>
+    <button type="button" class="catalog-tab-btn" [class.active]="activeTab === 'elements'"
+      (click)="activeTab = 'elements'">
+      <app-icon name="sparkle" [size]="14"></app-icon>
+      <span>3. Bản mệnh Ngũ hành</span>
+      <span class="tab-count-badge">{{ formatBadgeCount(elementsList.length) }}</span>
+    </button>
+    <button type="button" class="catalog-tab-btn" [class.active]="activeTab === 'zodiac'"
+      (click)="activeTab = 'zodiac'">
+      <app-icon name="moon" [size]="14"></app-icon>
+      <span>4. 12 Cung hoàng đạo</span>
+      <span class="tab-count-badge">{{ formatBadgeCount(zodiacSigns.length) }}</span>
+    </button>
+    <button type="button" class="catalog-tab-btn" [class.active]="activeTab === 'collections'"
+      (click)="activeTab = 'collections'">
+      <app-icon name="layers" [size]="14"></app-icon>
+      <span>5. Bộ sưu tập chủ đề</span>
+      <span class="tab-count-badge">{{ formatBadgeCount(collections.length) }}</span>
+    </button>
+  </div>
+
+  <!-- Filter & Search Toolbar -->
+  <div class="catalog-toolbar">
+    <div class="search-field">
+      <app-icon name="search" [size]="15"></app-icon>
+      <input type="text" [(ngModel)]="searchQuery" placeholder="Tìm kiếm tên hoặc mã danh mục, màu sắc, đặc tính...">
+    </div>
+
+    <div class="filter-dropdowns">
+      <div class="select-pill">
+        <select [(ngModel)]="statusFilter">
+          <option value="all">Tất cả trạng thái ({{ currentTabItems.length }})</option>
+          <option value="active">Đang kích hoạt ({{ activeCountInTab }})</option>
+          <option value="hidden">Tạm ẩn ({{ hiddenCountInTab }})</option>
+        </select>
+      </div>
+
+      <div class="select-pill">
+        <select [(ngModel)]="sortBy">
+          <option value="products_desc">Nhiều sản phẩm nhất</option>
+          <option value="products_asc">Ít sản phẩm nhất</option>
+          <option value="name_asc">Tên A-Z</option>
+          <option value="name_desc">Tên Z-A</option>
+        </select>
+      </div>
+
+      <button type="button" class="btn-refresh-pill" (click)="loadBackendData()" title="Làm mới">
+        <app-icon name="refresh" [size]="14"></app-icon>
+      </button>
+    </div>
+  </div>
+
+  <!-- Data Table (Faithful to Mockup Tab Danh Mục / Loại Đá) -->
+  <div class="catalog-table-card">
+    <table class="catalog-table">
+      <thead>
+        @if (activeTab === 'gemstones') {
+        <tr>
+          <th>ĐÁ TỰ NHIÊN</th>
+          <th>TÊN ĐÁ &amp; TÊN KHOA HỌC</th>
+          <th>MÀU SẮC ĐẶC TRƯNG</th>
+          <th>ĐẶC ĐIỂM &amp; ĐỘ CỨNG</th>
+          <th>Ý NGHĨA PHONG THỦY &amp; NĂNG LƯỢNG</th>
+          <th>SP LIÊN KẾT</th>
+          <th>TRẠNG THÁI</th>
+          <th style="text-align: right;">THAO TÁC</th>
+        </tr>
+        } @else {
+        <tr>
+          <th>HÌNH ẢNH</th>
+          <th>TÊN DANH MỤC &amp; MÃ</th>
+          <th>MÔ TẢ TÁC PHẨM</th>
+          <th>LIÊN KẾT SẢN PHẨM</th>
+          <th>TRẠNG THÁI</th>
+          <th style="text-align: right;">THAO TÁC</th>
+        </tr>
+        }
+      </thead>
+      <tbody>
+        @for (item of currentList; track item.name) {
+        @if (activeTab === 'gemstones') {
+        <tr>
+          <td>
+            <img [src]="item.image || 'images/lac_tay_bien.png'"
+              (error)="$any($event.target).src = 'images/lac_tay_bien.png'" [alt]="item.name" class="cat-thumb">
+          </td>
+          <td>
+            <div class="cat-title-cell">
+              <strong>{{ item.name }}</strong>
+              <span class="cat-scientific">{{ item.scientificName || 'Natural Gemstone' }}</span>
+            </div>
+          </td>
+          <td>
+            <div class="color-spec-cell">
+              <span class="color-dot" [style.background]="item.colorHex || '#80235C'"></span>
+              <span>{{ item.color || 'Trắng lam' }}</span>
+            </div>
+          </td>
+          <td>
+            <div class="mohs-spec-cell">
+              <span class="mohs-badge">{{ item.mohs || 'Mohs 7.0' }}</span>
+              <small>{{ item.description || 'Độ trong cao' }}</small>
+            </div>
+          </td>
+          <td>
+            <p class="meaning-text">{{ item.metaphysicalMeaning || 'Thanh lọc tâm trí, bình an giấc ngủ' }}</p>
+          </td>
+          <td>
+            <span class="linked-prod-pill">{{ item.productCount !== undefined ? item.productCount : 0 }} SP</span>
+          </td>
+          <td>
+            <label class="switch-toggle">
+              <input type="checkbox" [checked]="item.isVisible !== false" (change)="toggleVisibility(item)">
+              <span class="slider"></span>
+            </label>
+          </td>
+          <td>
+            <div class="table-actions-right">
+              <button type="button" class="btn-icon-action" (click)="openEditModal(item)" title="Chỉnh sửa">
+                <app-icon name="edit" [size]="14"></app-icon>
+              </button>
+              <button type="button" class="btn-icon-action btn-del" (click)="deleteItem(item)" title="Xóa">
+                <app-icon name="trash" [size]="14"></app-icon>
+              </button>
+            </div>
+          </td>
+        </tr>
+        } @else {
+        <!-- Standard Category / Element / Collection Row -->
+        <tr>
+          <td>
+            @if (item.image) {
+            <img [src]="item.image" (error)="$any($event.target).src = 'images/lac_tay_bien.png'" [alt]="item.name"
+              class="cat-thumb">
+            } @else {
+            <div class="cat-thumb-box">
+              <app-icon name="gem" [size]="18"></app-icon>
+            </div>
+            }
+          </td>
+          <td>
+            <div class="cat-title-cell">
+              <strong>{{ item.name }}</strong>
+              <div class="code-slug-row">
+                @if (item.code) { <span class="badge-code">{{ item.code }}</span> }
+                @if (item.slug) { <span class="slug-text">Slug: {{ item.slug }}</span> }
+                @if (item.dateRange) { <span class="slug-text">{{ item.dateRange }}</span> }
+              </div>
+            </div>
+          </td>
+          <td>
+            <p class="desc-text">{{ item.description || 'Chưa có mô tả chi tiết' }}</p>
+          </td>
+          <td>
+            <span class="linked-prod-pill">
+              <app-icon name="package" [size]="12"></app-icon>
+              <span>{{ item.productCount !== undefined ? item.productCount : 0 }} sản phẩm</span>
+            </span>
+          </td>
+          <td>
+            <div class="toggle-status-cell">
+              <label class="switch-toggle">
+                <input type="checkbox" [checked]="item.isVisible !== false" (change)="toggleVisibility(item)">
+                <span class="slider"></span>
+              </label>
+              <span class="status-label-active">{{ item.isVisible !== false ? 'Hoạt động' : 'Tạm ẩn' }}</span>
+            </div>
+          </td>
+          <td>
+            <div class="table-actions-right">
+              <button type="button" class="btn-icon-action" (click)="openEditModal(item)" title="Chỉnh sửa">
+                <app-icon name="edit" [size]="14"></app-icon>
+              </button>
+              <button type="button" class="btn-icon-action btn-del" (click)="deleteItem(item)" title="Xóa">
+                <app-icon name="trash" [size]="14"></app-icon>
+              </button>
+            </div>
+          </td>
+        </tr>
+        }
+        }
+      </tbody>
+    </table>
+
+    <div class="table-foot-stats">
+      <span>Hiển thị <strong>{{ currentList.length }}</strong> trên <strong>{{ currentTabItems.length }}</strong> mục
+        nền tảng • Tổng cộng {{ totalLinkedProductsInTab }} trang sức đang liên kết</span>
+      <div class="foot-pagination">
+        <button type="button" class="btn-pag-nav">&lsaquo;</button>
+        <button type="button" class="btn-pag-nav active">1</button>
+        <button type="button" class="btn-pag-nav">&rsaquo;</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3 Summary Insight Cards at Bottom (Faithful to Mockup) -->
+  <div class="insight-cards-grid">
+    <div class="insight-card">
+      <div class="insight-head">
+        <small>PHÂN PHỐI TÁC PHẨM</small>
+        <app-icon name="target" [size]="14"></app-icon>
+      </div>
+      <div class="insight-donut-row">
+        <div class="donut-chart-circle">{{ topCategoryPercentage }}%</div>
+        <div class="donut-desc">
+          <strong>{{ topCategoryName }} chủ đạo</strong>
+          <p>Chiếm {{ topCategoryPercentage }}% tổng sản phẩm catalog</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="insight-card">
+      <div class="insight-head">
+        <small>ĐỒNG BỘ BẢN MỆNH</small>
+        <app-icon name="refresh" [size]="14"></app-icon>
+      </div>
+      <div class="insight-element-content">
+        <div class="element-title-live">
+          <span class="live-dot-plum">●</span>
+          <strong>Ngũ Hành Tương Sinh</strong>
+        </div>
+        <p>Toàn bộ các danh mục đã được gán đầy đủ thuộc tính Kim - Mộc - Thủy - Hỏa - Thổ phục vụ bộ lọc tìm kiếm.</p>
+      </div>
+    </div>
+
+    <div class="insight-card">
+      <div class="insight-head">
+        <small>MẸO BIÊN TẬP</small>
+        <app-icon name="sparkle" [size]="14"></app-icon>
+      </div>
+      <div class="insight-tip-content">
+        <strong>Thứ tự hiển thị ngoài Boutique</strong>
+        <p>Danh mục có thể kéo thả để sắp xếp lại vị trí trên thanh menu chính của khách hàng một cách trực quan.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ======================================================== -->
+<!-- MODAL CHỈNH SỬA DỮ LIỆU NỀN (Faithful to Sửa Dữ Liệu Nền) -->
+<!-- ======================================================== -->
+@if (showEditModal) {
+<div class="modal-overlay" (click)="closeEditModal()">
+  <div class="edit-catalog-card" (click)="$event.stopPropagation()">
+    <div class="edit-card-head">
+      <div class="head-icon-box">
+        <app-icon name="sparkle" [size]="18"></app-icon>
+      </div>
+      <div class="head-info">
+        <div class="title-with-badge">
+          <h2>Chỉnh Sửa Thông Tin Loại Đá Quý</h2>
+          <span class="badge-gem-id">ID: {{ editingItem.code || 'GEM-084' }}</span>
+        </div>
+        <p>Cập nhật đặc tính thạch học và thuật toán gợi ý phong thủy Mystic Match</p>
+      </div>
+      <button type="button" class="btn-close-modal" (click)="closeEditModal()">✕</button>
+    </div>
+
+    <div class="edit-card-body">
+      <div class="form-two-cols">
+        <div class="form-group">
+          <label>Tên loại đá quý *</label>
+          <div class="input-with-icon">
+            <app-icon name="gem" [size]="14"></app-icon>
+            <input type="text" [(ngModel)]="editingItem.name" placeholder="Moonstone (Đá Mặt Trăng)">
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Tên khoa học / Nhóm khoáng vật</label>
+          <div class="input-with-icon">
+            <app-icon name="layers" [size]="14"></app-icon>
+            <input type="text" [(ngModel)]="editingItem.scientificName" placeholder="Orthoclase / Feldspar Group">
+          </div>
+        </div>
+      </div>
+
+      <!-- Image & Color Representative -->
+      <div class="image-color-row">
+        <div class="img-preview-box">
+          <img [src]="editingItem.image || 'images/lac_tay_bien.png'" alt="Đá quý" class="preview-stone-img">
+          <div class="img-upload-prompt">
+            <button type="button" class="btn-change-photo">
+              <app-icon name="camera" [size]="13"></app-icon> Đổi ảnh đại diện
+            </button>
+            <small>Khuyến nghị tỉ lệ 1:1, PNG/JPG &lt; 2MB</small>
+          </div>
+        </div>
+
+        <div class="color-spec-box">
+          <label>Màu sắc đại diện <span>(Trắng ánh lam)</span></label>
+          <div class="color-picker-input">
+            <input type="color" [(ngModel)]="editingItem.colorHex" class="color-picker-native">
+            <div>
+              <strong>{{ editingItem.colorHex || '#E0F2FE' }}</strong>
+              <small>Adularescence Hue</small>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Mohs & Crystal System -->
+      <div class="form-two-cols">
+        <div class="form-group">
+          <div class="label-with-guide">
+            <label>Độ cứng Mohs</label>
+            <small>Thang đo 1 - 10</small>
+          </div>
+          <select [(ngModel)]="editingItem.mohs" class="select-field">
+            <option value="6.0 - 6.5 Mohs (Feldspar)">6.0 - 6.5 Mohs (Feldspar)</option>
+            <option value="7.0 Mohs (Quartz)">7.0 Mohs (Quartz)</option>
+            <option value="7.5 - 8.0 Mohs (Beryl)">7.5 - 8.0 Mohs (Beryl)</option>
+            <option value="9.0 Mohs (Corundum)">9.0 Mohs (Corundum)</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <div class="label-with-guide">
+            <label>Hệ tinh thể</label>
+            <small>Cấu trúc phân tử</small>
+          </div>
+          <select [(ngModel)]="editingItem.crystalSystem" class="select-field">
+            <option value="Monoclinic (Một nghiêng)">Monoclinic (Một nghiêng)</option>
+            <option value="Hexagonal (Lục phương)">Hexagonal (Lục phương)</option>
+            <option value="Trigonal (Tam phương)">Trigonal (Tam phương)</option>
+            <option value="Isometric (Đẳng lập)">Isometric (Đẳng lập)</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Optical feature -->
+      <div class="form-group">
+        <div class="label-with-guide">
+          <label>Đặc điểm nhận diện quang học</label>
+          <small>Hiệu ứng ánh sáng &amp; bao thể</small>
+        </div>
+        <textarea rows="2" [(ngModel)]="editingItem.opticalFeature" class="textarea-field"
+          placeholder="Có hiện tượng quang học Adularescence lung linh màu lam mờ ảo như ánh trăng tròn..."></textarea>
+      </div>
+
+      <!-- Metaphysical meaning -->
+      <div class="form-group">
+        <div class="label-with-guide">
+          <label>Ý nghĩa phong thủy &amp; Năng lượng đá</label>
+          <small>Dữ liệu hiển thị thẻ Talisman</small>
+        </div>
+        <textarea rows="2" [(ngModel)]="editingItem.metaphysicalMeaning" class="textarea-field"
+          placeholder="Talisman bảo hộ du hành ban đêm, xoa dịu cảm xúc lo âu, cân bằng năng lượng âm dương..."></textarea>
+      </div>
+
+      <!-- Element compatibility & Mystic Match Toggle -->
+      <div class="element-mystic-row">
+        <div class="element-chips-section">
+          <label>Bản mệnh tương hợp liên kết <span>(Ngũ hành)</span></label>
+          <div class="chips-group">
+            @for (elem of availableElements; track elem) {
+            <button type="button" class="elem-chip-btn" [class.active]="isElementActive(elem)"
+              (click)="toggleElementChip(elem)">
+              <span>{{ elem }}</span>
+              @if (isElementActive(elem)) { <app-icon name="check" [size]="12"></app-icon> }
+            </button>
+            }
+          </div>
+        </div>
+
+        <div class="mystic-match-toggle-box">
+          <div class="mystic-toggle-text">
+            <div class="mystic-title">
+              <app-icon name="target" [size]="14"></app-icon>
+              <strong>Mystic Match</strong>
+            </div>
+            <small>{{ editingItem.mysticMatchActive ? 'Đang bật (Active)' : 'Đang tắt' }}</small>
+          </div>
+          <label class="switch-toggle">
+            <input type="checkbox" [(ngModel)]="editingItem.mysticMatchActive">
+            <span class="slider"></span>
+          </label>
+        </div>
+      </div>
+    </div>
+
+    <div class="edit-card-foot">
+      <span class="last-update-text">🕒 Lần cập nhật cuối: 16/11/2026 bởi <strong>Thu An</strong></span>
+      <div class="foot-action-btns">
+        <button type="button" class="btn-cancel-modal" (click)="closeEditModal()">Hủy bỏ</button>
+        <button type="button" class="btn-save-modal" (click)="saveEditItem()">
+          <app-icon name="check" [size]="14"></app-icon> Lưu thay đổi
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+}

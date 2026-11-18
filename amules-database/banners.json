@@ -1,0 +1,36 @@
+[
+  {
+    "_id": {
+      "$oid": "edbab45572c72a5d9440b40b"
+    },
+    "title": "Một nét chạm, một câu chuyện riêng",
+    "image": "https://drive.google.com/file/d/1nHyW8e0uG7Dt7VI_6--9hDFWIAOZ8YjP/view?usp=drive_link",
+    "linkUrl": "/bo-suu-tap",
+    "position": "home_hero",
+    "displayOrder": 1,
+    "startDate": {
+      "$date": "2026-11-01T00:00:00.000Z"
+    },
+    "endDate": {
+      "$date": "2027-01-31T00:00:00.000Z"
+    },
+    "status": "active"
+  },
+  {
+    "_id": {
+      "$oid": "fbfba2e45c2045dc5cab22a5"
+    },
+    "title": "Miễn phí vận chuyển đơn từ 500.000đ",
+    "image": "https://drive.google.com/file/d/1FdpGrfiK_YCuJK_TvDko9BSb3LcZyJkv/view?usp=drive_link",
+    "linkUrl": "/chinh-sach-van-chuyen",
+    "position": "home_promo",
+    "displayOrder": 1,
+    "startDate": {
+      "$date": "2026-11-01T00:00:00.000Z"
+    },
+    "endDate": {
+      "$date": "2027-01-31T00:00:00.000Z"
+    },
+    "status": "active"
+  }
+]

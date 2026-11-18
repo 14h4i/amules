@@ -1,0 +1,20 @@
+{
+  "name": "amules-fullstack",
+  "version": "1.0.0",
+  "description": "AMULES - Website Kinh doanh Trang sức & Đá Phong Thủy (Full-Stack Angular + NodeJS/Express + MongoDB)",
+  "scripts": {
+    "start:backend": "cd backend && npm start",
+    "dev:backend": "cd backend && npm run dev",
+    "start:frontend": "cd frontend && npm start",
+    "build:frontend": "cd frontend && npm run build"
+  },
+  "keywords": [
+    "amules",
+    "angular",
+    "express",
+    "mongodb",
+    "fullstack"
+  ],
+  "author": "",
+  "license": "ISC"
+}

@@ -1,0 +1,412 @@
+<div class="users-page">
+  <!-- Breadcrumb -->
+  <div class="page-breadcrumb">
+    <span>Trang chủ</span>
+    <span class="crumb-sep">&gt;</span>
+    <span>Quản lý khách hàng</span>
+    <span class="crumb-sep">&gt;</span>
+    <span class="crumb-active">Danh sách thành viên</span>
+  </div>
+
+  <div class="page-head">
+    <div>
+      <h1 class="page-title serif">Hồ Sơ &amp; Danh Sách Khách Hàng</h1>
+      <p class="page-sub">Quản lý thông tin hội viên, phân hạng thành viên, tích lũy điểm AMUPoints và lịch sử mua sắm tác phẩm trang sức AMULES.</p>
+    </div>
+    <div class="head-actions">
+      <button type="button" class="btn-action-outline" (click)="exportCrm()">
+        <app-icon name="download" [size]="14"></app-icon> Xuất Báo Cáo CRM
+      </button>
+      <button type="button" class="btn-action-primary" (click)="showToast('Mở form ghi danh khách mới')">
+        <app-icon name="plus" [size]="14"></app-icon> Ghi Danh Khách Mới
+      </button>
+    </div>
+  </div>
+
+  @if (toastMsg) {
+    <div class="admin-toast-banner">
+      <app-icon name="check-circle" [size]="16"></app-icon>
+      <span>{{ toastMsg }}</span>
+    </div>
+  }
+
+  <!-- 4 Metric KPI Cards (Faithful to Mockup) -->
+  <div class="users-kpi-grid">
+    <div class="user-kpi-box">
+      <div class="kpi-box-top">
+        <span class="kpi-box-label">TỔNG KHÁCH HÀNG</span>
+        <div class="kpi-icon-pill ico-users"><app-icon name="user" [size]="15"></app-icon></div>
+      </div>
+      <div class="kpi-box-number">
+        {{ totalUsersCount }} <small>thành viên</small>
+      </div>
+      <div class="kpi-box-sub text-up">
+        <span>📈 +12%</span> so với quý trước
+      </div>
+    </div>
+
+    <div class="user-kpi-box">
+      <div class="kpi-box-top">
+        <span class="kpi-box-label">KHÁCH HÀNG MỚI (THÁNG NÀY)</span>
+        <div class="kpi-icon-pill ico-new"><app-icon name="sparkle" [size]="15"></app-icon></div>
+      </div>
+      <div class="kpi-box-number">
+        {{ newUsersCount }} <small>thành viên</small>
+      </div>
+      <div class="kpi-box-sub">
+        <span class="dot-purple">●</span> Gia nhập kỳ lễ trang sức
+      </div>
+    </div>
+
+    <div class="user-kpi-box">
+      <div class="kpi-box-top">
+        <span class="kpi-box-label">ĐANG HOẠT ĐỘNG</span>
+        <div class="kpi-icon-pill ico-active"><app-icon name="shield-check" [size]="15"></app-icon></div>
+      </div>
+      <div class="kpi-box-number">
+        {{ activeUsersCount }} <span class="badge-ratio">{{ activePercentage }}</span>
+      </div>
+      <div class="kpi-box-sub">
+        <span class="dot-green">●</span> Tương tác trong 30 ngày qua
+      </div>
+    </div>
+
+    <div class="user-kpi-box">
+      <div class="kpi-box-top">
+        <span class="kpi-box-label">ĐIỂM AMUPOINTS TÍCH LŨY</span>
+        <div class="kpi-icon-pill ico-points"><app-icon name="award" [size]="15"></app-icon></div>
+      </div>
+      <div class="kpi-box-number">
+        {{ totalPoints.toLocaleString('vi-VN') }} <small class="text-plum">LT</small>
+      </div>
+      <div class="kpi-box-sub promo-calc">
+        Tương đương <strong>~{{ (totalPoints * 1000).toLocaleString('vi-VN') }} đ</strong> ưu đãi
+      </div>
+    </div>
+  </div>
+
+  <!-- Status Tabs -->
+  <div class="users-tabs-bar">
+    <div class="tabs-group">
+      <button type="button" class="user-tab-btn" [class.active]="activeStatusTab === 'all'" (click)="activeStatusTab = 'all'">
+        Tất cả ({{ totalUsersCount }})
+      </button>
+      <button type="button" class="user-tab-btn" [class.active]="activeStatusTab === 'active'" (click)="activeStatusTab = 'active'">
+        Đang hoạt động ({{ activeUsersCount }})
+      </button>
+      <button type="button" class="user-tab-btn" [class.active]="activeStatusTab === 'locked'" (click)="activeStatusTab = 'locked'">
+        Đã khóa ({{ lockedUsersCount }})
+      </button>
+    </div>
+
+    <button type="button" class="btn-reset-filter" (click)="resetFilter()">
+      <app-icon name="refresh" [size]="13"></app-icon> Reset bộ lọc
+    </button>
+  </div>
+
+  <!-- Filter Toolbar -->
+  <div class="users-toolbar">
+    <div class="search-field">
+      <app-icon name="search" [size]="15"></app-icon>
+      <input type="text" [(ngModel)]="searchQuery" placeholder="Tìm theo họ tên, email, số điện thoại...">
+    </div>
+
+    <div class="filter-dropdowns">
+      <div class="select-pill">
+        <select [(ngModel)]="tierFilter">
+          <option value="all">Hạng Thành Viên (Tất cả)</option>
+          <option value="VIP">Gemstone VIP</option>
+          <option value="Tinh Tú">Thành Viên Tinh Tú</option>
+          <option value="Đầu">Khách Mua Lần Đầu</option>
+        </select>
+      </div>
+
+      <div class="select-pill">
+        <select [(ngModel)]="ordersFilter">
+          <option value="all">Lọc theo số đơn hàng</option>
+          <option value="gt3">Trên 3 đơn hàng</option>
+          <option value="lt2">Dưới 2 đơn hàng</option>
+        </select>
+      </div>
+
+      <div class="select-pill">
+        <select [(ngModel)]="pointsFilter">
+          <option value="all">Khoảng điểm tích lũy</option>
+          <option value="high">Trên 1.000 LT</option>
+          <option value="med">500 - 1.000 LT</option>
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <!-- Customers Table (Faithful to Mockup) -->
+  <div class="users-table-card">
+    <table class="users-table">
+      <thead>
+        <tr>
+          <th>KHÁCH HÀNG &amp; THÔNG TIN</th>
+          <th>MÃ KH</th>
+          <th>HẠNG &amp; AMUPOINTS</th>
+          <th>SỐ ĐƠN HÀNG</th>
+          <th>CHI TIÊU TÍCH LŨY</th>
+          <th>NGÀY GIA NHẬP</th>
+          <th>TRẠNG THÁI</th>
+          <th style="text-align: center;">THAO TÁC</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (u of filteredUsers; track u._id || u.code) {
+          <tr [class.row-locked]="u.status === 'locked'">
+            <td>
+              <div class="cust-info-cell">
+                <div class="cust-avatar-sm">{{ u.initial || 'K' }}</div>
+                <div class="cust-text-meta">
+                  <strong>{{ u.fullName }}</strong>
+                  <span class="cust-email">{{ u.email }}</span>
+                  <span class="cust-phone">{{ u.phone }}</span>
+                </div>
+              </div>
+            </td>
+            <td>
+              <span class="cust-code-pill">{{ u.code }}</span>
+            </td>
+            <td>
+              <div class="tier-points-cell">
+                <span class="tier-badge-pill" [ngClass]="u.tierBadgeClass || 'badge-standard-member'">
+                  {{ u.tier }}
+                </span>
+                <span class="points-val">{{ u.points | number }} LT</span>
+              </div>
+            </td>
+            <td>
+              <span class="orders-count-text">{{ u.orderNote || (u.orderCount + ' đơn') }}</span>
+            </td>
+            <td>
+              <b class="spent-val">{{ u.totalSpent | number }} đ</b>
+            </td>
+            <td>
+              <span class="join-date-text">{{ u.joinDate }}</span>
+            </td>
+            <td>
+              <span class="user-status-pill" [class.status-active]="u.status === 'active'" [class.status-locked]="u.status === 'locked'">
+                {{ u.statusLabel }}
+              </span>
+            </td>
+            <td>
+              <div class="user-actions-cell">
+                <button type="button" class="btn-icon-view" (click)="viewUserDetail(u)" title="Xem hồ sơ & lịch sử giao dịch">
+                  <app-icon name="eye" [size]="15"></app-icon>
+                </button>
+                <button type="button" class="btn-icon-lock" (click)="openLockModal(u)" [title]="u.status === 'locked' ? 'Mở khóa tài khoản' : 'Khóa tài khoản'">
+                  <app-icon name="lock" [size]="15"></app-icon>
+                </button>
+              </div>
+            </td>
+          </tr>
+        } @empty {
+          <tr>
+            <td colspan="8" class="empty-table-row">
+              Không có hội viên nào phù hợp với điều kiện tìm kiếm.
+            </td>
+          </tr>
+        }
+      </tbody>
+    </table>
+
+    <div class="table-pagination-foot">
+      <span>Hiển thị 1 - {{ filteredUsers.length }} trong tổng số {{ users.length }} khách hàng</span>
+      <div class="pag-btns">
+        <button type="button" class="btn-pag">&lsaquo;</button>
+        <button type="button" class="btn-pag active">1</button>
+        <button type="button" class="btn-pag">&rsaquo;</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 2 Bottom Cards (Faithful to Mockup) -->
+  <div class="bottom-users-grid">
+    <!-- Card 1: Member Tier Structure Donut -->
+    <div class="summary-stat-card">
+      <div class="stat-card-head">
+        <strong>Cơ cấu hạng thành viên</strong>
+        <app-icon name="target" [size]="15"></app-icon>
+      </div>
+      <div class="donut-tier-row">
+        <div class="donut-wrap">
+          <div class="donut-circle">
+            <span class="donut-val">{{ users.length }}</span>
+            <small>THÀNH VIÊN</small>
+          </div>
+        </div>
+        <div class="tier-legend-list">
+          <div class="legend-item">
+            <span class="legend-dot dot-gemstone"></span>
+            <span>Gemstone VIP ({{ gemstonePercent }}%)</span>
+            <strong>{{ gemstoneCount }}</strong>
+          </div>
+          <div class="legend-item">
+            <span class="legend-dot dot-star"></span>
+            <span>Thành Viên Tinh Tú ({{ starPercent }}%)</span>
+            <strong>{{ starCount }}</strong>
+          </div>
+          <div class="legend-item">
+            <span class="legend-dot dot-standard"></span>
+            <span>Mới &amp; Thường ({{ standardPercent }}%)</span>
+            <strong>{{ standardCount }}</strong>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 2: AMUPoints Rules & Benefits -->
+    <div class="summary-stat-card">
+      <div class="stat-card-head">
+        <div>
+          <strong>Quy chuẩn tích lũy AMUPoints (LT)</strong>
+          <small>Chương trình tri ân độc quyền dành cho khách hàng Haute Joaillerie</small>
+        </div>
+        <app-icon name="award" [size]="16"></app-icon>
+      </div>
+      <div class="amu-rules-grid">
+        <div class="amu-rule-box">
+          <span class="rule-title">100.000đ = 1 LT <app-icon name="refresh" [size]="12"></app-icon></span>
+          <p>Tỷ lệ quy đổi điểm chuẩn khi giao dịch trực tiếp hoặc online.</p>
+        </div>
+        <div class="amu-rule-box">
+          <span class="rule-title">Sinh nhật x2 Điểm <app-icon name="gift" [size]="12"></app-icon></span>
+          <p>Nhân đôi tích lũy AMUPoints trong tháng sinh nhật khách hàng.</p>
+        </div>
+        <div class="amu-rule-box">
+          <span class="rule-title">Tư Vấn Riêng VIP <app-icon name="headphones" [size]="12"></app-icon></span>
+          <p>Đặc quyền đặt lịch chế tác trang sức phong thủy cá nhân hóa.</p>
+        </div>
+      </div>
+      <div class="stat-card-foot">
+        <small>Cập nhật chính sách: Q4/2026</small>
+        <a href="javascript:void(0)" class="link-crm-doc">Xem tài liệu cơ cấu thẻ hội viên &rarr;</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ======================================================== -->
+<!-- MODAL XÁC NHẬN KHÓA TÀI KHOẢN (Faithful to Mockup)       -->
+<!-- ======================================================== -->
+@if (showLockModal && lockingUser) {
+  <div class="modal-overlay" (click)="closeLockModal()">
+    <div class="lock-modal-card" (click)="$event.stopPropagation()">
+      <div class="lock-modal-head">
+        <div class="alert-icon-wrap">
+          <app-icon name="alert" [size]="20"></app-icon>
+        </div>
+        <div class="lock-head-text">
+          <h2>Xác Nhận Khóa Tài Khoản</h2>
+          <p>Tạm dừng toàn bộ quyền truy cập và giao dịch của khách hàng</p>
+        </div>
+        <button type="button" class="btn-close-modal" (click)="closeLockModal()">✕</button>
+      </div>
+
+      <!-- Customer Preview Box -->
+      <div class="lock-cust-preview">
+        <div class="lock-avatar">{{ lockingUser.initial }}</div>
+        <div class="lock-cust-meta">
+          <strong>{{ lockingUser.fullName }} <span class="cust-code">{{ lockingUser.code }}</span></strong>
+          <span class="cust-contact">{{ lockingUser.email }} • {{ lockingUser.phone }}</span>
+        </div>
+        <span class="vip-level-pill">{{ lockingUser.vipLevel || 'VIP CẤP II' }}</span>
+      </div>
+
+      <!-- Consequence Warning Box -->
+      <div class="lock-consequences-box">
+        <div class="consequence-title">
+          <app-icon name="info" [size]="14"></app-icon>
+          <strong>TÁC ĐỘNG NGHIỆP VỤ SAU KHI KÍCH HOẠT:</strong>
+        </div>
+        <ul class="consequences-list">
+          <li>Tài khoản sẽ bị đăng xuất khỏi tất cả phiên đăng nhập trên ứng dụng di động và website ngay lập tức.</li>
+          <li>Khách hàng sẽ không thể đăng nhập, sử dụng điểm tích lũy (<strong>{{ lockingUser.points }} LT</strong>) hay đặt thêm đơn hàng mới.</li>
+          <li>Các đơn hàng đang trong hành trình giao (<strong>#AMU-2026-8942</strong>) vẫn được vận chuyển bình thường theo quy trình đối soát bảo an.</li>
+        </ul>
+      </div>
+
+      <!-- Form Inputs -->
+      <div class="lock-form-inputs">
+        <div class="form-group">
+          <label>Lý do khóa tài khoản *</label>
+          <select [(ngModel)]="lockReason" class="lock-select">
+            <option value="Nghi vấn gian lận mã ưu đãi / Vi phạm chính sách hoàn trả">Nghi vấn gian lận mã ưu đãi / Vi phạm chính sách hoàn trả</option>
+            <option value="Yêu cầu tạm khóa bảo vệ từ chính khách hàng">Yêu cầu tạm khóa bảo vệ từ chính khách hàng</option>
+            <option value="Phát hiện đăng nhập bất thường từ nhiều địa chỉ IP lạ">Phát hiện đăng nhập bất thường từ nhiều địa chỉ IP lạ</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <div class="label-guide-row">
+            <label>Ghi chú lý do nội bộ bắt buộc *</label>
+            <small>Tối thiểu 15 ký tự</small>
+          </div>
+          <textarea rows="3" [(ngModel)]="lockNotes" class="lock-textarea" placeholder="Nhập chi tiết phát hiện sai phạm hoặc lý do tạm khóa..."></textarea>
+        </div>
+      </div>
+
+      <div class="lock-modal-foot">
+        <button type="button" class="btn-cancel-lock" (click)="closeLockModal()">Hủy bỏ</button>
+        <button type="button" class="btn-confirm-lock" (click)="confirmLockUser()">
+          <app-icon name="lock" [size]="14"></app-icon> Xác Nhận Khóa Tài Khoản
+        </button>
+      </div>
+    </div>
+  </div>
+}
+
+<!-- ======================================================== -->
+<!-- DRAWER CHI TIẾT & LỊCH SỬ GIAO DỊCH KHÁCH HÀNG          -->
+<!-- ======================================================== -->
+@if (showDetailDrawer && selectedUser) {
+  <div class="modal-overlay" (click)="closeDetail()">
+    <div class="user-detail-drawer" (click)="$event.stopPropagation()">
+      <div class="drawer-head">
+        <div>
+          <span class="drawer-eyebrow">● HỒ SƠ HỘI VIÊN CAO CẤP</span>
+          <h2>{{ selectedUser.fullName }}</h2>
+          <small>{{ selectedUser.code }} • {{ selectedUser.vipLevel }}</small>
+        </div>
+        <button type="button" class="btn-close-modal" (click)="closeDetail()">✕</button>
+      </div>
+
+      <div class="history-list-box">
+        <div class="history-head-title">
+          <app-icon name="receipt" [size]="15"></app-icon>
+          <strong>Lịch Sử Giao Dịch Gần Nhất</strong>
+          <span class="count-badge">3 đơn hàng gần đây</span>
+        </div>
+
+        <div class="history-cards">
+          @for (ord of selectedUser.recentOrders || mockUsers[0].recentOrders; track ord.code) {
+            <div class="history-order-card">
+              <div class="card-left-icon">
+                <app-icon name="package" [size]="16"></app-icon>
+              </div>
+              <div class="card-order-info">
+                <strong>{{ ord.code }}</strong>
+                <p>{{ ord.title }}</p>
+                <small>{{ ord.date }}</small>
+              </div>
+              <div class="card-order-price">
+                <b>{{ ord.price | number }} đ</b>
+                <span class="order-status-chip" [ngClass]="ord.statusClass">{{ ord.status }}</span>
+              </div>
+            </div>
+          }
+        </div>
+      </div>
+
+      <div class="drawer-foot">
+        <button type="button" class="btn-action-outline" (click)="closeDetail()">Đóng</button>
+        <button type="button" class="btn-action-primary" (click)="openLockModal(selectedUser); closeDetail()">
+          <app-icon name="lock" [size]="14"></app-icon> Quản Lý Khóa Tài Khoản
+        </button>
+      </div>
+    </div>
+  </div>
+}

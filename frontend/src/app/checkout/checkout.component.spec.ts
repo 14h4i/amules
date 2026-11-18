@@ -1,0 +1,27 @@
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { CheckoutComponent } from './checkout.component';
+import { AppModule } from '../app.module';
+
+describe('CheckoutComponent', () => {
+  let component: CheckoutComponent;
+  let fixture: ComponentFixture<CheckoutComponent>;
+
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      imports: [AppModule]
+    }).compileComponents();
+
+    fixture = TestBed.createComponent(CheckoutComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+  });
+
+  it('should create', () => {
+    expect(component).toBeTruthy();
+  });
+
+  it('should initialize with standard shipping and COD', () => {
+    expect(component.selectedPayment).toBe('COD');
+    expect(component.selectedShipping).toBe('STANDARD');
+  });
+});

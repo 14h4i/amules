@@ -1,0 +1,534 @@
+<div class="products-mgmt-page">
+  <!-- When NOT editing, show list of products with filters -->
+  @if (!showModal) {
+    <!-- Breadcrumb -->
+    <div class="page-breadcrumb">
+      <span>Trang chủ</span>
+      <span class="crumb-sep">&gt;</span>
+      <span>Quản lý sản phẩm</span>
+      <span class="crumb-sep">&gt;</span>
+      <span class="crumb-active">Danh sách bảo vật</span>
+    </div>
+
+    <div class="page-head">
+      <div>
+        <h1 class="page-title serif">Quản Lý Tác Phẩm &amp; Tồn Kho</h1>
+        <p class="page-sub">Hệ thống giám sát định danh, phân loại phong thủy và kiểm soát niêm yết trang sức AMULES.</p>
+      </div>
+      <div class="head-actions">
+        <button type="button" class="btn-action-primary" (click)="openCreateModal()">
+          <app-icon name="plus" [size]="14"></app-icon> Thêm Tác Phẩm Mới
+        </button>
+      </div>
+    </div>
+
+    @if (toastMsg) {
+      <div class="admin-toast-banner">
+        <app-icon name="check-circle" [size]="16"></app-icon>
+        <span>{{ toastMsg }}</span>
+      </div>
+    }
+
+    <!-- Filters & Search Toolbar -->
+    <div class="products-toolbar">
+      <div class="search-field">
+        <app-icon name="search" [size]="15"></app-icon>
+        <input type="text" [(ngModel)]="searchQuery" placeholder="Tìm theo tên sản phẩm, mã SKU, chất liệu đá...">
+      </div>
+
+      <div class="filter-dropdowns">
+        <div class="select-pill">
+          <select [(ngModel)]="categoryFilter">
+            <option value="all">Tất cả danh mục ({{ products.length }})</option>
+            <option value="Vòng tay">Vòng tay</option>
+            <option value="Dây chuyền">Dây chuyền</option>
+            <option value="Nhẫn">Nhẫn đá quý</option>
+            <option value="Bông tai">Bông tai</option>
+            <option value="Charm">Charm đá</option>
+            <option value="Set quà">Set quà tặng</option>
+          </select>
+        </div>
+
+        <button type="button" class="btn-refresh-pill" (click)="loadProducts()">
+          <app-icon name="refresh" [size]="13"></app-icon>
+        </button>
+      </div>
+    </div>
+
+    <!-- Product Table -->
+    <div class="products-table-card">
+      <table class="products-table">
+        <thead>
+          <tr>
+            <th style="width: 70px;">ẢNH</th>
+            <th>TÊN TÁC PHẨM &amp; MÃ SKU</th>
+            <th>DANH MỤC &amp; BST</th>
+            <th>LOẠI ĐÁ &amp; BẢN MỆNH</th>
+            <th>GIÁ BÁN NIÊM YẾT</th>
+            <th>TỒN KHO</th>
+            <th>TRẠNG THÁI</th>
+            <th style="text-align: right;">THAO TÁC</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (p of filteredProducts; track p.id || p._id || p.productCode) {
+            <tr>
+              <td>
+                <img [src]="p.image || 'images/lac_tay_bien.png'" [alt]="p.name" class="p-thumb">
+              </td>
+              <td>
+                <div class="prod-name-meta">
+                  <strong>{{ p.name }}</strong>
+                  <div class="code-badge-row">
+                    <span class="code-pill">{{ p.productCode || 'AMU-001' }}</span>
+                    @if (p.badge) { <span class="badge-accent">{{ p.badge }}</span> }
+                  </div>
+                </div>
+              </td>
+              <td>
+                <div class="cat-col">
+                  <span>{{ p.category || 'Vòng tay' }}</span>
+                  <small>{{ p.collection || 'Bộ sưu tập độc bản' }}</small>
+                </div>
+              </td>
+              <td>
+                <div class="stone-col">
+                  <strong>{{ p.stone || 'Đá tự nhiên' }}</strong>
+                  <small>{{ p.compatibleElements?.[0] || 'Mệnh Thủy & Mộc' }}</small>
+                </div>
+              </td>
+              <td>
+                <div class="price-col">
+                  <b class="price-val">{{ p.price | number }} đ</b>
+                  @if (p.compareAtPrice) {
+                    <small class="comp-price">{{ p.compareAtPrice | number }} đ</small>
+                  }
+                </div>
+              </td>
+              <td>
+                <span class="stock-badge" [class.stock-low]="p.stock < 10">
+                  {{ p.stock }} chiếc
+                </span>
+              </td>
+              <td>
+                <span class="status-live-pill">
+                  <span class="dot-live">●</span> Mở bán
+                </span>
+              </td>
+              <td>
+                <div class="table-actions-right">
+                  <button type="button" class="btn-icon-action" (click)="openEditModal(p)" title="Chỉnh sửa sản phẩm">
+                    <app-icon name="edit" [size]="14"></app-icon>
+                  </button>
+                  <button type="button" class="btn-icon-action btn-del" (click)="deleteProduct(p)" title="Xóa">
+                    <app-icon name="trash" [size]="14"></app-icon>
+                  </button>
+                </div>
+              </td>
+            </tr>
+          } @empty {
+            <tr>
+              <td colspan="8" class="empty-table-row">Không tìm thấy sản phẩm nào phù hợp.</td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  }
+
+  <!-- When editing / creating: Faithful reproduction of "Chỉnh Sửa Sản Phẩm.png" -->
+  @if (showModal) {
+    <div class="product-editor-view">
+      <!-- Breadcrumb & Eyebrows -->
+      <div class="page-breadcrumb">
+        <span>Trang chủ</span>
+        <span class="crumb-sep">&gt;</span>
+        <span>Quản lý sản phẩm</span>
+        <span class="crumb-sep">&gt;</span>
+        <span class="crumb-active">{{ isEditing ? 'Chỉnh sửa sản phẩm' : 'Thêm sản phẩm mới' }}</span>
+      </div>
+
+      <div class="editor-eyebrow-row">
+        <span class="eyebrow-pill">HAUTE JOAILLERIE ATELIER</span>
+        <span class="eyebrow-craft">● Chế tác thủ công</span>
+      </div>
+
+      <!-- Top Header & Actions -->
+      <div class="editor-header-row">
+        <div class="editor-titles">
+          <h1 class="editor-title serif">{{ isEditing ? 'Chỉnh Sửa Tác Phẩm Trang Sức' : 'Thêm Tác Phẩm Trang Sức Mới' }}</h1>
+          <p class="editor-sub">Định danh, phân loại phong thủy và niêm yết tác phẩm thủ công AMULES.</p>
+        </div>
+        <div class="editor-actions">
+          <button type="button" class="btn-action-outline" (click)="closeModal()">Hủy</button>
+          <a [routerLink]="['/products', currentProduct.slug || 'vong-tay']" target="_blank" class="btn-action-outline">
+            Xem trước ngoài website <app-icon name="arrow-up-right" [size]="13"></app-icon>
+          </a>
+          <button type="button" class="btn-action-outline" (click)="showToast('Đã lưu bản nháp thành công!')">
+            Lưu nháp
+          </button>
+          <button type="button" class="btn-action-primary" (click)="saveProduct()">
+            <app-icon name="check" [size]="14"></app-icon> Lưu sản phẩm
+          </button>
+        </div>
+      </div>
+
+      <!-- 2-Column Form Layout -->
+      <div class="editor-two-columns">
+        <!-- Left Column: Basic Info & Metaphysical Attributes (65%) -->
+        <div class="editor-col-left">
+          <!-- Card 1: Basic Information -->
+          <div class="form-card">
+            <div class="form-card-head">
+              <div class="card-head-left">
+                <div class="card-icon-pill"><app-icon name="book" [size]="16"></app-icon></div>
+                <div>
+                  <h3>Thông tin cơ bản</h3>
+                  <p>Tên tác phẩm, nhận diện phân cấp và câu chuyện huyền thoại</p>
+                </div>
+              </div>
+              <span class="part-badge">PHẦN 01</span>
+            </div>
+
+            <div class="form-body-fields">
+              <div class="field-wrap">
+                <div class="label-guide-row">
+                  <label>Tên sản phẩm / Tác phẩm *</label>
+                  <small>{{ currentProduct.name?.length || 0 }}/120 ký tự</small>
+                </div>
+                <input type="text" [(ngModel)]="currentProduct.name" class="input-base text-lg" placeholder="Vòng tay Đá Mặt Trăng Moonstone Ánh Lam Celestial">
+              </div>
+
+              <div class="grid-two-cols">
+                <div class="field-wrap">
+                  <label>Mã SKU / Định danh <app-icon name="info" [size]="12"></app-icon></label>
+                  <div class="input-with-icon">
+                    <app-icon name="gem" [size]="14"></app-icon>
+                    <input type="text" [(ngModel)]="currentProduct.productCode" placeholder="AMU-VT-002">
+                  </div>
+                </div>
+                <div class="field-wrap">
+                  <label>Đường dẫn thân thiện (Slug)</label>
+                  <div class="input-with-icon">
+                    <app-icon name="infinity" [size]="14"></app-icon>
+                    <input type="text" [(ngModel)]="currentProduct.slug" placeholder="vong-tay-moonstone-anh-lam-celestial">
+                  </div>
+                </div>
+              </div>
+
+              <div class="grid-two-cols">
+                <div class="field-wrap">
+                  <label>Danh mục chính *</label>
+                  <select [(ngModel)]="currentProduct.category" class="input-base">
+                    <option value="Vòng tay & Lắc tay">Vòng tay &amp; Lắc tay</option>
+                    <option value="Dây chuyền & Mặt đá">Dây chuyền &amp; Mặt đá</option>
+                    <option value="Nhẫn đá quý">Nhẫn đá quý</option>
+                    <option value="Bông tai hộ mệnh">Bông tai hộ mệnh</option>
+                  </select>
+                </div>
+                <div class="field-wrap">
+                  <label>Bộ sưu tập tác phẩm</label>
+                  <select [(ngModel)]="currentProduct.collection" class="input-base">
+                    <option value="Moonlight & Stars Collection">Moonlight &amp; Stars Collection ✧</option>
+                    <option value="Nguyệt Quang Huyền Bí">Nguyệt Quang Huyền Bí</option>
+                    <option value="Đại Dương Tịnh Lặng">Đại Dương Tịnh Lặng</option>
+                    <option value="Thiên Cầu Chiêm Tinh">Thiên Cầu Chiêm Tinh</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="field-wrap">
+                <label>Mô tả tóm tắt</label>
+                <textarea rows="2" [(ngModel)]="currentProduct.shortDesc" class="input-base" placeholder="Chiếc vòng tay thủ công đính kết từng viên đá Mặt Trăng nguyên bản từ Sri Lanka..."></textarea>
+              </div>
+
+              <!-- Rich Story Editor -->
+              <div class="field-wrap">
+                <div class="label-guide-row">
+                  <label>Mô tả chi tiết &amp; Câu chuyện tác phẩm</label>
+                  <span class="editor-pro-badge">TRÌNH SOẠN THẢO CHUYÊN SÂU</span>
+                </div>
+                <div class="rich-editor-box">
+                  <div class="rich-toolbar">
+                    <button type="button" class="btn-tool"><b>B</b></button>
+                    <button type="button" class="btn-tool"><i>I</i></button>
+                    <button type="button" class="btn-tool"><u>U</u></button>
+                    <span class="tool-sep"></span>
+                    <button type="button" class="btn-tool">☰</button>
+                    <button type="button" class="btn-tool">❝</button>
+                    <button type="button" class="btn-tool">🖼</button>
+                    <span class="mode-label">● Chế độ: Biên tập viên cao cấp</span>
+                  </div>
+
+                  <div class="rich-content-preview">
+                    <blockquote class="editor-quote-box">
+                      “Đá Mặt Trăng không chỉ đơn thuần phản chiếu ánh sáng, nó lưu giữ những rung động thanh khiết nhất của vũ trụ tĩnh lặng.”
+                    </blockquote>
+                    <p>Mỗi viên <strong>Moonstone (Đá Mặt Trăng tự nhiên khai thác tại mỏ cổ Meetiyagoda, Sri Lanka)</strong> trên tác phẩm Celestial đều trải qua quá trình tuyển lựa quang độ nghiêm ngặt: độ trong suốt tinh sạch đạt cấp độ bán trong suốt (semi-translucent), khi xoay dưới nguồn sáng sẽ tạo nên hiệu ứng <em>adularescence</em> ánh lam bồng bềnh như ánh trăng tan trên mặt nước mùa thu.</p>
+
+                    <div class="craft-specs-grid">
+                      <div class="craft-spec-item">
+                        <div class="craft-item-head">
+                          <app-icon name="shield-check" [size]="14"></app-icon>
+                          <strong>Quy cách Bạc Ý 925</strong>
+                        </div>
+                        <p>Bạc nguyên chuẩn 92.5% được mạ 3 lớp Rhodium bạch kim chống oxy hóa, giữ độ bóng sáng bền bỉ theo thời gian và an toàn tuyệt đối với làn da nhạy cảm.</p>
+                      </div>
+
+                      <div class="craft-spec-item">
+                        <div class="craft-item-head">
+                          <app-icon name="sparkle" [size]="14"></app-icon>
+                          <strong>Nghi thức bảo quản</strong>
+                        </div>
+                        <p>Tránh để đá tiếp xúc trực tiếp hóa chất tẩy rửa mạnh hoặc va đập góc cạnh. Tẩy uế và nạp năng lượng dưới ánh trăng rằm mỗi chu kỳ nguyệt thực.</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 2: Metaphysical Attributes -->
+          <div class="form-card">
+            <div class="form-card-head">
+              <div class="card-head-left">
+                <div class="card-icon-pill ico-mystic"><app-icon name="sparkle" [size]="16"></app-icon></div>
+                <div>
+                  <h3>Thuộc tính phong thủy</h3>
+                  <p>Hệ thống phân loại ngũ hành bản mệnh &amp; trường năng lượng bảo hộ</p>
+                </div>
+              </div>
+              <span class="part-badge">DỮ LIỆU LIÊN KẾT</span>
+            </div>
+
+            <div class="form-body-fields">
+              <div class="grid-two-cols">
+                <div class="spec-display-box">
+                  <small>Loại đá chính (Gemstone Family)</small>
+                  <div class="spec-val-row">
+                    <div class="gem-badge-mini"><app-icon name="gem" [size]="14"></app-icon></div>
+                    <div>
+                      <strong>{{ currentProduct.stone || 'Moonstone (Đá Mặt Trăng)' }}</strong>
+                      <small>Độ cứng Mohs: {{ currentProduct.mohs || '6.0 - 6.5' }}</small>
+                    </div>
+                    <button type="button" class="btn-spec-change">Thay đổi</button>
+                  </div>
+                </div>
+
+                <div class="spec-display-box">
+                  <small>Chất liệu kim hoàn hoàn thiện</small>
+                  <div class="spec-val-row">
+                    <div>
+                      <strong>{{ currentProduct.metal || 'Bạc Ý 925 mạ Rhodium bạch kim 3 lớp' }}</strong>
+                    </div>
+                    <app-icon name="award" [size]="16" class="metal-badge-icon"></app-icon>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Compatible Elements -->
+              <div class="field-wrap">
+                <div class="label-guide-row">
+                  <label>Bản mệnh phù hợp (Ngũ hành)</label>
+                  <button type="button" class="btn-text-add">+ Thêm mệnh</button>
+                </div>
+                <div class="chips-list">
+                  @for (elem of currentProduct.compatibleElements; track elem; let idx = $index) {
+                    <span class="chip-item">
+                      <span class="chip-dot">●</span> {{ elem }}
+                      <button type="button" class="btn-chip-del" (click)="removeElementChip(idx)">✕</button>
+                    </span>
+                  }
+                </div>
+              </div>
+
+              <!-- Compatible Zodiacs -->
+              <div class="field-wrap">
+                <div class="label-guide-row">
+                  <label>Cung hoàng đạo chiêm tinh</label>
+                  <button type="button" class="btn-text-add">+ Thêm cung</button>
+                </div>
+                <div class="chips-list">
+                  @for (zod of currentProduct.compatibleZodiacs; track zod; let idx = $index) {
+                    <span class="chip-item chip-zodiac">
+                      <app-icon name="moon" [size]="12"></app-icon> {{ zod }}
+                      <button type="button" class="btn-chip-del" (click)="removeZodiacChip(idx)">✕</button>
+                    </span>
+                  }
+                </div>
+              </div>
+
+              <!-- Color Spectrum & Style Concept -->
+              <div class="grid-two-cols">
+                <div class="field-wrap">
+                  <label>Màu sắc quang phổ đặc trưng</label>
+                  <div class="color-dots-group">
+                    <span class="color-badge"><span class="dot-swatch swatch-blue"></span> Trắng ánh lam</span>
+                    <span class="color-badge"><span class="dot-swatch swatch-pearl"></span> Ánh xà cừ ngọc</span>
+                  </div>
+                </div>
+
+                <div class="field-wrap">
+                  <label>Phong cách &amp; Ý niệm chế tác</label>
+                  <div class="style-tags-group">
+                    <span class="style-tag">Vintage Minimal</span>
+                    <span class="style-tag">Thanh lịch hoàng gia</span>
+                    <span class="style-tag">Talisman bảo hộ</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Column: Status, Pricing, Photos (35%) -->
+        <div class="editor-col-right">
+          <!-- Card 1: Listing Status -->
+          <div class="form-card">
+            <div class="form-card-head">
+              <div class="card-head-left">
+                <app-icon name="eye" [size]="16"></app-icon>
+                <h3>Trạng thái niêm yết</h3>
+              </div>
+              <label class="switch-toggle">
+                <input type="checkbox" checked>
+                <span class="slider"></span>
+              </label>
+            </div>
+
+            <div class="listing-radio-group">
+              <label class="listing-radio-option" [class.selected]="currentProduct.listingStatus === 'active'">
+                <input type="radio" name="listingStatus" value="active" [(ngModel)]="currentProduct.listingStatus">
+                <div>
+                  <strong>Mở bán trực tuyến (isVisible)</strong>
+                  <p>Khách hàng có thể tìm kiếm, đặt mua và thanh toán ngay</p>
+                </div>
+              </label>
+
+              <label class="listing-radio-option" [class.selected]="currentProduct.listingStatus === 'draft'">
+                <input type="radio" name="listingStatus" value="draft" [(ngModel)]="currentProduct.listingStatus">
+                <div>
+                  <strong>Lưu trữ bản nháp (Draft)</strong>
+                  <p>Chỉ hiển thị nội bộ cho nghệ nhân và quản trị viên</p>
+                </div>
+              </label>
+
+              <label class="listing-radio-option" [class.selected]="currentProduct.listingStatus === 'hidden'">
+                <input type="radio" name="listingStatus" value="hidden" [(ngModel)]="currentProduct.listingStatus">
+                <div>
+                  <strong>Ẩn tạm thời khỏi cửa hàng</strong>
+                  <p>Tạm dừng nhận đơn hoặc đang chuẩn bị bộ sưu tập mới</p>
+                </div>
+              </label>
+            </div>
+          </div>
+
+          <!-- Card 2: Pricing & Inventory -->
+          <div class="form-card">
+            <div class="form-card-head">
+              <div class="card-head-left">
+                <app-icon name="receipt" [size]="16"></app-icon>
+                <h3>Giá thành &amp; Kho vận <small>VND (đ)</small></h3>
+              </div>
+            </div>
+
+            <div class="form-body-fields">
+              <div class="field-wrap">
+                <label>Giá niêm yết bán lẻ *</label>
+                <div class="input-with-tag">
+                  <input type="number" [(ngModel)]="currentProduct.price" class="input-base text-price">
+                  <span class="tag-unit">đ</span>
+                </div>
+              </div>
+
+              <div class="field-wrap">
+                <div class="label-guide-row">
+                  <label>Giá gốc trước khuyến mãi</label>
+                  <span class="tag-saving">-11% Tiết kiệm</span>
+                </div>
+                <input type="number" [(ngModel)]="currentProduct.compareAtPrice" class="input-base text-strike">
+              </div>
+
+              <div class="grid-two-cols">
+                <div class="field-wrap">
+                  <label>Khả năng tại kho</label>
+                  <div class="input-unit-wrap">
+                    <input type="number" [(ngModel)]="currentProduct.stock" class="input-clean-num">
+                    <span class="unit-text">chiếc</span>
+                  </div>
+                </div>
+
+                <div class="field-wrap">
+                  <label>Báo động sắp hết</label>
+                  <div class="input-unit-wrap alert-input">
+                    <input type="number" [(ngModel)]="currentProduct.lowStockAlert" class="input-clean-num text-danger">
+                    <span class="unit-text text-danger">chiếc</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="field-wrap">
+                <label>Trọng lượng đá &amp; Bạc (Weight)</label>
+                <div class="weight-display-box">
+                  <div>
+                    <small>Khối lượng tịnh tiêu chuẩn</small>
+                    <strong>12 gam (~3.2 chỉ)</strong>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 3: Images -->
+          <div class="form-card">
+            <div class="form-card-head">
+              <div class="card-head-left">
+                <app-icon name="camera" [size]="16"></app-icon>
+                <h3>Hình ảnh tác phẩm</h3>
+              </div>
+              <span class="part-badge">5/8 Ảnh</span>
+            </div>
+
+            <div class="form-body-fields">
+              <div class="master-image-box">
+                <small class="master-label">Ảnh đại diện chính (Master Hero) ★</small>
+                <img [src]="currentProduct.image || 'images/lac_tay_bien.png'" alt="Master Hero" class="master-img">
+              </div>
+
+              <div>
+                <small class="master-label">Ảnh chi tiết góc cạnh</small>
+                <div class="gallery-thumbs-row">
+                  <img src="images/lac_tay_bien.png" alt="Angle 1">
+                  <img src="images/dch_mix_da.png" alt="Angle 2">
+                  <img src="images/nhan_tinh_tu.png" alt="Angle 3">
+                  <img src="images/bong_tai.png" alt="Angle 4">
+                </div>
+              </div>
+
+              <div class="upload-dropzone">
+                <app-icon name="cloud" [size]="28" class="cloud-icon"></app-icon>
+                <strong>Kéo thả ảnh vào đây hoặc duyệt tệp</strong>
+                <small>Định dạng JPG, PNG, WEBP tỷ lệ 1:1 (Tối đa 5MB)</small>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bottom Status Bar -->
+      <div class="editor-bottom-bar">
+        <div class="autosave-notice">
+          <span class="dot-saved">●</span>
+          <span>Đã tự động lưu nháp gần nhất vào lúc <strong>14:38 hôm nay</strong></span>
+        </div>
+        <div class="bottom-actions">
+          <button type="button" class="btn-action-outline">Xem lịch sử phiên bản</button>
+          <button type="button" class="btn-action-primary" (click)="saveProduct()">
+            <app-icon name="check" [size]="14"></app-icon> Phát hành ngay
+          </button>
+        </div>
+      </div>
+    </div>
+  }
+</div>

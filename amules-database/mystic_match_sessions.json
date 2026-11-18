@@ -1,0 +1,40 @@
+[
+  {
+    "_id": {
+      "$oid": "c498c329342daa376732d7a8"
+    },
+    "userId": {
+      "$oid": "e4774cdda0793f86414e8b91"
+    },
+    "birthDate": {
+      "$date": "2003-07-05T00:00:00.000Z"
+    },
+    "zodiacId": {
+      "$oid": "ce84dd3716c6d1337db8a883"
+    },
+    "elementId": {
+      "$oid": "448a24f33e03c0d6d4c7ebe8"
+    },
+    "quizAnswers": [
+      {
+        "question": "Bạn thích màu nào nhất?",
+        "answer": "Xanh lam"
+      }
+    ],
+    "preferredColors": [
+      "Xanh lam",
+      "Trắng"
+    ],
+    "preferredJewelryTypes": [
+      "Vòng tay",
+      "Dây chuyền"
+    ],
+    "priceRange": "500000-800000",
+    "preferredStyles": [
+      "Tối giản"
+    ],
+    "createdAt": {
+      "$date": "2026-11-08T00:00:00.000Z"
+    }
+  }
+]

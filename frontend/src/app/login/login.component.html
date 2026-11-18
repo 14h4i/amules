@@ -1,0 +1,181 @@
+<div class="container auth-wrap">
+
+  <div class="auth-top">
+    <div class="crumb-caps"><a routerLink="/">Trang chủ</a><span>/</span><b>Tài khoản &amp; Bảo mật</b></div>
+  </div>
+
+  <div class="auth-card">
+
+    <!-- Cột trái: ảnh + thông điệp -->
+    <aside class="auth-visual" style="background-image: url('images/banner_đn.jpg')">
+      <div class="auth-visual__top">
+        <div class="brand-mini">
+          <span class="logo-dot"><app-icon name="moon" [size]="16"></app-icon></span>
+          <div>Heritage &amp; Spirit<b>AMULES</b></div>
+        </div>
+        <span class="glass glass-pill"><app-icon name="sparkle" [size]="12"></app-icon> Độc quyền thiên thể</span>
+      </div>
+
+      <div>
+        <div class="auth-visual__eyebrow">Thánh đường trang sức</div>
+        <h2 class="auth-visual__quote">“Mỗi tạo tác là một vị hộ mệnh thiêng liêng đồng hành cùng hành trình của bạn.”
+        </h2>
+        <p class="auth-visual__desc">Được chế tác thủ công từ các loại đá quý tự nhiên chọn lọc theo ngũ hành, truyền
+          dẫn năng lượng tích cực và bảo bọc tâm thức người sở hữu.</p>
+        <div class="auth-visual__tags">
+          <span>Thạch Anh Hồng Tự Nhiên</span>
+          <span>Ngọc Bích Hộ Mệnh</span>
+          <span>Vòng Chạm Khắc Cung Hoàng Đạo</span>
+        </div>
+        <div class="auth-visual__foot">
+          <span class="ico"><app-icon name="shield-check" [size]="18"></app-icon></span>
+          <div><strong>Kiểm Định Giá Trị</strong><small>100% đá quý thiên nhiên có chứng thư giám định</small></div>
+          <span class="go"><app-icon name="arrow-up-right" [size]="15"></app-icon></span>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Cột phải: form -->
+    <section class="auth-panel">
+      <nav class="auth-tabs">
+        <a routerLink="/login" class="active"><app-icon name="user" [size]="15"></app-icon> Đăng Nhập</a>
+        <a routerLink="/register"><app-icon name="sparkle" [size]="15"></app-icon> Tạo Tài Khoản</a>
+      </nav>
+
+      <span class="back-caps"><app-icon name="chevron-left" [size]="12"></app-icon> Chào mừng trở lại</span>
+      <h1 class="auth-title">Chào mừng trở lại với AMULES</h1>
+      <p class="auth-sub">Đăng nhập để theo dõi hành trình đơn hàng, lưu danh sách bảo vật yêu thích và nhận thông điệp
+        năng lượng chiêm tinh độc bản.</p>
+
+      @if (errorMsg) { <div class="alert-error">{{ errorMsg }}</div> }
+
+      <form #loginForm="ngForm" (ngSubmit)="onLogin(loginForm)" novalidate>
+        <div class="field">
+          <label for="email">Email hoặc Số điện thoại *</label>
+          <div class="input-wrap">
+            <app-icon name="mail" [size]="17"></app-icon>
+            <input id="email" name="email" type="email" placeholder="hoianh.celestial@amules.com"
+              [(ngModel)]="user.email" #email="ngModel" required email
+              [class.is-invalid]="email.invalid && email.touched">
+          </div>
+          @if (email.invalid && email.touched) {
+          <small class="error">{{ email.errors?.['required'] ? 'Vui lòng nhập email.' : 'Email không đúng định dạng.'
+            }}</small>
+          }
+        </div>
+
+        <div class="field">
+          <label for="password">Mật khẩu * <a routerLink="/forgot-password">Quên mật khẩu?</a></label>
+          <div class="input-wrap">
+            <app-icon name="lock" [size]="17"></app-icon>
+            <input id="password" name="password" [type]="showPassword ? 'text' : 'password'" placeholder="Nhập mật khẩu"
+              [(ngModel)]="user.password" #password="ngModel" required minlength="6"
+              [class.is-invalid]="password.invalid && password.touched">
+            <button type="button" class="suffix" (click)="showPassword = !showPassword" aria-label="Hiện/ẩn mật khẩu">
+              <app-icon [name]="showPassword ? 'eye-off' : 'eye'" [size]="17"></app-icon>
+            </button>
+          </div>
+          @if (password.invalid && password.touched) {
+          <small class="error">{{ password.errors?.['required'] ? 'Vui lòng nhập mật khẩu.' : 'Mật khẩu tối thiểu 6 ký
+            tự.' }}</small>
+          }
+        </div>
+
+        <div class="check-row">
+          <label class="check"><input type="checkbox" name="remember" [(ngModel)]="user.remember"> Ghi nhớ đăng nhập
+            trên thiết bị này</label>
+        </div>
+
+        <button type="submit" class="btn-submit" [disabled]="loginForm.invalid || submitting">
+          {{ submitting ? 'Đang đăng nhập...' : 'Đăng Nhập' }} <app-icon name="arrow-right" [size]="17"></app-icon>
+        </button>
+      </form>
+
+      <div class="divider">Hoặc tiếp tục với</div>
+      <button type="button" class="btn-google" (click)="onGoogle()">
+        <app-icon name="google" [size]="18"></app-icon> Đăng nhập nhanh với Google
+      </button>
+
+      <!-- Google Sign-In Dialog Chuẩn Google Identity Services -->
+      @if (showGoogleModal) {
+      <div class="google-backdrop" (click)="closeGoogleModal()"></div>
+      <div class="google-modal-card">
+        <div class="google-modal-head">
+          <div class="google-logo-row">
+            <svg width="24" height="24" viewBox="0 0 24 24">
+              <path fill="#4285F4"
+                d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" />
+              <path fill="#34A853"
+                d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" />
+              <path fill="#FBBC05"
+                d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z" />
+              <path fill="#EA4335"
+                d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z" />
+            </svg>
+            <span class="google-brand-title">Đăng nhập bằng Google</span>
+          </div>
+          <button type="button" class="btn-close-google" (click)="closeGoogleModal()" aria-label="Đóng">&times;</button>
+        </div>
+
+        <div class="google-modal-sub">
+          Sử dụng Tài khoản Google của bạn để tiếp tục với <b>AMULES</b>
+        </div>
+
+        <div class="google-auth-body">
+          <div class="google-field-group">
+            <label for="googleEmailInput">Email Google của bạn</label>
+            <input id="googleEmailInput" type="email" [(ngModel)]="customGoogleEmail"
+              placeholder="Nhập email (ví dụ: anan265464@gmail.com)" (keyup.enter)="loginWithCustomEmail()" autofocus>
+          </div>
+
+          <p class="google-disclaimer">
+            Để tiếp tục, Google sẽ chia sẻ tên, địa chỉ email và ảnh hồ sơ của bạn với AMULES.
+          </p>
+
+          <div class="google-modal-footer">
+            <button type="button" class="google-link-oauth" (click)="openRealGoogleAuth()"
+              title="Xác thực OAuth trên accounts.google.com">
+              Mở OAuth Google &nearr;
+            </button>
+            <button type="button" class="btn-google-next" (click)="loginWithCustomEmail()"
+              [disabled]="googleSubmitting || !customGoogleEmail.trim()">
+              {{ googleSubmitting ? 'Đang kết nối...' : 'Tiếp theo' }}
+            </button>
+          </div>
+        </div>
+      </div>
+      }
+
+      <p class="alt-link">Bạn chưa có tài khoản? <a routerLink="/register">Đăng ký ngay</a></p>
+
+      <div class="notice">
+        <span class="ico"><app-icon name="shield-check" [size]="16"></app-icon></span>
+        <div><strong>Cam kết bảo mật &amp; Quyền riêng tư</strong>Thông tin cá nhân, ngày sinh và hành trình năng lượng
+          của bạn luôn được bảo vệ an toàn tuyệt đối.</div>
+      </div>
+
+      <div class="auth-foot">
+        <span>Điều khoản sử dụng &nbsp;&bull;&nbsp; Chính sách bảo mật &nbsp;&bull;&nbsp; Trợ giúp 24/7</span>
+        <span>AMULES Celestial Security System v2.4</span>
+      </div>
+    </section>
+  </div>
+
+  <div class="feature-trio">
+    <div class="feature-card"><span class="ico"><app-icon name="sparkle" [size]="18"></app-icon></span>
+      <div><strong>Mystic Match Cá Nhân</strong>
+        <p>Lựa giải bản đồ vàng mệnh với sở loại đá phong thủy tương hợp nhất cho riêng bạn.</p>
+      </div>
+    </div>
+    <div class="feature-card"><span class="ico"><app-icon name="truck" [size]="18"></app-icon></span>
+      <div><strong>Theo Dõi Đơn Hàng Tinh Gọn</strong>
+        <p>Cập nhật từng bước chế tác, thanh tẩy và hành trình vận chuyển bảo bối đến tay bạn.</p>
+      </div>
+    </div>
+    <div class="feature-card"><span class="ico"><app-icon name="gem" [size]="18"></app-icon></span>
+      <div><strong>Độc Quyền Hội Viên Ngọc Quý</strong>
+        <p>Tích lũy may mắn mỗi đơn hàng, đổi điểm trọn quà mừng sinh nhật và bộ sưu tập giới hạn.</p>
+      </div>
+    </div>
+  </div>
+</div>

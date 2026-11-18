@@ -1,0 +1,218 @@
+[
+  {
+    "_id": {
+      "$oid": "bc840cf0f39e435344d641bc"
+    },
+    "name": "Bạch Dương",
+    "dateRange": "21/03 - 19/04",
+    "element": "Hỏa",
+    "description": "Bạch Dương là biểu tượng của sự nhiệt huyết, năng động và tinh thần tiên phong. Những người thuộc cung này thường sở hữu cá tính mạnh mẽ, yêu thích khám phá và không ngại thử thách bản thân. Với nguồn năng lượng dồi dào và sự quyết đoán, Bạch Dương luôn hướng đến những mục tiêu mới và thể hiện bản thân một cách đầy tự tin",
+    "compatibleGemstoneIds": [
+      {
+        "$oid": "4091c0bd9e1481c529283aea"
+      },
+      {
+        "$oid": "e8fa4939d35f1f813fa27449"
+      }
+    ],
+    "image": "https://i.pinimg.com/736x/4d/56/d9/4d56d9322930f9fa043f8d5b696e24d2.jpg"
+  },
+  {
+    "_id": {
+      "$oid": "81e670d0f62bff08b80f31a7"
+    },
+    "name": "Kim Ngưu",
+    "dateRange": "20/04 - 20/05",
+    "element": "Thổ",
+    "description": "Kim Ngưu đại diện cho sự ổn định, kiên nhẫn và lòng kiên định. Người thuộc cung này thường yêu thích sự an toàn, trân trọng những giá trị bền vững và có gu thẩm mỹ tinh tế. Họ sở hữu tính cách điềm tĩnh, thực tế và luôn nỗ lực xây dựng cuộc sống cân bằng, đủ đầy theo cách riêng của mình.",
+    "compatibleGemstoneIds": [
+      {
+        "$oid": "6e5d7688f18eabab3fcab6ff"
+      },
+      {
+        "$oid": "22a019914d19838939debf30"
+      }
+    ],
+    "image": "https://i.pinimg.com/736x/b2/37/93/b2379327258f3af0e9c0aa8b3c9af507.jpg"
+  },
+  {
+    "_id": {
+      "$oid": "4a47607c1a70f9389a8d05d1"
+    },
+    "name": "Song Tử",
+    "dateRange": "21/05 - 20/06",
+    "element": "Khí",
+    "description": "Song Tử tượng trưng cho trí tuệ, sự linh hoạt và khả năng giao tiếp. Người thuộc cung này thường thông minh, tò mò và luôn hứng thú với những trải nghiệm mới. Với tư duy sáng tạo cùng tính cách cởi mở, Song Tử dễ dàng thích nghi với nhiều môi trường và luôn mang đến nguồn năng lượng trẻ trung, thú vị.",
+    "compatibleGemstoneIds": [
+      {
+        "$oid": "83f14e52a5650d05df6e4f22"
+      },
+      {
+        "$oid": "9dc53fb4f70a8d5f12597f44"
+      }
+    ],
+    "image": "https://i.pinimg.com/736x/c2/2c/59/c22c59e6004d17779dfaff068cc94d1c.jpg"
+  },
+  {
+    "_id": {
+      "$oid": "ce84dd3716c6d1337db8a883"
+    },
+    "name": "Cự Giải",
+    "dateRange": "21/06 - 22/07",
+    "element": "Thủy",
+    "description": "Cự Giải đại diện cho sự dịu dàng, nhạy cảm và tình cảm sâu sắc. Người thuộc cung này thường sống tình cảm, giàu lòng trắc ẩn và luôn quan tâm đến những người thân yêu. Ẩn sau vẻ ngoài nhẹ nhàng là một tâm hồn mạnh mẽ, biết trân trọng những kết nối chân thành và luôn tìm kiếm cảm giác bình yên trong cuộc sống.",
+    "compatibleGemstoneIds": [
+      {
+        "$oid": "7f64349e172055022ffc91ee"
+      },
+      {
+        "$oid": "879837444685aa9d0c48761c"
+      }
+    ],
+    "image": "https://i.pinimg.com/1200x/90/77/c8/9077c810cbb2f68733cf274e0582dbbf.jpg"
+  },
+  {
+    "_id": {
+      "$oid": "f094a59593b91a7355ae2c04"
+    },
+    "name": "Sư Tử",
+    "dateRange": "23/07 - 22/08",
+    "element": "Hỏa",
+    "description": "Sư Tử là biểu tượng của sự tự tin, bản lĩnh và sức hút nổi bật. Người thuộc cung này thường có cá tính mạnh mẽ, tinh thần lãnh đạo và luôn mong muốn tạo dấu ấn riêng. Họ yêu thích sự sáng tạo, trân trọng giá trị bản thân và không ngại thể hiện phong cách độc đáo của mình trước thế giới.",
+    "compatibleGemstoneIds": [
+      {
+        "$oid": "83f14e52a5650d05df6e4f22"
+      },
+      {
+        "$oid": "7be3aca0a094c06093cdf678"
+      }
+    ],
+    "image": "https://i.pinimg.com/1200x/ec/9e/65/ec9e6563b7ab8da96118f2b47476c410.jpg"
+  },
+  {
+    "_id": {
+      "$oid": "f43cc45821e4b00bee346c5c"
+    },
+    "name": "Xử Nữ",
+    "dateRange": "23/08 - 22/09",
+    "element": "Thổ",
+    "description": "Xử Nữ đại diện cho sự tỉ mỉ, tinh tế và tư duy logic. Người thuộc cung này thường có khả năng quan sát tốt, sống nguyên tắc và luôn chú trọng đến từng chi tiết nhỏ. Với tinh thần trách nhiệm cùng sự cầu toàn, Xử Nữ luôn hướng đến sự hoàn thiện và yêu thích những giá trị giản dị nhưng có chiều sâu.",
+    "compatibleGemstoneIds": [
+      {
+        "$oid": "22a019914d19838939debf30"
+      },
+      {
+        "$oid": "bd5554ded846c2c015693991"
+      }
+    ],
+    "image": "https://i.pinimg.com/736x/39/7b/d1/397bd15ee41775bac6e1a0dd029ade83.jpg"
+  },
+  {
+    "_id": {
+      "$oid": "4c1258d137356c0ff0300071"
+    },
+    "name": "Thiên Bình",
+    "dateRange": "23/09 - 22/10",
+    "element": "Khí",
+    "description": "Thiên Bình tượng trưng cho sự hài hòa, cân bằng và vẻ đẹp tinh tế. Người thuộc cung này thường có gu thẩm mỹ tốt, yêu thích nghệ thuật và luôn đề cao sự công bằng trong các mối quan hệ. Với tính cách duyên dáng, khéo léo và khả năng nhìn nhận nhiều góc độ, Thiên Bình luôn hướng đến một cuộc sống hài hòa và đầy cảm hứng.",
+    "compatibleGemstoneIds": [
+      {
+        "$oid": "6e5d7688f18eabab3fcab6ff"
+      },
+      {
+        "$oid": "df402604fa501e7721aa94e0"
+      }
+    ],
+    "image": "https://i.pinimg.com/736x/bd/2b/f1/bd2bf1b3f5a21ac0ccf67ba303cec308.jpg"
+  },
+  {
+    "_id": {
+      "$oid": "52c85ca736eb6798ca210335"
+    },
+    "name": "Bọ Cạp",
+    "dateRange": "23/10 - 21/11",
+    "element": "Thủy",
+    "description": "Bọ Cạp đại diện cho sự bí ẩn, sâu sắc và ý chí mạnh mẽ. Người thuộc cung này thường có nội tâm phong phú, trực giác nhạy bén và không dễ dàng bộc lộ cảm xúc của mình. Họ sống chân thành, quyết đoán và luôn theo đuổi những điều mình thực sự tin tưởng với sự kiên trì đáng ngưỡng mộ.",
+    "compatibleGemstoneIds": [
+      {
+        "$oid": "4091c0bd9e1481c529283aea"
+      },
+      {
+        "$oid": "746dd658129993063b79cbe2"
+      }
+    ],
+    "image": "https://i.pinimg.com/736x/73/73/11/737311ac79dca474dbcfb25ab0b7b9e8.jpg"
+  },
+  {
+    "_id": {
+      "$oid": "462f95e301ec64d5c2d1e330"
+    },
+    "name": "Nhân Mã",
+    "dateRange": "22/11 - 21/12",
+    "element": "Hỏa",
+    "description": "Nhân Mã là biểu tượng của sự tự do, lạc quan và tinh thần khám phá. Người thuộc cung này thường yêu thích trải nghiệm mới, có tư duy cởi mở và luôn mong muốn mở rộng giới hạn của bản thân. Với nguồn năng lượng tích cực cùng tinh thần phiêu lưu, Nhân Mã luôn tìm kiếm những hành trình ý nghĩa và truyền cảm hứng cho mọi người xung quanh.",
+    "compatibleGemstoneIds": [
+      {
+        "$oid": "df402604fa501e7721aa94e0"
+      },
+      {
+        "$oid": "980f34aa9b5369103f41c3f0"
+      }
+    ],
+    "image": "https://i.pinimg.com/736x/43/ad/88/43ad8859b1661a47a4d741c6222dcad4.jpg"
+  },
+  {
+    "_id": {
+      "$oid": "0f162990d6468128b6539f7e"
+    },
+    "name": "Ma Kết",
+    "dateRange": "22/12 - 19/01",
+    "element": "Thổ",
+    "description": "Ma Kết đại diện cho sự trưởng thành, kỷ luật và tham vọng. Người thuộc cung này thường sống thực tế, có trách nhiệm và luôn đặt ra những mục tiêu rõ ràng cho tương lai. Với tinh thần kiên trì cùng khả năng lập kế hoạch tốt, Ma Kết không ngừng nỗ lực để xây dựng thành công và tạo nên những giá trị bền vững.",
+    "compatibleGemstoneIds": [
+      {
+        "$oid": "c7da62fc5e9e08e01bef965a"
+      },
+      {
+        "$oid": "746dd658129993063b79cbe2"
+      }
+    ],
+    "image": "https://i.pinimg.com/736x/91/0d/4d/910d4dd1fec216c4ac5542b2d0c512ad.jpg"
+  },
+  {
+    "_id": {
+      "$oid": "961d179782b672981e04ce9e"
+    },
+    "name": "Bảo Bình",
+    "dateRange": "20/01 - 18/02",
+    "element": "Khí",
+    "description": "Bảo Bình tượng trưng cho sự sáng tạo, độc lập và tư duy khác biệt. Người thuộc cung này thường có nhiều ý tưởng độc đáo, yêu thích tự do và không ngại đi theo con đường riêng. Họ quan tâm đến những giá trị cộng đồng, có góc nhìn mới mẻ và luôn mong muốn tạo ra những thay đổi tích cực cho thế giới xung quanh.",
+    "compatibleGemstoneIds": [
+      {
+        "$oid": "9dc53fb4f70a8d5f12597f44"
+      },
+      {
+        "$oid": "df402604fa501e7721aa94e0"
+      }
+    ],
+    "image": "https://i.pinimg.com/736x/57/17/2a/57172a9904538599276a3e9e5fb6871f.jpg"
+  },
+  {
+    "_id": {
+      "$oid": "dd7f1bcc31ea57bf8970bf38"
+    },
+    "name": "Song Ngư",
+    "dateRange": "19/02 - 20/03",
+    "element": "Thủy",
+    "description": "Song Ngư đại diện cho sự mộng mơ, lòng trắc ẩn và trí tưởng tượng phong phú. Người thuộc cung này thường nhạy cảm, giàu cảm xúc và có tâm hồn nghệ thuật. Họ dễ đồng cảm với người khác, yêu thích những điều lãng mạn và luôn nhìn cuộc sống bằng sự dịu dàng, tinh tế cùng một thế giới nội tâm đầy màu sắc.",
+    "compatibleGemstoneIds": [
+      {
+        "$oid": "9dc53fb4f70a8d5f12597f44"
+      },
+      {
+        "$oid": "7f64349e172055022ffc91ee"
+      }
+    ],
+    "image": "https://i.pinimg.com/1200x/47/89/17/478917e95c30240c7f21dd789b30be78.jpg"
+  }
+]

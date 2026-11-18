@@ -1,0 +1,210 @@
+[
+  {
+    "_id": {
+      "$oid": "bde662eb6b3531bf856f8116"
+    },
+    "name": "Tình yêu & Kết nối",
+    "slug": "tinh-yeu-ket-noi",
+    "tag": "TÌNH DUYÊN & HÀN GẮN",
+    "description": "Thạch anh hồng dịu dàng, khơi mở luồng yêu thương thuần khiết và gắn kết tâm hồn tri kỷ.",
+    "image": "images/nhan_venus.png",
+    "coverImage": "images/nhan_venus.png",
+    "bannerImage": "images/nhan_venus.png",
+    "productCodes": [
+      "AM-RQ020",
+      "AM-CH002"
+    ],
+    "productIds": [
+      {
+        "$oid": "397cc13e3a983bc4060cc878"
+      },
+      {
+        "$oid": "7caa02962f99fe72f8cfb0e1"
+      }
+    ],
+    "status": "active"
+  },
+  {
+    "_id": {
+      "$oid": "1447ce0ec130ddbd1b3a6157"
+    },
+    "name": "Bình an & Cân bằng",
+    "slug": "binh-an-can-bang",
+    "tag": "TĨNH TÂM & NĂNG LƯỢNG",
+    "description": "Aquamarine và Moonstone làm dịu tâm trí, giữ sự tĩnh tại, thông suốt trước mọi thử thách.",
+    "image": "images/lac_tay_bien.png",
+    "coverImage": "images/lac_tay_bien.png",
+    "bannerImage": "images/lac_tay_bien.png",
+    "productCodes": [
+      "AM-AQ001",
+      "AM-MS042",
+      "AM-CH001",
+      "AM-AQ003"
+    ],
+    "productIds": [
+      {
+        "$oid": "7caa02962f99fe72f8cfb0d6"
+      },
+      {
+        "$oid": "dabcd7e6ca8fe24e72e46af2"
+      },
+      {
+        "$oid": "7caa02962f99fe72f8cfb0e0"
+      },
+      {
+        "$oid": "07701fa38b41160cee3f0d29"
+      }
+    ],
+    "status": "active"
+  },
+  {
+    "_id": {
+      "$oid": "11db7695e578f95bc5e66577"
+    },
+    "name": "Tự tin & Tỏa sáng",
+    "slug": "tu-tin-toa-sang",
+    "tag": "DŨNG KHÍ & BẢN LĨNH",
+    "description": "Citrine thắp sáng nguồn năng lượng thái dương, tiếp thêm dũng khí và sức hút rực rỡ.",
+    "image": "images/banner_mrs.jpg",
+    "coverImage": "images/banner_mrs.jpg",
+    "bannerImage": "images/banner_mrs.jpg",
+    "productCodes": [
+      "AM-CT060",
+      "AM-MS044"
+    ],
+    "productIds": [
+      {
+        "$oid": "a7b1c298566e03c8c1f82b3d"
+      },
+      {
+        "$oid": "028049c2c1d73579085756f5"
+      }
+    ],
+    "status": "active"
+  },
+  {
+    "_id": {
+      "$oid": "bf26ddae3d2b20885d0aebd9"
+    },
+    "name": "May mắn & Cơ hội",
+    "slug": "may-man-co-hoi",
+    "tag": "TÀI LỘC & VẬN KHÍ",
+    "description": "Aventurine xanh ngọc thu hút vượng khí hưng thịnh, mở khóa nhân duyên và cơ hội hanh thông.",
+    "image": "images/bst_da.webp",
+    "coverImage": "images/bst_da.webp",
+    "bannerImage": "images/bst_da.webp",
+    "productCodes": [
+      "AM-AV061",
+      "AM-CH003"
+    ],
+    "productIds": [
+      {
+        "$oid": "b5331d2cc61bf3451fa01cd9"
+      },
+      {
+        "$oid": "7caa02962f99fe72f8cfb0e2"
+      }
+    ],
+    "status": "active"
+  },
+  {
+    "_id": {
+      "$oid": "5c2f3e61e1ee38bf48c9ef6d"
+    },
+    "name": "Chữa lành & Thư giãn",
+    "slug": "chua-lanh-thu-gian",
+    "tag": "THANH TẨY & AN YÊN",
+    "description": "Amethyst tím khói giải tỏa áp lực tâm thức, xoa dịu cảm xúc và mang lại giấc ngủ an lành.",
+    "image": "images/thanh_tay.png",
+    "coverImage": "images/thanh_tay.png",
+    "bannerImage": "images/thanh_tay.png",
+    "productCodes": [
+      "AM-AM062",
+      "AM-SQ050"
+    ],
+    "productIds": [
+      {
+        "$oid": "a5afdce6f13421985c88f0ac"
+      },
+      {
+        "$oid": "5ca64aea1b1133e6088c848e"
+      }
+    ],
+    "status": "active"
+  },
+  {
+    "_id": {
+      "$oid": "6e010a53128c7cbecb28343e"
+    },
+    "name": "Tình bạn & Gắn kết",
+    "slug": "tinh-ban-gan-ket",
+    "tag": "TRI KỶ & BỀN VỮNG",
+    "description": "Bạc Ý 925 và ngọc bích thiên nhiên, biểu tượng tình bạn son sắt, thắt chặt mối thâm giao.",
+    "image": "images/bst_vong_tay.png",
+    "coverImage": "images/bst_vong_tay.png",
+    "bannerImage": "images/bst_vong_tay.png",
+    "productCodes": [
+      "AM-JD063",
+      "AM-AQ001"
+    ],
+    "productIds": [
+      {
+        "$oid": "e15ebba46e88221c8c531868"
+      },
+      {
+        "$oid": "7caa02962f99fe72f8cfb0d6"
+      }
+    ],
+    "status": "active"
+  },
+  {
+    "_id": {
+      "$oid": "f32bdf3624121d631c00686d"
+    },
+    "name": "Năng lượng sáng tạo",
+    "slug": "nang-luong-sang-tao",
+    "tag": "TRỰC GIÁC & CẢM HỨNG",
+    "description": "Fluorite khai thông dòng chảy trực giác, giải phóng cảm hứng nghệ thuật và tư duy sáng tạo.",
+    "image": "images/dch_mix_da.png",
+    "coverImage": "images/dch_mix_da.png",
+    "bannerImage": "images/dch_mix_da.png",
+    "productCodes": [
+      "AM-FL064",
+      "AM-MS010"
+    ],
+    "productIds": [
+      {
+        "$oid": "52664aa06af1d45a0ebdd298"
+      },
+      {
+        "$oid": "420903a9c3bacabc1ea790a7"
+      }
+    ],
+    "status": "active"
+  },
+  {
+    "_id": {
+      "$oid": "1cda19d9574ff03df7ea9df7"
+    },
+    "name": "Quà tặng ý nghĩa",
+    "slug": "qua-tang-y-nghia",
+    "tag": "TRAO GỬI YÊU THƯƠNG",
+    "description": "Hộp quà nhung tinh tế cùng trang sức thủ công mang thông điệp chúc phúc bình an gửi trao.",
+    "image": "images/bst_set_qua.webp",
+    "coverImage": "images/bst_set_qua.webp",
+    "bannerImage": "images/bst_set_qua.webp",
+    "productCodes": [
+      "AM-GS065",
+      "AM-PR030"
+    ],
+    "productIds": [
+      {
+        "$oid": "19253ba3a00f40f0588eb5da"
+      },
+      {
+        "$oid": "b2a6e97daf8e589b35880cdc"
+      }
+    ],
+    "status": "active"
+  }
+]

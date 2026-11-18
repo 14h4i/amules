@@ -1,0 +1,81 @@
+<div class="themes-page container">
+  <nav class="crumb-nav">
+    <a routerLink="/">Trang chủ</a> <span>/</span> <b>Khám phá theo chủ đề năng lượng đá</b>
+  </nav>
+
+  <header class="themes-hero">
+    <span class="eyebrow"><app-icon name="sparkle" [size]="14"></app-icon> Tần số năng lượng đá tự nhiên</span>
+    <h1 class="themes-title serif">Khám Phá Theo Chủ Đề Năng Lượng</h1>
+    <p class="themes-sub">Mỗi viên đá quý thiên nhiên mang một bước sóng riêng biệt, tương tác trực tiếp với luân xa và trường hào quang của bạn. Lựa chọn chủ đề để tìm thấy tạo tác cộng hưởng năng lượng phù hợp nhất.</p>
+  </header>
+
+  <!-- Danh sách 8 chủ đề năng lượng tinh tuyển -->
+  <div class="themes-grid">
+    @for (t of themes; track t.slug || t.name) {
+      <article
+        class="theme-card"
+        [class.active]="selectedTheme?.slug === t.slug || selectedTheme?.name === t.name"
+        (click)="selectTheme(t)"
+      >
+        <div class="theme-card__media">
+          <img [src]="t.image || 'images/banner_mys.jpg'" [alt]="t.name">
+          @if (selectedTheme?.slug === t.slug || selectedTheme?.name === t.name) {
+            <span class="theme-card__active-badge">
+              <app-icon name="sparkle" [size]="12"></app-icon> Đang chọn
+            </span>
+          }
+          <div class="theme-card__overlay">
+            <span class="theme-tag">{{ t.tag || 'Chủ đề năng lượng' }}</span>
+            <h3 class="serif">{{ t.name }}</h3>
+            <p>{{ t.description }}</p>
+          </div>
+        </div>
+      </article>
+    }
+  </div>
+
+  <!-- Sản phẩm tương ứng với chủ đề đang chọn -->
+  @if (selectedTheme) {
+    <section class="theme-focus">
+      <div class="theme-focus__head">
+        <div>
+          <span class="eyebrow"><app-icon name="gem" [size]="14"></app-icon> Bảo vật cộng hưởng chủ đề</span>
+          <h2 class="serif">
+            {{ selectedTheme.name }}
+            <span class="focus-count">({{ products.length }} tạo tác tinh tuyển)</span>
+          </h2>
+          <p class="focus-desc">{{ selectedTheme.description }}</p>
+        </div>
+        <a routerLink="/products" class="btn btn--soft">
+          Xem toàn bộ cửa hàng &rarr;
+        </a>
+      </div>
+
+      <div class="focus-grid">
+        @for (p of products; track p.slug || p.id || p.name) {
+          <article class="p-card" [routerLink]="['/products', p.slug || p.id]">
+            <div class="p-media">
+              <img [src]="p.image || 'images/lac_tay_bien.png'" [alt]="p.name">
+              @if (p.badge) {
+                <span class="p-badge">{{ p.badge }}</span>
+              }
+            </div>
+            <div class="p-info">
+              <span class="p-stone">{{ p.stone || 'ĐÁ TỰ NHIÊN' | uppercase }}</span>
+              <div class="p-rating">
+                &#9733; {{ (p.ratingAverage || 5.0) | number:'1.1-1' }} ({{ p.reviewCount !== undefined && p.reviewCount !== null ? p.reviewCount : 0 }})
+              </div>
+              <h3 class="p-title" [title]="p.name">{{ p.name }}</h3>
+              <div class="p-foot">
+                <strong class="p-price">{{ p.price | number }}đ</strong>
+                @if (p.compareAtPrice && p.compareAtPrice > p.price) {
+                  <del class="p-compare">{{ p.compareAtPrice | number }}đ</del>
+                }
+              </div>
+            </div>
+          </article>
+        }
+      </div>
+    </section>
+  }
+</div>

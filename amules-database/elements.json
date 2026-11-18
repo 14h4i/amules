@@ -1,0 +1,67 @@
+[
+  {
+    "_id": {
+      "$oid": "2f282b13c139ff9174d71a7d"
+    },
+    "name": "Mệnh Kim",
+    "description": "Tập trung tinh thần, khơi mở trí tuệ minh triết và thu hút luồng khí hanh thông.",
+    "compatibleColors": [
+      "Trắng",
+      "Ánh kim",
+      "Xám bạc"
+    ],
+    "image": "https://drive.google.com/file/d/1ZSOt9WZeBUVMzk_C6t9SfhKVzLwz0E9b/view?usp=drive_link"
+  },
+  {
+    "_id": {
+      "$oid": "9d26236c8e94bd24477f1d36"
+    },
+    "name": "Mệnh Mộc",
+    "description": "Hàn gắn những vết nứt cảm xúc, vỗ về tâm hồn và ươm mầm sinh khí tươi mới.",
+    "compatibleColors": [
+      "Xanh lá",
+      "Xanh lục"
+    ],
+    "image": "https://drive.google.com/file/d/1NK-5Dx82x_pyusfZUtu3ZjuIgB7IleSh/view?usp=drive_link"
+  },
+  {
+    "_id": {
+      "$oid": "448a24f33e03c0d6d4c7ebe8"
+    },
+    "name": "Mệnh Thủy",
+    "description": "Khai mở linh cảm nhạy bén, giúp tâm trí mềm mại thích ứng trước mọi biến thiên.",
+    "compatibleColors": [
+      "Lam biển dịu êm",
+      "Xanh thẳm biển sâu",
+      "Đen huyền bí",
+      "Trắng ánh bạc"
+    ],
+    "image": "https://drive.google.com/file/d/1kX1o_BalYV4OjY_5Ip64_edl36os1dZ-/view?usp=drive_link"
+  },
+  {
+    "_id": {
+      "$oid": "63a4bd3d02a3d5d97bb7d13a"
+    },
+    "name": "Mệnh Hỏa",
+    "description": "Thắp sáng niềm đam mê bất tận, sức quyến rũ tự nhiên và can đảm theo đuổi ước vọng.",
+    "compatibleColors": [
+      "Đỏ",
+      "Hồng",
+      "Tím"
+    ],
+    "image": "https://drive.google.com/file/d/1-FBv9FbcjZq9fzY76zkVUjfMgrO9pGGn/view?usp=drive_link"
+  },
+  {
+    "_id": {
+      "$oid": "609ffe8a9ec708cdf7c30749"
+    },
+    "name": "Mệnh Thổ",
+    "description": "Điểm tựa của sự ổn định, tích lũy may mắn, vượng tài lộc và nuôi dưỡng lòng tin.",
+    "compatibleColors": [
+      "Vàng",
+      "Nâu",
+      "Cam đất"
+    ],
+    "image": "https://drive.google.com/file/d/1wX9jLx31_hXOuYE6ihPWChC-gRQELNBG/view?usp=drive_link"
+  }
+]

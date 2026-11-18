@@ -1,0 +1,24 @@
+[
+  {
+    "_id": {
+      "$oid": "75e12fe9c516643c39f66455"
+    },
+    "orderId": {
+      "$oid": "f1584b995a4770986ad75bb8"
+    },
+    "userId": {
+      "$oid": "e4774cdda0793f86414e8b91"
+    },
+    "type": "exchange",
+    "reason": "Muốn đổi sang dây dài hơn",
+    "images": [],
+    "status": "pending",
+    "adminNote": null,
+    "createdAt": {
+      "$date": "2026-11-12T00:00:00.000Z"
+    },
+    "updatedAt": {
+      "$date": "2026-11-12T00:00:00.000Z"
+    }
+  }
+]

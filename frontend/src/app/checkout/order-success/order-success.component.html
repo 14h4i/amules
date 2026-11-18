@@ -1,0 +1,94 @@
+<div class="success-page container">
+
+  <div class="success-card">
+    <div class="success-icon-wrap">
+      <div class="success-icon"><app-icon name="check" [size]="40"></app-icon></div>
+      <div class="sparkle-deco s1"><app-icon name="sparkle" [size]="16"></app-icon></div>
+      <div class="sparkle-deco s2"><app-icon name="sparkle" [size]="20"></app-icon></div>
+    </div>
+
+    <span class="eyebrow"><app-icon name="sparkle" [size]="14"></app-icon> Nghi thức hoàn tất</span>
+    <h1 class="success-title serif">Đặt Hàng Thành Công!</h1>
+    <p class="success-desc">
+      Cảm ơn quý khách đã tin chọn <b>AMULES</b>. Nghệ nhân phong thủy của chúng tôi đang tiến hành thanh tẩy năng lượng cho từng tạo tác trước khi trao đến tay bạn.
+    </p>
+
+    <div class="order-info-box">
+      <div class="info-cell">
+        <span>Mã đơn hàng</span>
+        <strong class="code-text">{{ orderCode }}</strong>
+      </div>
+      <div class="info-cell">
+        <span>Thời gian giao dự kiến</span>
+        <strong>{{ deliveryDate }}</strong>
+      </div>
+      <div class="info-cell">
+        <span>Thanh toán</span>
+        @if (isPaid) {
+          <span class="status-pill status-paid">
+            <app-icon name="check" [size]="12"></app-icon> Đã thanh toán ({{ paymentGateway || 'Online' }})
+          </span>
+        } @else {
+          <span class="status-pill">COD (Tiền mặt khi nhận)</span>
+        }
+      </div>
+    </div>
+
+    <!-- Khối Tích Hợp Vận Chuyển Bên Thứ 3 (GHN Express) -->
+    <div class="logistics-3rd-box">
+      <div class="logistics-left">
+        <div class="carrier-badge-wrap">
+          <app-icon name="truck" [size]="20"></app-icon>
+        </div>
+        <div class="carrier-info">
+          <small>ĐƠN VỊ VẬN CHUYỂN BẢO VẬT LIÊN KẾT:</small>
+          <strong>{{ carrier }}</strong>
+          <div class="tracking-sub">Mã vận đơn bưu cục: <b>{{ trackingCode }}</b></div>
+        </div>
+      </div>
+      <div class="logistics-right">
+        <a [href]="'https://donhang.ghn.vn/?order_code=' + trackingCode" target="_blank" class="btn-track-ghn">
+          <app-icon name="external-link" [size]="14"></app-icon> Tra Cứu Trực Tiếp Trên GHN
+        </a>
+      </div>
+    </div>
+
+    <div class="next-steps">
+      <h3 class="steps-title">Các bước tiếp theo của bảo bối:</h3>
+      <div class="steps-grid">
+        <div class="step-item">
+          <span class="step-num">1</span>
+          <div>
+            <strong>Xác nhận &amp; Thanh tẩy</strong>
+            <small>Đá quý được thanh tẩy bằng chuông xoay Tây Tạng</small>
+          </div>
+        </div>
+        <div class="step-item">
+          <span class="step-num">2</span>
+          <div>
+            <strong>Đóng gói hộp nhung</strong>
+            <small>Kèm chứng thư kiểm định chất lượng và thiệp chúc</small>
+          </div>
+        </div>
+        <div class="step-item">
+          <span class="step-num">3</span>
+          <div>
+            <strong>Vận chuyển an toàn</strong>
+            <small>Giao hàng tận tay và được kiểm tra trước khi nhận</small>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="success-actions">
+      <a routerLink="/account/orders" class="btn btn--soft">
+        <app-icon name="user" [size]="16"></app-icon> Xem Đơn Hàng Của Tôi
+      </a>
+      <a routerLink="/products" class="btn btn--primary">
+        <app-icon name="sparkle" [size]="16"></app-icon> Tiếp Tục Mua Sắm
+      </a>
+    </div>
+
+  </div>
+
+</div>

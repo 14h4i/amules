@@ -1,0 +1,45 @@
+.acc-wrap { padding-top: 22px; padding-bottom: 64px; }
+.acc-crumb { display: flex; align-items: center; gap: 8px; font-size: 12px; color: var(--muted); margin-bottom: 18px; }
+.acc-crumb a { display: inline-flex; align-items: center; gap: 5px; }
+.acc-crumb a:hover { color: var(--plum); }
+.acc-crumb b { color: var(--plum); font-weight: 600; }
+
+.acc-grid { display: grid; grid-template-columns: 265px 1fr; gap: 24px; align-items: start; }
+.acc-sidebar { display: flex; flex-direction: column; gap: 16px; position: sticky; top: 20px; }
+
+.vip-box { background: #fff; border: 1px solid var(--pink-line); border-radius: 22px; padding: 22px 18px 18px; text-align: center; box-shadow: 0 10px 28px rgba(138,44,107,.05); }
+.vip-avatar { position: relative; width: 76px; height: 76px; margin: 0 auto 10px; }
+.vip-avatar img { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; border: 3px solid var(--plum-soft); }
+.vip-avatar__monogram { width: 100%; height: 100%; border-radius: 50%; background: linear-gradient(135deg, var(--plum), #b24578); color: #fff; font-size: 24px; font-weight: 700; display: grid; place-items: center; border: 3px solid var(--plum-soft); letter-spacing: 1px; }
+.vip-avatar__dot { position: absolute; right: 0; bottom: 0; width: 24px; height: 24px; border-radius: 50%; background: var(--plum); color: #fff; display: grid; place-items: center; border: 2px solid #fff; }
+.vip-name { font-family: var(--font-serif); font-size: 18px; font-weight: 600; margin-bottom: 5px; }
+.vip-tier { display: inline-flex; align-items: center; gap: 5px; padding: 3px 10px; border-radius: 999px; font-size: 10px; font-weight: 600; letter-spacing: .08em; background: var(--plum-soft); color: var(--plum); margin-bottom: 14px; }
+
+.vip-energy { background: var(--pink-input); border: 1px solid var(--pink-line); border-radius: 14px; padding: 11px 12px; text-align: left; }
+.vip-energy__top { display: flex; align-items: center; gap: 6px; font-size: 11.5px; color: var(--ink); margin-bottom: 7px; }
+.vip-energy__top b { color: var(--plum); }
+.vip-bar { height: 6px; border-radius: 999px; background: #f2cde0; overflow: hidden; margin-bottom: 6px; }
+.vip-bar i { display: block; height: 100%; background: var(--plum); border-radius: 999px; }
+.vip-energy small { display: block; font-size: 10.5px; color: var(--muted); line-height: 1.4; }
+
+.acc-nav { background: #fff; border: 1px solid var(--pink-line); border-radius: 22px; padding: 12px; display: flex; flex-direction: column; gap: 3px; }
+.acc-nav__link { display: flex; align-items: center; gap: 10px; padding: 11px 13px; border-radius: 13px; font-size: 13px; font-weight: 500; color: var(--ink); transition: background .15s, color .15s; }
+.acc-nav__link app-icon:first-child { color: var(--muted); }
+.acc-nav__text { flex: 1; }
+.acc-nav__badge { font-style: normal; font-size: 10.5px; font-weight: 600; padding: 2px 8px; border-radius: 999px; background: var(--plum-soft); color: var(--plum); }
+.acc-nav__arrow { opacity: 0; color: var(--plum); transition: opacity .15s; }
+.acc-nav__link:hover { background: var(--pink-input); color: var(--plum); }
+.acc-nav__link.active { background: var(--plum-soft); color: var(--plum); font-weight: 600; }
+.acc-nav__link.active app-icon:first-child, .acc-nav__link.active .acc-nav__arrow { color: var(--plum); opacity: 1; }
+
+.acc-nav__logout { margin-top: 6px; padding: 11px 13px; border-top: 1px solid var(--pink-line); background: none; border-left: 0; border-right: 0; border-bottom: 0; display: flex; align-items: center; gap: 10px; font-size: 13px; font-weight: 600; color: var(--danger); text-align: left; }
+.acc-nav__logout:hover { opacity: .85; }
+
+.artisan-card { background: var(--band); border: 1px solid var(--pink-line); border-radius: 20px; padding: 16px 18px; }
+.artisan-card__title { display: flex; align-items: center; gap: 8px; color: var(--plum); font-size: 13px; margin-bottom: 6px; }
+.artisan-card p { font-size: 11.5px; color: var(--muted); line-height: 1.55; margin-bottom: 10px; }
+
+@media (max-width: 960px) {
+  .acc-grid { grid-template-columns: 1fr; }
+  .acc-sidebar { position: static; }
+}

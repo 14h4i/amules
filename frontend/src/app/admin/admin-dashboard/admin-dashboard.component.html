@@ -1,0 +1,118 @@
+<div class="dash-page">
+  <!-- Breadcrumb -->
+  <div class="page-breadcrumb">
+    <span>Trang chủ</span>
+    <span class="crumb-sep">&gt;</span>
+    <span class="crumb-active">Bảng điều khiển tổng quan</span>
+  </div>
+
+  <div class="page-head">
+    <div>
+      <h1 class="page-title serif">Bảng Điều Khiển Tổng Quan</h1>
+      <p class="page-sub">Hiệu suất kinh doanh, tồn kho bảo vật &amp; trạng thái vận hành hệ thống AMULES Haute Joaillerie.</p>
+    </div>
+    <div class="head-actions">
+      <a routerLink="/admin/products" class="btn-action-primary">
+        <app-icon name="plus" [size]="14"></app-icon> Thêm bảo vật mới
+      </a>
+    </div>
+  </div>
+
+  <!-- KPI Cards -->
+  <div class="dash-kpi-grid">
+    <div class="dash-kpi-card">
+      <div class="kpi-card-head">
+        <small>TỔNG DOANH THU</small>
+        <div class="kpi-ico ico-rev"><app-icon name="gem" [size]="16"></app-icon></div>
+      </div>
+      <div class="kpi-card-val">{{ stats.totalRevenue | number }} đ</div>
+      <div class="kpi-card-sub text-up">
+        <span>📈 +18.5%</span> so với tháng trước
+      </div>
+    </div>
+
+    <div class="dash-kpi-card">
+      <div class="kpi-card-head">
+        <small>TỔNG ĐƠN HÀNG</small>
+        <div class="kpi-ico ico-orders"><app-icon name="package" [size]="16"></app-icon></div>
+      </div>
+      <div class="kpi-card-val">{{ stats.ordersCount }} <small>đơn</small></div>
+      <div class="kpi-card-sub text-wait">
+        <span>⏳ {{ stats.pendingOrders }} đơn</span> chờ thanh tẩy &amp; đóng gói
+      </div>
+    </div>
+
+    <div class="dash-kpi-card">
+      <div class="kpi-card-head">
+        <small>BẢO VẬT ĐANG BÁN</small>
+        <div class="kpi-ico ico-prod"><app-icon name="sparkle" [size]="16"></app-icon></div>
+      </div>
+      <div class="kpi-card-val">{{ stats.productsCount }} <small>tác phẩm</small></div>
+      <div class="kpi-card-sub text-green">
+        <span>✔ 100%</span> đã định danh phong thủy
+      </div>
+    </div>
+
+    <div class="dash-kpi-card">
+      <div class="kpi-card-head">
+        <small>HỘI VIÊN CAO CẤP</small>
+        <div class="kpi-ico ico-vip"><app-icon name="award" [size]="16"></app-icon></div>
+      </div>
+      <div class="kpi-card-val">{{ stats.usersCount }} <small>thành viên</small></div>
+      <div class="kpi-card-sub text-gold">
+        <span>💎 Tỉ lệ quay lại 84%</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Fast Access Links -->
+  <div class="quick-nav-section">
+    <h2 class="section-title">Lối Tắt Điều Hành Nhanh</h2>
+    <div class="quick-cards-grid">
+      <a routerLink="/admin/orders" class="quick-nav-card">
+        <div class="quick-icon"><app-icon name="package" [size]="20"></app-icon></div>
+        <div class="quick-text">
+          <strong>Sổ Nhật Ký Đơn Hàng</strong>
+          <p>Xem đơn, đối soát bưu tá GHN, in hóa đơn &amp; xử lý đổi size</p>
+        </div>
+        <span class="quick-arrow">&rarr;</span>
+      </a>
+
+      <a routerLink="/admin/products" class="quick-nav-card">
+        <div class="quick-icon"><app-icon name="gem" [size]="20"></app-icon></div>
+        <div class="quick-text">
+          <strong>Quản Lý Sản Phẩm (CRUD)</strong>
+          <p>Thêm bảo vật, biên tập câu chuyện, cập nhật giá &amp; tồn kho</p>
+        </div>
+        <span class="quick-arrow">&rarr;</span>
+      </a>
+
+      <a routerLink="/admin/catalog" class="quick-nav-card">
+        <div class="quick-icon"><app-icon name="layers" [size]="20"></app-icon></div>
+        <div class="quick-text">
+          <strong>Dữ Liệu Nền &amp; Phong Thủy</strong>
+          <p>Quản lý 6 danh mục, 15 loại đá quý, ngũ hành &amp; 12 cung hoàng đạo</p>
+        </div>
+        <span class="quick-arrow">&rarr;</span>
+      </a>
+
+      <a routerLink="/admin/users" class="quick-nav-card">
+        <div class="quick-icon"><app-icon name="user" [size]="20"></app-icon></div>
+        <div class="quick-text">
+          <strong>Quản Lý Khách Hàng (VIP)</strong>
+          <p>Phân hạng Gemstone VIP, tích lũy điểm &amp; kiểm soát an toàn tài khoản</p>
+        </div>
+        <span class="quick-arrow">&rarr;</span>
+      </a>
+
+      <a routerLink="/admin/vouchers" class="quick-nav-card">
+        <div class="quick-icon"><app-icon name="ticket" [size]="20"></app-icon></div>
+        <div class="quick-text">
+          <strong>Voucher &amp; Mã Khuyến Mãi</strong>
+          <p>Chiến dịch giảm giá, chiết khấu % và tặng kèm quà chuẩn luxury</p>
+        </div>
+        <span class="quick-arrow">&rarr;</span>
+      </a>
+    </div>
+  </div>
+</div>

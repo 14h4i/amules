@@ -1,0 +1,176 @@
+<div class="cart-page container">
+
+  <!-- Breadcrumb -->
+  <nav class="crumb-nav">
+    <a routerLink="/">Trang chủ</a> <span>/</span> <b>Giỏ hàng bảo vật</b>
+  </nav>
+
+  <header class="cart-head">
+    <span class="eyebrow"><app-icon name="bag" [size]="14"></app-icon> Hành trình bảo vật</span>
+    <h1 class="cart-title serif">Giỏ Hàng Của Bạn</h1>
+    <p class="cart-sub">Kiểm tra lại các tạo tác phong thủy trước khi hoàn tất thủ tục thanh tẩy và gửi trao vận mệnh.</p>
+  </header>
+
+  @if (cartItems.length > 0) {
+    <div class="cart-grid">
+
+      <!-- CỘT TRÁI: DANH SÁCH BẢO VẬT TRONG GIỎ -->
+      <section class="cart-list-col">
+        <div class="cart-table-head">
+          <span>Bảo vật</span>
+          <span>Đơn giá</span>
+          <span>Số lượng</span>
+          <span>Tạm tính</span>
+          <span></span>
+        </div>
+
+        <div class="cart-items">
+          @for (item of cartItems; track $index) {
+            <article class="cart-item">
+              <div class="item-info">
+                <img [src]="item.image || 'images/lac_tay_bien.png'" [alt]="item.name" class="item-img">
+                <div>
+                  <h3 class="item-name">{{ item.name }}</h3>
+                  <div class="item-variants">
+                    @if (item.stone) { <span>{{ item.stone }}</span> }
+                    @if (item.size) { <span>Size: {{ item.size }}</span> }
+                  </div>
+                </div>
+              </div>
+
+              <div class="item-price">
+                <strong>{{ item.price | number }}đ</strong>
+              </div>
+
+              <div class="item-qty">
+                <div class="qty-ctrl">
+                  <button type="button" (click)="updateQuantity($index, item.quantity - 1)" [disabled]="item.quantity <= 1">-</button>
+                  <span>{{ item.quantity }}</span>
+                  <button type="button" (click)="updateQuantity($index, item.quantity + 1)">+</button>
+                </div>
+              </div>
+
+              <div class="item-total">
+                <strong>{{ (item.price * item.quantity) | number }}đ</strong>
+              </div>
+
+              <div class="item-action">
+                <button type="button" class="btn-remove" (click)="removeItem($index)" aria-label="Xóa bảo vật">
+                  &times;
+                </button>
+              </div>
+            </article>
+          }
+        </div>
+
+        <div class="cart-bottom-bar">
+          <a routerLink="/products" class="btn-continue">
+            &larr; Tiếp tục khám phá bảo vật
+          </a>
+          <button type="button" class="btn-clear" (click)="clearCart()">
+            Xóa toàn bộ giỏ
+          </button>
+        </div>
+      </section>
+
+      <!-- CỘT PHẢI: TỔNG KẾT & MÃ GIẢM GIÁ -->
+      <aside class="cart-summary-col">
+        <div class="summary-card">
+          <h2 class="summary-title serif">Tóm Tắt Đơn Hàng</h2>
+
+          <!-- Shipping Progress -->
+          <div class="free-ship-box">
+            @if (subtotal >= 500000) {
+              <div class="free-ship-alert ok">
+                <app-icon name="check" [size]="16"></app-icon> Bạn đã đủ điều kiện <b>Miễn phí vận chuyển toàn quốc!</b>
+              </div>
+            } @else {
+              <div class="free-ship-alert">
+                Mua thêm <b>{{ (500000 - subtotal) | number }}đ</b> để được <b>Miễn phí giao hàng</b>
+              </div>
+              <div class="progress-bar">
+                <div class="progress-fill" [style.width.%]="(subtotal / 500000) * 100"></div>
+              </div>
+            }
+          </div>
+
+          <!-- Chi tiết giá tiền -->
+          <div class="summary-rows">
+            <div class="row">
+              <span>Tạm tính ({{ _cartService.cartCount() }} sản phẩm):</span>
+              <strong>{{ subtotal | number }}đ</strong>
+            </div>
+
+            @if (discount > 0) {
+              <div class="row discount-row">
+                <span>Ưu đãi áp dụng:</span>
+                <strong>-{{ discount | number }}đ</strong>
+              </div>
+            }
+
+            <div class="row">
+              <span>Phí vận chuyển:</span>
+              <strong>{{ shippingFee === 0 ? 'Miễn phí' : (shippingFee | number) + 'đ' }}</strong>
+            </div>
+
+            <div class="row total-row">
+              <span>Tổng thanh toán:</span>
+              <strong class="total-price">{{ totalAmount | number }}đ</strong>
+            </div>
+            <small class="tax-note">(Đã bao gồm thuế GTGT và phí đóng gói hộp nhung)</small>
+          </div>
+
+          <!-- Áp mã giảm giá -->
+          <div class="voucher-box">
+            @if (_cartService.appliedVoucher()) {
+              <div class="applied-voucher">
+                <app-icon name="sparkle" [size]="15"></app-icon>
+                <span>Mã: <b>{{ _cartService.appliedVoucher()?.code }}</b> (-{{ discount | number }}đ)</span>
+                <button type="button" class="btn-remove-v" (click)="removeVoucher()">&times;</button>
+              </div>
+            } @else {
+              <div class="voucher-form">
+                <input type="text" [(ngModel)]="voucherCode" placeholder="Nhập mã ưu đãi (AMU50K, VIP...)" (keyup.enter)="onApplyVoucher()">
+                <button type="button" class="btn-apply-v" (click)="onApplyVoucher()" [disabled]="applyingVoucher || !voucherCode.trim()">
+                  {{ applyingVoucher ? 'Đang kiểm tra...' : 'Áp dụng' }}
+                </button>
+              </div>
+              @if (voucherMsg) { <div class="voucher-ok">{{ voucherMsg }}</div> }
+              @if (voucherError) { <div class="voucher-err">{{ voucherError }}</div> }
+            }
+          </div>
+
+          <!-- Nút Đặt Hàng -->
+          <button type="button" class="btn-checkout" (click)="goToCheckout()">
+            Tiến Hành Đặt Hàng <app-icon name="arrow-right" [size]="18"></app-icon>
+          </button>
+
+          <div class="trust-badges">
+            <span><app-icon name="check" [size]="14"></app-icon> Bảo mật SSL 256-bit</span>
+            <span><app-icon name="gift" [size]="14"></app-icon> Hộp quà cao cấp</span>
+          </div>
+        </div>
+      </aside>
+
+    </div>
+  } @else {
+    <!-- Empty State -->
+    <div class="empty-cart-card">
+      <div class="empty-cart-icon"><app-icon name="bag" [size]="40"></app-icon></div>
+      <h2 class="serif">Giỏ hàng của bạn đang trống</h2>
+      <p>Hãy dạo một vòng thánh đường AMULES để chọn lựa những vị bùa hộ mệnh tương hợp nhất với tần số của bạn.</p>
+
+      @if (!_authService.isLoggedIn()) {
+        <div class="guest-cart-notice">
+          <app-icon name="user" [size]="15"></app-icon>
+          <span>Đã có tài khoản AMULES? <a routerLink="/login" [queryParams]="{ returnUrl: '/cart' }">Đăng nhập ngay</a> để xem lại các bảo vật đã lưu trong tài khoản.</span>
+        </div>
+      }
+
+      <a routerLink="/products" class="btn btn--primary" style="margin-top: 14px;">
+        <app-icon name="sparkle" [size]="16"></app-icon> Khám Phá Cửa Hàng Ngay
+      </a>
+    </div>
+  }
+
+</div>

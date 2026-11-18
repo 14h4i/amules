@@ -1,0 +1,38 @@
+[
+  {
+    "_id": {
+      "$oid": "c82561ec215a6e31807ceedf"
+    },
+    "userId": {
+      "$oid": "e4774cdda0793f86414e8b91"
+    },
+    "type": "order_update",
+    "title": "Đơn hàng đã giao",
+    "message": "Đơn AMU-20261105-0001 đã giao thành công.",
+    "relatedId": {
+      "$oid": "f1584b995a4770986ad75bb8"
+    },
+    "isRead": false,
+    "createdAt": {
+      "$date": "2026-11-09T00:00:00.000Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "a6bbc91ae73dd21c0533f735"
+    },
+    "userId": {
+      "$oid": "e4774cdda0793f86414e8b91"
+    },
+    "type": "promotion",
+    "title": "Mã AMULESLOVE",
+    "message": "Giảm 100.000đ cho đơn từ 1 triệu.",
+    "relatedId": {
+      "$oid": "6654c734ccab8f440ff0825e"
+    },
+    "isRead": true,
+    "createdAt": {
+      "$date": "2026-11-01T00:00:00.000Z"
+    }
+  }
+]

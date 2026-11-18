@@ -1,0 +1,42 @@
+[
+  {
+    "_id": {
+      "$oid": "6654c734ccab8f440ff0825e"
+    },
+    "code": "AMULESLOVE",
+    "description": "Giảm 100.000đ cho đơn từ 1 triệu",
+    "discountType": "fixed",
+    "discountValue": 100000,
+    "minOrderValue": 1000000,
+    "maxDiscount": null,
+    "startDate": {
+      "$date": "2026-11-01T00:00:00.000Z"
+    },
+    "endDate": {
+      "$date": "2026-12-31T00:00:00.000Z"
+    },
+    "usageLimit": 500,
+    "usedCount": 1,
+    "status": "active"
+  },
+  {
+    "_id": {
+      "$oid": "1b267619c4812cc46ee28174"
+    },
+    "code": "WELCOME10",
+    "description": "Giảm 10% cho thành viên mới",
+    "discountType": "percentage",
+    "discountValue": 10,
+    "minOrderValue": 300000,
+    "maxDiscount": 100000,
+    "startDate": {
+      "$date": "2026-09-01T00:00:00.000Z"
+    },
+    "endDate": {
+      "$date": "2027-03-31T00:00:00.000Z"
+    },
+    "usageLimit": 1000,
+    "usedCount": 0,
+    "status": "active"
+  }
+]

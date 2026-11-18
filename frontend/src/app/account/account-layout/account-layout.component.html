@@ -1,0 +1,73 @@
+<div class="acc-wrap container">
+  <!-- Breadcrumb -->
+  <nav class="acc-crumb">
+    <a routerLink="/"><app-icon name="home" [size]="13"></app-icon> Trang chủ</a>
+    <span>›</span>
+    <a routerLink="/account/profile">Tài khoản cá nhân</a>
+    <span>›</span>
+    <b>{{ currentCrumb }}</b>
+  </nav>
+
+  <div class="acc-grid">
+    <!-- SIDEBAR TRÁI -->
+    <aside class="acc-sidebar">
+      <!-- Thẻ thông tin VIP -->
+      <div class="vip-box">
+        <div class="vip-avatar">
+          @if (user.avatar) {
+          <img [src]="user.avatar" [alt]="user.name">
+          } @else {
+          <div class="vip-avatar__monogram">{{ getInitials(user.name) }}</div>
+          }
+          <span class="vip-avatar__dot"><app-icon name="sparkle" [size]="11"></app-icon></span>
+        </div>
+        <h3 class="vip-name">{{ user.name }}</h3>
+        <span class="vip-tier"><app-icon name="gem" [size]="11"></app-icon> {{ user.tier }}</span>
+
+        <div class="vip-energy">
+          <div class="vip-energy__top">
+            <app-icon name="sparkle" [size]="12"></app-icon>
+            <span>Năng lượng tích lũy: <b>{{ user.points }}</b></span>
+          </div>
+          <div class="vip-bar"><i [style.width.%]="user.progress"></i></div>
+          <small>{{ user.nextTierNote }}</small>
+        </div>
+      </div>
+
+      <!-- Menu điều hướng -->
+      <nav class="acc-nav">
+        @for (item of navItems; track item.route) {
+        <a [routerLink]="item.route" routerLinkActive="active" class="acc-nav__link">
+          <app-icon [name]="item.icon" [size]="16"></app-icon>
+          <span class="acc-nav__text">{{ item.label }}</span>
+          @if (item.badge) {
+          <em class="acc-nav__badge">{{ item.badge }}</em>
+          }
+          <app-icon name="chevron-right" [size]="13" class="acc-nav__arrow"></app-icon>
+        </a>
+        }
+        <button type="button" class="acc-nav__logout" (click)="logout()">
+          <app-icon name="logout" [size]="16"></app-icon>
+          <span>Đăng xuất tài khoản</span>
+        </button>
+      </nav>
+
+      <!-- Thẻ Tư Vấn Nghệ Nhân -->
+      <div class="artisan-card">
+        <div class="artisan-card__title">
+          <app-icon name="headphones" [size]="15"></app-icon>
+          <strong>Tư Vấn Nghệ Nhân</strong>
+        </div>
+        <p>Cần đo ni tay hoặc kích hoạt năng lượng hộ mệnh đá quý? Các chuyên gia AMULES luôn sẵn lòng đồng hành.</p>
+        <a href="https://zalo.me" target="_blank" rel="noopener noreferrer" class="link-arrow">
+          Trò chuyện trực tiếp <app-icon name="arrow-right" [size]="13"></app-icon>
+        </a>
+      </div>
+    </aside>
+
+    <!-- NỘI DUNG TRANG CON BÊN PHẢI -->
+    <main class="acc-main">
+      <router-outlet></router-outlet>
+    </main>
+  </div>
+</div>

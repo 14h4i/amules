@@ -1,0 +1,159 @@
+<!-- Header -->
+<div class="acc-page-head">
+  <div>
+    <h1 class="acc-page-head__title">
+      Sổ Địa Chỉ Nhận Hàng
+      <span class="acc-badge">{{ addresses.length }} địa chỉ</span>
+    </h1>
+    <p class="acc-page-head__desc">Quản lý các địa chỉ giao nhận bảo vật phong thủy và quà tặng được đóng gói trang
+      trọng từ AMULES.</p>
+  </div>
+  <button type="button" class="btn btn--primary" (click)="openAddModal()">
+    <app-icon name="plus" [size]="15"></app-icon> Thêm Địa Chỉ Mới
+  </button>
+</div>
+
+@if (addresses.length === 0) {
+<div
+  style="background: #fff; border: 1px solid var(--pink-line); border-radius: 20px; padding: 48px 24px; text-align: center; margin-top: 16px;">
+  <div
+    style="width: 68px; height: 68px; margin: 0 auto 16px; border-radius: 50%; background: var(--plum-soft); color: var(--plum); display: grid; place-items: center;">
+    <app-icon name="pin" [size]="32"></app-icon>
+  </div>
+  <h3 style="font-family: var(--font-serif); font-size: 20px; color: var(--plum); margin-bottom: 8px;">Sổ địa chỉ đang
+    trống</h3>
+  <p style="font-size: 13.5px; color: var(--muted); max-width: 480px; margin: 0 auto 24px; line-height: 1.6;">
+    Bạn chưa thiết lập địa chỉ nhận hàng nào. Hãy thêm địa chỉ giao nhận để quá trình đặt hàng và giao bảo vật phong
+    thủy diễn ra nhanh chóng nhất.
+  </p>
+  <button type="button" class="btn btn--primary" (click)="openAddModal()"
+    style="display: inline-flex; align-items: center; gap: 8px;">
+    <app-icon name="plus" [size]="15"></app-icon> Thêm Địa Chỉ Nhận Hàng Mới
+  </button>
+</div>
+} @else {
+<!-- Danh sách 2 cột địa chỉ -->
+<div class="addr-grid">
+  @for (a of addresses; track a.id) {
+  <article class="addr-card" [class.addr-card--default]="a.isDefault">
+    <div class="addr-card__top">
+      <div>
+        <div class="addr-card__name">
+          <strong>{{ a.recipient }}</strong>
+          <span>• {{ a.phone }}</span>
+        </div>
+        <small class="addr-card__type">{{ a.typeLabel }}</small>
+      </div>
+      @if (a.isDefault) {
+      <span class="acc-badge">★ Mặc định</span>
+      } @else {
+      <span class="acc-badge acc-badge--outline">Phụ</span>
+      }
+    </div>
+
+    <p class="addr-card__line">
+      <app-icon [name]="a.isDefault ? 'pin' : 'home'" [size]="16"></app-icon>
+      <span>{{ a.address }}</span>
+    </p>
+
+    <div class="addr-card__note">
+      <app-icon name="clock" [size]="13"></app-icon>
+      <span>{{ a.note }}</span>
+    </div>
+
+    <div class="addr-card__foot">
+      <div class="addr-card__btns">
+        <button type="button" class="btn btn--outline btn--xs">
+          <app-icon name="edit" [size]="13"></app-icon> Chỉnh sửa
+        </button>
+        @if (!a.isDefault) {
+        <button type="button" class="btn-icon-del" (click)="removeAddress(a.id)" aria-label="Xóa">
+          <app-icon name="trash" [size]="14"></app-icon>
+        </button>
+        }
+      </div>
+
+      @if (a.isDefault) {
+      <span class="default-status"><app-icon name="check-circle" [size]="14"></app-icon> Đang là mặc định</span>
+      } @else {
+      <button type="button" class="btn btn--soft btn--xs" (click)="setDefault(a)">Đặt làm mặc định</button>
+      }
+    </div>
+  </article>
+  }
+</div>
+}
+
+<!-- Banner Đóng Gói Bảo Mật -->
+<section class="acc-card acc-card--tint pack-banner">
+  <span class="pack-banner__ico"><app-icon name="package" [size]="20"></app-icon></span>
+  <div class="pack-banner__body">
+    <strong>Đóng Gói Bảo Mật &amp; Niêm Phong Năng Lượng</strong>
+    <p>Mọi trang sức &amp; linh vật hộ mệnh gửi đi từ AMULES đều được niêm phong chống va đập, bảo hiểm hàng giá trị cao
+      và thanh tẩy bằng tinh dầu trầm hương trước khi xuất xưởng.</p>
+  </div>
+  <a routerLink="/about" class="btn btn--outline btn--xs">
+    Quy chuẩn giao nhận <app-icon name="arrow-right" [size]="13"></app-icon>
+  </a>
+</section>
+
+<!-- Banner SSL 256-bit -->
+<div class="ssl-bar">
+  <span class="ssl-bar__ico"><app-icon name="lock" [size]="16"></app-icon></span>
+  <div class="ssl-bar__text">
+    <strong>Bảo mật thông tin vận chuyển SSL 256-bit <span class="acc-badge acc-badge--gold">AN TOÀN</span></strong>
+    <p>Địa chỉ và số điện thoại của bạn được mã hóa an toàn theo chuẩn thương mại điện tử quốc tế, chỉ chia sẻ với đối
+      tác vận chuyển chuyên trách.</p>
+  </div>
+  <span class="ssl-verified"><app-icon name="shield-check" [size]="14"></app-icon> VERIFIED PRIVACY</span>
+</div>
+
+<!-- Modal Thêm Địa Chỉ Mới -->
+@if (showAddModal) {
+<div class="modal-overlay" (click)="closeAddModal()">
+  <div class="modal-card" (click)="$event.stopPropagation()">
+    <div class="modal-card__head">
+      <h3>Thêm địa chỉ nhận hàng mới</h3>
+      <button type="button" class="btn-close" (click)="closeAddModal()">✕</button>
+    </div>
+    <div class="modal-card__body">
+      <div class="form-row">
+        <label>
+          <span>Họ và tên người nhận</span>
+          <input type="text" [(ngModel)]="newAddress.recipient" placeholder="Họ và tên...">
+        </label>
+        <label>
+          <span>Số điện thoại</span>
+          <input type="tel" [(ngModel)]="newAddress.phone" placeholder="0982...">
+        </label>
+      </div>
+      <div class="form-row">
+        <label>
+          <span>Loại địa chỉ</span>
+          <select [(ngModel)]="newAddress.typeLabel">
+            <option value="NHÀ RIÊNG">Nhà riêng</option>
+            <option value="CƠ QUAN / VĂN PHÒNG">Cơ quan / Văn phòng</option>
+          </select>
+        </label>
+        <label>
+          <span>Ghi chú giao hàng</span>
+          <input type="text" [(ngModel)]="newAddress.note" placeholder="Ví dụ: Gọi trước khi giao...">
+        </label>
+      </div>
+      <label class="form-full">
+        <span>Địa chỉ chi tiết (Số nhà, đường, phường/xã, quận/huyện, tỉnh/thành)</span>
+        <textarea rows="3" [(ngModel)]="newAddress.address"
+          placeholder="Nhập số nhà, tên đường, khu đô thị, phường/xã..."></textarea>
+      </label>
+      <label class="check-label">
+        <input type="checkbox" [(ngModel)]="newAddress.isDefault">
+        <span>Đặt làm địa chỉ nhận hàng mặc định</span>
+      </label>
+    </div>
+    <div class="modal-card__foot">
+      <button type="button" class="btn btn--outline" (click)="closeAddModal()">Hủy</button>
+      <button type="button" class="btn btn--primary" (click)="saveNewAddress()">Lưu địa chỉ</button>
+    </div>
+  </div>
+</div>
+}

@@ -1,0 +1,87 @@
+/* Layout chính storefront AMULES */
+:host {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+main {
+  flex: 1;
+}
+
+/* Floating 3rd-Party Support Pills (Zalo & Hotline) */
+.floating-cskh {
+  position: fixed;
+  bottom: 26px;
+  right: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  z-index: 999;
+}
+
+.cskh-pill {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 16px;
+  border-radius: 999px;
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 600;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.16);
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.cskh-pill:hover {
+  transform: translateY(-2px) scale(1.03);
+}
+
+.zalo-pill {
+  background: #ffffff;
+  color: #0068FF;
+  border: 1.5px solid #bfdbfe;
+}
+.zalo-pill:hover {
+  background: #0068FF;
+  color: #ffffff;
+  border-color: #0068FF;
+}
+.zalo-pill:hover svg path:first-child {
+  fill: #ffffff;
+}
+.zalo-pill:hover svg path:last-child {
+  fill: #0068FF;
+}
+
+.phone-pill {
+  background: var(--plum, #8a2c6b);
+  color: #ffffff;
+  border: 1.5px solid var(--plum, #8a2c6b);
+}
+.phone-pill:hover {
+  background: var(--plum-dark, #6b1e51);
+}
+
+.cskh-text {
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+.pulse-ring {
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  border-radius: 999px;
+  border: 2px solid #0068FF;
+  animation: zaloPulse 2s cubic-bezier(0.24, 0, 0.38, 1) infinite;
+  pointer-events: none;
+}
+
+@keyframes zaloPulse {
+  0% { transform: scale(0.95); opacity: 0.8; }
+  50% { transform: scale(1.15); opacity: 0; }
+  100% { transform: scale(1.15); opacity: 0; }
+}

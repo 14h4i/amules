@@ -1,0 +1,53 @@
+.score-pill { display: flex; align-items: center; gap: 12px; padding: 10px 16px; border-radius: 16px; background: var(--pink-input); border: 1px solid var(--pink-line); }
+.score-pill__ico { width: 38px; height: 38px; border-radius: 50%; background: #fff; color: var(--plum); display: grid; place-items: center; }
+.score-pill small { display: block; font-size: 9.5px; font-weight: 700; letter-spacing: .08em; color: var(--muted); }
+.score-pill__val { display: flex; align-items: center; gap: 8px; }
+.score-pill__val strong { font-family: var(--font-serif); font-size: 22px; color: var(--plum); }
+
+.sec-cols { display: grid; grid-template-columns: 1.35fr 1fr; gap: 18px; align-items: start; }
+.sec-advice { display: flex; align-items: flex-start; gap: 10px; padding: 12px 14px; border-radius: 14px; background: var(--pink-input); border: 1px solid var(--pink-line); font-size: 12px; color: var(--muted); line-height: 1.55; margin-bottom: 16px; }
+.sec-advice app-icon { color: var(--plum); margin-top: 2px; flex-shrink: 0; }
+.sec-advice b { color: var(--plum-dark); }
+
+.no-left-icon input { padding-left: 16px !important; background: var(--pink-input); }
+.forgot-row { text-align: right; margin-top: 5px; }
+.forgot-row a { font-size: 11.5px; font-weight: 600; color: var(--plum); }
+
+.sec-form-foot { display: flex; justify-content: flex-end; align-items: center; gap: 10px; margin-top: 16px; padding-top: 14px; border-top: 1px solid var(--pink-line); }
+
+.toggle-switch { width: 44px; height: 24px; border-radius: 999px; border: 0; background: #e2ced9; position: relative; padding: 3px; transition: background .2s; }
+.toggle-switch.on { background: var(--plum); }
+.toggle-switch i { display: block; width: 18px; height: 18px; border-radius: 50%; background: #fff; transition: transform .2s; }
+.toggle-switch.on i { transform: translateX(20px); }
+
+.twofa-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.twofa-box { padding: 14px; border-radius: 16px; border: 1px solid var(--pink-line); background: #fff; display: flex; flex-direction: column; justify-content: space-between; }
+.twofa-box.active { background: var(--pink-input); border-color: var(--plum); }
+.twofa-box__top { display: flex; justify-content: space-between; align-items: center; gap: 6px; margin-bottom: 8px; }
+.twofa-box__top strong { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; }
+.twofa-box p { font-size: 11.5px; color: var(--muted); line-height: 1.55; margin-bottom: 10px; }
+
+.session-list { display: flex; flex-direction: column; gap: 12px; margin-bottom: 14px; }
+.session-item { display: flex; align-items: center; gap: 12px; padding: 12px 14px; border-radius: 14px; border: 1px solid var(--pink-line); background: #fff; }
+.session-item.current { background: var(--pink-input); border-color: var(--plum-soft); }
+.session-ico { width: 34px; height: 34px; border-radius: 10px; background: #fff; color: var(--plum); display: grid; place-items: center; flex-shrink: 0; }
+.session-info { flex: 1; }
+.session-info strong { display: block; font-size: 13px; }
+.session-info small { display: inline-flex; align-items: center; gap: 4px; font-size: 11px; color: var(--muted); }
+.session-out-btn { border: 0; background: none; font-size: 12px; font-weight: 600; color: var(--danger); }
+
+.session-foot { display: flex; justify-content: space-between; align-items: center; padding-top: 12px; border-top: 1px solid var(--pink-line); font-size: 11.5px; color: var(--muted); }
+.revoke-all-btn { border: 0; background: none; display: inline-flex; align-items: center; gap: 5px; font-size: 12px; font-weight: 600; color: var(--plum); }
+
+.danger-card { border-color: #f5c2cc; }
+.danger-ico { background: #fdecef !important; color: var(--danger) !important; }
+.danger-sub-title { font-size: 14px; margin-bottom: 6px; }
+.danger-desc { font-size: 12px; color: var(--muted); line-height: 1.6; margin-bottom: 12px; }
+.danger-warn { display: flex; align-items: flex-start; gap: 8px; padding: 10px 12px; border-radius: 12px; background: #fdecef; color: var(--danger); font-size: 11.5px; line-height: 1.5; margin-bottom: 14px; }
+.danger-warn app-icon { margin-top: 2px; flex-shrink: 0; }
+.btn-danger-outline { width: 100%; display: flex; align-items: center; justify-content: center; gap: 8px; padding: 11px; border-radius: 12px; border: 1px solid #f5c2cc; background: #fff; color: var(--danger); font-size: 13px; font-weight: 600; }
+.btn-danger-outline:hover { background: #fdecef; }
+
+@media (max-width: 960px) {
+  .sec-cols, .twofa-grid { grid-template-columns: 1fr; }
+}

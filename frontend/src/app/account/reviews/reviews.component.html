@@ -1,0 +1,126 @@
+<!-- Header -->
+<div class="acc-page-head">
+  <div>
+    <span class="eyebrow"><app-icon name="sparkle" [size]="12"></app-icon> ĐẶC QUYỀN TINH TÚ</span>
+    <h1 class="acc-page-head__title">Đánh Giá Của Tôi</h1>
+    <p class="acc-page-head__desc">Chia sẻ trải nghiệm của bạn để giúp cộng đồng AMULES lựa chọn sản phẩm bùa hộ mệnh phù hợp nhất với năng lượng bản thân.</p>
+  </div>
+
+  <div class="reward-pill">
+    <span class="reward-pill__ico"><app-icon name="award" [size]="18"></app-icon></span>
+    <div>
+      <small>ĐIỂM TÍCH LŨY NHẬN ĐƯỢC</small>
+      <strong>+50 Tinh Thạch</strong> <span>/ mỗi lượt đánh giá</span>
+    </div>
+  </div>
+</div>
+
+<!-- Tabs -->
+<div class="rev-bar">
+  <div class="acc-pill-tabs" style="margin-bottom: 0;">
+    <button type="button" [class.active]="activeTab === 'pending'" (click)="activeTab = 'pending'">
+      Chờ đánh giá <span class="tab-count">{{ submittedSuccess ? 0 : 1 }}</span>
+    </button>
+    <button type="button" [class.active]="activeTab === 'submitted'" (click)="activeTab = 'submitted'">
+      Đã đánh giá <span class="tab-count">{{ submittedReviews.length }}</span>
+    </button>
+  </div>
+  <span class="rev-verify"><app-icon name="check-circle" [size]="14"></app-icon> 100% đánh giá được chứng thực từ người mua thật</span>
+</div>
+
+<!-- Khối viết đánh giá cho sản phẩm chờ đánh giá -->
+@if (!submittedSuccess) {
+  <section class="acc-card rev-form-card">
+    <!-- Cột trái: Thông tin sản phẩm đã mua -->
+    <div class="rev-prod">
+      <div class="rev-prod__img-wrap">
+        <img src="images/bong_tai.png" alt="Lắc Tay Nàng Thơ">
+        <span class="stone-badge">Rose Quartz</span>
+      </div>
+      <div class="rev-prod__info">
+        <span class="acc-badge">Đơn hàng đã giao thành công</span>
+        <h3>Lắc Tay Nàng Thơ Thạch Anh Hồng Madagascar</h3>
+        <p class="rev-order-code">Mã đơn: <b>#AMU-LT-004</b></p>
+        <small><app-icon name="calendar" [size]="12"></app-icon> Giao hoàn tất ngày 10/10/2025</small>
+      </div>
+    </div>
+
+    <!-- Cột phải: Form chấm sao & cảm nhận -->
+    <div class="rev-editor">
+      <div class="field">
+        <label>Chấm điểm chất lượng bùa hộ mệnh</label>
+        <div class="star-picker">
+          @for (s of [1, 2, 3, 4, 5]; track s) {
+            <button type="button" [class.on]="s <= rating" (click)="setRating(s)" aria-label="Sao">★</button>
+          }
+          <span class="star-label">{{ ratingLabels[rating] }}</span>
+        </div>
+      </div>
+
+      <div class="field">
+        <label>Tiêu đề đánh giá</label>
+        <div class="input-wrap no-left-icon">
+          <input type="text" [(ngModel)]="reviewTitle">
+        </div>
+      </div>
+
+      <div class="field">
+        <label>Chia sẻ chi tiết trải nghiệm &amp; năng lượng đá</label>
+        <textarea rows="3" [(ngModel)]="reviewContent" class="rev-textarea"></textarea>
+      </div>
+
+      <div class="field">
+        <label>Ảnh / Video thực tế trên tay (Tối đa 5 ảnh)</label>
+        <div class="rev-photos">
+          <img src="images/lac_tay_bien.png" alt="Ảnh thực tế 1">
+          <img src="images/dch_mix_da.png" alt="Ảnh thực tế 2">
+          <button type="button" class="add-photo-btn">
+            <app-icon name="camera" [size]="16"></app-icon>
+            <span>Thêm ảnh</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="rev-editor__actions">
+        <button type="button" class="btn btn--outline btn--xs">Hủy</button>
+        <button type="button" class="btn btn--primary btn--xs" (click)="submitReview()">
+          Gửi đánh giá <app-icon name="send" [size]="13"></app-icon>
+        </button>
+      </div>
+    </div>
+  </section>
+}
+
+<!-- Danh sách Đánh Giá Đã Gửi -->
+<div class="rev-list-head">
+  <h2 class="serif">Đánh Giá Đã Gửi</h2>
+  <span>Hiển thị {{ submittedReviews.length }} trong số {{ submittedReviews.length }} đánh giá</span>
+</div>
+
+@for (r of submittedReviews; track r.productName) {
+  <article class="acc-card rev-item">
+    <img [src]="r.image" [alt]="r.productName" class="rev-item__img">
+    <div class="rev-item__body">
+      <div class="rev-item__top">
+        <h3>{{ r.productName }}</h3>
+        <span class="acc-badge acc-badge--ok"><app-icon name="check-circle" [size]="12"></app-icon> Đã duyệt ✓</span>
+      </div>
+      <div class="rev-item__stars">
+        <span class="stars-gold">★★★★★</span>
+        <small>• Đã đăng ngày {{ r.date }}</small>
+      </div>
+      <p class="rev-item__quote">{{ r.quote }}</p>
+      <div class="rev-item__foot">
+        <span><app-icon name="thumbs-up" [size]="13"></app-icon> {{ r.helpfulCount }} khách hàng thấy hữu ích</span>
+        <span>•</span>
+        <a [routerLink]="['/products']" [queryParams]="{ search: r.productName }">Xem bài viết trên trang sản phẩm</a>
+      </div>
+    </div>
+  </article>
+}
+
+<!-- Chính sách minh bạch -->
+<div class="acc-foot-note">
+  <span class="ico"><app-icon name="shield-check" [size]="15"></app-icon></span>
+  <p><b>Chính sách minh bạch AMULES:</b> Chỉ những khách hàng đã mua sản phẩm từ đơn hàng giao thành công mới có thể gửi đánh giá xác thực. Mọi phản hồi đều được giữ nguyên vẹn nhằm tôn trọng tiếng nói khách quan của quý khách.</p>
+</div>

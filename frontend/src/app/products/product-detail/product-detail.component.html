@@ -1,0 +1,229 @@
+<div class="detail-page container">
+
+  <!-- Breadcrumb -->
+  <nav class="crumb-nav">
+    <a routerLink="/">Trang chủ</a> <span>/</span>
+    <a routerLink="/products">Cửa hàng</a> <span>/</span>
+    <b>{{ product?.name }}</b>
+  </nav>
+
+  @if (addedToast) {
+  <div class="toast-notice">
+    <app-icon name="check" [size]="16"></app-icon>
+    <span>{{ addedToast }}</span>
+    <a routerLink="/cart" class="toast-link">Đến giỏ hàng &rarr;</a>
+  </div>
+  }
+
+  @if (loading) {
+  <div class="loading-state">
+    <div class="spinner"></div>
+    <p>Đang chuẩn bị thông tin bảo vật...</p>
+  </div>
+  } @else if (product) {
+
+  <div class="detail-grid">
+
+    <!-- CỘT TRÁI: HÌNH ẢNH SẢN PHẨM -->
+    <section class="gallery-col">
+      <div class="main-image-wrap">
+        <img
+          [src]="product.images && product.images[selectedImageIndex] ? product.images[selectedImageIndex] : (product.image || 'images/lac_tay_bien.png')"
+          (error)="onImageError($event)"
+          [alt]="product.name">
+        @if (product.badge) { <span class="p-badge">{{ product.badge }}</span> }
+      </div>
+
+      @if (product.images && product.images.length > 1) {
+      <div class="thumb-list">
+        @for (img of product.images; track $index) {
+        <button type="button" class="thumb-btn" [class.active]="selectedImageIndex === $index"
+          (click)="selectImage($index)">
+          <img [src]="img" (error)="onImageError($event)" [alt]="product.name + ' thumbnail ' + ($index + 1)">
+        </button>
+        }
+      </div>
+      }
+    </section>
+
+    <!-- CỘT PHẢI: THÔNG TIN SẢN PHẨM & ĐẶT MUA -->
+    <section class="info-col">
+      <div class="product-header">
+        <span class="eyebrow"><app-icon name="sparkle" [size]="14"></app-icon> {{ product.stone || 'Bảo vật tự nhiên'
+          }}</span>
+        <h1 class="p-title serif">{{ product.name }}</h1>
+        <div class="p-code-rating">
+          <span class="p-code">Mã: <b>{{ product.productCode || product.code || 'AM-CEL' }}</b></span>
+          <span class="rating-stars">
+            <app-icon name="sparkle" [size]="14"></app-icon> {{ (product.ratingAverage || 5.0) | number:'1.1-1' }} ({{ product.reviewCount !== undefined && product.reviewCount !== null ? product.reviewCount : reviews.length }} đánh giá)
+          </span>
+        </div>
+      </div>
+
+      <!-- Giá tiền -->
+      <div class="price-box">
+        <span class="current-price">{{ product.price | number }}đ</span>
+        @if (product.compareAtPrice && product.compareAtPrice > product.price) {
+        <del class="original-price">{{ product.compareAtPrice | number }}đ</del>
+        <span class="discount-chip">Tiết kiệm {{ (product.compareAtPrice - product.price) | number }}đ</span>
+        }
+      </div>
+
+      <!-- Mệnh tương hợp & ngũ hành -->
+      <div class="energy-box">
+        <div class="energy-row">
+          <span class="label"><app-icon name="moon" [size]="15"></app-icon> Tương hợp bản mệnh:</span>
+          <div class="energy-tags">
+            <span class="tag-pill">{{ product.element || 'Hòa hợp mọi cung mệnh' }}</span>
+            <span class="tag-pill">Cung Nước &amp; Khí</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tùy chọn Kích cỡ (Size) -->
+      @if (product.sizes && product.sizes.length > 0) {
+      <div class="option-group">
+        <label class="option-label">Chọn kích thước cổ tay / chiều dài:</label>
+        <div class="size-chips">
+          @for (sz of product.sizes; track sz) {
+          <button type="button" class="size-chip" [class.active]="selectedSize === sz" (click)="selectedSize = sz">
+            {{ sz }}
+          </button>
+          }
+        </div>
+      </div>
+      }
+
+      <!-- Số lượng & Nút đặt mua -->
+      <div class="action-row">
+        <div class="quantity-ctrl">
+          <button type="button" (click)="changeQuantity(-1)" [disabled]="quantity <= 1">-</button>
+          <span>{{ quantity }}</span>
+          <button type="button" (click)="changeQuantity(1)">+</button>
+        </div>
+
+        <button type="button" class="btn btn-add" (click)="addToCart()">
+          <app-icon name="bag" [size]="18"></app-icon> Thêm Vào Giỏ Hàng
+        </button>
+
+        <button type="button" class="btn btn-buy" (click)="buyNow()">
+          Mua Ngay &rarr;
+        </button>
+      </div>
+
+      <!-- Cam kết từ AMULES -->
+      <div class="perks-grid">
+        <div class="perk-item">
+          <app-icon name="check" [size]="18"></app-icon>
+          <div>
+            <strong>100% Đá quý thiên nhiên</strong>
+            <small>Có chứng thư kiểm định chất lượng</small>
+          </div>
+        </div>
+        <div class="perk-item">
+          <app-icon name="truck" [size]="18"></app-icon>
+          <div>
+            <strong>Miễn phí vận chuyển</strong>
+            <small>Đơn hàng toàn quốc từ 500.000đ</small>
+          </div>
+        </div>
+        <div class="perk-item">
+          <app-icon name="gift" [size]="18"></app-icon>
+          <div>
+            <strong>Hộp nhung tinh xảo</strong>
+            <small>Tặng kèm túi &amp; thiệp chúc may mắn</small>
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <!-- TABS CHI TIẾT & Ý NGHĨA PHONG THỦY -->
+  <section class="details-section">
+    <nav class="detail-tabs">
+      <button type="button" [class.active]="activeTab === 'desc'" (click)="activeTab = 'desc'">
+        <app-icon name="sparkle" [size]="16"></app-icon> Mô Tả Tạo Tác
+      </button>
+      <button type="button" [class.active]="activeTab === 'energy'" (click)="activeTab = 'energy'">
+        <app-icon name="moon" [size]="16"></app-icon> Ý Nghĩa &amp; Năng Lượng
+      </button>
+      <button type="button" [class.active]="activeTab === 'reviews'" (click)="activeTab = 'reviews'">
+        <app-icon name="user" [size]="16"></app-icon> Đánh Giá Khách Hàng ({{ reviews.length }})
+      </button>
+    </nav>
+
+    <div class="tab-content">
+      @if (activeTab === 'desc') {
+      <div class="content-block">
+        <p>{{ product.description || 'Tạo tác trang sức đá quý phong thủy hộ mệnh được chế tác thủ công tinh xảo, gìn
+          giữ trọn vẹn tần số rung động thuần khiết của vũ trụ.' }}</p>
+        <ul class="spec-list">
+          <li><strong>Chất liệu chính:</strong> {{ product.material || 'Bạc Ý 925 cao cấp, chống xỉn màu' }}</li>
+          <li><strong>Loại đá đính kèm:</strong> {{ product.stone || 'Đá tự nhiên tuyển chọn' }}</li>
+          <li><strong>Quy chuẩn chế tác:</strong> Hoàn thiện thủ công tỉ mỉ từng chi tiết</li>
+          <li><strong>Thanh tẩy năng lượng:</strong> Đã được thanh tẩy bằng chuông xoay Tây Tạng trước khi xuất xưởng
+          </li>
+        </ul>
+      </div>
+      } @else if (activeTab === 'energy') {
+      <div class="content-block">
+        <h3 class="serif">Ý Nghĩa Phong Thủy &amp; Chữa Lành Tâm Thức</h3>
+        <p>Trong chiêm tinh học và liệu pháp tinh thể (Crystal Healing), mỗi loại đá tự nhiên sở hữu một tần số dao động
+          độc nhất, tương ứng với các trung tâm năng lượng (Luân xa - Chakra) trên cơ thể con người.</p>
+        <div class="energy-cards">
+          <div class="e-card">
+            <span class="dot-icon"><app-icon name="sparkle" [size]="18"></app-icon></span>
+            <h4>An Yên &amp; Giảm Căng Thẳng</h4>
+            <p>Xoa dịu sóng não, nâng niu giấc ngủ sâu và đem đến sự thanh tịnh trong tâm trí mỗi ngày.</p>
+          </div>
+          <div class="e-card">
+            <span class="dot-icon"><app-icon name="moon" [size]="18"></app-icon></span>
+            <h4>Khai Mở Trực Giác</h4>
+            <p>Nuôi dưỡng luân xa Con Mắt Thứ Ba, giúp bạn thấu suốt những quyết định quan trọng trong cuộc sống.</p>
+          </div>
+        </div>
+      </div>
+      } @else if (activeTab === 'reviews') {
+      <div class="reviews-block">
+        @for (r of reviews; track r.author) {
+        <div class="review-item">
+          <div class="review-head">
+            <strong>{{ r.author }}</strong>
+            <span class="r-badge"><app-icon name="check" [size]="12"></app-icon> Đã mua hàng</span>
+            <span class="r-date">{{ r.date }}</span>
+          </div>
+          <div class="r-stars">★★★★★</div>
+          <p class="r-content">{{ r.content }}</p>
+        </div>
+        }
+      </div>
+      }
+    </div>
+  </section>
+
+  <!-- SẢN PHẨM TƯƠNG HỢP / LIÊN QUAN -->
+  @if (relatedProducts.length > 0) {
+  <section class="related-section">
+    <h2 class="section-title serif">Tạo Tác Tương Hòa Năng Lượng</h2>
+    <div class="related-grid">
+      @for (rp of relatedProducts; track rp.name) {
+      <article class="rp-card" [routerLink]="['/products', rp.slug || rp.id]">
+        <div class="rp-media">
+          <img [src]="rp.image || 'images/lac_tay_bien.png'" [alt]="rp.name">
+        </div>
+        <div class="rp-body">
+          <span class="rp-stone">{{ rp.stone }}</span>
+          <h4 class="rp-name">{{ rp.name }}</h4>
+          <strong class="rp-price">{{ rp.price | number }}đ</strong>
+        </div>
+      </article>
+      }
+    </div>
+  </section>
+  }
+
+  }
+
+</div>

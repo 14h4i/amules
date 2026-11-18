@@ -1,0 +1,206 @@
+<!-- Tiêu đề trang -->
+<div class="acc-page-head">
+  <div>
+    <h1 class="acc-page-head__title">Hồ Sơ Cá Nhân</h1>
+    <p class="acc-page-head__desc">Quản lý thông tin định danh, ngày sinh và kết nối năng lượng cá nhân của bạn.</p>
+  </div>
+  <span class="acc-badge"><i class="dot-live"></i> Đồng bộ dữ liệu thời gian thực</span>
+</div>
+
+<!-- Thông báo đồng bộ -->
+@if (showSyncBanner) {
+  <div class="sync-banner">
+    <span class="sync-banner__ico"><app-icon name="sparkle" [size]="15"></app-icon></span>
+    <p>Thông tin hồ sơ đã được cập nhật đồng bộ với thẻ hội viên AMULES.</p>
+    <button type="button" (click)="showSyncBanner = false" aria-label="Đóng">
+      <app-icon name="close" [size]="14"></app-icon>
+    </button>
+  </div>
+}
+
+<!-- 1. Ảnh đại diện -->
+<section class="acc-card">
+  <div class="acc-card__head">
+    <div class="acc-card__title">
+      <span class="ico-box"><app-icon name="camera" [size]="16"></app-icon></span>
+      <span>Ảnh Đại Diện</span>
+    </div>
+  </div>
+  <div class="avatar-row">
+    @if (profile.avatar) {
+      <img [src]="profile.avatar" alt="Avatar" class="avatar-row__img">
+    } @else {
+      <div class="avatar-row__monogram">{{ getInitials(profile.fullName) }}</div>
+    }
+    <div class="avatar-row__info">
+      <strong>Ảnh đại diện thẻ thành viên</strong>
+      <p>Hình ảnh này sẽ hiển thị tại hồ sơ cá nhân, các đánh giá sản phẩm và thẻ thành viên AMULES Boutique.</p>
+      <div class="avatar-row__actions">
+        <button type="button" class="btn btn--soft btn--xs">
+          <app-icon name="camera" [size]="13"></app-icon> Thay đổi ảnh
+        </button>
+        <button type="button" class="btn btn--outline btn--xs">
+          <app-icon name="trash" [size]="13"></app-icon> Gỡ bỏ
+        </button>
+      </div>
+      <small>ĐỊNH DẠNG JPG, PNG TỐI ĐA 5MB • KÍCH THƯỚC KHUYẾN NGHỊ 400×400PX</small>
+    </div>
+  </div>
+</section>
+
+<!-- 2. Thông tin cơ bản -->
+<section class="acc-card">
+  <div class="acc-card__head">
+    <div>
+      <div class="acc-card__title">
+        <span class="ico-box"><app-icon name="user" [size]="16"></app-icon></span>
+        <span>Thông Tin Cơ Bản</span>
+      </div>
+      <p class="acc-card__sub">Thông tin dùng để xác nhận đơn hàng, tích điểm bảo hành và gửi thông báo đơn hàng.</p>
+    </div>
+  </div>
+
+  <div class="row-2">
+    <div class="field">
+      <label>Họ và tên *</label>
+      <div class="input-wrap no-left-icon">
+        <input type="text" [(ngModel)]="profile.fullName" placeholder="Nhập họ và tên của bạn...">
+        <span class="suffix"><app-icon name="user" [size]="15"></app-icon></span>
+      </div>
+    </div>
+
+    <div class="field">
+      <label>Tên hiển thị / Nickname</label>
+      <div class="input-wrap no-left-icon">
+        <input type="text" [(ngModel)]="profile.nickname" placeholder="Chưa cập nhật nickname...">
+        <span class="suffix"><app-icon name="sparkle" [size]="15"></app-icon></span>
+      </div>
+    </div>
+
+    <div class="field">
+      <label>
+        <span>Địa chỉ Email *</span>
+        <small class="verified-tag"><app-icon name="check-circle" [size]="12"></app-icon> Đã xác thực</small>
+      </label>
+      <div class="input-wrap no-left-icon">
+        <input type="email" [(ngModel)]="profile.email" placeholder="Địa chỉ email...">
+        <span class="suffix"><app-icon name="mail" [size]="15"></app-icon></span>
+      </div>
+      <small class="field-hint">Dùng để nhận hóa đơn điện tử &amp; phiếu bảo hành trọn đời.</small>
+    </div>
+
+    <div class="field">
+      <label>
+        <span>Số điện thoại *</span>
+        <small class="verified-tag"><app-icon name="check-circle" [size]="12"></app-icon> Đã liên kết</small>
+      </label>
+      <div class="input-wrap no-left-icon">
+        <input type="tel" [(ngModel)]="profile.phone" placeholder="Chưa cập nhật số điện thoại...">
+        <span class="suffix"><app-icon name="phone" [size]="15"></app-icon></span>
+      </div>
+      <small class="field-hint">Số nhận mã OTP và giao nhận đảm bảo hộ mệnh.</small>
+    </div>
+
+    <div class="field">
+      <label>Ngày sinh</label>
+      <div class="input-wrap no-left-icon">
+        <input type="text" [(ngModel)]="profile.dob" (input)="onDobChange()" placeholder="dd / mm / yyyy (Chưa cập nhật)">
+        <span class="suffix"><app-icon name="calendar" [size]="15"></app-icon></span>
+      </div>
+      <small class="field-hint">Dùng để gợi ý cung hoàng đạo &amp; nhận quà tặng sinh nhật bí mật.</small>
+    </div>
+
+    <div class="field">
+      <label>Giới tính</label>
+      <div class="gender-group">
+        <button type="button" [class.active]="profile.gender === 'female' || profile.gender === 'Nữ'" (click)="profile.gender = 'female'">
+          <span class="radio-dot"></span> Nữ
+        </button>
+        <button type="button" [class.active]="profile.gender === 'male' || profile.gender === 'Nam'" (click)="profile.gender = 'male'">
+          <span class="radio-dot"></span> Nam
+        </button>
+        <button type="button" [class.active]="profile.gender === 'other' || profile.gender === 'Khác'" (click)="profile.gender = 'other'">
+          <span class="radio-dot"></span> Khác
+        </button>
+      </div>
+      <small class="field-hint">Tùy biến kiểu nhẫn và phong cách chế tác phù hợp.</small>
+    </div>
+  </div>
+</section>
+
+<!-- 3. Dấu ấn năng lượng & phong thủy -->
+<section class="acc-card acc-card--tint">
+  <div class="acc-card__head">
+    <div>
+      <div class="acc-card__title">
+        <span class="ico-box"><app-icon name="lotus" [size]="16"></app-icon></span>
+        <span>Dấu Ấn Năng Lượng &amp; Phong Thủy</span>
+      </div>
+      <p class="acc-card__sub">Cá nhân hóa trải nghiệm khai phá năng lượng bảo vật hộ mệnh dựa trên thiên can, địa chi và chiêm tinh thiên thể.</p>
+    </div>
+    <span class="acc-badge acc-badge--outline"><app-icon name="sparkle" [size]="11"></app-icon> MYSTIC PROFILE</span>
+  </div>
+
+  <div class="mystic-grid-3">
+    <div class="field">
+      <label><app-icon name="drop" [size]="13"></app-icon> Mệnh Ngũ Hành</label>
+      <div class="input-wrap no-left-icon">
+        <input type="text" [value]="profile.element || 'Chưa thiết lập (Cập nhật ngày sinh để tự tính)'" readonly [style.color]="profile.element ? 'inherit' : '#888'">
+      </div>
+      <small class="field-hint">
+        @if (profile.element) {
+          <i>●</i> Đá gợi ý: Aquamarine, Thạch anh đen, Topaz
+        } @else {
+          <i>●</i> Cập nhật ngày sinh phía trên để tự động kích hoạt năng lượng bản mệnh
+        }
+      </small>
+    </div>
+
+    <div class="field">
+      <label><app-icon name="sparkle" [size]="13"></app-icon> Cung Hoàng Đạo</label>
+      <div class="input-wrap no-left-icon">
+        <input type="text" [value]="profile.zodiac || 'Chưa thiết lập (Cập nhật ngày sinh để tự tính)'" readonly [style.color]="profile.zodiac ? 'inherit' : '#888'">
+      </div>
+      <small class="field-hint">
+        @if (profile.zodiac) {
+          <i>●</i> Hành tinh bảo trợ: Sao Hải Vương (Neptune)
+        } @else {
+          <i>●</i> Cập nhật ngày sinh phía trên để giải mã chòm sao hoàng đạo
+        }
+      </small>
+    </div>
+
+    <div class="field">
+      <label>
+        <span>Kích thước cổ tay</span>
+        <a routerLink="/about" class="guide-link">Cách đo chuẩn</a>
+      </label>
+      <div class="input-wrap no-left-icon">
+        <input type="text" [(ngModel)]="profile.wristSize" placeholder="Chưa đo (Ví dụ: 15 cm)">
+        @if (profile.wristSize) {
+          <span class="suffix wrist-tag">Chuẩn ôm</span>
+        }
+      </div>
+      <small class="field-hint">Nghệ nhân AMULES sẽ xỏ chỉnh dây chuỗi vòng vừa vặn nhất.</small>
+    </div>
+  </div>
+
+  <div class="acc-foot-note" style="background: #fff;">
+    <span class="ico"><app-icon name="lock" [size]="15"></app-icon></span>
+    <p><b>Lưu ý:</b> Dữ liệu phong thủy mang tính định hướng sở thích &amp; cá nhân hóa trải nghiệm quà tặng, hoàn toàn bảo mật và chỉ sử dụng cho việc đề xuất tương thích tại AMULES.</p>
+  </div>
+</section>
+
+<!-- Thanh lưu thay đổi -->
+<div class="profile-actions">
+  <span class="last-update">
+    <app-icon name="clock" [size]="13"></app-icon> Cập nhật gần nhất: Hôm nay, 14:30 bởi bạn
+    @if (savedNotice) { <b style="color: var(--ok); margin-left: 8px;">✓ Đã lưu!</b> }
+  </span>
+  <div class="profile-actions__btns">
+    <button type="button" class="btn btn--outline">Hủy bỏ</button>
+    <button type="button" class="btn btn--primary" (click)="saveProfile()">
+      <app-icon name="check" [size]="15"></app-icon> Lưu Thay Đổi
+    </button>
+  </div>
+</div>

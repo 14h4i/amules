@@ -1,0 +1,218 @@
+<!-- Header -->
+<div class="acc-page-head">
+  <div>
+    <span class="eyebrow"><app-icon name="sparkle" [size]="12"></app-icon> HỒ SƠ NĂNG LƯỢNG ĐỘC BẢN</span>
+    <h1 class="acc-page-head__title">Mystic Match Của Tôi</h1>
+    <p class="acc-page-head__desc">Khám phá những gợi ý trang sức được cá nhân hóa theo thông tin bản mệnh, tần số tinh
+      thể và phong cách sống của riêng bạn.</p>
+  </div>
+</div>
+
+<!-- 1. Bản đồ năng lượng vũ trụ -->
+<section class="acc-card acc-card--tint mm-hero">
+  <div class="mm-hero__top">
+    <div>
+      <span class="eyebrow"><app-icon name="sparkle" [size]="12"></app-icon> BẢN ĐỒ NĂNG LƯỢNG VŨ TRỤ</span>
+      <h2 class="serif mm-hero__title">Hồ Sơ Năng Lượng &amp; Bản Mệnh Cá Nhân</h2>
+      <p class="mm-hero__meta">Chủ sở hữu: <b>{{ userName || 'Thành viên AMULES' }}</b> • Cập nhật gần nhất: <b>Hôm nay</b></p>
+    </div>
+
+    <div class="mm-freq-pill">
+      <span class="mm-freq-pill__ico"><app-icon name="drop" [size]="16"></app-icon></span>
+      <div>
+        <small>TRƯỜNG NĂNG LƯỢNG CHỦ ĐẠO</small>
+        <strong>Hải Trung Thủy</strong>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4 thẻ trụ cột -->
+  <div class="mm-pillars">
+    @for (p of energyPillars; track p.label) {
+    <div class="mm-pillar">
+      <div class="mm-pillar__head">
+        <span class="mm-pillar__ico"><app-icon [name]="p.icon" [size]="14"></app-icon></span>
+        <small>{{ p.label }}</small>
+      </div>
+      <strong>{{ p.title }}</strong>
+      <p>{{ p.sub }}</p>
+    </div>
+    }
+  </div>
+
+  <div class="mm-hero__foot">
+    <div class="mm-hero__btns">
+      <a routerLink="/account/profile" class="btn btn--primary btn--xs">
+        <app-icon name="edit" [size]="13"></app-icon> Cập nhật thông tin
+      </a>
+      <a routerLink="/mystic-match" class="btn btn--outline btn--xs">
+        <app-icon name="exchange" [size]="13"></app-icon> Làm lại trắc nghiệm 60s
+      </a>
+    </div>
+    <button type="button" class="mm-share-link" (click)="shareProfile()"
+      style="background:none;border:none;cursor:pointer;">
+      <app-icon name="share" [size]="13"></app-icon> {{ sharedToast ? 'Đã sao chép liên kết!' : 'Chia sẻ bản đồ mệnh' }}
+    </button>
+  </div>
+</section>
+
+<!-- 2. Ba yếu tố khai mở trường khí vượng -->
+<div class="mm-sec-head">
+  <span class="eyebrow">KIM CHỈ NAM CHỌN ĐÁ</span>
+  <h2 class="serif">3 Yếu Tố Khai Mở Trường Khí Vượng</h2>
+</div>
+
+<div class="mm-trio">
+  <!-- Cột 1: Màu sắc -->
+  <article class="acc-card mm-col">
+    <span class="mm-col__ico"><app-icon name="sun" [size]="18"></app-icon></span>
+    <small class="mm-col__eyebrow">BẢNG MÀU BẢN MỆNH &amp; TƯƠNG SINH</small>
+    <h3 class="serif">Màu Sắc Năng Lượng Vượng Khí</h3>
+    <p class="mm-col__desc">Sắc màu đại dương thanh lọc tâm trí kết hợp ánh kim tinh khôi giúp hỗ trợ dòng chảy Thủy khí
+      luôn dồi dào, hanh thông.</p>
+
+    <div class="color-list">
+      @for (c of colors; track c.name) {
+      <div class="color-item">
+        <i class="color-dot" [style.background]="c.hex"></i>
+        <div>
+          <strong>{{ c.name }}</strong>
+          <small>{{ c.sub }}</small>
+        </div>
+      </div>
+      }
+    </div>
+
+    <div class="mm-col__foot">
+      <span>TẦN SỐ HÒA HỢP: CAO (96%)</span>
+      <app-icon name="check-circle" [size]="14"></app-icon>
+    </div>
+  </article>
+
+  <!-- Cột 2: Đá tự nhiên -->
+  <article class="acc-card mm-col">
+    <span class="mm-col__ico"><app-icon name="gem" [size]="18"></app-icon></span>
+    <small class="mm-col__eyebrow">TINH THỂ HỘ MỆNH CHỦ ĐẠO</small>
+    <h3 class="serif">Đá Tự Nhiên Tương Hợp Tối Đa</h3>
+    <p class="mm-col__desc">Hai dòng đá tự nhiên có tần số rung động cộng hưởng mạnh nhất với cung chòm sao Song Ngư và
+      mệnh Hải Trung Thủy:</p>
+
+    <div class="stone-box">
+      <div class="stone-box__head">
+        <strong>Aquamarine Thiên Nhiên</strong>
+        <span class="acc-badge">Hộ Mệnh 98%</span>
+      </div>
+      <p>Viên đá của sự bình an, giữ vững trực giác nhạy bén, mang lại dũng khí &amp; bình tâm như biển lặng sóng vỗ.
+      </p>
+    </div>
+
+    <div class="stone-box">
+      <div class="stone-box__head">
+        <strong>Moonstone (Đá Mặt Trăng)</strong>
+        <span class="acc-badge">Cảm Xúc 95%</span>
+      </div>
+      <p>Nuôi dưỡng năng lượng nữ tính, dịu dàng, hỗ trợ giấc ngủ sâu và thu hút nhân duyên lành, tình cảm yêu thương.
+      </p>
+    </div>
+
+    <div class="mm-col__foot">
+      <span>ĐỘ TƯƠNG THÍCH TÂM LINH: 98/100</span>
+      <app-icon name="sparkle" [size]="14"></app-icon>
+    </div>
+  </article>
+
+  <!-- Cột 3: Phong cách trang sức -->
+  <article class="acc-card mm-col">
+    <span class="mm-col__ico"><app-icon name="lotus" [size]="18"></app-icon></span>
+    <small class="mm-col__eyebrow">PHONG CÁCH CHẾ TÁC</small>
+    <h3 class="serif">Phong Cách Trang Sức Phù Hợp</h3>
+    <p class="mm-col__desc">Ưu tiên thiết kế có đường nét uyển chuyển, chất liệu bạc sáng bóng nhằm kích hoạt luồng khí
+      Kim sinh Thủy:</p>
+
+    <ul class="style-list">
+      <li>
+        <app-icon name="check-circle" [size]="14"></app-icon>
+        <span><b>Đường nét thanh mảnh, uyển chuyển:</b> Bo tròn cổ tay hoặc chạm khắc giọt nước.</span>
+      </li>
+      <li>
+        <app-icon name="check-circle" [size]="14"></app-icon>
+        <span><b>Đính đá tự nhiên cắt giọt lệ (Pear cut):</b> Gợi sự mềm mại của dòng chảy.</span>
+      </li>
+      <li>
+        <app-icon name="check-circle" [size]="14"></app-icon>
+        <span><b>Chất liệu Bạc Ý S925 xi bạch kim</b> hoặc vàng trắng chạm khắc cổ điển.</span>
+      </li>
+      <li>
+        <app-icon name="check-circle" [size]="14"></app-icon>
+        <span><b>Biểu tượng charm:</b> Vầng trăng khuyết, ngôi sao Bắc Đẩu, giọt sương mai.</span>
+      </li>
+    </ul>
+
+    <div class="mm-col__foot">
+      <span>TỶ LỆ CÁ NHÂN HÓA: 100%</span>
+      <app-icon name="award" [size]="14"></app-icon>
+    </div>
+  </article>
+</div>
+
+<!-- 3. Tạo tác hộ mệnh dành riêng cho bạn -->
+<div class="mm-rec-head">
+  <div>
+    <span class="eyebrow"><app-icon name="sparkle" [size]="12"></app-icon> BỘ SƯU TẬP GIỚI HẠN TƯƠNG SINH</span>
+    <h2 class="serif">Tạo Tác Hộ Mệnh Dành Riêng Cho Bạn</h2>
+    <p>3 gợi ý tinh tuyển khớp với Bản đồ năng lượng của Lan Anh.</p>
+  </div>
+  <a routerLink="/" class="link-arrow">Xem tất cả gợi ý <app-icon name="arrow-right" [size]="14"></app-icon></a>
+</div>
+
+<div class="mm-prod-grid">
+  @for (p of recommendedProducts; track p.name) {
+  <article class="mm-prod">
+    <div class="mm-prod__img">
+      <img [src]="p.image" [alt]="p.name">
+      <div class="mm-prod__badges">
+        <span class="badge-white">{{ p.match }}</span>
+        @if (p.badge) { <span class="badge-plum">{{ p.badge }}</span> }
+      </div>
+      <button type="button" class="mm-heart" aria-label="Yêu thích">
+        <app-icon name="heart" [size]="15"></app-icon>
+      </button>
+    </div>
+    <div class="mm-prod__body">
+      <small>{{ p.stone }}</small>
+      <h3>{{ p.name }}</h3>
+      <p>{{ p.desc }}</p>
+      <div class="mm-prod__foot">
+        <div>
+          <span>GIÁ NIÊM YẾT ĐỘC QUYỀN</span>
+          <b>{{ p.price | number }}đ</b>
+        </div>
+        <button type="button" class="mm-go-btn" aria-label="Xem">
+          <app-icon name="arrow-right" [size]="15"></app-icon>
+        </button>
+      </div>
+    </div>
+  </article>
+  }
+</div>
+
+<!-- Lời nhắn nạp năng lượng tuần này -->
+<div class="acc-card acc-card--tint moon-msg">
+  <span class="moon-msg__ico"><app-icon name="moon" [size]="18"></app-icon></span>
+  <div class="moon-msg__body">
+    <strong>Lời Nhắn Nạp Năng Lượng Cho Đá Tuần Này</strong>
+    <p>Kỳ Trăng Tròn sắp tới (15 âm lịch) là thời điểm hoàn hảo nhất để tắm trăng thanh tẩy đá Moonstone và Aquamarine
+      của bạn.</p>
+  </div>
+  <a routerLink="/articles" class="btn btn--outline btn--xs">
+    Xem cẩm nang thanh tẩy <app-icon name="book" [size]="13"></app-icon>
+  </a>
+</div>
+
+<!-- Lưu ý từ AMULES -->
+<div class="acc-foot-note">
+  <span class="ico"><app-icon name="info" [size]="15"></app-icon></span>
+  <p><b>Lưu ý từ AMULES:</b> Các nội dung về phong thủy bản mệnh, năng lượng tinh thể và chiêm tinh cung hoàng đạo mang
+    tính chất tham khảo, chiêm nghiệm văn hóa dân gian và nuôi dưỡng niềm vui tinh thần cá nhân; không thay thế kiến
+    thức khoa học, quyết định pháp lý hoặc phác đồ chẩn đoán y tế chuyên sâu.</p>
+</div>

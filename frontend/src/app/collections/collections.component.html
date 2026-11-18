@@ -1,0 +1,59 @@
+<div class="col-page container">
+
+  <nav class="crumb-nav">
+    <a routerLink="/">Trang chủ</a> <span>/</span> <b>Bộ sưu tập bùa hộ mệnh</b>
+  </nav>
+
+  <header class="col-hero">
+    <span class="eyebrow"><app-icon name="sparkle" [size]="14"></app-icon> Tinh tuyển theo cảm hứng</span>
+    <h1 class="col-title serif">Các Bộ Sưu Tập Trang Sức Độc Bản</h1>
+    <p class="col-sub">Mỗi bộ sưu tập là một chương truyện thần thoại, tái hiện sự giao hòa giữa đất trời, chu kỳ tinh tú và vẻ đẹp vĩnh cửu của đá quý tự nhiên.</p>
+  </header>
+
+  <!-- Danh sách Bộ sưu tập lớn -->
+  <div class="col-cards-grid">
+    @for (c of collections; track c.name) {
+      <article class="col-card" [class.active]="selectedCollection?.name === c.name" (click)="selectCollection(c)">
+        <div class="col-card__media">
+          <img [src]="c.image || 'images/banner_mys.jpg'" [alt]="c.name">
+          <div class="col-card__overlay">
+            <span class="col-card__tag">{{ c.tag || 'Bộ sưu tập' }}</span>
+            <h2 class="col-card__name serif">{{ c.name }}</h2>
+            <p class="col-card__desc">{{ c.desc }}</p>
+          </div>
+        </div>
+      </article>
+    }
+  </div>
+
+  <!-- Chi tiết bộ sưu tập được chọn -->
+  @if (selectedCollection) {
+    <section class="col-focus">
+      <div class="col-focus__head">
+        <div>
+          <span class="eyebrow"><app-icon name="gem" [size]="14"></app-icon> Bảo vật nổi bật thuộc bộ sưu tập</span>
+          <h2 class="serif">{{ selectedCollection.name }}</h2>
+        </div>
+        <a routerLink="/products" class="btn btn--soft">
+          Xem tất cả trong cửa hàng &rarr;
+        </a>
+      </div>
+
+      <div class="focus-grid">
+        @for (p of featuredProducts; track p.name) {
+          <article class="p-card" [routerLink]="['/products', p.slug || p.id]">
+            <div class="p-media">
+              <img [src]="p.image || 'images/lac_tay_bien.png'" [alt]="p.name">
+            </div>
+            <div class="p-info">
+              <span class="p-stone">{{ p.stone }}</span>
+              <h3 class="p-title">{{ p.name }}</h3>
+              <strong class="p-price">{{ p.price | number }}đ</strong>
+            </div>
+          </article>
+        }
+      </div>
+    </section>
+  }
+
+</div>

@@ -1,0 +1,208 @@
+<!-- Header -->
+<div class="acc-page-head">
+  <div>
+    <span class="eyebrow"><app-icon name="shield" [size]="12"></app-icon> BẢO MẬT DỮ LIỆU THÀNH VIÊN</span>
+    <h1 class="acc-page-head__title">Bảo Mật Tài Khoản</h1>
+    <p class="acc-page-head__desc">Quản lý mật khẩu, phiên đăng nhập đa thiết bị và kích hoạt các lớp bảo vệ thiêng liêng cho hồ sơ trang sức phong thủy của bạn.</p>
+  </div>
+
+  <div class="score-pill">
+    <span class="score-pill__ico"><app-icon name="shield-check" [size]="18"></app-icon></span>
+    <div>
+      <small>CHỈ SỐ AN TOÀN</small>
+      <div class="score-pill__val">
+        <strong>92%</strong>
+        <span class="acc-badge acc-badge--ok">Tối ưu</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Lưới 2 cột: Đổi mật khẩu + 2FA (Trái) | Phiên đăng nhập + Vùng nguy hiểm (Phải) -->
+<div class="sec-cols">
+  <!-- CỘT TRÁI -->
+  <div class="sec-left">
+    <!-- 1. Đổi mật khẩu -->
+    <section class="acc-card">
+      <div class="acc-card__head">
+        <div>
+          <div class="acc-card__title">
+            <span class="ico-box"><app-icon name="lock" [size]="16"></app-icon></span>
+            <span>Đổi Mật Khẩu</span>
+          </div>
+          <p class="acc-card__sub">Cập nhật khóa bảo mật để giữ an toàn tuyệt đối</p>
+        </div>
+        <app-icon name="info" [size]="16"></app-icon>
+      </div>
+
+      <div class="sec-advice">
+        <app-icon name="sparkle" [size]="15"></app-icon>
+        <p><b>Khuyến nghị từ AMULES:</b> Mật khẩu nên được thay đổi định kỳ mỗi 90 ngày để đảm bảo an toàn tối đa cho dữ liệu vận mệnh và tài sản tích lũy.</p>
+      </div>
+
+      <div class="field">
+        <label>Mật khẩu hiện tại</label>
+        <div class="input-wrap no-left-icon">
+          <input [type]="showCurrent ? 'text' : 'password'" [(ngModel)]="currentPassword">
+          <button type="button" class="suffix" (click)="showCurrent = !showCurrent">
+            <app-icon [name]="showCurrent ? 'eye-off' : 'eye'" [size]="16"></app-icon>
+          </button>
+        </div>
+        <div class="forgot-row">
+          <a routerLink="/forgot-password">Quên mật khẩu?</a>
+        </div>
+      </div>
+
+      <div class="field">
+        <label>Mật khẩu mới</label>
+        <div class="input-wrap no-left-icon">
+          <input [type]="showNew ? 'text' : 'password'" [(ngModel)]="newPassword" placeholder="Nhập mật khẩu mới">
+          <button type="button" class="suffix" (click)="showNew = !showNew">
+            <app-icon [name]="showNew ? 'eye-off' : 'eye'" [size]="16"></app-icon>
+          </button>
+        </div>
+        <!-- Thanh đo độ mạnh tái sử dụng từ styles.css -->
+        <div class="strength">
+          <i [class.on]="passwordStrength >= 1"></i>
+          <i [class.on]="passwordStrength >= 2"></i>
+          <i [class.on]="passwordStrength >= 3"></i>
+          <i [class.on]="passwordStrength >= 4"></i>
+        </div>
+        <div class="strength-meta">
+          <span>ĐỘ MẠNH MẬT KHẨU</span>
+          <span>Tối thiểu 8 ký tự (Hoa, thường &amp; số)</span>
+        </div>
+      </div>
+
+      <div class="field">
+        <label>Xác nhận mật khẩu mới</label>
+        <div class="input-wrap no-left-icon">
+          <input [type]="showConfirm ? 'text' : 'password'" [(ngModel)]="confirmPassword" placeholder="Nhập lại mật khẩu mới">
+          <button type="button" class="suffix" (click)="showConfirm = !showConfirm">
+            <app-icon [name]="showConfirm ? 'eye-off' : 'eye'" [size]="16"></app-icon>
+          </button>
+        </div>
+      </div>
+
+      <div class="sec-form-foot">
+        @if (passwordSaved) {
+          <span style="color: var(--ok); font-size: 12.5px; font-weight: 600;">✓ Đã cập nhật mật khẩu thành công!</span>
+        }
+        @if (errorMsg) {
+          <span style="color: var(--danger); font-size: 12.5px; font-weight: 600;">{{ errorMsg }}</span>
+        }
+        <button type="button" class="btn btn--outline btn--xs" (click)="currentPassword=''; newPassword=''; confirmPassword=''; errorMsg=''">Hủy bỏ</button>
+        <button type="button" class="btn btn--primary btn--xs" (click)="updatePassword()" [disabled]="saving">
+          <app-icon name="check-circle" [size]="14"></app-icon> {{ saving ? 'Đang lưu...' : 'Cập nhật mật khẩu' }}
+        </button>
+      </div>
+    </section>
+
+    <!-- 2. Xác thực hai yếu tố (2FA) -->
+    <section class="acc-card">
+      <div class="acc-card__head">
+        <div>
+          <div class="acc-card__title">
+            <span class="ico-box"><app-icon name="shield-check" [size]="16"></app-icon></span>
+            <span>Xác Thực Hai Yếu Tố (2FA)</span>
+            <span class="acc-badge">ĐÃ KÍCH HOẠT ✓</span>
+          </div>
+          <p class="acc-card__sub">Tạo lớp bảo vệ kép cho tài khoản qua mã tin nhắn SMS</p>
+        </div>
+
+        <button type="button" class="toggle-switch" [class.on]="twoFactorEnabled" (click)="twoFactorEnabled = !twoFactorEnabled" aria-label="Bật tắt 2FA">
+          <i></i>
+        </button>
+      </div>
+
+      <div class="twofa-grid">
+        <div class="twofa-box active">
+          <div class="twofa-box__top">
+            <strong><app-icon name="smartphone" [size]="14"></app-icon> Mã OTP qua SMS</strong>
+            <span class="acc-badge">Mặc định</span>
+          </div>
+          <p>Gửi mã xác minh 6 số về số điện thoại <b>******* 886</b> khi đăng nhập trên trình duyệt lạ.</p>
+          <a routerLink="/account/profile" class="link-arrow">
+            Thay đổi số điện thoại <app-icon name="arrow-right" [size]="12"></app-icon>
+          </a>
+        </div>
+
+        <div class="twofa-box">
+          <div class="twofa-box__top">
+            <strong><app-icon name="qrcode" [size]="14"></app-icon> Ứng dụng tạo mã (TOTP)</strong>
+          </div>
+          <p>Sử dụng Google Authenticator hoặc iCloud Keychain để tạo mã 30 giây ngoại tuyến.</p>
+          <button type="button" (click)="configureTotp()" class="link-arrow" style="color: var(--muted); background: none; border: none; cursor: pointer; padding: 0;">
+            {{ totpNotice || 'Cấu hình ứng dụng' }} <app-icon name="chevron-right" [size]="12"></app-icon>
+          </button>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- CỘT PHẢI -->
+  <aside class="sec-right">
+    <!-- 3. Phiên đăng nhập -->
+    <section class="acc-card">
+      <div class="acc-card__head">
+        <div>
+          <div class="acc-card__title">
+            <span class="ico-box"><app-icon name="laptop" [size]="16"></app-icon></span>
+            <span>Phiên Đăng Nhập</span>
+          </div>
+          <p class="acc-card__sub">Thiết bị đang truy cập tài khoản</p>
+        </div>
+        <span class="acc-badge">{{ sessions.length }} Thiết bị</span>
+      </div>
+
+      <div class="session-list">
+        @for (s of sessions; track s.id) {
+          <div class="session-item" [class.current]="s.current">
+            <span class="session-ico"><app-icon [name]="s.icon" [size]="16"></app-icon></span>
+            <div class="session-info">
+              <strong>{{ s.device }}</strong>
+              <small><app-icon name="pin" [size]="11"></app-icon> {{ s.location }}</small>
+            </div>
+            @if (s.current) {
+              <span class="acc-badge acc-badge--ok">● Hiện tại (Đang hoạt động)</span>
+            } @else {
+              <button type="button" class="session-out-btn" (click)="revokeSession(s.id)">Đăng xuất</button>
+            }
+          </div>
+        }
+      </div>
+
+      <div class="session-foot">
+        <span>Bảo vệ khỏi đăng nhập lạ?</span>
+        <button type="button" class="revoke-all-btn" (click)="revokeAllOther()">
+          <app-icon name="logout" [size]="13"></app-icon> Đăng xuất tất cả thiết bị khác
+        </button>
+      </div>
+    </section>
+
+    <!-- 4. Vùng nguy hiểm -->
+    <section class="acc-card danger-card">
+      <div class="acc-card__head">
+        <div>
+          <div class="acc-card__title" style="color: var(--danger);">
+            <span class="ico-box danger-ico"><app-icon name="alert" [size]="16"></app-icon></span>
+            <span>Vùng Nguy Hiểm</span>
+          </div>
+          <p class="acc-card__sub">Thao tác không thể hoàn tác với hồ sơ tài khoản</p>
+        </div>
+      </div>
+
+      <h4 class="danger-sub-title">Xóa vĩnh viễn tài khoản AMULES</h4>
+      <p class="danger-desc">Khi xóa tài khoản, toàn bộ <b>1.250 Linh Thạch (LT)</b> tích lũy, các chứng thư bảo hành trang sức trọn đời và danh sách linh phù yêu thích sẽ bị hủy vĩnh viễn không thể phục hồi.</p>
+
+      <div class="danger-warn">
+        <app-icon name="alert" [size]="14"></app-icon>
+        <span>Các đơn hàng đang trong quá trình gia công hoặc vận chuyển vẫn sẽ được hoàn tất theo hợp đồng bảo mật.</span>
+      </div>
+
+      <button type="button" class="btn-danger-outline">
+        <app-icon name="trash" [size]="14"></app-icon> Yêu cầu xóa tài khoản
+      </button>
+    </section>
+  </aside>
+</div>

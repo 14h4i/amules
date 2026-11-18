@@ -1,0 +1,86 @@
+[
+  {
+    "_id": {
+      "$oid": "57a588d4105f6583d7fb1825"
+    },
+    "title": "Moonstone: Vẻ đẹp dịu dàng và năng lượng soi dưỡng tâm hồn",
+    "slug": "moonstone-ve-dep-an-nhien",
+    "content": "<p>Nội dung bài viết mẫu.</p>",
+    "summary": "Moonstone: Vẻ đẹp dịu dàng và năng lượng soi dưỡng tâm hồn",
+    "thumbnail": "images/moonstone.jpg",
+    "category": "Kiến thức đá",
+    "tags": [
+      "đá năng lượng"
+    ],
+    "author": {
+      "$oid": "0077ee7a934a956624ff30e6"
+    },
+    "status": "published",
+    "publishedAt": {
+      "$date": "2026-10-20T00:00:00.000Z"
+    },
+    "createdAt": {
+      "$date": "2026-10-18T00:00:00.000Z"
+    },
+    "updatedAt": {
+      "$date": "2026-10-20T00:00:00.000Z"
+    },
+    "image": "images/moonstone.jpg"
+  },
+  {
+    "_id": {
+      "$oid": "40a1a9c9997a2dfc53e009fc"
+    },
+    "title": "5 bước thanh tẩy và nạp năng lượng tâm đá quý tại nhà",
+    "slug": "5-buoc-thanh-tay-nap-nang-luong",
+    "content": "<p>Nội dung bài viết mẫu.</p>",
+    "summary": "5 bước thanh tẩy và nạp năng lượng tâm đá quý tại nhà",
+    "thumbnail": "images/thanh_tay.png",
+    "category": "Chăm sóc đá",
+    "tags": [
+      "đá năng lượng"
+    ],
+    "author": {
+      "$oid": "0077ee7a934a956624ff30e6"
+    },
+    "status": "published",
+    "publishedAt": {
+      "$date": "2026-10-20T00:00:00.000Z"
+    },
+    "createdAt": {
+      "$date": "2026-10-18T00:00:00.000Z"
+    },
+    "updatedAt": {
+      "$date": "2026-10-20T00:00:00.000Z"
+    },
+    "image": "images/thanh_tay.png"
+  },
+  {
+    "_id": {
+      "$oid": "eb6ebf06f72a510607fc461e"
+    },
+    "title": "Cách phối trang sức tự nhiên tinh tế cho phong cách hằng ngày",
+    "slug": "cach-phoi-trang-suc",
+    "content": "<p>Nội dung bài viết mẫu.</p>",
+    "summary": "Cách phối trang sức tự nhiên tinh tế cho phong cách hằng ngày",
+    "thumbnail": "images/phoi.jpg",
+    "category": "Phối đồ",
+    "tags": [
+      "đá năng lượng"
+    ],
+    "author": {
+      "$oid": "0077ee7a934a956624ff30e6"
+    },
+    "status": "published",
+    "publishedAt": {
+      "$date": "2026-10-20T00:00:00.000Z"
+    },
+    "createdAt": {
+      "$date": "2026-10-18T00:00:00.000Z"
+    },
+    "updatedAt": {
+      "$date": "2026-10-20T00:00:00.000Z"
+    },
+    "image": "images/phoi.jpg"
+  }
+]

@@ -1,0 +1,200 @@
+<div class="lookup-page container">
+  <!-- Breadcrumb -->
+  <nav class="crumb-nav">
+    <a routerLink="/">Trang chủ</a> <span>/</span> <b>Tra cứu đơn hàng vãng lai</b>
+  </nav>
+
+  <header class="lookup-head">
+    <span class="eyebrow"><app-icon name="receipt" [size]="14"></app-icon> Tra Cứu Minh Bạch &amp; Tiện Lợi</span>
+    <h1 class="serif lookup-title">Theo Dõi Hành Trình Đơn Hàng</h1>
+    <p class="lookup-sub">Dành cho quý khách mua sắm vãng lai (chưa đăng ký tài khoản). Vui lòng nhập Mã đơn hàng và Email/Số điện thoại để kiểm tra tiến trình vận chuyển bảo vật.</p>
+  </header>
+
+  <!-- Form Tra Cứu -->
+  <section class="lookup-card">
+    <form (ngSubmit)="onSearch()" class="lookup-form">
+      <div class="form-row">
+        <div class="field">
+          <label for="orderCode">Mã đơn hàng *</label>
+          <div class="input-wrap">
+            <app-icon name="receipt" [size]="16"></app-icon>
+            <input id="orderCode" type="text" [(ngModel)]="orderCode" name="orderCode" placeholder="Ví dụ: AMU-2025-8942" required>
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="contact">Email hoặc Số điện thoại đặt hàng *</label>
+          <div class="input-wrap">
+            <app-icon name="mail" [size]="16"></app-icon>
+            <input id="contact" type="text" [(ngModel)]="contact" name="contact" placeholder="Email hoặc SĐT..." required>
+          </div>
+        </div>
+      </div>
+
+      @if (errorMsg) {
+        <div class="alert alert--error">
+          <app-icon name="alert" [size]="16"></app-icon> {{ errorMsg }}
+        </div>
+      }
+
+      @if (successMsg) {
+        <div class="alert alert--success">
+          <app-icon name="check" [size]="16"></app-icon> {{ successMsg }}
+        </div>
+      }
+
+      <div class="form-action">
+        <button type="submit" class="btn btn--primary" [disabled]="loading">
+          <app-icon name="search" [size]="16"></app-icon>
+          <span>{{ loading ? 'Đang tra cứu dữ liệu...' : 'Tra Cứu Đơn Hàng Ngay' }}</span>
+        </button>
+      </div>
+    </form>
+  </section>
+
+  <!-- Kết Quả Đơn Hàng Tra Cứu Được -->
+  @if (searchedOrder) {
+    <section class="order-result">
+      <div class="result-header">
+        <div>
+          <span class="order-code">Đơn hàng #{{ searchedOrder.orderCode }}</span>
+          <span class="order-date">Thời gian đặt: {{ searchedOrder.createdAt | date:'dd/MM/yyyy HH:mm' }}</span>
+        </div>
+        <div class="status-pill" [class.shipping]="searchedOrder.status === 'shipping'" [class.cancelled]="searchedOrder.status === 'cancelled'" [class.completed]="searchedOrder.status === 'completed'">
+          <app-icon [name]="searchedOrder.status === 'completed' ? 'check' : searchedOrder.status === 'cancelled' ? 'alert' : 'truck'" [size]="15"></app-icon>
+          <span>{{ searchedOrder.orderStatus || searchedOrder.status || 'Đang xử lý' }}</span>
+        </div>
+      </div>
+
+      <!-- Trạng Thái Vận Chuyển Timeline -->
+      <div class="track-timeline">
+        <div class="track-step active">
+          <div class="step-circle"><app-icon name="check" [size]="14"></app-icon></div>
+          <div class="step-label">Đã đặt hàng</div>
+        </div>
+        <div class="track-line" [class.active]="searchedOrder.status !== 'pending' && searchedOrder.status !== 'cancelled'"></div>
+        <div class="track-step" [class.active]="searchedOrder.status === 'shipping' || searchedOrder.status === 'completed'">
+          <div class="step-circle"><app-icon name="sparkle" [size]="14"></app-icon></div>
+          <div class="step-label">Thanh tẩy &amp; Đóng gói</div>
+        </div>
+        <div class="track-line" [class.active]="searchedOrder.status === 'shipping' || searchedOrder.status === 'completed'"></div>
+        <div class="track-step" [class.active]="searchedOrder.status === 'shipping' || searchedOrder.status === 'completed'">
+          <div class="step-circle"><app-icon name="truck" [size]="14"></app-icon></div>
+          <div class="step-label">Đang giao hàng</div>
+        </div>
+        <div class="track-line" [class.active]="searchedOrder.status === 'completed'"></div>
+        <div class="track-step" [class.active]="searchedOrder.status === 'completed'">
+          <div class="step-circle"><app-icon name="check" [size]="14"></app-icon></div>
+          <div class="step-label">Giao thành công</div>
+        </div>
+      </div>
+
+      <!-- Tích Hợp Đơn Vị Vận Chuyển Bên Thứ 3 (GHN / GHTK) -->
+      <div class="carrier-integration-bar">
+        <div class="c-bar-left">
+          <div class="c-bar-ico"><app-icon name="truck" [size]="18"></app-icon></div>
+          <div>
+            <strong>Đơn vị vận chuyển: {{ searchedOrder.carrier || 'Giao Hàng Nhanh (GHN Express)' }}</strong>
+            <small>Mã vận đơn bưu cục: <b>{{ searchedOrder.trackingCode || ('GHN-' + searchedOrder.orderCode) }}</b></small>
+          </div>
+        </div>
+        <a [href]="'https://donhang.ghn.vn/?order_code=' + (searchedOrder.trackingCode || ('GHN-' + searchedOrder.orderCode))" target="_blank" class="btn-track-external">
+          Tra cứu tại GHN.VN <app-icon name="external-link" [size]="13"></app-icon>
+        </a>
+      </div>
+
+      <!-- Danh Sách Sản Phẩm -->
+      <div class="items-card">
+        <h3 class="serif">Bảo vật trong đơn hàng</h3>
+        <div class="items-list">
+          @for (item of searchedOrder.items; track item.name) {
+            <div class="order-item">
+              <img [src]="item.image || 'images/lac_tay_bien.png'" [alt]="item.name" class="item-img">
+              <div class="item-info">
+                <span class="item-elem">{{ item.element || 'Bảo vật tương sinh' }}</span>
+                <strong class="item-name">{{ item.name }}</strong>
+                <small class="item-qty">Số lượng: x{{ item.quantity || 1 }}</small>
+              </div>
+              <div class="item-price">{{ (item.price * (item.quantity || 1)) | number }}đ</div>
+            </div>
+          }
+        </div>
+
+        <div class="total-row">
+          <span>Tổng thanh toán:</span>
+          <strong class="total-val">{{ searchedOrder.totalAmount | number }}đ</strong>
+        </div>
+      </div>
+
+      <!-- Thông tin nhận hàng & Action Hủy Đơn -->
+      <div class="delivery-info-grid">
+        <div class="info-box">
+          <h4>Thông tin người nhận</h4>
+          <p><strong>Người nhận:</strong> {{ searchedOrder.customer?.fullName || 'Khách hàng AMULES' }}</p>
+          <p><strong>Điện thoại:</strong> {{ searchedOrder.customer?.phone || searchedOrder.shippingAddress?.phone || contact }}</p>
+          <p><strong>Địa chỉ:</strong> {{ searchedOrder.shippingAddress?.address || 'Địa chỉ giao hàng tận nơi' }}</p>
+        </div>
+
+        <div class="info-box">
+          <h4>Phương thức thanh toán</h4>
+          <p><strong>Hình thức:</strong> {{ searchedOrder.paymentMethod === 'COD' ? 'Thanh toán tiền mặt khi nhận hàng (COD)' : 'VNPay / Chuyển khoản trực tuyến' }}</p>
+          <p><strong>Ghi chú:</strong> Bảo vật được đóng hộp nhung và thanh tẩy chuông xoay Tây Tạng trước khi xuất xưởng.</p>
+
+          @if (isCancelable()) {
+            <div class="cancel-action-wrap">
+              <button type="button" class="btn btn--outline-danger" (click)="openCancelModal()">
+                <app-icon name="trash" [size]="15"></app-icon> Yêu cầu Hủy đơn hàng này
+              </button>
+            </div>
+          }
+        </div>
+      </div>
+    </section>
+  }
+
+  <!-- Modal Xác Nhận Hủy Đơn Hàng (BPMN Trang 7 & Sequence Trang 27) -->
+  @if (showCancelModal) {
+    <div class="modal-backdrop" (click)="closeCancelModal()"></div>
+    <div class="modal-card">
+      <div class="modal-head">
+        <h3 class="serif">Xác nhận Hủy Đơn Hàng #{{ searchedOrder?.orderCode }}</h3>
+        <button type="button" class="btn-close" (click)="closeCancelModal()">&times;</button>
+      </div>
+
+      <div class="modal-body">
+        <p>Theo chính sách hỗ trợ của AMULES, bạn có thể hủy đơn khi đơn hàng chưa bàn giao sang đơn vị vận chuyển.</p>
+        
+        <label class="modal-label">Vui lòng chọn lý do hủy đơn: *</label>
+        <div class="cancel-radios">
+          <label class="radio-label">
+            <input type="radio" name="reason" value="Đổi ý không muốn mua nữa" [(ngModel)]="cancelReason">
+            <span>Đổi ý không muốn mua nữa</span>
+          </label>
+          <label class="radio-label">
+            <input type="radio" name="reason" value="Đặt nhầm mẫu mã hoặc kích thước" [(ngModel)]="cancelReason">
+            <span>Đặt nhầm mẫu mã hoặc kích thước</span>
+          </label>
+          <label class="radio-label">
+            <input type="radio" name="reason" value="Muốn thay đổi địa chỉ nhận hàng" [(ngModel)]="cancelReason">
+            <span>Muốn thay đổi địa chỉ nhận hàng</span>
+          </label>
+          <label class="radio-label">
+            <input type="radio" name="reason" value="other" [(ngModel)]="cancelReason">
+            <span>Lý do khác...</span>
+          </label>
+        </div>
+
+        @if (cancelReason === 'other') {
+          <textarea class="custom-reason-input" [(ngModel)]="customCancelReason" placeholder="Nhập lý do cụ thể của bạn..."></textarea>
+        }
+      </div>
+
+      <div class="modal-foot">
+        <button type="button" class="btn btn--secondary" (click)="closeCancelModal()">Đóng</button>
+        <button type="button" class="btn btn--danger" [disabled]="cancelling" (click)="confirmCancel()">
+          {{ cancelling ? 'Đang xử lý hủy...' : 'Xác Nhận Hủy Đơn' }}
+        </button>
+      </div>
+    </div>
+  }
+</div>

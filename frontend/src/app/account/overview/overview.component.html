@@ -1,0 +1,108 @@
+<div class="overview-wrap">
+
+  <!-- Header Chào mừng -->
+  <div class="acc-page-head">
+    <div>
+      <span class="eyebrow"><app-icon name="sparkle" [size]="13"></app-icon> Không gian cá nhân</span>
+      <h1 class="acc-page-head__title">Xin chào, {{ user.name }}</h1>
+      <p class="acc-page-head__desc">Chào mừng bạn trở lại với thánh đường bảo vật AMULES. Dưới đây là thông tin tổng quan về tài khoản, hành trình vận chuyển và điểm tích lũy của bạn.</p>
+    </div>
+    <div class="tier-badge">
+      <app-icon name="gem" [size]="16"></app-icon>
+      <span>{{ user.tier }}</span>
+    </div>
+  </div>
+
+  <!-- 4 Thẻ chỉ số tổng quan (Stats) -->
+  <div class="stats-grid">
+    <div class="stat-card" routerLink="/account/orders">
+      <div class="stat-icon"><app-icon name="receipt" [size]="20"></app-icon></div>
+      <div class="stat-info">
+        <span class="stat-label">Đơn hàng của bạn</span>
+        <strong class="stat-value">{{ user.orderCount }} đơn</strong>
+        <small class="stat-link">Xem lịch sử &rarr;</small>
+      </div>
+    </div>
+
+    <div class="stat-card" routerLink="/account/rewards">
+      <div class="stat-icon gold"><app-icon name="sparkle" [size]="20"></app-icon></div>
+      <div class="stat-info">
+        <span class="stat-label">Điểm tích lũy</span>
+        <strong class="stat-value">{{ user.points | number }} LT</strong>
+        <small class="stat-link">Đổi quà ưu đãi &rarr;</small>
+      </div>
+    </div>
+
+    <div class="stat-card" routerLink="/account/wishlist">
+      <div class="stat-icon pink"><app-icon name="heart" [size]="20"></app-icon></div>
+      <div class="stat-info">
+        <span class="stat-label">Bảo vật yêu thích</span>
+        <strong class="stat-value">{{ user.wishlistCount }} món</strong>
+        <small class="stat-link">Xem danh sách &rarr;</small>
+      </div>
+    </div>
+
+    <div class="stat-card" routerLink="/account/addresses">
+      <div class="stat-icon"><app-icon name="pin" [size]="20"></app-icon></div>
+      <div class="stat-info">
+        <span class="stat-label">Sổ địa chỉ</span>
+        <strong class="stat-value">{{ user.addressCount }} địa chỉ</strong>
+        <small class="stat-link">Quản lý sổ &rarr;</small>
+      </div>
+    </div>
+  </div>
+
+  <!-- Đơn hàng gần nhất -->
+  <div class="acc-card">
+    <div class="acc-card__head">
+      <div>
+        <h3 class="acc-card__title"><app-icon name="truck" [size]="18"></app-icon> Đơn Hàng Mới Nhất</h3>
+        <p class="acc-card__desc">Theo dõi bước tiến của bảo vật đang trên đường giao đến bạn.</p>
+      </div>
+      <a routerLink="/account/orders" class="link-arrow">Tất cả đơn hàng &rarr;</a>
+    </div>
+
+    @if (recentOrder) {
+      <div class="recent-order-box">
+        <div class="order-meta">
+          <div>
+            <span class="code">{{ recentOrder.code }}</span>
+            <small class="date">Ngày đặt: {{ recentOrder.date }}</small>
+          </div>
+          <span class="status-pill">{{ recentOrder.status }}</span>
+        </div>
+        <div class="order-summary-row">
+          <span>Gồm <b>{{ recentOrder.itemCount }} bảo vật phong thủy</b> đã được thanh tẩy năng lượng</span>
+          <strong class="total-price">{{ recentOrder.total | number }}đ</strong>
+        </div>
+      </div>
+    } @else {
+      <div style="background: var(--pink-input); border: 1px dashed var(--pink-line); border-radius: 14px; padding: 24px; text-align: center;">
+        <p style="font-size: 13.5px; color: var(--muted); margin-bottom: 12px;">Bạn chưa phát sinh đơn hàng nào gần đây.</p>
+        <a routerLink="/products" class="btn btn--primary btn--xs" style="display: inline-flex; align-items: center; gap: 6px;">
+          <app-icon name="sparkle" [size]="13"></app-icon> Khám Phá Bảo Vật Ngay
+        </a>
+      </div>
+    }
+  </div>
+
+  <!-- Phím tắt khám phá nhanh -->
+  <div class="quick-links-grid">
+    <a routerLink="/mystic-match" class="quick-card">
+      <app-icon name="moon" [size]="24"></app-icon>
+      <div>
+        <h4>Mystic Match™ Cá Nhân</h4>
+        <p>Giải mã bản đồ năng lượng và tìm bùa hộ mệnh tương sinh</p>
+      </div>
+    </a>
+
+    <a routerLink="/account/security" class="quick-card">
+      <app-icon name="lock" [size]="24"></app-icon>
+      <div>
+        <h4>Bảo Mật Tài Khoản</h4>
+        <p>Cập nhật mật khẩu và bảo vệ thông tin cá nhân của bạn</p>
+      </div>
+    </a>
+  </div>
+
+</div>

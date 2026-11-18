@@ -1,0 +1,170 @@
+[
+  {
+    "_id": {
+      "$oid": "0077ee7a934a956624ff30e6"
+    },
+    "fullName": "Quản trị AMULES",
+    "email": "admin@amules.vn",
+    "phone": "0900000001",
+    "passwordHash": "$2b$10$REPLACE_WITH_REAL_BCRYPT_HASH_xxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+    "avatar": null,
+    "dateOfBirth": null,
+    "gender": null,
+    "authProvider": "local",
+    "googleId": null,
+    "role": "admin",
+    "status": "active",
+    "addresses": [],
+    "points": 0,
+    "failedLoginAttempts": 0,
+    "lockedUntil": null,
+    "createdAt": {
+      "$date": "2026-09-01T00:00:00.000Z"
+    },
+    "updatedAt": {
+      "$date": "2026-09-01T00:00:00.000Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "e4774cdda0793f86414e8b91"
+    },
+    "fullName": "Nguyễn Hoàng Lan Anh",
+    "email": "lananh.gemini@gmail.com",
+    "phone": "0982456789",
+    "passwordHash": "$2b$10$REPLACE_WITH_REAL_BCRYPT_HASH_xxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+    "avatar": "https://cdn.amules.vn/avatars/u1.jpg",
+    "dateOfBirth": {
+      "$date": "2003-07-05T00:00:00.000Z"
+    },
+    "gender": "Nữ",
+    "authProvider": "local",
+    "googleId": null,
+    "role": "customer",
+    "status": "active",
+    "addresses": [
+      {
+        "label": "Nhà riêng",
+        "fullName": "Nguyễn Hoàng Lan Anh",
+        "phone": "0982456789",
+        "province": "Hà Nội",
+        "district": "Quận Hoàn Kiếm",
+        "ward": "Phường Tràng Tiền",
+        "street": "Số 18 Tràng Tiền Plaza, P. Tràng Tiền",
+        "isDefault": true
+      }
+    ],
+    "points": 12000,
+    "failedLoginAttempts": 0,
+    "lockedUntil": null,
+    "createdAt": {
+      "$date": "2026-09-15T00:00:00.000Z"
+    },
+    "updatedAt": {
+      "$date": "2026-11-08T00:00:00.000Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "270c1b084f3f146eb5787075"
+    },
+    "fullName": "Trần Thu Hà",
+    "email": "thuha.tran@gmail.com",
+    "phone": "0911222333",
+    "passwordHash": null,
+    "avatar": null,
+    "dateOfBirth": null,
+    "gender": "Nữ",
+    "authProvider": "google",
+    "googleId": "112233445566778899001",
+    "role": "customer",
+    "status": "active",
+    "addresses": [],
+    "points": 0,
+    "failedLoginAttempts": 0,
+    "lockedUntil": null,
+    "createdAt": {
+      "$date": "2026-10-02T00:00:00.000Z"
+    },
+    "updatedAt": {
+      "$date": "2026-10-02T00:00:00.000Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "673a5e12f00123456789abcd"
+    },
+    "email": "annttk24406h1@st.uel.edu.vn",
+    "fullName": "An Nguyễn Thị Thu",
+    "phone": "",
+    "avatar": "",
+    "authProvider": "google",
+    "role": "customer",
+    "tier": "Thành viên mới",
+    "points": 0,
+    "dob": "",
+    "gender": "",
+    "element": "",
+    "zodiac": "",
+    "wristSize": "",
+    "addresses": [],
+    "createdAt": {
+      "$date": "2026-11-17T22:33:16.920Z"
+    },
+    "updatedAt": {
+      "$date": "2026-11-17T22:33:16.920Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "673a5e12f00123456789abce"
+    },
+    "email": "anan265464@gmail.com",
+    "fullName": "Thu An",
+    "phone": "",
+    "avatar": "",
+    "authProvider": "google",
+    "role": "customer",
+    "tier": "Thành viên mới",
+    "points": 0,
+    "dob": "",
+    "gender": "",
+    "element": "",
+    "zodiac": "",
+    "wristSize": "",
+    "addresses": [],
+    "createdAt": {
+      "$date": "2026-11-18T00:50:00.000Z"
+    },
+    "updatedAt": {
+      "$date": "2026-11-18T00:50:00.000Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "673a5e12f00123456789abcf"
+    },
+    "email": "buimyquyen@gmail.com",
+    "fullName": "my quyen",
+    "phone": "0987654332",
+    "password": "Helotuine2@",
+    "passwordHash": "Helotuine2@",
+    "avatar": "",
+    "authProvider": "local",
+    "role": "customer",
+    "tier": "Thành viên mới",
+    "points": 0,
+    "dob": "",
+    "gender": "",
+    "element": "",
+    "zodiac": "",
+    "wristSize": "",
+    "addresses": [],
+    "createdAt": {
+      "$date": "2026-11-18T03:42:09.412Z"
+    },
+    "updatedAt": {
+      "$date": "2026-11-18T03:42:09.414Z"
+    }
+  }
+]

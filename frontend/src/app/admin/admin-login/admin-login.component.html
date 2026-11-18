@@ -1,0 +1,195 @@
+<div class="admin-login-layout">
+  <!-- Left atmospheric brand panel -->
+  <div class="admin-brand-panel">
+    <div class="brand-panel-overlay"></div>
+    <div class="brand-panel-content">
+      <div class="panel-top-row">
+        <div class="brand-meta">
+          <div class="gem-badge-icon">
+            <app-icon name="gem" [size]="18"></app-icon>
+          </div>
+          <div class="brand-titles">
+            <span class="brand-title">AMULES</span>
+            <span class="brand-subtitle">HAUTE JOAILLERIE ATELIER</span>
+          </div>
+        </div>
+        <div class="vault-tag">VAULT SECURE 2.4.0</div>
+      </div>
+
+      <div class="vertical-watermark">
+        ARCHIVAL MANAGEMENT • HERITAGE CUSTODY
+      </div>
+
+      <div class="panel-mid-quote">
+        <div class="shield-float-icon">
+          <app-icon name="shield" [size]="20"></app-icon>
+        </div>
+        <blockquote class="editorial-quote">
+          “Nơi gìn giữ tinh hoa <em>đá quý</em> &amp; trật tự vận hành.”
+        </blockquote>
+        <p class="panel-desc">
+          Không gian giám sát độc quyền, kiểm soát hệ thống tồn kho khoáng thạch, định danh kiệt tác trang sức và phân quyền bảo mật cấp cao.
+        </p>
+      </div>
+
+      <div class="panel-bottom-row">
+        <div class="protocol-text">
+          <app-icon name="shield-check" [size]="14"></app-icon>
+          <span>INTERNAL PORTAL 2026 AMULES CORP</span>
+        </div>
+        <span class="ip-tracking">IP TRACKING: 113.161.42.***</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Right administrative console form -->
+  <div class="admin-form-panel">
+    <div class="form-container">
+      <div class="console-tag">
+        <span class="dot-plum"></span> ADMIN CONSOLE
+      </div>
+
+      <div class="lock-icon-box">
+        <app-icon name="lock" [size]="20"></app-icon>
+      </div>
+
+      <h1 class="console-heading">Chào mừng trở lại</h1>
+      <p class="console-sub">Đăng nhập vào hệ thống quản trị AMULES Haute Joaillerie.</p>
+
+      <!-- Lockout Alert Banner -->
+      @if (isLocked) {
+        <div class="alert-lockout">
+          <div class="alert-lockout__head">
+            <div class="lock-alert-icon">
+              <app-icon name="alert" [size]="18"></app-icon>
+            </div>
+            <div class="lock-alert-info">
+              <strong>Tài khoản tạm khóa 15 phút</strong>
+              <p>{{ errorMsg }}</p>
+            </div>
+            <span class="badge-danger">LỖI 5/5 LẦN</span>
+          </div>
+        </div>
+      }
+
+      <!-- Normal Error Banner -->
+      @if (errorMsg && !isLocked) {
+        <div class="alert-warning">
+          <app-icon name="alert" [size]="16"></app-icon>
+          <span>{{ errorMsg }}</span>
+        </div>
+      }
+
+      @if (isLocked) {
+        <div class="security-role-note">
+          <app-icon name="info" [size]="15"></app-icon>
+          <span><strong>Lưu ý:</strong> Chỉ tài khoản có quyền Quản trị viên (<strong>role: admin</strong>) mới được phép truy cập. Mọi hành vi cố tình dò quét sẽ được ghi nhận địa chỉ IP gửi về Đội ngũ Bảo mật.</span>
+        </div>
+      }
+
+      <form (ngSubmit)="onLogin()" class="console-form">
+        <div class="form-field">
+          <div class="field-label-row">
+            <label>EMAIL HOẶC TÊN ĐĂNG NHẬP</label>
+            @if (isLocked) {
+              <span class="verified-tag"><app-icon name="lock" [size]="12"></app-icon> ĐÃ XÁC NHẬN TÀI KHOẢN</span>
+            }
+          </div>
+          <div class="field-input-box" [class.field-locked]="isLocked">
+            <span class="field-prefix">@</span>
+            <input type="text" [(ngModel)]="credentials.username" name="username" placeholder="admin.an@amules.com" [disabled]="isLocked" required>
+            @if (isLocked) {
+              <span class="field-suffix"><app-icon name="lock" [size]="14"></app-icon></span>
+            }
+          </div>
+        </div>
+
+        <div class="form-field">
+          <div class="field-label-row">
+            <label>MẬT KHẨU BẢO MẬT</label>
+            @if (failedAttempts > 0) {
+              <span class="danger-tag">NGUY CƠ VI PHẠM</span>
+            }
+          </div>
+          <div class="field-input-box" [class.field-danger]="failedAttempts > 0">
+            <span class="field-prefix"><app-icon name="lock" [size]="14"></app-icon></span>
+            <input [type]="showPassword ? 'text' : 'password'" [(ngModel)]="credentials.password" name="password" placeholder="AmulesVault2026!" [disabled]="isLocked" required>
+            <button type="button" class="btn-toggle-eye" (click)="showPassword = !showPassword" tabindex="-1">
+              <app-icon [name]="showPassword ? 'eye-off' : 'eye'" [size]="16"></app-icon>
+            </button>
+          </div>
+        </div>
+
+        @if (!isLocked) {
+          <div class="remember-row">
+            <label class="custom-checkbox">
+              <input type="checkbox" [(ngModel)]="rememberMe" name="rememberMe">
+              <span class="checkbox-box">
+                @if (rememberMe) {
+                  <app-icon name="check" [size]="11"></app-icon>
+                }
+              </span>
+              <span class="checkbox-text">Ghi nhớ đăng nhập trên thiết bị này</span>
+            </label>
+            <a routerLink="/forgot-password" class="forgot-link">Quên mật khẩu?</a>
+          </div>
+        }
+
+        @if (isLocked) {
+          <button type="button" class="btn-lockout-timer" disabled>
+            <app-icon name="clock" [size]="15"></app-icon>
+            <span>Đăng nhập tạm khóa ({{ formattedTimer }})</span>
+          </button>
+        } @else {
+          <button type="submit" class="btn-console-submit" [disabled]="submitting">
+            {{ submitting ? 'Đang xác thực bảo mật...' : 'Đăng nhập vào Hệ thống' }}
+          </button>
+        }
+
+        <div class="back-to-store-link">
+          <a routerLink="/" class="link-back-store">&larr; Quay lại trang mua sắm AMULES</a>
+        </div>
+      </form>
+
+      <!-- Emergency Unlock Box when locked -->
+      @if (isLocked) {
+        <div class="emergency-unlock-card">
+          <div class="emergency-unlock-head">
+            <div class="emergency-icon"><app-icon name="shield" [size]="16"></app-icon></div>
+            <div class="emergency-text">
+              <strong>Cần mở khóa khẩn cấp?</strong>
+              <p>Gửi yêu cầu xác thực OTP 2FA tới Super Admin hoặc hotline bảo mật nội bộ để cấp quyền khôi phục phiên tác vụ.</p>
+            </div>
+          </div>
+          <div class="emergency-actions">
+            <button type="button" class="btn-otp-action" (click)="requestOtp()">
+              <app-icon name="smartphone" [size]="14"></app-icon> Gửi mã OTP 2FA
+            </button>
+            <a href="tel:19008899" class="btn-hotline-action">
+              <app-icon name="phone" [size]="14"></app-icon> Hotline Bảo Mật: 1900 8899
+            </a>
+          </div>
+        </div>
+      } @else {
+        <!-- Standard Security Compliance Card -->
+        <div class="security-audit-card">
+          <div class="audit-card-head">
+            <app-icon name="shield" [size]="16"></app-icon>
+            <span>CẢNH BÁO QUYỀN HẠN &amp; KIỂM TOÁN TỰ ĐỘNG</span>
+          </div>
+          <p class="audit-desc">
+            Khu vực quản trị chỉ dành cho nhân sự được cấp quyền (<strong>Role: Admin</strong>). Mọi lượt truy cập, địa chỉ IP và hành vi thao tác đều được hệ thống bảo mật tự động ghi nhật ký (Audit Log 24/7).
+          </p>
+          <div class="audit-badges">
+            <span class="badge-vault"><app-icon name="lock" [size]="12"></app-icon> 256-BIT SSL ENCRYPTED VAULT</span>
+            <span class="badge-iso">ISO/IEC 27001</span>
+          </div>
+        </div>
+      }
+
+      <div class="console-foot">
+        <span>Cần cấp phát tài khoản mới? <a href="mailto:admin@amules.com" class="link-plum">Liên hệ Super Admin</a></span>
+      </div>
+    </div>
+  </div>
+</div>

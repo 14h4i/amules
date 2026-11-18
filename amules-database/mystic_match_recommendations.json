@@ -1,0 +1,61 @@
+[
+  {
+    "_id": {
+      "$oid": "eccd436ed0e5d46696a6d97b"
+    },
+    "sessionId": {
+      "$oid": "c498c329342daa376732d7a8"
+    },
+    "productId": {
+      "$oid": "07701fa38b41160cee3f0d29"
+    },
+    "gemstoneId": {
+      "$oid": "9dc53fb4f70a8d5f12597f44"
+    },
+    "matchScore": 94,
+    "matchReasons": [
+      "Mệnh Thủy hợp đá Aquamarine",
+      "Màu xanh lam bạn yêu thích"
+    ],
+    "displayOrder": 1
+  },
+  {
+    "_id": {
+      "$oid": "7e646cf1d1e2c4e57045c336"
+    },
+    "sessionId": {
+      "$oid": "c498c329342daa376732d7a8"
+    },
+    "productId": {
+      "$oid": "0b960313cef9e50d9eed12c3"
+    },
+    "gemstoneId": {
+      "$oid": "9dc53fb4f70a8d5f12597f44"
+    },
+    "matchScore": 91,
+    "matchReasons": [
+      "Hợp mệnh Thủy",
+      "Loại trang sức mong muốn: dây chuyền"
+    ],
+    "displayOrder": 2
+  },
+  {
+    "_id": {
+      "$oid": "9e31dce39090b7f9ec76f958"
+    },
+    "sessionId": {
+      "$oid": "c498c329342daa376732d7a8"
+    },
+    "productId": {
+      "$oid": "5ca64aea1b1133e6088c848e"
+    },
+    "gemstoneId": {
+      "$oid": "980f34aa9b5369103f41c3f0"
+    },
+    "matchScore": 86,
+    "matchReasons": [
+      "Đá Kyanite hỗ trợ mệnh Thủy"
+    ],
+    "displayOrder": 3
+  }
+]

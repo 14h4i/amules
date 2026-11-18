@@ -1,0 +1,21 @@
+[
+  {
+    "_id": {
+      "$oid": "a95dcb8aebb202efeedb10d5"
+    },
+    "userId": {
+      "$oid": "e4774cdda0793f86414e8b91"
+    },
+    "productIds": [
+      {
+        "$oid": "dabcd7e6ca8fe24e72e46af2"
+      },
+      {
+        "$oid": "0b960313cef9e50d9eed12c3"
+      }
+    ],
+    "updatedAt": {
+      "$date": "2026-11-12T00:00:00.000Z"
+    }
+  }
+]

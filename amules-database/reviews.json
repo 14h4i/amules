@@ -1,0 +1,96 @@
+[
+  {
+    "_id": {
+      "$oid": "7c92cf1eee8d99cc85f8355a"
+    },
+    "productId": {
+      "$oid": "7caa02962f99fe72f8cfb0d6"
+    },
+    "productName": "Lắc tay Hơi Thở Biển Xanh",
+    "productCode": "AM-AQ001",
+    "slug": "lac-tay-hoi-tho-bien-xanh",
+    "userName": "Lan Anh (Song Ngư)",
+    "author": "Lan Anh (Song Ngư)",
+    "rating": 5,
+    "stars": 5,
+    "comment": "Bảo vật đẹp hơn mong đợi rất nhiều! Viên đá tỏa ra năng lượng rất bình yên, mình đeo khi thiền định cảm thấy tâm trí nhẹ nhõm hẳn. Đóng gói hộp nhung tím cực kỳ trang trọng.",
+    "content": "Bảo vật đẹp hơn mong đợi rất nhiều! Viên đá tỏa ra năng lượng rất bình yên, mình đeo khi thiền định cảm thấy tâm trí nhẹ nhõm hẳn. Đóng gói hộp nhung tím cực kỳ trang trọng.",
+    "images": [],
+    "status": "approved",
+    "date": "10/11/2026",
+    "createdAt": {
+      "$date": "2026-11-10T00:00:00.000Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "d279186428a75016b17e4df5"
+    },
+    "productId": {
+      "$oid": "7caa02962f99fe72f8cfb0d6"
+    },
+    "productName": "Lắc tay Hơi Thở Biển Xanh",
+    "productCode": "AM-AQ001",
+    "slug": "lac-tay-hoi-tho-bien-xanh",
+    "userName": "Minh Thảo (Bảo Bình)",
+    "author": "Minh Thảo (Bảo Bình)",
+    "rating": 5,
+    "stars": 5,
+    "comment": "Giao hàng rất nhanh, có kèm giấy kiểm định đá quý tự nhiên 100%. Rất an tâm và chắc chắn sẽ ủng hộ thêm các tạo tác khác của AMULES.",
+    "content": "Giao hàng rất nhanh, có kèm giấy kiểm định đá quý tự nhiên 100%. Rất an tâm và chắc chắn sẽ ủng hộ thêm các tạo tác khác của AMULES.",
+    "images": [],
+    "status": "approved",
+    "date": "28/10/2026",
+    "createdAt": {
+      "$date": "2026-10-28T00:00:00.000Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "7c92cf1eee8d99cc85f8355b"
+    },
+    "productId": {
+      "$oid": "420903a9c3bacabc1ea790a7"
+    },
+    "productName": "Dây chuyền Bạc Nữ Mix Đá Merlia",
+    "productCode": "AM-MS010",
+    "slug": "day-chuyen-bac-nu-mix-da-merlia",
+    "userName": "Nguyễn Hoàng Lan Anh",
+    "author": "Nguyễn Hoàng Lan Anh",
+    "rating": 5,
+    "stars": 5,
+    "comment": "Dây chuyền rất xinh, ánh moonstone đẹp lung linh. Đóng gói cẩn thận!",
+    "content": "Dây chuyền rất xinh, ánh moonstone đẹp lung linh. Đóng gói cẩn thận!",
+    "images": [
+      "https://cdn.amules.vn/reviews/r1-1.jpg"
+    ],
+    "status": "approved",
+    "date": "11/11/2026",
+    "createdAt": {
+      "$date": "2026-11-11T00:00:00.000Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "d279186428a75016b17e4df6"
+    },
+    "productId": {
+      "$oid": "cef158eeb3534491b1bb60b8"
+    },
+    "productName": "Dây Chuyền Mặt Trăng Khuyết Moonstone",
+    "productCode": "AM-MS043",
+    "slug": "day-chuyen-mat-trang-khuyet-moonstone",
+    "userName": "Trần Thu Hà",
+    "author": "Trần Thu Hà",
+    "rating": 4,
+    "stars": 4,
+    "comment": "Mặt trăng khuyết nhỏ xinh, đeo hằng ngày rất hợp.",
+    "content": "Mặt trăng khuyết nhỏ xinh, đeo hằng ngày rất hợp.",
+    "images": [],
+    "status": "approved",
+    "date": "12/11/2026",
+    "createdAt": {
+      "$date": "2026-11-12T00:00:00.000Z"
+    }
+  }
+]

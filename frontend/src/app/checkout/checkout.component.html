@@ -1,0 +1,338 @@
+<div class="checkout-page container">
+
+  <nav class="crumb-nav">
+    <a routerLink="/">Trang chủ</a> <span>/</span>
+    <a routerLink="/cart">Giỏ hàng</a> <span>/</span>
+    <b>Thanh toán &amp; Đặt hàng</b>
+  </nav>
+
+  <header class="checkout-head">
+    <span class="eyebrow"><app-icon name="shield-check" [size]="14"></app-icon> Cổng thanh toán bảo mật</span>
+    <h1 class="checkout-title serif">Thanh Toán &amp; Giao Nhận Bảo Vật</h1>
+    <p class="checkout-sub">Vui lòng điền thông tin chính xác để AMULES tiến hành nghi thức thanh tẩy và gửi chuyển bảo vật đến bạn an toàn nhất.</p>
+  </header>
+
+  @if (errorMsg) {
+    <div class="alert-error">{{ errorMsg }}</div>
+  }
+
+  <form [formGroup]="checkoutForm" (ngSubmit)="onSubmitOrder()" novalidate class="checkout-layout">
+
+    <!-- CỘT TRÁI: FORM ĐIỀN THÔNG TIN & CHỌN PHƯƠNG THỨC -->
+    <div class="checkout-form-col">
+
+      <!-- 1. Thông tin người nhận -->
+      <section class="c-section">
+        <h2 class="c-section__title"><app-icon name="user" [size]="18"></app-icon> 1. Thông Tin Người Nhận</h2>
+        <div class="field">
+          <label for="fullName">Họ và tên quý khách *</label>
+          <input id="fullName" type="text" formControlName="fullName" placeholder="Nguyễn Hoàng Lan Anh"
+                 [class.is-invalid]="f['fullName'].invalid && f['fullName'].touched">
+          @if (f['fullName'].invalid && f['fullName'].touched) {
+            <small class="error">Vui lòng nhập họ và tên (tối thiểu 2 ký tự).</small>
+          }
+        </div>
+
+        <div class="row-2">
+          <div class="field">
+            <label for="phone">Số điện thoại liên hệ *</label>
+            <input id="phone" type="tel" formControlName="phone" placeholder="0982 456 789"
+                   [class.is-invalid]="f['phone'].invalid && f['phone'].touched">
+            @if (f['phone'].invalid && f['phone'].touched) {
+              <small class="error">Số điện thoại gồm 10 chữ số (bắt đầu bằng 0).</small>
+            }
+          </div>
+
+          <div class="field">
+            <label for="email">Email nhận hóa đơn &amp; hành trình *</label>
+            <input id="email" type="email" formControlName="email" placeholder="lananh.gemini@gmail.com"
+                   [class.is-invalid]="f['email'].invalid && f['email'].touched">
+            @if (f['email'].invalid && f['email'].touched) {
+              <small class="error">Vui lòng nhập địa chỉ email hợp lệ.</small>
+            }
+          </div>
+        </div>
+      </section>
+
+      <!-- 2. Địa chỉ nhận hàng -->
+      <section class="c-section">
+        <h2 class="c-section__title"><app-icon name="truck" [size]="18"></app-icon> 2. Địa Chỉ Giao Hàng</h2>
+        <div class="row-3">
+          <div class="field">
+            <label for="province">Tỉnh / Thành phố *</label>
+            <input id="province" type="text" formControlName="province" placeholder="Hồ Chí Minh">
+          </div>
+          <div class="field">
+            <label for="district">Quận / Huyện *</label>
+            <input id="district" type="text" formControlName="district" placeholder="Quận 1">
+          </div>
+          <div class="field">
+            <label for="ward">Phường / Xã *</label>
+            <input id="ward" type="text" formControlName="ward" placeholder="Phường Bến Nghé">
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="street">Số nhà, tên đường, tòa nhà *</label>
+          <input id="street" type="text" formControlName="street" placeholder="Số 18 Tràng Tiền Plaza, P. Tràng Tiền"
+                 [class.is-invalid]="f['street'].invalid && f['street'].touched">
+          @if (f['street'].invalid && f['street'].touched) {
+            <small class="error">Vui lòng nhập địa chỉ chi tiết để shiper giao hàng.</small>
+          }
+        </div>
+
+        <div class="field">
+          <label for="note">Ghi chú đặc biệt cho đơn hàng (tùy chọn)</label>
+          <textarea id="note" formControlName="note" rows="2" placeholder="Ví dụ: Giao giờ hành chính, gọi trước khi giao 15 phút..."></textarea>
+        </div>
+      </section>
+
+      <!-- 3. Phương thức vận chuyển -->
+      <section class="c-section">
+        <h2 class="c-section__title"><app-icon name="sparkle" [size]="18"></app-icon> 3. Hình Thức Vận Chuyển</h2>
+        <div class="shipping-options">
+          <label class="ship-option" [class.selected]="selectedShipping === 'STANDARD'">
+            <input type="radio" name="shippingMethod" [value]="'STANDARD'" [(ngModel)]="selectedShipping" [ngModelOptions]="{standalone: true}">
+            <div>
+              <strong>Giao hàng Tiêu Chuẩn (2 - 4 ngày)</strong>
+              <small>Thanh tẩy năng lượng chu đáo trước khi gửi</small>
+            </div>
+            <span class="ship-price">{{ _cartService.shippingFee() === 0 ? 'Miễn phí' : ((_cartService.shippingFee() | number) + 'đ') }}</span>
+          </label>
+
+          <label class="ship-option" [class.selected]="selectedShipping === 'EXPRESS'">
+            <input type="radio" name="shippingMethod" [value]="'EXPRESS'" [(ngModel)]="selectedShipping" [ngModelOptions]="{standalone: true}">
+            <div>
+              <strong>Giao Hỏa Tốc (24 giờ)</strong>
+              <small>Ưu tiên đóng gói nhung sang trọng &amp; giao ngay trong ngày</small>
+            </div>
+            <span class="ship-price">+25.000đ</span>
+          </label>
+        </div>
+      </section>
+
+      <!-- 4. Phương thức thanh toán (BPMN Trang 10 & 11) -->
+      <section class="c-section">
+        <h2 class="c-section__title"><app-icon name="lock" [size]="18"></app-icon> 4. Phương Thức Thanh Toán</h2>
+        <div class="pay-options">
+          <label class="pay-option" [class.selected]="selectedPayment === 'COD'">
+            <input type="radio" name="payment" [value]="'COD'" [(ngModel)]="selectedPayment" [ngModelOptions]="{standalone: true}">
+            <div>
+              <strong>Thanh toán khi nhận hàng (COD)</strong>
+              <small>Quý khách kiểm tra chứng thư đá quý trước khi thanh toán tiền mặt cho bưu tá.</small>
+            </div>
+          </label>
+
+          <label class="pay-option" [class.selected]="selectedPayment === 'VNPAY'">
+            <input type="radio" name="payment" [value]="'VNPAY'" [(ngModel)]="selectedPayment" [ngModelOptions]="{standalone: true}">
+            <div>
+              <strong>Cổng thanh toán Quốc gia VNPAY-QR</strong>
+              <small>Quét mã VNPAY-QR trên 35+ ứng dụng Ngân hàng (VCB, MB, BIDV, TCB...) và thẻ Visa/MasterCard.</small>
+            </div>
+            <span class="pay-badge vnpay">VNPAY-QR</span>
+          </label>
+
+          <label class="pay-option" [class.selected]="selectedPayment === 'MOMO'">
+            <input type="radio" name="payment" [value]="'MOMO'" [(ngModel)]="selectedPayment" [ngModelOptions]="{standalone: true}">
+            <div>
+              <strong>Ví điện tử MoMo</strong>
+              <small>Thanh toán siêu tốc qua ứng dụng MoMo bằng mã MoMo QR tiện lợi.</small>
+            </div>
+            <span class="pay-badge momo">MoMo</span>
+          </label>
+
+          <label class="pay-option" [class.selected]="selectedPayment === 'BANKING'">
+            <input type="radio" name="payment" [value]="'BANKING'" [(ngModel)]="selectedPayment" [ngModelOptions]="{standalone: true}">
+            <div>
+              <strong>Chuyển khoản VietQR (Napas 247)</strong>
+              <small>Quét mã VietQR tự động điền số tài khoản, số tiền và nội dung chuyển khoản.</small>
+            </div>
+            <span class="pay-badge vietqr">VietQR</span>
+          </label>
+        </div>
+
+        @if (selectedPayment === 'BANKING') {
+          <div class="bank-instruction">
+            <div class="bank-head"><strong>Thông tin tài khoản nhận chuyển khoản AMULES:</strong></div>
+            <p>• Ngân hàng: <b>MB Bank (Ngân hàng Quân Đội)</b></p>
+            <p>• Số tài khoản: <b>0988 888 888</b></p>
+            <p>• Chủ tài khoản: <b>CONG TY TNHH AMULES VIETNAM</b></p>
+            <p>• Nội dung: <b>AMU {{ f['phone'].value || 'SĐT CỦA BẠN' }}</b></p>
+          </div>
+        }
+      </section>
+
+    </div>
+
+    <!-- CỘT PHẢI: TÓM TẮT ĐƠN HÀNG & NÚT ĐẶT -->
+    <aside class="checkout-summary-col">
+      <div class="order-summary-box">
+        <h3 class="summary-head serif">Đơn Hàng Của Bạn ({{ cartItems.length }})</h3>
+
+        <!-- Danh sách rút gọn -->
+        @if (cartItems.length === 0) {
+          <div class="empty-cart-checkout-banner">
+            <app-icon name="bag" [size]="24"></app-icon>
+            <h4>Giỏ hàng của bạn đang trống</h4>
+            <p>Vui lòng thêm bảo vật phong thủy vào giỏ trước khi tiến hành thanh toán.</p>
+            <a routerLink="/products" class="btn-goto-shop">&larr; Đến Cửa Hàng Chọn Bảo Vật</a>
+          </div>
+        } @else {
+          <div class="mini-items-list">
+            @for (item of cartItems; track $index) {
+              <div class="mini-item">
+                <div class="mini-media">
+                  <img [src]="item.image || 'images/lac_tay_bien.png'" [alt]="item.name">
+                  <span class="mini-qty">{{ item.quantity }}</span>
+                </div>
+                <div class="mini-detail">
+                  <h4>{{ item.name }}</h4>
+                  <small>{{ item.size || 'Kích thước chuẩn' }}</small>
+                </div>
+                <strong class="mini-total">{{ (item.price * item.quantity) | number }}đ</strong>
+              </div>
+            }
+          </div>
+        }
+
+        <!-- Tính tiền -->
+        <div class="checkout-calc">
+          <div class="calc-row">
+            <span>Tạm tính:</span>
+            <strong>{{ subtotal | number }}đ</strong>
+          </div>
+
+          @if (discount > 0) {
+            <div class="calc-row discount">
+              <span>Mã giảm giá ({{ _cartService.appliedVoucher()?.code }}):</span>
+              <strong>-{{ discount | number }}đ</strong>
+            </div>
+          }
+
+          <div class="calc-row">
+            <span>Phí vận chuyển:</span>
+            <strong>{{ shippingFee === 0 ? 'Miễn phí' : ((shippingFee | number) + 'đ') }}</strong>
+          </div>
+
+          <div class="calc-row final">
+            <span>Tổng thanh toán:</span>
+            <strong class="final-price">{{ totalAmount | number }}đ</strong>
+          </div>
+        </div>
+
+        <button type="submit" class="btn-complete-order" [disabled]="cartItems.length === 0 || submitting || checkoutForm.invalid">
+          {{ submitting ? 'Đang hoàn tất đặt hàng...' : (cartItems.length === 0 ? 'Giỏ hàng đang trống' : 'Hoàn Tất Đặt Hàng &rarr;') }}
+        </button>
+
+        <p class="terms-note">
+          Bằng việc nhấn đặt hàng, bạn đồng ý với <a routerLink="/about">Điều khoản giao dịch</a> và <a routerLink="/about">Chính sách bảo mật</a> của AMULES.
+        </p>
+      </div>
+    </aside>
+
+  </form>
+
+  <!-- 3RD-PARTY PAYMENT GATEWAY MODAL (VNPAY-QR, MOMO, VIETQR) -->
+  @if (showPaymentModal) {
+    <div class="pay-backdrop" (click)="payLater()"></div>
+    <div class="pay-modal-card" [class.vnpay]="activeGateway === 'VNPAY'" [class.momo]="activeGateway === 'MOMO'" [class.vietqr]="activeGateway === 'BANKING'">
+      
+      <div class="pay-modal-head">
+        <div class="gateway-title-row">
+          @if (activeGateway === 'VNPAY') {
+            <span class="gw-badge gw-vnpay">VNPAY-QR</span>
+            <div>
+              <h3>Cổng Thanh Toán Quốc Gia VNPAY</h3>
+              <small>Quét mã với App Ngân hàng hoặc Ví VNPAY</small>
+            </div>
+          } @else if (activeGateway === 'MOMO') {
+            <span class="gw-badge gw-momo">MOMO QR</span>
+            <div>
+              <h3>Ví Điện Tử MoMo</h3>
+              <small>Quét mã bằng ứng dụng MoMo trên điện thoại</small>
+            </div>
+          } @else {
+            <span class="gw-badge gw-vietqr">VIETQR</span>
+            <div>
+              <h3>Chuyển Khoản Nhanh VietQR (Napas 247)</h3>
+              <small>Hỗ trợ tất cả ứng dụng ngân hàng tại Việt Nam</small>
+            </div>
+          }
+        </div>
+        <button type="button" class="btn-close-pay" (click)="payLater()">&times;</button>
+      </div>
+
+      <div class="pay-timer-banner">
+        <span>Mã thanh toán hết hạn sau:</span>
+        <strong class="timer-digits"><app-icon name="clock" [size]="14"></app-icon> {{ countdownDisplay }}</strong>
+      </div>
+
+      <div class="pay-modal-body">
+        <!-- Mã QR Code động -->
+        <div class="qr-display-box">
+          @if (activeGateway === 'VNPAY') {
+            <img [src]="gatewayData?.vnpayQrUrl || 'https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=AMULES_VNPAY'" alt="VNPAY QR" class="gateway-qr-img">
+            <span class="qr-helper">Mở App Ngân Hàng (VCB, MB, BIDV, TCB...) chọn quét VNPAY-QR</span>
+          } @else if (activeGateway === 'MOMO') {
+            <img [src]="gatewayData?.momoQrUrl || 'https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=AMULES_MOMO'" alt="MoMo QR" class="gateway-qr-img">
+            <span class="qr-helper">Mở ứng dụng MoMo và chọn quét mã để thanh toán</span>
+          } @else {
+            <img [src]="gatewayData?.vietQrUrl || 'https://img.vietqr.io/image/MB-0988888888-compact2.png'" alt="VietQR" class="gateway-qr-img">
+            <span class="qr-helper">Quét mã VietQR hoặc chuyển khoản theo thông tin bên dưới</span>
+          }
+        </div>
+
+        <!-- Chi tiết hóa đơn thanh toán -->
+        <div class="pay-details-box">
+          <div class="p-row highlight">
+            <span>Số tiền thanh toán:</span>
+            <strong class="price-val">{{ (lastOrderAmount || totalAmount) | number }}đ</strong>
+          </div>
+          <div class="p-row">
+            <span>Mã đơn hàng:</span>
+            <span class="code-val">{{ pendingOrderCode }}</span>
+          </div>
+          <div class="p-row">
+            <span>Người nhận:</span>
+            <span>{{ lastCustomerName || f['fullName'].value }}</span>
+          </div>
+          <div class="p-row">
+            <span>Đơn vị giao vận:</span>
+            <span class="carrier-val">Giao Hàng Nhanh (GHN Express)</span>
+          </div>
+
+          @if (activeGateway === 'BANKING') {
+            <div class="bank-copy-group">
+              <div class="copy-cell" (click)="copyInfo('0988888888', 'stk')">
+                <span>Số TK MB Bank: <b>0988 888 888</b></span>
+                <button type="button" class="btn-copy">{{ copiedText === 'stk' ? 'Đã sao chép!' : 'Sao chép' }}</button>
+              </div>
+              <div class="copy-cell" (click)="copyInfo('AMU ' + pendingOrderCode, 'memo')">
+                <span>Nội dung CK: <b>AMU {{ pendingOrderCode }}</b></span>
+                <button type="button" class="btn-copy">{{ copiedText === 'memo' ? 'Đã sao chép!' : 'Sao chép' }}</button>
+              </div>
+            </div>
+          }
+        </div>
+      </div>
+
+      <div class="pay-modal-foot">
+        @if (activeGateway === 'VNPAY' && gatewayData?.vnpayUrl) {
+          <a [href]="gatewayData.vnpayUrl" class="btn-direct-vnpay" target="_blank" rel="noopener noreferrer">
+            Mở Cổng VNPAY Sandbox (Trang Thanh Toán Trực Tiếp) &rarr;
+          </a>
+        }
+        <button type="button" class="btn-confirm-gateway" (click)="confirmSandboxPayment()" [disabled]="verifyingPayment">
+          <app-icon name="check" [size]="16"></app-icon>
+          {{ verifyingPayment ? 'Đang xác thực giao dịch qua Cổng...' : 'Mô Phỏng Quét Mã Thành Công (Sandbox)' }}
+        </button>
+
+        <button type="button" class="btn-pay-later" (click)="payLater()">
+          Tôi sẽ thanh toán sau (Giữ đơn hàng)
+        </button>
+      </div>
+
+    </div>
+  }
+
+</div>

@@ -1,0 +1,56 @@
+<div class="gifts-page container">
+  <nav class="crumb-nav">
+    <a routerLink="/">Trang chủ</a> <span>/</span> <b>Bộ sưu tập quà tặng ý nghĩa</b>
+  </nav>
+
+  <header class="gifts-hero">
+    <span class="eyebrow"><app-icon name="sparkle" [size]="14"></app-icon> Trao gửi năng lượng yêu thương</span>
+    <h1 class="gifts-title serif">Bộ Sưu Tập Quà Tặng &amp; Đóng Gói Cao Cấp</h1>
+    <p class="gifts-sub">Mỗi món quà từ AMULES là một lời chúc phúc bình an, may mắn được gói trọn trong hộp nhung hoàng gia sang trọng.</p>
+  </header>
+
+  <!-- Gift Packages -->
+  <section class="packages-sec">
+    <h2 class="serif sec-title">Dịch Vụ Đóng Gói Quà Tặng Hoàng Gia</h2>
+    <div class="pkg-grid">
+      @for (p of packages; track p.name) {
+        <div class="pkg-card">
+          <div class="pkg-img">
+            <img [src]="p.image" [alt]="p.name">
+          </div>
+          <div class="pkg-body">
+            <h3>{{ p.name }}</h3>
+            <p>{{ p.desc }}</p>
+            <strong class="pkg-price">{{ p.price | number }}đ</strong>
+          </div>
+        </div>
+      }
+    </div>
+  </section>
+
+  <!-- Recommended Gift Jewelry -->
+  <section class="gift-items-sec">
+    <div class="gift-items-head">
+      <div>
+        <span class="eyebrow"><app-icon name="gem" [size]="14"></app-icon> BẢO VẬT TINH TUYỂN LÀM QUÀ TẶNG</span>
+        <h2 class="serif">Gợi Ý Trang Sức Quà Tặng Ý Nghĩa Nhất</h2>
+      </div>
+      <a routerLink="/products" class="btn btn--soft">Xem toàn bộ bảo vật &rarr;</a>
+    </div>
+
+    <div class="focus-grid">
+      @for (p of giftProducts; track p.name) {
+        <article class="p-card" [routerLink]="['/products', p.slug || p.id]">
+          <div class="p-media">
+            <img [src]="p.image || 'images/lac_tay_bien.png'" [alt]="p.name">
+          </div>
+          <div class="p-info">
+            <span class="p-stone">{{ p.stone }}</span>
+            <h3 class="p-title">{{ p.name }}</h3>
+            <strong class="p-price">{{ p.price | number }}đ</strong>
+          </div>
+        </article>
+      }
+    </div>
+  </section>
+</div>

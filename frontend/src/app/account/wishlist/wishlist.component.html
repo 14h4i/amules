@@ -1,0 +1,112 @@
+<!-- Header -->
+<div class="acc-page-head">
+  <div>
+    <h1 class="acc-page-head__title">
+      Sản Phẩm Yêu Thích
+      <span class="acc-badge">{{ items.length }} bảo vật</span>
+    </h1>
+    <p class="acc-page-head__desc">Lưu giữ những thiết kế linh thiêng bạn rung động và sẵn sàng đồng hành trên từng chặng đường.</p>
+  </div>
+  @if (items.length > 0) {
+    <button type="button" class="btn btn--outline btn--xs">
+      <app-icon name="share" [size]="14"></app-icon> Chia sẻ danh sách
+    </button>
+  }
+</div>
+
+@if (items.length === 0) {
+  <div style="background: #fff; border: 1px solid var(--pink-line); border-radius: 20px; padding: 48px 24px; text-align: center; margin-top: 16px;">
+    <div style="width: 68px; height: 68px; margin: 0 auto 16px; border-radius: 50%; background: var(--plum-soft); color: var(--plum); display: grid; place-items: center;">
+      <app-icon name="heart" [size]="32"></app-icon>
+    </div>
+    <h3 style="font-family: var(--font-serif); font-size: 20px; color: var(--plum); margin-bottom: 8px;">Danh sách yêu thích đang trống</h3>
+    <p style="font-size: 13.5px; color: var(--muted); max-width: 480px; margin: 0 auto 24px; line-height: 1.6;">
+      Bạn chưa lưu bảo vật hộ mệnh nào vào danh sách. Hãy khám phá bộ sưu tập đá quý phong thủy và nhấn biểu tượng trái tim để lưu giữ tại đây.
+    </p>
+    <a routerLink="/products" class="btn btn--primary" style="display: inline-flex; align-items: center; gap: 8px;">
+      <app-icon name="sparkle" [size]="15"></app-icon> Khám Phá Bộ Sưu Tập Ngay
+    </a>
+  </div>
+} @else {
+  <!-- Thanh lọc danh mục & sắp xếp -->
+  <div class="wish-toolbar">
+    <div class="acc-pill-tabs" style="margin-bottom: 0;">
+      @for (c of categories; track c.key) {
+        <button type="button" [class.active]="activeCat === c.key" (click)="activeCat = c.key">
+          {{ c.label }}
+        </button>
+      }
+    </div>
+
+    <select class="wish-sort">
+      <option>Mới lưu gần đây</option>
+      <option>Giá thấp đến cao</option>
+      <option>Giá cao đến thấp</option>
+    </select>
+  </div>
+
+  <!-- Lưới 4 cột sản phẩm -->
+  <div class="wish-grid">
+    @for (p of filteredItems; track p.id) {
+      <article class="wish-card">
+        <div class="wish-card__media">
+          <img [src]="p.image" [alt]="p.name">
+          <div class="wish-card__top-tags">
+            <span class="tag-el">{{ p.elementTag }}</span>
+            @if (p.specialBadge) {
+              <span class="tag-spec" [class.tag-gold]="p.specialBadge === 'BESTSELLER'">{{ p.specialBadge }}</span>
+            }
+          </div>
+          <button type="button" class="wish-heart" (click)="removeItem(p.id)" aria-label="Bỏ yêu thích">
+            <app-icon name="heart" [size]="15"></app-icon>
+          </button>
+          <span class="stone-pill"><i>●</i> {{ p.stoneTag }}</span>
+        </div>
+
+        <div class="wish-card__body">
+          <small class="wish-cat">{{ p.categoryLabel }}</small>
+          <h3>{{ p.name }}</h3>
+          <p class="wish-desc"><app-icon name="sparkle" [size]="12"></app-icon> {{ p.desc }}</p>
+
+          <div class="wish-price-row">
+            <b>{{ p.price | number }}đ</b>
+            <span [class.out]="!p.inStock">{{ p.inStock ? 'Còn hàng' : 'Hết hàng' }}</span>
+          </div>
+
+          @if (p.inStock) {
+            <button type="button" class="btn btn--primary btn--xs wish-btn" (click)="addToCart(p)">
+              <app-icon name="bag" [size]="13"></app-icon> Thêm vào giỏ
+            </button>
+          } @else {
+            <button type="button" class="btn btn--soft btn--xs wish-btn">
+              <app-icon name="clock" [size]="13"></app-icon> Báo khi có hàng
+            </button>
+          }
+        </div>
+      </article>
+    }
+  </div>
+}
+
+@if (toast) {
+  <div style="position: fixed; bottom: 24px; right: 24px; background: var(--plum); color: #fff; padding: 12px 20px; border-radius: 999px; box-shadow: 0 10px 25px rgba(0,0,0,.2); font-size: 13.5px; font-weight: 600; z-index: 999; animation: slideUp .2s ease;">
+    ✓ {{ toast }}
+  </div>
+}
+
+<!-- Banner tìm thêm bảo vật -->
+<section class="acc-card acc-card--tint wish-cta">
+  <div>
+    <span class="eyebrow"><app-icon name="sparkle" [size]="12"></app-icon> HỘ MỆNH VÀ NĂNG LƯỢNG</span>
+    <h2 class="serif wish-cta__title">Bạn muốn tìm thêm bảo vật hộ mệnh?</h2>
+    <p>Khám phá bộ sưu tập đá thiên nhiên chọn lọc theo bản mệnh Ngũ Hành và Cung Hoàng Đạo để tìm thấy tần số rung động dành riêng cho bạn.</p>
+  </div>
+  <div class="wish-cta__btns">
+    <a routerLink="/" class="btn btn--primary">
+      Khám phá cửa hàng <app-icon name="arrow-right" [size]="14"></app-icon>
+    </a>
+    <a routerLink="/account/mystic-match" class="btn btn--outline">
+      <app-icon name="sparkle" [size]="14"></app-icon> Thử Mystic Match
+    </a>
+  </div>
+</section>

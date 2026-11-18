@@ -1,0 +1,77 @@
+<div class="admin-shell">
+  <!-- Sidebar -->
+  <aside class="admin-sidebar">
+    <div class="admin-brand">
+      <div class="admin-brand__top">
+        <div class="admin-brand__gem">
+          <app-icon name="gem" [size]="20"></app-icon>
+        </div>
+        <div class="admin-brand__text">
+          <span class="admin-brand__name">AMULES</span>
+          <span class="admin-brand__sub">HAUTE JOAILLERIE BACKOFFICE</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="admin-nav__category">QUẢN TRỊ HỆ THỐNG</div>
+
+    <nav class="admin-nav">
+      @for (item of navItems; track item.route) {
+        <a [routerLink]="item.route" routerLinkActive="active" class="admin-nav__link">
+          <app-icon [name]="item.icon" [size]="18"></app-icon>
+          <span>{{ item.label }}</span>
+        </a>
+      }
+    </nav>
+
+    <div class="admin-sidebar__foot">
+      <div class="system-status-box">
+        <div class="system-status__live">
+          <span class="status-pulse-dot"></span>
+          <span>Hệ thống Trực tuyến</span>
+        </div>
+        <span class="system-status__ver">v2.4.0</span>
+      </div>
+      <div class="quick-admin-actions">
+        <a routerLink="/" class="btn-store-link" title="Quay lại trang mua sắm AMULES">
+          <app-icon name="globe" [size]="14"></app-icon>
+          <span>Quay lại mua sắm</span>
+        </a>
+        <button type="button" class="btn-sidebar-logout" (click)="onLogout()" title="Đăng xuất">
+          <app-icon name="logout" [size]="14"></app-icon>
+        </button>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Main Content Area -->
+  <div class="admin-main">
+    <!-- Topbar -->
+    <header class="admin-topbar">
+      <div class="admin-search-pill">
+        <app-icon name="search" [size]="16"></app-icon>
+        <input type="text" placeholder="Tìm kiếm mã sản phẩm, đơn hàng, khách hàng...">
+      </div>
+
+      <div class="admin-topbar__right">
+        <button type="button" class="admin-icon-btn admin-notification-btn" title="Thông báo hệ thống">
+          <app-icon name="bell" [size]="18"></app-icon>
+          <span class="notif-counter">3</span>
+        </button>
+
+        <div class="admin-user-profile">
+          <div class="admin-profile-avatar">{{ adminInitial }}</div>
+          <div class="admin-profile-meta">
+            <span class="admin-profile-name">{{ adminName }}</span>
+            <span class="admin-profile-role">{{ adminRole }}</span>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Page Body Outlet -->
+    <main class="admin-content">
+      <router-outlet></router-outlet>
+    </main>
+  </div>
+</div>

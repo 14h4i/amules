@@ -1,0 +1,222 @@
+<div class="mm-page container">
+
+  <!-- Breadcrumb -->
+  <nav class="crumb-nav">
+    <a routerLink="/">Trang chủ</a> <span>/</span> <b>Mystic Match™ - Chiêm Tinh &amp; Phong Thủy</b>
+  </nav>
+
+  @if (addedToast) {
+    <div class="toast-notice">
+      <app-icon name="check" [size]="16"></app-icon>
+      <span>{{ addedToast }}</span>
+      <a routerLink="/cart" class="toast-link">Xem giỏ hàng &rarr;</a>
+    </div>
+  }
+
+  @if (savedToast) {
+    <div class="toast-notice">
+      <app-icon name="check" [size]="16"></app-icon>
+      <span>{{ savedNotice || 'Đã lưu kết quả bản mệnh vào Hồ sơ cá nhân của bạn!' }}</span>
+    </div>
+  }
+
+  <!-- Header -->
+  <header class="mm-head">
+    <span class="eyebrow"><app-icon name="sparkle" [size]="14"></app-icon> Công nghệ giải mã thiên thể độc quyền</span>
+    <h1 class="mm-title serif">Mystic Match™: Tìm Vị Bùa Hộ Mệnh Của Riêng Bạn</h1>
+    <p class="mm-sub">Dựa trên chu kỳ chiêm tinh học phương Tây và quy luật Ngũ hành Can Chi phương Đông, AMULES tính toán chính xác tần số tương sinh để khai mở bảo vật dành riêng cho bạn.</p>
+  </header>
+
+  @if (step === 'form') {
+
+    <!-- FORM TRẮC NGHIỆM -->
+    <div class="quiz-card">
+      <div class="quiz-head">
+        <span class="step-badge">Bước 1 trên 2</span>
+        <h2 class="serif">Nhập Thông Tin Ngày Sinh Của Bạn</h2>
+        <p>Ngày tháng năm sinh dương lịch xác định tọa độ chiêm tinh và bản mệnh ngũ hành khi bạn cất tiếng khóc chào đời.</p>
+      </div>
+
+      <div class="date-pickers-grid">
+        <div class="field">
+          <label for="bDay">Ngày sinh *</label>
+          <select id="bDay" [(ngModel)]="birthDay">
+            @for (d of days; track d) { <option [ngValue]="d">Ngày {{ d }}</option> }
+          </select>
+        </div>
+
+        <div class="field">
+          <label for="bMonth">Tháng sinh *</label>
+          <select id="bMonth" [(ngModel)]="birthMonth" (ngModelChange)="onMonthOrYearChange()">
+            @for (m of months; track m) { <option [ngValue]="m">Tháng {{ m }}</option> }
+          </select>
+        </div>
+
+        <div class="field">
+          <label for="bYear">Năm sinh *</label>
+          <select id="bYear" [(ngModel)]="birthYear" (ngModelChange)="onMonthOrYearChange()">
+            @for (y of years; track y) { <option [ngValue]="y">Năm {{ y }}</option> }
+          </select>
+        </div>
+      </div>
+
+      <div class="choice-group">
+        <label class="choice-label">Ước nguyện năng lượng lớn nhất lúc này của bạn:</label>
+        <div class="wish-chips">
+          <label class="wish-chip" [class.active]="wish === 'peace'">
+            <input type="radio" name="wish" value="peace" [(ngModel)]="wish">
+            <app-icon name="lotus" [size]="16"></app-icon>
+            <div><strong>Bình An &amp; Chữa Lành</strong><small>Xoa dịu sóng gió, ngủ ngon</small></div>
+          </label>
+
+          <label class="wish-chip" [class.active]="wish === 'love'">
+            <input type="radio" name="wish" value="love" [(ngModel)]="wish">
+            <app-icon name="heart" [size]="16"></app-icon>
+            <div><strong>Tình Duyên &amp; Gắn Kết</strong><small>Thu hút tri kỷ, vun đắp yêu thương</small></div>
+          </label>
+
+          <label class="wish-chip" [class.active]="wish === 'wealth'">
+            <input type="radio" name="wish" value="wealth" [(ngModel)]="wish">
+            <app-icon name="gem" [size]="16"></app-icon>
+            <div><strong>Tài Lộc &amp; Thịnh Vượng</strong><small>Hanh thông công việc, vượng khí</small></div>
+          </label>
+
+          <label class="wish-chip" [class.active]="wish === 'clarity'">
+            <input type="radio" name="wish" value="clarity" [(ngModel)]="wish">
+            <app-icon name="sun" [size]="16"></app-icon>
+            <div><strong>Trực Giác &amp; Trí Tuệ</strong><small>Minh triết, định hướng tương lai</small></div>
+          </label>
+        </div>
+      </div>
+
+      <button type="button" class="btn-calc" (click)="calculateMatch()">
+        <app-icon name="sparkle" [size]="18"></app-icon> Khai Mở Bản Mệnh &amp; Giải Mã Năng Lượng &rarr;
+      </button>
+    </div>
+
+  } @else {
+
+    <!-- KẾT QUẢ GIẢI MÃ -->
+    <div class="result-layout">
+
+      <!-- CỘT TRÁI: THẺ BẢN MỆNH & CUNG HOÀNG ĐẠO -->
+      <section class="result-card">
+        <div class="res-badge-row">
+          <span class="res-tag"><app-icon name="sparkle" [size]="13"></app-icon> Kết Quả Chiêm Tinh Học</span>
+          <span class="res-date">{{ birthDay }}/{{ birthMonth }}/{{ birthYear }}</span>
+        </div>
+
+        <div class="res-zodiac-box">
+          <div class="z-icon"><app-icon [name]="calculatedZodiac?.icon || 'moon'" [size]="28"></app-icon></div>
+          <div>
+            <span class="z-sub">Cung Hoàng Đạo (Zodiac)</span>
+            <h2 class="z-name serif">{{ calculatedZodiac?.name }} ({{ calculatedZodiac?.latin }})</h2>
+            <small class="z-elem">Nguyên tố: {{ calculatedZodiac?.element }} &bull; Chu kỳ: {{ calculatedZodiac?.dateRange }}</small>
+          </div>
+        </div>
+
+        <div class="res-element-box">
+          <span class="e-sub">Ngũ Hành Bản Mệnh (Can Chi Nạp Âm)</span>
+          <h3 class="e-name serif">{{ calculatedElement?.name }}</h3>
+          <p class="e-title">“{{ calculatedElement?.title }}”</p>
+          <p class="e-desc">{{ calculatedElement?.desc }}</p>
+
+          <div class="colors-wrap">
+            <div class="color-col">
+              <strong>Màu sắc tương hợp &amp; tương sinh:</strong>
+              <div class="chips-list">
+                @for (c of calculatedElement?.colors; track c) {
+                  <span class="color-chip good">{{ c }}</span>
+                }
+              </div>
+            </div>
+
+            <div class="color-col">
+              <strong>Màu sắc nên tiết chế:</strong>
+              <div class="chips-list">
+                @for (c of calculatedElement?.contrastColors; track c) {
+                  <span class="color-chip bad">{{ c }}</span>
+                }
+              </div>
+            </div>
+          </div>
+
+          <div class="affirmation-card">
+            <app-icon name="sparkle" [size]="18"></app-icon>
+            <div>
+              <strong>Thông điệp năng lượng độc bản:</strong>
+              <p>{{ calculatedElement?.affirmation }}</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="result-actions">
+          <button type="button" class="btn btn--soft" (click)="saveToProfile()">
+            <app-icon name="user" [size]="16"></app-icon> Lưu Vào Hồ Sơ Cá Nhân
+          </button>
+          <button type="button" class="btn btn-outline" (click)="resetQuiz()">
+            Thực hiện lại
+          </button>
+        </div>
+      </section>
+
+      <!-- CỘT PHẢI: BẢO VẬT TƯƠNG HỢP GỢI Ý -->
+      <aside class="recommend-col">
+        <div class="rec-head">
+          <h3 class="serif">Bảo Vật Hộ Thân Dành Riêng Cho Bạn</h3>
+          <p>Được tuyển chọn tương sinh chính xác với tần số năng lượng {{ calculatedElement?.name }}:</p>
+        </div>
+
+        <div class="rec-grid">
+          @for (p of recommendedProducts; track p.name) {
+            <article class="rec-card">
+              <img [src]="p.image || 'images/lac_tay_bien.png'" [alt]="p.name" class="rec-img">
+              <div class="rec-info">
+                <span class="rec-stone">{{ p.stone }}</span>
+                <h4 class="rec-name"><a [routerLink]="['/products', p.slug || p.id]">{{ p.name }}</a></h4>
+                <strong class="rec-price">{{ p.price | number }}đ</strong>
+              </div>
+              <button type="button" class="btn-add-rec" (click)="addToCart(p)" title="Thêm vào giỏ hàng">
+                <app-icon name="bag" [size]="16"></app-icon> Thêm
+              </button>
+            </article>
+          }
+        </div>
+      </aside>
+
+    </div>
+
+  }
+
+  <!-- Modal thông báo Đăng nhập để lưu bản mệnh (dành cho khách vãng lai) -->
+  @if (showAuthPromptModal) {
+    <div class="auth-modal-backdrop" (click)="closeAuthModal()"></div>
+    <div class="auth-modal-card">
+      <button type="button" class="btn-close-modal" (click)="closeAuthModal()" aria-label="Đóng">&times;</button>
+      <div class="auth-modal-icon">
+        <app-icon name="sparkle" [size]="28"></app-icon>
+      </div>
+      <h3 class="serif auth-modal-title">Lưu Bản Mệnh Vào Hồ Sơ</h3>
+      <p class="auth-modal-desc">
+        Bạn vừa giải mã thành công: 
+        <strong>{{ calculatedZodiac?.name }} ({{ calculatedZodiac?.latin }})</strong> • 
+        <strong>{{ calculatedElement?.name }}</strong>.
+      </p>
+      <p class="auth-modal-sub">
+        Đăng nhập hoặc tạo tài khoản để kích hoạt năng lượng bảo hộ vĩnh viễn và nhận thông điệp chiêm tinh tuần độc bản.
+      </p>
+      <div class="auth-modal-actions">
+        <a routerLink="/login" [queryParams]="{ returnUrl: '/account/mystic-match' }" class="btn btn--primary auth-btn">
+          <app-icon name="user" [size]="15"></app-icon> Đăng nhập tài khoản
+        </a>
+        <a routerLink="/register" [queryParams]="{ returnUrl: '/account/mystic-match' }" class="btn btn--outline auth-btn">
+          <app-icon name="sparkle" [size]="15"></app-icon> Đăng ký thành viên mới
+        </a>
+        <button type="button" class="btn-text-muted" (click)="closeAuthModal()">
+          Để sau
+        </button>
+      </div>
+    </div>
+  }
+
+</div>
