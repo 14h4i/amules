@@ -59,9 +59,9 @@ export class HomeComponent implements OnInit, OnDestroy {
   ];
 
   collections: ICollection[] = [
-    { tag: 'Cổ điển & Huyền bí', name: 'Mystical Vintage', desc: 'Dấu ấn hoàng gia Tây phương kết hợp chiều sâu chiêm nghiệm phương Đông, dành cho người yêu nét đẹp hoài niệm.', image: 'https://i.pinimg.com/736x/8b/56/4e/8b564e66f5a26e5a7761873879e15a44.jpg' },
-    { tag: 'Thiên thể & Chiêm tinh', name: 'Moon & Stars', desc: 'Cảm hứng chu kỳ trăng tròn và 12 chòm sao thắp sáng, tượng trưng cho trực giác và sự soi đường dẫn lối.', image: 'https://i.pinimg.com/736x/8b/56/4e/8b564e66f5a26e5a7761873879e15a44.jpg' },
-    { tag: 'Dịu dàng & Lãng mạn', name: 'Nàng Thơ (The Muse)', desc: 'Thức khởi, dịu êm với ngọc trai mạnh ngọt, dành thức trắc ẩn của yêu thương.', image: 'https://i.pinimg.com/736x/8b/56/4e/8b564e66f5a26e5a7761873879e15a44.jpg' }
+    { tag: 'Cổ điển & Huyền bí', name: 'Mystical Vintage', desc: 'Dấu ấn hoàng gia Tây phương kết hợp chiều sâu chiêm nghiệm phương Đông, dành cho người yêu nét đẹp hoài niệm.', image: 'https://i.pinimg.com/736x/d2/c1/cd/d2c1cd50bee4cf66b8a095b253a55beb.jpg' },
+    { tag: 'Thiên thể & Chiêm tinh', name: 'Moon & Stars', desc: 'Cảm hứng chu kỳ trăng tròn và 12 chòm sao thắp sáng, tượng trưng cho trực giác và sự soi đường dẫn lối.', image: 'https://i.pinimg.com/736x/53/a4/0f/53a40fcf65d77d5dcc8a9efcb531ac32.jpg' },
+    { tag: 'Dịu dàng & Lãng mạn', name: 'Nàng Thơ (The Muse)', desc: 'Thức khởi, dịu êm với ngọc trai mạnh ngọt, dành thức trắc ẩn của yêu thương.', image: 'https://i.pinimg.com/736x/88/cc/a9/88cca9873ac223970e511970e84f478d.jpg' }
   ];
 
   posts: IArticle[] = [
@@ -111,14 +111,29 @@ export class HomeComponent implements OnInit, OnDestroy {
       error: () => { }
     });
 
-    // 3. Tải bài viết từ MongoDB API với ảnh bìa hợp lệ
+    // 3. Tải bộ sưu tập từ MongoDB API
+    this._masterDataService.getCollections().pipe(takeUntil(this._destroy$)).subscribe({
+      next: (cols) => {
+        if (cols && cols.length > 0) {
+          this.collections = cols.map(c => ({
+            name: c.name,
+            tag: c.tag || ((c.slug || '').includes('moon') ? 'Thiên thể & Chiêm tinh' : (c.slug || '').includes('mystic') ? 'Cổ điển & Huyền bí' : 'Dịu dàng & Lãng mạn'),
+            desc: c.desc || (c as any).description || 'Bộ sưu tập trang sức phong thủy độc bản.',
+            image: c.coverImage || c.image || ((c.slug || '').includes('moon') ? 'https://i.pinimg.com/736x/53/a4/0f/53a40fcf65d77d5dcc8a9efcb531ac32.jpg' : ((c.slug || '').includes('muse') || (c.name || '').includes('Nàng Thơ')) ? 'https://i.pinimg.com/736x/88/cc/a9/88cca9873ac223970e511970e84f478d.jpg' : 'https://i.pinimg.com/736x/d2/c1/cd/d2c1cd50bee4cf66b8a095b253a55beb.jpg')
+          }));
+        }
+      },
+      error: () => { }
+    });
+
+    // 4. Tải bài viết từ MongoDB API với ảnh bìa hợp lệ
     this._masterDataService.getArticles().pipe(takeUntil(this._destroy$)).subscribe({
       next: (articles) => {
         if (articles && articles.length > 0) {
           const fallbackImgs = ['https://i.pinimg.com/736x/8c/01/6d/8c016d17da264368845d7d7ae0ad195a.jpg', 'https://i.pinimg.com/736x/65/12/56/6512568af032cfb982e96c42c6218599.jpg', 'https://i.pinimg.com/736x/b5/03/40/b50340697147b14ca4fd8f6b815bf8aa.jpg'];
           this.posts = articles.slice(0, 3).map((a, idx) => {
             let img = a.image || a.thumbnail;
-            if (!img || img.includes('drive.google.com') || img.startsWith('http')) {
+            if (!img || img.includes('drive.google.com') || img.startsWith('images/')) {
               const titleLower = (a.title || '').toLowerCase();
               if (titleLower.includes('moonstone')) img = 'https://i.pinimg.com/736x/8c/01/6d/8c016d17da264368845d7d7ae0ad195a.jpg';
               else if (titleLower.includes('thanh tẩy') || titleLower.includes('nạp năng lượng')) img = 'https://i.pinimg.com/736x/65/12/56/6512568af032cfb982e96c42c6218599.jpg';

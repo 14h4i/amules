@@ -26,7 +26,9 @@
   <div class="cat-grid">
     @for (c of categories; track c.name) {
     <a [routerLink]="['/products']" [queryParams]="{ category: c.name }" class="cat">
-      <img [src]="c.image" [alt]="c.name">
+      <img [src]="c.image || 'https://i.pinimg.com/736x/d4/3c/3d/d43c3d69296b0badad1636033dd34e9c.jpg'" 
+           [alt]="c.name"
+           (error)="$any($event.target).src = 'https://i.pinimg.com/736x/d4/3c/3d/d43c3d69296b0badad1636033dd34e9c.jpg'">
       <span>{{ c.name }}</span>
     </a>
     }
@@ -77,7 +79,9 @@
     <article class="product">
       <div class="product__img">
         <a [routerLink]="['/products', p.slug || p.id || 'san-pham']">
-          <img [src]="p.image" [alt]="p.name">
+          <img [src]="p.image || 'https://i.pinimg.com/736x/d4/3c/3d/d43c3d69296b0badad1636033dd34e9c.jpg'" 
+               [alt]="p.name"
+               (error)="$any($event.target).src = 'https://i.pinimg.com/736x/d4/3c/3d/d43c3d69296b0badad1636033dd34e9c.jpg'">
         </a>
         <div class="product__tags">
           <span class="tag tag--pink">{{ p.badge }}</span>
@@ -112,7 +116,9 @@
     <div class="col-grid">
       @for (c of collections; track c.name) {
       <a routerLink="/collections" class="col-card">
-        <img [src]="c.image" [alt]="c.name">
+        <img [src]="c.image || 'https://i.pinimg.com/736x/d2/c1/cd/d2c1cd50bee4cf66b8a095b253a55beb.jpg'" 
+             [alt]="c.name"
+             (error)="$any($event.target).src = 'https://i.pinimg.com/736x/d2/c1/cd/d2c1cd50bee4cf66b8a095b253a55beb.jpg'">
         <div class="col-card__body">
           <small>{{ c.tag }}</small>
           <h3>{{ c.name }}</h3>

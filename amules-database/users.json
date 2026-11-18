@@ -82,5 +82,25 @@
     "points": 1250,
     "createdAt": "2026-11-17T21:20:28.406Z",
     "updatedAt": "2026-11-17T21:20:28.406Z"
+  },
+  {
+    "_id": "6afd90886110da292e0b54b0",
+    "fullName": "Thu An",
+    "email": "anan265464@gmail.com",
+    "phone": "",
+    "avatar": "",
+    "authProvider": "google",
+    "role": "customer",
+    "tier": "Thành viên mới",
+    "points": 0,
+    "dob": "",
+    "gender": "",
+    "element": "",
+    "zodiac": "",
+    "wristSize": "",
+    "addresses": [],
+    "createdAt": "2026-11-18T11:48:24.451Z",
+    "updatedAt": "2026-11-18T11:48:31.991Z",
+    "nickname": "An"
   }
 ]

@@ -211,7 +211,9 @@
       @for (rp of relatedProducts; track rp.name) {
       <article class="rp-card" [routerLink]="['/products', rp.slug || rp.id]">
         <div class="rp-media">
-          <img [src]="rp.image || 'https://i.pinimg.com/736x/d4/3c/3d/d43c3d69296b0badad1636033dd34e9c.jpg'" [alt]="rp.name">
+          <img [src]="rp.image || 'https://i.pinimg.com/736x/d4/3c/3d/d43c3d69296b0badad1636033dd34e9c.jpg'" 
+               [alt]="rp.name"
+               (error)="onImageError($event)">
         </div>
         <div class="rp-body">
           <span class="rp-stone">{{ rp.stone }}</span>

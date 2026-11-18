@@ -827,10 +827,14 @@
     "stock": 24,
     "lowStockAlert": 5,
     "weight": "Khối lượng tịnh tiêu chuẩn 12 gam (~3.2 chỉ)",
-    "image": "images/lac_tay_bien.png",
+    "image": "https://i.pinimg.com/736x/8b/56/4e/8b564e66f5a26e5a7761873879e15a44.jpg",
     "badge": "Mới",
     "lastSaved": "14:38 hôm nay",
-    "createdAt": "2026-11-18T05:33:55.952Z"
+    "createdAt": "2026-11-18T05:33:55.952Z",
+    "images": [
+      "https://i.pinimg.com/736x/8b/56/4e/8b564e66f5a26e5a7761873879e15a44.jpg",
+      "https://i.pinimg.com/736x/53/a4/0f/53a40fcf65d77d5dcc8a9efcb531ac32.jpg"
+    ]
   },
   {
     "_id": "7caa02962f99fe72f8cfb0e0",
