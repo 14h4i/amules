@@ -3,5 +3,25 @@
     "_id": "CCy8i5uGTJKvec4kW0nSDvj-_RYMyPJq",
     "expires": "2026-11-19T08:10:23.870Z",
     "session": "{\"cookie\":{\"originalMaxAge\":86400000,\"expires\":\"2026-11-19T08:10:23.870Z\",\"secure\":false,\"httpOnly\":true,\"path\":\"/\",\"sameSite\":\"lax\"}}"
+  },
+  {
+    "_id": "V2KyBhcGLc3cyX5BTmeq17C59WHMgpNa",
+    "expires": "2026-11-19T09:14:14.534Z",
+    "session": "{\"cookie\":{\"originalMaxAge\":86400000,\"expires\":\"2026-11-19T09:14:14.534Z\",\"secure\":false,\"httpOnly\":true,\"path\":\"/\",\"sameSite\":\"lax\"},\"cart\":[]}"
+  },
+  {
+    "_id": "e1-sXnjXkl9bFgYvrv-jVS4by-2ZWSsM",
+    "expires": "2026-11-19T09:15:34.612Z",
+    "session": "{\"cookie\":{\"originalMaxAge\":86400000,\"expires\":\"2026-11-19T09:15:34.612Z\",\"secure\":false,\"httpOnly\":true,\"path\":\"/\",\"sameSite\":\"lax\"},\"cart\":[]}"
+  },
+  {
+    "_id": "yymHk4Gq9uOoCP5nd-XqOBQnM0vb9h59",
+    "expires": "2026-11-19T09:15:34.627Z",
+    "session": "{\"cookie\":{\"originalMaxAge\":86400000,\"expires\":\"2026-11-19T09:15:34.627Z\",\"secure\":false,\"httpOnly\":true,\"path\":\"/\",\"sameSite\":\"lax\"}}"
+  },
+  {
+    "_id": "Ov8ewmAYWb1RKj3Y0Rxcde-cSmdHcAbc",
+    "expires": "2026-11-19T09:45:37.447Z",
+    "session": "{\"cookie\":{\"originalMaxAge\":86400000,\"expires\":\"2026-11-19T09:24:28.737Z\",\"secure\":false,\"httpOnly\":true,\"path\":\"/\",\"sameSite\":\"lax\"},\"user\":{\"id\":\"6afcc51cff8e99cc477cf59a\",\"email\":\"annttk24406h1@st.uel.edu.vn\",\"fullName\":\"An Nguyễn Thị Thu\",\"phone\":\"0982 456 789\",\"avatar\":\"https://lh3.googleusercontent.com/a/ACg8ocLfR8SpVochDzHBgadXX0LA1TBstw8td660JOGDlKACrUQKVW8=s96-c\",\"role\":\"customer\",\"tier\":\"GEMSTONE VIP\",\"points\":1250,\"authProvider\":\"google\"}}"
   }
 ]
