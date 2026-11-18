@@ -6,6 +6,7 @@ const path = require('path');
 const fs = require('fs');
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
+const { MongoStore } = require('connect-mongo');
 const crypto = require('crypto');
 
 // Load .env configuration
@@ -48,12 +49,29 @@ app.use(cors({
 app.use(bodyParser.json({ limit: '50mb' }));
 app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
 
-// 5. Cookie Parser & Express Session (as taught in slide VIII)
+// 5. Cookie Parser & Express Session with MongoDB Store (as taught in slide VIII)
 app.use(cookieParser());
+
+const sessionMongoUrl = (process.env.MONGODB_URI && process.env.MONGODB_URI.includes('amules'))
+  ? process.env.MONGODB_URI
+  : 'mongodb://127.0.0.1:27017/amules';
+
+const sessionStore = MongoStore.create({
+  mongoUrl: sessionMongoUrl,
+  collectionName: 'sessions',
+  ttl: 24 * 60 * 60, // 1 day
+  autoRemove: 'native'
+});
+
+sessionStore.on('error', (err) => {
+  console.warn('[MongoStore] Session store warning:', err.message);
+});
+
 app.use(session({
   secret: 'amules-secret-key-2026',
   resave: false,
   saveUninitialized: true,
+  store: sessionStore,
   cookie: {
     maxAge: 24 * 60 * 60 * 1000, // 1 day
     httpOnly: true,

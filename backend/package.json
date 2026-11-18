@@ -8,11 +8,17 @@
     "dev": "nodemon index.js",
     "export:db": "node scripts/export-db.js"
   },
-  "keywords": ["amules", "express", "mongodb", "restful-api"],
+  "keywords": [
+    "amules",
+    "express",
+    "mongodb",
+    "restful-api"
+  ],
   "author": "",
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.20.3",
+    "connect-mongo": "^6.0.0",
     "cookie-parser": "^1.4.7",
     "cors": "^2.8.5",
     "express": "^4.21.2",
