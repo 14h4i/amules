@@ -81,73 +81,6 @@ export class MysticMatchToolComponent implements OnInit {
     this.calculateMatch();
   }
 
-  normalizeProductImage(p: IProduct): string {
-    if (p.image && p.image !== 'https://i.pinimg.com/736x/d4/3c/3d/d43c3d69296b0badad1636033dd34e9c.jpg' && !p.image.includes('lac_tay_bien')) {
-      return p.image;
-    }
-    const name = `${p.name || ''} ${p.slug || ''}`.toLowerCase();
-    if (name.includes('hơi thở biển') || (name.includes('lắc tay') && !name.includes('dây chuyền'))) {
-      return 'https://i.pinimg.com/736x/d4/3c/3d/d43c3d69296b0badad1636033dd34e9c.jpg';
-    }
-    if (name.includes('dây chuyền') || name.includes('day-chuyen') || name.includes('merlia') || name.includes('mặt trăng khuyết') || name.includes('giọt lệ') || name.includes('aventurine') || name.includes('amethyst tím')) {
-      return (name.includes('merlia') || name.includes('giọt lệ')) ? 'https://i.pinimg.com/1200x/5e/19/ca/5e19cae249717d1321564c81f14a1732.jpg' : 'https://i.pinimg.com/1200x/5e/19/ca/5e19cae249717d1321564c81f14a1732.jpg';
-    }
-    if (name.includes('nhẫn') || name.includes('nhan') || name.includes('venus') || name.includes('citrine') || name.includes('khói lam tuyết')) {
-      return name.includes('venus') ? 'https://i.pinimg.com/736x/47/9c/df/479cdf269b5b50948b8aef6103b475ed.jpg' : 'https://i.pinimg.com/736x/47/9c/df/479cdf269b5b50948b8aef6103b475ed.jpg';
-    }
-    if (name.includes('bông tai') || name.includes('bong-tai') || name.includes('baroque') || name.includes('sao bạc')) {
-      return 'https://i.pinimg.com/736x/82/af/ce/82afce704fa0702179286be2a3d293d7.jpg';
-    }
-    if (name.includes('quà') || name.includes('hộp nhung') || name.includes('set')) {
-      return 'https://i.pinimg.com/736x/9b/9f/9f/9b9f9f152363271f0c154f437b34def0.jpg';
-    }
-    if (name.includes('vòng tay') || name.includes('vong-tay') || name.includes('fluorite') || name.includes('ngọc bích') || name.includes('hải lam')) {
-      return 'https://i.pinimg.com/736x/b3/cf/e0/b3cfe07a389a61eaa7b0f186da90da4f.jpg';
-    }
-    return p.image || 'https://i.pinimg.com/736x/d4/3c/3d/d43c3d69296b0badad1636033dd34e9c.jpg';
-  }
-
-  getFallbackRecommended(): IProduct[] {
-    return [
-      {
-        id: '1',
-        name: 'Lắc tay Hơi Thở Biển Xanh',
-        slug: 'lac-tay-hoi-tho-bien-xanh',
-        stone: 'Aquamarine Thiên Nhiên',
-        price: 590000,
-        element: this.calculatedElement?.name,
-        image: 'https://i.pinimg.com/736x/d4/3c/3d/d43c3d69296b0badad1636033dd34e9c.jpg'
-      },
-      {
-        id: '2',
-        name: 'Dây chuyền Bạc Nữ Mix Đá Merlia',
-        slug: 'day-chuyen-bac-nu-mix-da-merlia',
-        stone: 'Moonstone Nữ Thần',
-        price: 650000,
-        element: this.calculatedElement?.name,
-        image: 'https://i.pinimg.com/1200x/5e/19/ca/5e19cae249717d1321564c81f14a1732.jpg'
-      },
-      {
-        id: '3',
-        name: 'Nhẫn Tinh Tú Venus',
-        slug: 'nhan-tinh-tu-venus',
-        stone: 'Thạch Anh Tự Nhiên',
-        price: 450000,
-        element: this.calculatedElement?.name,
-        image: 'https://i.pinimg.com/736x/47/9c/df/479cdf269b5b50948b8aef6103b475ed.jpg'
-      },
-      {
-        id: '4',
-        name: 'Bông tai Sao Bạc & Baroque',
-        slug: 'bong-tai-sao-bac-baroque',
-        stone: 'Ngọc Trai & Bạc',
-        price: 520000,
-        element: this.calculatedElement?.name,
-        image: 'https://i.pinimg.com/736x/82/af/ce/82afce704fa0702179286be2a3d293d7.jpg'
-      }
-    ];
-  }
-
   calculateMatch(): void {
     this.birthDay = Number(this.birthDay);
     this.birthMonth = Number(this.birthMonth);
@@ -164,20 +97,23 @@ export class MysticMatchToolComponent implements OnInit {
     // 2. Tính Ngũ hành bản mệnh theo năm sinh (Can Chi Nạp Âm)
     this.calculatedElement = this.getElement(this.birthYear);
 
-    // 3. Tải danh sách bảo vật gợi ý tương hợp
+    // 3. Tải danh sách bảo vật gợi ý tương hợp trực tiếp từ MongoDB CSDL
     this._productService.getProducts().subscribe({
       next: (products) => {
         if (products && products.length > 0) {
-          this.recommendedProducts = products.slice(0, 4).map(p => ({
-            ...p,
-            image: this.normalizeProductImage(p)
-          }));
+          const targetEl = (this.calculatedElement?.name || '').toLowerCase();
+          const matched = products.filter(p => {
+            const el = (p.element || '').toLowerCase();
+            const comp = (p.compatibleElements || []).map(e => String(e).toLowerCase());
+            return el.includes(targetEl) || comp.some(c => c.includes(targetEl));
+          });
+          this.recommendedProducts = (matched.length > 0 ? matched : products).slice(0, 4);
         } else {
-          this.recommendedProducts = this.getFallbackRecommended();
+          this.recommendedProducts = [];
         }
       },
       error: () => {
-        this.recommendedProducts = this.getFallbackRecommended();
+        this.recommendedProducts = [];
       }
     });
 
@@ -236,7 +172,7 @@ export class MysticMatchToolComponent implements OnInit {
       productId: product.id || product._id || product.slug || '',
       name: product.name,
       price: product.price,
-      image: product.image || 'https://i.pinimg.com/736x/d4/3c/3d/d43c3d69296b0badad1636033dd34e9c.jpg',
+      image: product.image || (product.images && product.images[0]) || '',
       quantity: 1,
       stone: product.stone || 'Đá tự nhiên',
       element: this.calculatedElement?.name

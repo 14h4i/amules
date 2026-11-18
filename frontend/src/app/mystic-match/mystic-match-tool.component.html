@@ -170,7 +170,7 @@
         <div class="rec-grid">
           @for (p of recommendedProducts; track p.name) {
             <article class="rec-card">
-              <img [src]="p.image || 'https://i.pinimg.com/736x/d4/3c/3d/d43c3d69296b0badad1636033dd34e9c.jpg'" [alt]="p.name" class="rec-img">
+              <img [src]="p.image" [alt]="p.name" class="rec-img">
               <div class="rec-info">
                 <span class="rec-stone">{{ p.stone }}</span>
                 <h4 class="rec-name"><a [routerLink]="['/products', p.slug || p.id]">{{ p.name }}</a></h4>

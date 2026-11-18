@@ -21,8 +21,8 @@
   },
   {
     "_id": "B-1JHFzonfpt2_fa71Rof1kCEL7KeTI9",
-    "expires": "2026-11-19T11:48:32.027Z",
-    "session": "{\"cookie\":{\"originalMaxAge\":86399999,\"expires\":\"2026-11-19T11:48:32.027Z\",\"secure\":false,\"httpOnly\":true,\"path\":\"/\",\"sameSite\":\"lax\"},\"user\":{\"id\":\"6afd90886110da292e0b54b0\",\"email\":\"anan265464@gmail.com\",\"fullName\":\"Thu An\",\"phone\":\"\",\"avatar\":\"\",\"role\":\"customer\",\"tier\":\"Thành viên mới\",\"points\":0,\"authProvider\":\"google\",\"_id\":\"6afd90886110da292e0b54b0\",\"dob\":\"\",\"gender\":\"\",\"element\":\"\",\"zodiac\":\"\",\"wristSize\":\"\",\"addresses\":[],\"createdAt\":\"2026-11-18T11:48:24.451Z\",\"updatedAt\":\"2026-11-18T11:48:31.991Z\",\"nickname\":\"An\"}}"
+    "expires": "2026-11-19T16:24:28.194Z",
+    "session": "{\"cookie\":{\"originalMaxAge\":86399999,\"expires\":\"2026-11-19T16:15:56.766Z\",\"secure\":false,\"httpOnly\":true,\"path\":\"/\",\"sameSite\":\"lax\"},\"user\":{\"id\":\"6afd90886110da292e0b54b0\",\"email\":\"anan265464@gmail.com\",\"fullName\":\"Thu An\",\"phone\":\"\",\"avatar\":\"\",\"role\":\"customer\",\"tier\":\"Thành viên mới\",\"points\":0,\"authProvider\":\"google\",\"_id\":\"6afd90886110da292e0b54b0\",\"dob\":\"\",\"gender\":\"\",\"element\":\"\",\"zodiac\":\"\",\"wristSize\":\"\",\"addresses\":[],\"createdAt\":\"2026-11-18T11:48:24.451Z\",\"updatedAt\":\"2026-11-18T11:48:31.991Z\",\"nickname\":\"An\"},\"cart\":[]}"
   },
   {
     "_id": "oo-N5tP2qGrZIGRA2LATEVkOqsbf80Hn",
@@ -33,5 +33,10 @@
     "_id": "CjoIf8gkNlWuhYRE5sPE0TNbIZBgdDBZ",
     "expires": "2026-11-19T16:00:55.433Z",
     "session": "{\"cookie\":{\"originalMaxAge\":86400000,\"expires\":\"2026-11-19T16:00:55.433Z\",\"secure\":false,\"httpOnly\":true,\"path\":\"/\",\"sameSite\":\"lax\"}}"
+  },
+  {
+    "_id": "1kSRi2HsZZsNhJB2LY_6QPMA4oVQJMtD",
+    "expires": "2026-11-19T16:25:49.450Z",
+    "session": "{\"cookie\":{\"originalMaxAge\":86400000,\"expires\":\"2026-11-19T16:25:49.450Z\",\"secure\":false,\"httpOnly\":true,\"path\":\"/\",\"sameSite\":\"lax\"}}"
   }
 ]

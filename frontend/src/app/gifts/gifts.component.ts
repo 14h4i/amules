@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 import { ProductService, IProduct } from '../services/product.service';
 
 @Component({
@@ -9,17 +10,26 @@ import { ProductService, IProduct } from '../services/product.service';
 })
 export class GiftsComponent implements OnInit {
   giftProducts: IProduct[] = [];
+  packages: any[] = [];
   loading = true;
 
-  packages = [
-    { name: 'Hộp Quà Tri Ân Nữ Thần', desc: 'Hộp nhung tím cao cấp, thiệp chúc mừng dập nhũ vàng 24K và túi giấy AMULES Signature.', price: 99000, image: 'https://i.pinimg.com/736x/8b/56/4e/8b564e66f5a26e5a7761873879e15a44.jpg' },
-    { name: 'Combo Thanh Tẩy Năng Lượng', desc: 'Thanh trầm hương tự nhiên, tinh thể thạch anh trắng và chuông xoay thanh tẩy đá quý.', price: 150000, image: 'https://i.pinimg.com/736x/8b/56/4e/8b564e66f5a26e5a7761873879e15a44.jpg' },
-    { name: 'Gói Quà Sinh Nhật Chiêm Tinh', desc: 'Bao gồm phong thư thông điệp năng lượng chiêm tinh theo ngày tháng năm sinh của người nhận.', price: 120000, image: 'https://i.pinimg.com/736x/8b/56/4e/8b564e66f5a26e5a7761873879e15a44.jpg' }
-  ];
-
-  constructor(private _productService: ProductService) {}
+  constructor(
+    private _http: HttpClient,
+    private _productService: ProductService
+  ) {}
 
   ngOnInit(): void {
+    // 1. Tải danh sách gói quà trực tiếp từ CSDL MongoDB
+    this._http.get<any[]>('/api/gift-packages').subscribe({
+      next: (data) => {
+        if (data && data.length > 0) {
+          this.packages = data;
+        }
+      },
+      error: () => {}
+    });
+
+    // 2. Tải danh sách bảo vật gợi ý quà tặng từ MongoDB
     this._productService.getProducts().subscribe({
       next: (prods) => {
         this.giftProducts = (prods || []).slice(0, 8);

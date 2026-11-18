@@ -334,6 +334,7 @@ registerStandardCollectionRoute('themes', 'themes');
 registerStandardCollectionRoute('articles', 'articles');
 registerStandardCollectionRoute('vouchers', 'vouchers');
 registerStandardCollectionRoute('reviews', 'reviews');
+registerStandardCollectionRoute('gift-packages', 'gift_packages');
 
 // Helper to resolve distinct, appropriate product images
 function resolveProductImage(p) {

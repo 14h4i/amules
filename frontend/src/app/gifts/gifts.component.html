@@ -42,7 +42,7 @@
       @for (p of giftProducts; track p.name) {
         <article class="p-card" [routerLink]="['/products', p.slug || p.id]">
           <div class="p-media">
-            <img [src]="p.image || 'https://i.pinimg.com/736x/d4/3c/3d/d43c3d69296b0badad1636033dd34e9c.jpg'" [alt]="p.name">
+            <img [src]="p.image" [alt]="p.name">
           </div>
           <div class="p-info">
             <span class="p-stone">{{ p.stone }}</span>

@@ -389,5 +389,60 @@
     ],
     "createdAt": "2026-11-18T09:15:34.607Z",
     "updatedAt": "2026-11-18T09:15:34.607Z"
+  },
+  {
+    "_id": "6afdcf3c2e7d9e2f7612122e",
+    "orderCode": "AMU-20261118-8683",
+    "trackingCode": "GHN-AMU-8683",
+    "carrier": "Giao Hàng Nhanh (GHN Express)",
+    "userId": "6afd90886110da292e0b54b0",
+    "customer": {
+      "fullName": "Thu An",
+      "phone": "0987654321",
+      "email": "anan265464@gmail.com",
+      "tier": "Thành viên mới",
+      "tierNote": "Khách mua lần đầu"
+    },
+    "shippingAddress": {
+      "province": "Hồ Chí Minh",
+      "district": "Quận 1",
+      "ward": "Phường Bến Nghé",
+      "street": "70 pasteur",
+      "note": ""
+    },
+    "items": [
+      {
+        "productId": "420903a9c3bacabc1ea790a7",
+        "name": "Dây chuyền Bạc Nữ Mix Đá Merlia",
+        "categoryTag": "MOONSTONE (ĐÁ MẶT TRĂNG) • Bạc Ý S925",
+        "specs": "Kích thước: 45 cm",
+        "image": "https://i.pinimg.com/1200x/5e/19/ca/5e19cae249717d1321564c81f14a1732.jpg",
+        "price": 650000,
+        "quantity": 1
+      }
+    ],
+    "firstItemName": "Dây chuyền Bạc Nữ Mix Đá Merlia",
+    "itemsCountLabel": "1 tác phẩm",
+    "shippingMethod": "STANDARD",
+    "subtotal": 650000,
+    "discount": 0,
+    "shippingFee": 0,
+    "totalAmount": 650000,
+    "paymentMethod": "VNPAY",
+    "paymentStatus": "paid",
+    "paymentStatusLabel": "Đã thanh toán",
+    "status": "pending",
+    "orderStatus": "Đã thanh toán (Chờ giao hàng)",
+    "hasReturnRequest": false,
+    "returnReason": null,
+    "internalNotes": [
+      {
+        "author": "Hệ thống AMULES",
+        "time": "23:15:56 18/11/2026",
+        "content": "Khách hàng đặt đơn trực tuyến qua phương thức VNPAY."
+      }
+    ],
+    "createdAt": "2026-11-18T16:15:56.750Z",
+    "updatedAt": "2026-11-18T16:15:56.750Z"
   }
 ]
