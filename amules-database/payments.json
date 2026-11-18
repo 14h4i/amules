@@ -1,23 +1,15 @@
 [
   {
-    "_id": {
-      "$oid": "95067cd76f0ce61d973aec7c"
-    },
-    "orderId": {
-      "$oid": "2d387ab98437e5f528a87b03"
-    },
+    "_id": "95067cd76f0ce61d973aec7c",
+    "orderId": "2d387ab98437e5f528a87b03",
     "userId": null,
     "paymentMethod": "VNPay",
     "transactionCode": "VNP14712345",
     "amount": 625000,
     "status": "success",
     "attemptCount": 1,
-    "paidAt": {
-      "$date": "2026-11-14T09:30:00"
-    },
-    "createdAt": {
-      "$date": "2026-11-14T09:25:00"
-    },
+    "paidAt": "2026-11-14T02:30:00.000Z",
+    "createdAt": "2026-11-14T02:25:00.000Z",
     "vnpayResponse": {
       "vnp_ResponseCode": "00",
       "vnp_TransactionStatus": "00",

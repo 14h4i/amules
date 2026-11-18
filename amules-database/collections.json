@@ -1,74 +1,44 @@
 [
   {
-    "_id": {
-      "$oid": "6802277ac81512ae86f3cf06"
-    },
+    "_id": "6802277ac81512ae86f3cf06",
     "name": "Mystical Vintage",
     "slug": "mystical-vintage",
     "description": "Phong cách cổ điển huyền bí.",
     "coverImage": "https://i.pinimg.com/736x/d2/c1/cd/d2c1cd50bee4cf66b8a095b253a55beb.jpg",
     "productIds": [
-      {
-        "$oid": "397cc13e3a983bc4060cc878"
-      },
-      {
-        "$oid": "b2a6e97daf8e589b35880cdc"
-      }
+      "397cc13e3a983bc4060cc878",
+      "b2a6e97daf8e589b35880cdc"
     ],
     "status": "active",
-    "createdAt": {
-      "$date": "2026-09-25T00:00:00.000Z"
-    }
+    "createdAt": "2026-09-25T00:00:00.000Z"
   },
   {
-    "_id": {
-      "$oid": "0450d63abbb045d94b39c028"
-    },
+    "_id": "0450d63abbb045d94b39c028",
     "name": "Moon & Stars",
     "slug": "moon-and-stars",
     "description": "Bộ sưu tập lấy cảm hứng từ mặt trăng và tinh tú.",
     "coverImage": "https://i.pinimg.com/736x/53/a4/0f/53a40fcf65d77d5dcc8a9efcb531ac32.jpg",
     "productIds": [
-      {
-        "$oid": "dabcd7e6ca8fe24e72e46af2"
-      },
-      {
-        "$oid": "cef158eeb3534491b1bb60b8"
-      },
-      {
-        "$oid": "028049c2c1d73579085756f5"
-      },
-      {
-        "$oid": "420903a9c3bacabc1ea790a7"
-      }
+      "dabcd7e6ca8fe24e72e46af2",
+      "cef158eeb3534491b1bb60b8",
+      "028049c2c1d73579085756f5",
+      "420903a9c3bacabc1ea790a7"
     ],
     "status": "active",
-    "createdAt": {
-      "$date": "2026-09-25T00:00:00.000Z"
-    }
+    "createdAt": "2026-09-25T00:00:00.000Z"
   },
   {
-    "_id": {
-      "$oid": "1672b26122c713603ba39420"
-    },
+    "_id": "1672b26122c713603ba39420",
     "name": "Nàng Thơ (The Muse)",
     "slug": "nang-tho",
     "description": "Vẻ đẹp dịu dàng, lãng mạn.",
     "coverImage": "https://i.pinimg.com/736x/88/cc/a9/88cca9873ac223970e511970e84f478d.jpg",
     "productIds": [
-      {
-        "$oid": "7caa02962f99fe72f8cfb0d6"
-      },
-      {
-        "$oid": "397cc13e3a983bc4060cc878"
-      },
-      {
-        "$oid": "b2a6e97daf8e589b35880cdc"
-      }
+      "7caa02962f99fe72f8cfb0d6",
+      "397cc13e3a983bc4060cc878",
+      "b2a6e97daf8e589b35880cdc"
     ],
     "status": "active",
-    "createdAt": {
-      "$date": "2026-09-25T00:00:00.000Z"
-    }
+    "createdAt": "2026-09-25T00:00:00.000Z"
   }
 ]

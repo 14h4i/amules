@@ -1,18 +1,12 @@
 [
   {
-    "_id": {
-      "$oid": "7caa02962f99fe72f8cfb0d6"
-    },
+    "_id": "7caa02962f99fe72f8cfb0d6",
     "productCode": "AM-AQ001",
     "name": "Lắc tay Hơi Thở Biển Xanh",
     "slug": "lac-tay-hoi-tho-bien-xanh",
-    "categoryId": {
-      "$oid": "c1b562b77f9cfb0765d9f208"
-    },
+    "categoryId": "c1b562b77f9cfb0765d9f208",
     "gemstoneIds": [
-      {
-        "$oid": "9dc53fb4f70a8d5f12597f44"
-      }
+      "9dc53fb4f70a8d5f12597f44"
     ],
     "description": "Chuỗi hạt Aquamarine giác cắt kết hợp bạc 925, mang cảm giác bình an, nuôi dưỡng trực giác.",
     "shortDescription": "Chuỗi hạt Aquamarine giác cắt kết hợp bạc 925, mang cảm giác bình an, nuôi dưỡng trực giác.",
@@ -32,20 +26,12 @@
       "16 cm"
     ],
     "zodiacIds": [
-      {
-        "$oid": "ce84dd3716c6d1337db8a883"
-      },
-      {
-        "$oid": "dd7f1bcc31ea57bf8970bf38"
-      }
+      "ce84dd3716c6d1337db8a883",
+      "dd7f1bcc31ea57bf8970bf38"
     ],
     "elementIds": [
-      {
-        "$oid": "448a24f33e03c0d6d4c7ebe8"
-      },
-      {
-        "$oid": "9d26236c8e94bd24477f1d36"
-      }
+      "448a24f33e03c0d6d4c7ebe8",
+      "9d26236c8e94bd24477f1d36"
     ],
     "styles": [
       "Tối giản",
@@ -59,36 +45,20 @@
     "reviewCount": 2,
     "isFeatured": true,
     "status": "active",
-    "createdAt": {
-      "$date": "2026-09-20T00:00:00.000Z"
-    },
-    "updatedAt": {
-      "$date": "2026-11-10T08:00:00.000Z"
-    },
+    "createdAt": "2026-09-20T00:00:00.000Z",
+    "updatedAt": "2026-11-10T08:00:00.000Z",
     "category": "Vòng tay",
     "categoryName": "Vòng tay",
-    "element": "Mệnh Thổ",
-    "stone": "Aquamarine (Ngọc Hải Lam)",
-    "compatibleElements": [
-      "Mệnh Thổ"
-    ],
-    "badge": "BÁN CHẠY",
-    "inStock": true
+    "stone": "Aquamarine (Ngọc Hải Lam)"
   },
   {
-    "_id": {
-      "$oid": "420903a9c3bacabc1ea790a7"
-    },
+    "_id": "420903a9c3bacabc1ea790a7",
     "productCode": "AM-MS010",
     "name": "Dây chuyền Bạc Nữ Mix Đá Merlia",
     "slug": "day-chuyen-bac-nu-mix-da-merlia",
-    "categoryId": {
-      "$oid": "7d8a7ed01c97c9778766837b"
-    },
+    "categoryId": "7d8a7ed01c97c9778766837b",
     "gemstoneIds": [
-      {
-        "$oid": "7f64349e172055022ffc91ee"
-      }
+      "7f64349e172055022ffc91ee"
     ],
     "description": "Dây chuyền bạc mặt Moonstone giọt lệ ánh xanh, thanh lịch và nữ tính.",
     "shortDescription": "Dây chuyền bạc mặt Moonstone giọt lệ ánh xanh, thanh lịch và nữ tính.",
@@ -104,20 +74,12 @@
       "45 cm"
     ],
     "zodiacIds": [
-      {
-        "$oid": "ce84dd3716c6d1337db8a883"
-      },
-      {
-        "$oid": "dd7f1bcc31ea57bf8970bf38"
-      }
+      "ce84dd3716c6d1337db8a883",
+      "dd7f1bcc31ea57bf8970bf38"
     ],
     "elementIds": [
-      {
-        "$oid": "2f282b13c139ff9174d71a7d"
-      },
-      {
-        "$oid": "448a24f33e03c0d6d4c7ebe8"
-      }
+      "2f282b13c139ff9174d71a7d",
+      "448a24f33e03c0d6d4c7ebe8"
     ],
     "styles": [
       "Tối giản",
@@ -131,36 +93,20 @@
     "reviewCount": 1,
     "isFeatured": true,
     "status": "active",
-    "createdAt": {
-      "$date": "2026-09-20T00:00:00.000Z"
-    },
-    "updatedAt": {
-      "$date": "2026-11-10T08:00:00.000Z"
-    },
+    "createdAt": "2026-09-20T00:00:00.000Z",
+    "updatedAt": "2026-11-10T08:00:00.000Z",
     "category": "Dây chuyền",
     "categoryName": "Dây chuyền",
-    "element": "Mệnh Thổ",
-    "stone": "Moonstone (Đá Mặt Trăng)",
-    "compatibleElements": [
-      "Mệnh Thổ"
-    ],
-    "badge": "NỔI BẬT",
-    "inStock": true
+    "stone": "Moonstone (Đá Mặt Trăng)"
   },
   {
-    "_id": {
-      "$oid": "397cc13e3a983bc4060cc878"
-    },
+    "_id": "397cc13e3a983bc4060cc878",
     "productCode": "AM-RQ020",
     "name": "Nhẫn Tinh Tú Venus",
     "slug": "nhan-tinh-tu-venus",
-    "categoryId": {
-      "$oid": "992048d03d0d69cf33067e07"
-    },
+    "categoryId": "992048d03d0d69cf33067e07",
     "gemstoneIds": [
-      {
-        "$oid": "6e5d7688f18eabab3fcab6ff"
-      }
+      "6e5d7688f18eabab3fcab6ff"
     ],
     "description": "Nhẫn thạch anh hồng tự nhiên, gắn kết năng lượng tình yêu và sự dịu dàng.",
     "shortDescription": "Nhẫn thạch anh hồng tự nhiên, gắn kết năng lượng tình yêu và sự dịu dàng.",
@@ -178,20 +124,12 @@
       "Free size"
     ],
     "zodiacIds": [
-      {
-        "$oid": "81e670d0f62bff08b80f31a7"
-      },
-      {
-        "$oid": "4c1258d137356c0ff0300071"
-      }
+      "81e670d0f62bff08b80f31a7",
+      "4c1258d137356c0ff0300071"
     ],
     "elementIds": [
-      {
-        "$oid": "63a4bd3d02a3d5d97bb7d13a"
-      },
-      {
-        "$oid": "609ffe8a9ec708cdf7c30749"
-      }
+      "63a4bd3d02a3d5d97bb7d13a",
+      "609ffe8a9ec708cdf7c30749"
     ],
     "styles": [
       "Tối giản",
@@ -205,36 +143,20 @@
     "reviewCount": 0,
     "isFeatured": true,
     "status": "active",
-    "createdAt": {
-      "$date": "2026-09-20T00:00:00.000Z"
-    },
-    "updatedAt": {
-      "$date": "2026-11-10T08:00:00.000Z"
-    },
+    "createdAt": "2026-09-20T00:00:00.000Z",
+    "updatedAt": "2026-11-10T08:00:00.000Z",
     "category": "Nhẫn",
     "categoryName": "Nhẫn",
-    "element": "Mệnh Thổ",
-    "stone": "Thạch anh hồng Tự Nhiên",
-    "compatibleElements": [
-      "Mệnh Thổ"
-    ],
-    "badge": "TÌNH DUYÊN",
-    "inStock": true
+    "stone": "Thạch anh hồng Tự Nhiên"
   },
   {
-    "_id": {
-      "$oid": "b2a6e97daf8e589b35880cdc"
-    },
+    "_id": "b2a6e97daf8e589b35880cdc",
     "productCode": "AM-PR030",
     "name": "Bông tai Sao Bạc & Baroque",
     "slug": "bong-tai-sao-bac-baroque",
-    "categoryId": {
-      "$oid": "5fadd06d453008a6c518bc9e"
-    },
+    "categoryId": "5fadd06d453008a6c518bc9e",
     "gemstoneIds": [
-      {
-        "$oid": "879837444685aa9d0c48761c"
-      }
+      "879837444685aa9d0c48761c"
     ],
     "description": "Bông tai ngọc trai Baroque tự nhiên phối ngôi sao bạc 925.",
     "shortDescription": "Bông tai ngọc trai Baroque tự nhiên phối ngôi sao bạc 925.",
@@ -250,17 +172,10 @@
     ],
     "sizes": [],
     "zodiacIds": [
-      {
-        "$oid": "ce84dd3716c6d1337db8a883"
-      }
+      "ce84dd3716c6d1337db8a883"
     ],
     "elementIds": [
-      {
-        "$oid": "2f282b13c139ff9174d71a7d"
-      },
-      {
-        "$oid": "448a24f33e03c0d6d4c7ebe8"
-      }
+      "2f282b13c139ff9174d71a7d"
     ],
     "styles": [
       "Tối giản",
@@ -274,36 +189,20 @@
     "reviewCount": 0,
     "isFeatured": true,
     "status": "active",
-    "createdAt": {
-      "$date": "2026-09-20T00:00:00.000Z"
-    },
-    "updatedAt": {
-      "$date": "2026-11-10T08:00:00.000Z"
-    },
+    "createdAt": "2026-09-20T00:00:00.000Z",
+    "updatedAt": "2026-11-10T08:00:00.000Z",
     "category": "Bông tai",
     "categoryName": "Bông tai",
-    "element": "Mệnh Thổ",
-    "stone": "Ngọc trai Baroque & Bạc Ý",
-    "compatibleElements": [
-      "Mệnh Thổ"
-    ],
-    "badge": "MỚI RA MẮT",
-    "inStock": true
+    "stone": "Ngọc trai Baroque & Bạc Ý"
   },
   {
-    "_id": {
-      "$oid": "dabcd7e6ca8fe24e72e46af2"
-    },
+    "_id": "dabcd7e6ca8fe24e72e46af2",
     "productCode": "AM-MS042",
     "name": "Vòng Tay Moonstone & Bạc 925 - Celestial Moon Whispers",
     "slug": "vong-tay-moonstone-bac-925-celestial-moon-whispers",
-    "categoryId": {
-      "$oid": "c1b562b77f9cfb0765d9f208"
-    },
+    "categoryId": "c1b562b77f9cfb0765d9f208",
     "gemstoneIds": [
-      {
-        "$oid": "7f64349e172055022ffc91ee"
-      }
+      "7f64349e172055022ffc91ee"
     ],
     "description": "Vòng tay Moonstone ánh xanh kết hợp charm mặt trăng khuyết, thanh tẩy và cân bằng cảm xúc.",
     "shortDescription": "Vòng tay Moonstone ánh xanh kết hợp charm mặt trăng khuyết, thanh tẩy và cân bằng cảm xúc.",
@@ -324,32 +223,20 @@
       "Dây rút"
     ],
     "zodiacIds": [
-      {
-        "$oid": "ce84dd3716c6d1337db8a883"
-      },
-      {
-        "$oid": "dd7f1bcc31ea57bf8970bf38"
-      }
+      "ce84dd3716c6d1337db8a883",
+      "dd7f1bcc31ea57bf8970bf38"
     ],
     "elementIds": [
-      {
-        "$oid": "2f282b13c139ff9174d71a7d"
-      },
-      {
-        "$oid": "448a24f33e03c0d6d4c7ebe8"
-      }
+      "448a24f33e03c0d6d4c7ebe8",
+      "2f282b13c139ff9174d71a7d"
     ],
     "styles": [
       "Tối giản",
       "Thanh lịch"
     ],
     "pairingSuggestions": [
-      {
-        "$oid": "cef158eeb3534491b1bb60b8"
-      },
-      {
-        "$oid": "028049c2c1d73579085756f5"
-      }
+      "cef158eeb3534491b1bb60b8",
+      "028049c2c1d73579085756f5"
     ],
     "price": 580000,
     "compareAtPrice": 680000,
@@ -358,36 +245,20 @@
     "reviewCount": 0,
     "isFeatured": true,
     "status": "active",
-    "createdAt": {
-      "$date": "2026-09-20T00:00:00.000Z"
-    },
-    "updatedAt": {
-      "$date": "2026-11-10T08:00:00.000Z"
-    },
+    "createdAt": "2026-09-20T00:00:00.000Z",
+    "updatedAt": "2026-11-10T08:00:00.000Z",
     "category": "Vòng tay",
     "categoryName": "Vòng tay",
-    "element": "Mệnh Thổ",
-    "stone": "Moonstone & Bạc 925",
-    "compatibleElements": [
-      "Mệnh Thổ"
-    ],
-    "badge": "BESTSELLER",
-    "inStock": true
+    "stone": "Moonstone & Bạc 925"
   },
   {
-    "_id": {
-      "$oid": "cef158eeb3534491b1bb60b8"
-    },
+    "_id": "cef158eeb3534491b1bb60b8",
     "productCode": "AM-MS043",
     "name": "Dây Chuyền Mặt Trăng Khuyết Moonstone",
     "slug": "day-chuyen-mat-trang-khuyet-moonstone",
-    "categoryId": {
-      "$oid": "7d8a7ed01c97c9778766837b"
-    },
+    "categoryId": "7d8a7ed01c97c9778766837b",
     "gemstoneIds": [
-      {
-        "$oid": "7f64349e172055022ffc91ee"
-      }
+      "7f64349e172055022ffc91ee"
     ],
     "description": "Dây chuyền bạc mặt trăng khuyết đính Moonstone.",
     "shortDescription": "Dây chuyền bạc mặt trăng khuyết đính Moonstone.",
@@ -403,17 +274,11 @@
       "45 cm"
     ],
     "zodiacIds": [
-      {
-        "$oid": "ce84dd3716c6d1337db8a883"
-      }
+      "ce84dd3716c6d1337db8a883"
     ],
     "elementIds": [
-      {
-        "$oid": "448a24f33e03c0d6d4c7ebe8"
-      },
-      {
-        "$oid": "2f282b13c139ff9174d71a7d"
-      }
+      "448a24f33e03c0d6d4c7ebe8",
+      "2f282b13c139ff9174d71a7d"
     ],
     "styles": [
       "Tối giản",
@@ -427,36 +292,20 @@
     "reviewCount": 1,
     "isFeatured": true,
     "status": "active",
-    "createdAt": {
-      "$date": "2026-09-20T00:00:00.000Z"
-    },
-    "updatedAt": {
-      "$date": "2026-11-10T08:00:00.000Z"
-    },
+    "createdAt": "2026-09-20T00:00:00.000Z",
+    "updatedAt": "2026-11-10T08:00:00.000Z",
     "category": "Dây chuyền",
     "categoryName": "Dây chuyền",
-    "element": "Mệnh Thổ",
-    "stone": "Moonstone Ánh Trăng Khuyết",
-    "compatibleElements": [
-      "Mệnh Thổ"
-    ],
-    "badge": "YÊU THÍCH",
-    "inStock": true
+    "stone": "Moonstone Ánh Trăng Khuyết"
   },
   {
-    "_id": {
-      "$oid": "028049c2c1d73579085756f5"
-    },
+    "_id": "028049c2c1d73579085756f5",
     "productCode": "AM-MS044",
     "name": "Nhẫn Tinh Tú Huyền Ảo Bạc 925",
     "slug": "nhan-tinh-tu-huyen-ao-bac-925",
-    "categoryId": {
-      "$oid": "992048d03d0d69cf33067e07"
-    },
+    "categoryId": "992048d03d0d69cf33067e07",
     "gemstoneIds": [
-      {
-        "$oid": "7f64349e172055022ffc91ee"
-      }
+      "7f64349e172055022ffc91ee"
     ],
     "description": "Nhẫn bạc 925 đính Moonstone phong cách huyền ảo.",
     "shortDescription": "Nhẫn bạc 925 đính Moonstone phong cách huyền ảo.",
@@ -470,14 +319,10 @@
       "Free size"
     ],
     "zodiacIds": [
-      {
-        "$oid": "dd7f1bcc31ea57bf8970bf38"
-      }
+      "dd7f1bcc31ea57bf8970bf38"
     ],
     "elementIds": [
-      {
-        "$oid": "448a24f33e03c0d6d4c7ebe8"
-      }
+      "448a24f33e03c0d6d4c7ebe8"
     ],
     "styles": [
       "Tối giản",
@@ -491,36 +336,20 @@
     "reviewCount": 0,
     "isFeatured": true,
     "status": "active",
-    "createdAt": {
-      "$date": "2026-09-20T00:00:00.000Z"
-    },
-    "updatedAt": {
-      "$date": "2026-11-10T08:00:00.000Z"
-    },
+    "createdAt": "2026-09-20T00:00:00.000Z",
+    "updatedAt": "2026-11-10T08:00:00.000Z",
     "category": "Nhẫn",
     "categoryName": "Nhẫn",
-    "element": "Mệnh Thổ",
-    "stone": "Moonstone Tinh Tú Huyền Ảo",
-    "compatibleElements": [
-      "Mệnh Thổ"
-    ],
-    "badge": "NỔI BẬT",
-    "inStock": true
+    "stone": "Moonstone Tinh Tú Huyền Ảo"
   },
   {
-    "_id": {
-      "$oid": "0b960313cef9e50d9eed12c3"
-    },
+    "_id": "0b960313cef9e50d9eed12c3",
     "productCode": "AM-AQ002",
     "name": "Dây Chuyền Giọt Lệ Aquamarine Biển Sâu",
     "slug": "day-chuyen-giot-le-aquamarine-bien-sau",
-    "categoryId": {
-      "$oid": "7d8a7ed01c97c9778766837b"
-    },
+    "categoryId": "7d8a7ed01c97c9778766837b",
     "gemstoneIds": [
-      {
-        "$oid": "9dc53fb4f70a8d5f12597f44"
-      }
+      "9dc53fb4f70a8d5f12597f44"
     ],
     "description": "Mặt giọt lệ Aquamarine tỏa ánh biển sâu, dây bạc 925.",
     "shortDescription": "Mặt giọt lệ Aquamarine tỏa ánh biển sâu, dây bạc 925.",
@@ -535,17 +364,11 @@
       "45 cm"
     ],
     "zodiacIds": [
-      {
-        "$oid": "ce84dd3716c6d1337db8a883"
-      },
-      {
-        "$oid": "961d179782b672981e04ce9e"
-      }
+      "ce84dd3716c6d1337db8a883",
+      "961d179782b672981e04ce9e"
     ],
     "elementIds": [
-      {
-        "$oid": "448a24f33e03c0d6d4c7ebe8"
-      }
+      "448a24f33e03c0d6d4c7ebe8"
     ],
     "styles": [
       "Tối giản",
@@ -559,39 +382,21 @@
     "reviewCount": 0,
     "isFeatured": true,
     "status": "active",
-    "createdAt": {
-      "$date": "2026-09-20T00:00:00.000Z"
-    },
-    "updatedAt": {
-      "$date": "2026-11-10T08:00:00.000Z"
-    },
+    "createdAt": "2026-09-20T00:00:00.000Z",
+    "updatedAt": "2026-11-10T08:00:00.000Z",
     "category": "Dây chuyền",
     "categoryName": "Dây chuyền",
-    "element": "Mệnh Thổ",
-    "stone": "Aquamarine Biển Sâu",
-    "compatibleElements": [
-      "Mệnh Thổ"
-    ],
-    "badge": "MỆNH THỦY",
-    "inStock": true
+    "stone": "Aquamarine Biển Sâu"
   },
   {
-    "_id": {
-      "$oid": "5ca64aea1b1133e6088c848e"
-    },
+    "_id": "5ca64aea1b1133e6088c848e",
     "productCode": "AM-SQ050",
     "name": "Nhẫn Hộ Thân Thạch Anh Khói Lam Tuyết",
     "slug": "nhan-ho-than-thach-anh-khoi-lam-tuyet",
-    "categoryId": {
-      "$oid": "992048d03d0d69cf33067e07"
-    },
+    "categoryId": "992048d03d0d69cf33067e07",
     "gemstoneIds": [
-      {
-        "$oid": "c7da62fc5e9e08e01bef965a"
-      },
-      {
-        "$oid": "980f34aa9b5369103f41c3f0"
-      }
+      "c7da62fc5e9e08e01bef965a",
+      "980f34aa9b5369103f41c3f0"
     ],
     "description": "Nhẫn thạch anh khói kết hợp đá xanh lam, mang ý nghĩa hộ thân.",
     "shortDescription": "Nhẫn thạch anh khói kết hợp đá xanh lam, mang ý nghĩa hộ thân.",
@@ -606,17 +411,11 @@
       "Free size"
     ],
     "zodiacIds": [
-      {
-        "$oid": "0f162990d6468128b6539f7e"
-      }
+      "0f162990d6468128b6539f7e"
     ],
     "elementIds": [
-      {
-        "$oid": "448a24f33e03c0d6d4c7ebe8"
-      },
-      {
-        "$oid": "609ffe8a9ec708cdf7c30749"
-      }
+      "448a24f33e03c0d6d4c7ebe8",
+      "609ffe8a9ec708cdf7c30749"
     ],
     "styles": [
       "Tối giản",
@@ -630,39 +429,21 @@
     "reviewCount": 0,
     "isFeatured": true,
     "status": "active",
-    "createdAt": {
-      "$date": "2026-09-20T00:00:00.000Z"
-    },
-    "updatedAt": {
-      "$date": "2026-11-10T08:00:00.000Z"
-    },
+    "createdAt": "2026-09-20T00:00:00.000Z",
+    "updatedAt": "2026-11-10T08:00:00.000Z",
     "category": "Nhẫn",
     "categoryName": "Nhẫn",
-    "element": "Mệnh Thổ",
-    "stone": "Thạch anh khói Lam Tuyết",
-    "compatibleElements": [
-      "Mệnh Thổ"
-    ],
-    "badge": "HỘ THÂN",
-    "inStock": true
+    "stone": "Thạch anh khói Lam Tuyết"
   },
   {
-    "_id": {
-      "$oid": "07701fa38b41160cee3f0d29"
-    },
+    "_id": "07701fa38b41160cee3f0d29",
     "productCode": "AM-AQ003",
     "name": "Vòng Tay Hải Lam Thủy Tiểu",
     "slug": "vong-tay-hai-lam-thuy-tieu",
-    "categoryId": {
-      "$oid": "c1b562b77f9cfb0765d9f208"
-    },
+    "categoryId": "c1b562b77f9cfb0765d9f208",
     "gemstoneIds": [
-      {
-        "$oid": "9dc53fb4f70a8d5f12597f44"
-      },
-      {
-        "$oid": "7f64349e172055022ffc91ee"
-      }
+      "9dc53fb4f70a8d5f12597f44",
+      "7f64349e172055022ffc91ee"
     ],
     "description": "Chuỗi hạt Aquamarine giác cắt, kết hợp khóa bạc bình an.",
     "shortDescription": "Chuỗi hạt Aquamarine giác cắt, kết hợp khóa bạc bình an.",
@@ -679,14 +460,10 @@
       "16 cm"
     ],
     "zodiacIds": [
-      {
-        "$oid": "dd7f1bcc31ea57bf8970bf38"
-      }
+      "dd7f1bcc31ea57bf8970bf38"
     ],
     "elementIds": [
-      {
-        "$oid": "448a24f33e03c0d6d4c7ebe8"
-      }
+      "448a24f33e03c0d6d4c7ebe8"
     ],
     "styles": [
       "Tối giản",
@@ -700,36 +477,20 @@
     "reviewCount": 0,
     "isFeatured": true,
     "status": "active",
-    "createdAt": {
-      "$date": "2026-09-20T00:00:00.000Z"
-    },
-    "updatedAt": {
-      "$date": "2026-11-10T08:00:00.000Z"
-    },
+    "createdAt": "2026-09-20T00:00:00.000Z",
+    "updatedAt": "2026-11-10T08:00:00.000Z",
     "category": "Vòng tay",
     "categoryName": "Vòng tay",
-    "element": "Mệnh Thổ",
-    "stone": "Aquamarine Hải Lam Thủy Tiểu",
-    "compatibleElements": [
-      "Mệnh Thổ"
-    ],
-    "badge": "BÁN CHẠY",
-    "inStock": true
+    "stone": "Aquamarine Hải Lam Thủy Tiểu"
   },
   {
-    "_id": {
-      "$oid": "a7b1c298566e03c8c1f82b3d"
-    },
+    "_id": "a7b1c298566e03c8c1f82b3d",
     "productCode": "AM-CT060",
     "name": "Nhẫn Citrine Ánh Dương",
     "slug": "nhan-citrine-anh-duong",
-    "categoryId": {
-      "$oid": "992048d03d0d69cf33067e07"
-    },
+    "categoryId": "992048d03d0d69cf33067e07",
     "gemstoneIds": [
-      {
-        "$oid": "83f14e52a5650d05df6e4f22"
-      }
+      "83f14e52a5650d05df6e4f22"
     ],
     "description": "Nhẫn bạc 925 đính Citrine vàng, gợi sự tự tin và tỏa sáng.",
     "shortDescription": "Nhẫn bạc 925 đính Citrine vàng, gợi sự tự tin và tỏa sáng.",
@@ -741,17 +502,11 @@
     "colors": [],
     "sizes": [],
     "zodiacIds": [
-      {
-        "$oid": "f094a59593b91a7355ae2c04"
-      }
+      "f094a59593b91a7355ae2c04"
     ],
     "elementIds": [
-      {
-        "$oid": "609ffe8a9ec708cdf7c30749"
-      },
-      {
-        "$oid": "63a4bd3d02a3d5d97bb7d13a"
-      }
+      "609ffe8a9ec708cdf7c30749",
+      "63a4bd3d02a3d5d97bb7d13a"
     ],
     "styles": [
       "Tối giản",
@@ -765,36 +520,20 @@
     "reviewCount": 0,
     "isFeatured": true,
     "status": "active",
-    "createdAt": {
-      "$date": "2026-09-20T00:00:00.000Z"
-    },
-    "updatedAt": {
-      "$date": "2026-11-10T08:00:00.000Z"
-    },
+    "createdAt": "2026-09-20T00:00:00.000Z",
+    "updatedAt": "2026-11-10T08:00:00.000Z",
     "category": "Nhẫn",
     "categoryName": "Nhẫn",
-    "element": "Mệnh Thổ",
-    "stone": "Thạch anh vàng Citrine",
-    "compatibleElements": [
-      "Mệnh Thổ"
-    ],
-    "badge": "MAY MẮN",
-    "inStock": true
+    "stone": "Thạch anh vàng Citrine"
   },
   {
-    "_id": {
-      "$oid": "b5331d2cc61bf3451fa01cd9"
-    },
+    "_id": "b5331d2cc61bf3451fa01cd9",
     "productCode": "AM-AV061",
     "name": "Dây Chuyền Aventurine Xanh Ngọc",
     "slug": "day-chuyen-aventurine-xanh-ngoc",
-    "categoryId": {
-      "$oid": "7d8a7ed01c97c9778766837b"
-    },
+    "categoryId": "7d8a7ed01c97c9778766837b",
     "gemstoneIds": [
-      {
-        "$oid": "22a019914d19838939debf30"
-      }
+      "22a019914d19838939debf30"
     ],
     "description": "Mặt Aventurine xanh ngọc trên dây bạc 925, gợi ý may mắn và cơ hội.",
     "shortDescription": "Mặt Aventurine xanh ngọc trên dây bạc 925, gợi ý may mắn và cơ hội.",
@@ -805,14 +544,10 @@
     "colors": [],
     "sizes": [],
     "zodiacIds": [
-      {
-        "$oid": "f43cc45821e4b00bee346c5c"
-      }
+      "f43cc45821e4b00bee346c5c"
     ],
     "elementIds": [
-      {
-        "$oid": "9d26236c8e94bd24477f1d36"
-      }
+      "9d26236c8e94bd24477f1d36"
     ],
     "styles": [
       "Tối giản",
@@ -826,36 +561,20 @@
     "reviewCount": 0,
     "isFeatured": true,
     "status": "active",
-    "createdAt": {
-      "$date": "2026-09-20T00:00:00.000Z"
-    },
-    "updatedAt": {
-      "$date": "2026-11-10T08:00:00.000Z"
-    },
+    "createdAt": "2026-09-20T00:00:00.000Z",
+    "updatedAt": "2026-11-10T08:00:00.000Z",
     "category": "Dây chuyền",
     "categoryName": "Dây chuyền",
-    "element": "Mệnh Thổ",
-    "stone": "Aventurine Xanh Ngọc",
-    "compatibleElements": [
-      "Mệnh Thổ"
-    ],
-    "badge": "BÌNH AN",
-    "inStock": true
+    "stone": "Aventurine Xanh Ngọc"
   },
   {
-    "_id": {
-      "$oid": "a5afdce6f13421985c88f0ac"
-    },
+    "_id": "a5afdce6f13421985c88f0ac",
     "productCode": "AM-AM062",
     "name": "Dây Chuyền Amethyst Tím Khói",
     "slug": "day-chuyen-amethyst-tim-khoi",
-    "categoryId": {
-      "$oid": "7d8a7ed01c97c9778766837b"
-    },
+    "categoryId": "7d8a7ed01c97c9778766837b",
     "gemstoneIds": [
-      {
-        "$oid": "df402604fa501e7721aa94e0"
-      }
+      "df402604fa501e7721aa94e0"
     ],
     "description": "Dây chuyền Amethyst tím khói, mang lại cảm giác thư giãn và cân bằng.",
     "shortDescription": "Dây chuyền Amethyst tím khói, mang lại cảm giác thư giãn và cân bằng.",
@@ -867,14 +586,10 @@
     "colors": [],
     "sizes": [],
     "zodiacIds": [
-      {
-        "$oid": "462f95e301ec64d5c2d1e330"
-      }
+      "462f95e301ec64d5c2d1e330"
     ],
     "elementIds": [
-      {
-        "$oid": "63a4bd3d02a3d5d97bb7d13a"
-      }
+      "63a4bd3d02a3d5d97bb7d13a"
     ],
     "styles": [
       "Tối giản",
@@ -888,36 +603,20 @@
     "reviewCount": 0,
     "isFeatured": true,
     "status": "active",
-    "createdAt": {
-      "$date": "2026-09-20T00:00:00.000Z"
-    },
-    "updatedAt": {
-      "$date": "2026-11-10T08:00:00.000Z"
-    },
+    "createdAt": "2026-09-20T00:00:00.000Z",
+    "updatedAt": "2026-11-10T08:00:00.000Z",
     "category": "Dây chuyền",
     "categoryName": "Dây chuyền",
-    "element": "Mệnh Thổ",
-    "stone": "Thạch anh tím Amethyst",
-    "compatibleElements": [
-      "Mệnh Thổ"
-    ],
-    "badge": "TRÍ TUỆ",
-    "inStock": true
+    "stone": "Thạch anh tím Amethyst"
   },
   {
-    "_id": {
-      "$oid": "e15ebba46e88221c8c531868"
-    },
+    "_id": "e15ebba46e88221c8c531868",
     "productCode": "AM-JD063",
     "name": "Vòng Tay Bạc 925 Ngọc Bích",
     "slug": "vong-tay-bac-925-ngoc-bich",
-    "categoryId": {
-      "$oid": "c1b562b77f9cfb0765d9f208"
-    },
+    "categoryId": "c1b562b77f9cfb0765d9f208",
     "gemstoneIds": [
-      {
-        "$oid": "bd5554ded846c2c015693991"
-      }
+      "bd5554ded846c2c015693991"
     ],
     "description": "Vòng tay bạc 925 đính ngọc bích, biểu tượng của tình bạn gắn kết.",
     "shortDescription": "Vòng tay bạc 925 đính ngọc bích, biểu tượng của tình bạn gắn kết.",
@@ -928,14 +627,10 @@
     "colors": [],
     "sizes": [],
     "zodiacIds": [
-      {
-        "$oid": "f43cc45821e4b00bee346c5c"
-      }
+      "f43cc45821e4b00bee346c5c"
     ],
     "elementIds": [
-      {
-        "$oid": "9d26236c8e94bd24477f1d36"
-      }
+      "9d26236c8e94bd24477f1d36"
     ],
     "styles": [
       "Tối giản",
@@ -949,36 +644,20 @@
     "reviewCount": 0,
     "isFeatured": true,
     "status": "active",
-    "createdAt": {
-      "$date": "2026-09-20T00:00:00.000Z"
-    },
-    "updatedAt": {
-      "$date": "2026-11-10T08:00:00.000Z"
-    },
+    "createdAt": "2026-09-20T00:00:00.000Z",
+    "updatedAt": "2026-11-10T08:00:00.000Z",
     "category": "Vòng tay",
     "categoryName": "Vòng tay",
-    "element": "Mệnh Thổ",
-    "stone": "Ngọc Bích Cẩm Thạch",
-    "compatibleElements": [
-      "Mệnh Thổ"
-    ],
-    "badge": "QUÝ PHÁI",
-    "inStock": true
+    "stone": "Ngọc Bích Cẩm Thạch"
   },
   {
-    "_id": {
-      "$oid": "52664aa06af1d45a0ebdd298"
-    },
+    "_id": "52664aa06af1d45a0ebdd298",
     "productCode": "AM-FL064",
     "name": "Vòng Tay Fluorite Sáng Tạo",
     "slug": "vong-tay-fluorite-sang-tao",
-    "categoryId": {
-      "$oid": "c1b562b77f9cfb0765d9f208"
-    },
+    "categoryId": "c1b562b77f9cfb0765d9f208",
     "gemstoneIds": [
-      {
-        "$oid": "535fbfedfcbb4b45bd4d2636"
-      }
+      "535fbfedfcbb4b45bd4d2636"
     ],
     "description": "Chuỗi Fluorite nhiều sắc xanh tím, hỗ trợ tập trung và sáng tạo.",
     "shortDescription": "Chuỗi Fluorite nhiều sắc xanh tím, hỗ trợ tập trung và sáng tạo.",
@@ -991,14 +670,10 @@
     "colors": [],
     "sizes": [],
     "zodiacIds": [
-      {
-        "$oid": "961d179782b672981e04ce9e"
-      }
+      "961d179782b672981e04ce9e"
     ],
     "elementIds": [
-      {
-        "$oid": "9d26236c8e94bd24477f1d36"
-      }
+      "9d26236c8e94bd24477f1d36"
     ],
     "styles": [
       "Tối giản",
@@ -1012,36 +687,20 @@
     "reviewCount": 0,
     "isFeatured": true,
     "status": "active",
-    "createdAt": {
-      "$date": "2026-09-20T00:00:00.000Z"
-    },
-    "updatedAt": {
-      "$date": "2026-11-10T08:00:00.000Z"
-    },
+    "createdAt": "2026-09-20T00:00:00.000Z",
+    "updatedAt": "2026-11-10T08:00:00.000Z",
     "category": "Vòng tay",
     "categoryName": "Vòng tay",
-    "element": "Mệnh Thổ",
-    "stone": "Fluorite Sáng Tạo",
-    "compatibleElements": [
-      "Mệnh Thổ"
-    ],
-    "badge": "SÁNG TẠO",
-    "inStock": true
+    "stone": "Fluorite Sáng Tạo"
   },
   {
-    "_id": {
-      "$oid": "19253ba3a00f40f0588eb5da"
-    },
+    "_id": "19253ba3a00f40f0588eb5da",
     "productCode": "AM-GS065",
     "name": "Set Quà Tặng Hộp Nhung Amethyst",
     "slug": "set-qua-tang-hop-nhung-amethyst",
-    "categoryId": {
-      "$oid": "c326bff57cfa65f545d70517"
-    },
+    "categoryId": "c326bff57cfa65f545d70517",
     "gemstoneIds": [
-      {
-        "$oid": "df402604fa501e7721aa94e0"
-      }
+      "df402604fa501e7721aa94e0"
     ],
     "description": "Set trang sức Amethyst trong hộp quà nhung cao cấp.",
     "shortDescription": "Set trang sức Amethyst trong hộp quà nhung cao cấp.",
@@ -1053,14 +712,10 @@
     "colors": [],
     "sizes": [],
     "zodiacIds": [
-      {
-        "$oid": "462f95e301ec64d5c2d1e330"
-      }
+      "462f95e301ec64d5c2d1e330"
     ],
     "elementIds": [
-      {
-        "$oid": "63a4bd3d02a3d5d97bb7d13a"
-      }
+      "63a4bd3d02a3d5d97bb7d13a"
     ],
     "styles": [
       "Tối giản",
@@ -1074,233 +729,253 @@
     "reviewCount": 0,
     "isFeatured": true,
     "status": "active",
-    "createdAt": {
-      "$date": "2026-09-20T00:00:00.000Z"
-    },
-    "updatedAt": {
-      "$date": "2026-11-10T08:00:00.000Z"
-    },
+    "createdAt": "2026-09-20T00:00:00.000Z",
+    "updatedAt": "2026-11-10T08:00:00.000Z",
     "category": "Set quà tặng",
     "categoryName": "Set quà tặng",
-    "element": "Mệnh Thổ",
-    "stone": "Amethyst Hộp Nhung",
-    "compatibleElements": [
-      "Mệnh Thổ"
-    ],
-    "badge": "QUÀ TẶNG VIP",
-    "inStock": true
+    "stone": "Amethyst Hộp Nhung"
   },
   {
-    "_id": {
-      "$oid": "7caa02962f99fe72f8cfb0e0"
-    },
+    "_id": "6afd38c0ca8f6cf6179722cf",
+    "name": "Vòng tay Đá Mặt Trăng Moonstone Ánh Lam Celestial",
+    "productCode": "AMU-VT-327",
+    "slug": "vong-tay-moonstone-anh-lam-celestial",
+    "category": "Vòng tay & Lắc tay",
+    "collection": "Moonlight & Stars Collection",
+    "shortDesc": "Chiếc vòng tay thủ công đính kết từng viên đá Mặt Trăng nguyên bản từ Sri Lanka, mang dải quang phổ xanh lam huyền ảo, biểu trưng cho sự bình yên và trực giác thức tỉnh.",
+    "stone": "Moonstone (Đá Mặt Trăng)",
+    "mohs": "6.0 - 6.5",
+    "metal": "Bạc Ý 925 mạ Rhodium bạch kim 3 lớp",
+    "compatibleElements": [
+      "Mệnh Thủy (Tương Hợp)",
+      "Mệnh Kim (Tương Sinh)"
+    ],
+    "compatibleZodiacs": [
+      "Cự Giải (Cancer)",
+      "Song Ngư (Pisces)"
+    ],
+    "spectrumColors": [
+      "Trắng ánh lam",
+      "Ánh xà cừ ngọc"
+    ],
+    "styles": [
+      "Vintage Minimal",
+      "Thanh lịch hoàng gia",
+      "Talisman bảo hộ"
+    ],
+    "listingStatus": "active",
+    "price": 580000,
+    "compareAtPrice": 650000,
+    "stock": 24,
+    "lowStockAlert": 5,
+    "weight": "Khối lượng tịnh tiêu chuẩn 12 gam (~3.2 chỉ)",
+    "image": "images/lac_tay_bien.png",
+    "badge": "Mới",
+    "lastSaved": "14:38 hôm nay",
+    "createdAt": "2026-11-18T05:33:52.261Z"
+  },
+  {
+    "_id": "6afd38c3ca8f6cf6179722d0",
+    "name": "Vòng tay Đá Mặt Trăng Moonstone Ánh Lam Celestial",
+    "productCode": "AMU-VT-327",
+    "slug": "vong-tay-moonstone-anh-lam-celestial",
+    "category": "Vòng tay & Lắc tay",
+    "collection": "Moonlight & Stars Collection",
+    "shortDesc": "Chiếc vòng tay thủ công đính kết từng viên đá Mặt Trăng nguyên bản từ Sri Lanka, mang dải quang phổ xanh lam huyền ảo, biểu trưng cho sự bình yên và trực giác thức tỉnh.",
+    "stone": "Moonstone (Đá Mặt Trăng)",
+    "mohs": "6.0 - 6.5",
+    "metal": "Bạc Ý 925 mạ Rhodium bạch kim 3 lớp",
+    "compatibleElements": [
+      "Mệnh Thủy (Tương Hợp)",
+      "Mệnh Kim (Tương Sinh)"
+    ],
+    "compatibleZodiacs": [
+      "Cự Giải (Cancer)",
+      "Song Ngư (Pisces)"
+    ],
+    "spectrumColors": [
+      "Trắng ánh lam",
+      "Ánh xà cừ ngọc"
+    ],
+    "styles": [
+      "Vintage Minimal",
+      "Thanh lịch hoàng gia",
+      "Talisman bảo hộ"
+    ],
+    "listingStatus": "active",
+    "price": 580000,
+    "compareAtPrice": 650000,
+    "stock": 24,
+    "lowStockAlert": 5,
+    "weight": "Khối lượng tịnh tiêu chuẩn 12 gam (~3.2 chỉ)",
+    "image": "images/lac_tay_bien.png",
+    "badge": "Mới",
+    "lastSaved": "14:38 hôm nay",
+    "createdAt": "2026-11-18T05:33:55.952Z"
+  },
+  {
+    "_id": "7caa02962f99fe72f8cfb0e0",
     "productCode": "AM-CH001",
-    "name": "Charm Bạc Đính Đá Moonstone Ánh Trăng Khuyết",
-    "slug": "charm-bac-dinh-da-moonstone-anh-trang-khuyet",
-    "categoryId": {
-      "$oid": "869baa4a458a5d6513556c60"
-    },
-    "gemstoneIds": [
-      {
-        "$oid": "7f64349e172055022ffc91ee"
-      }
-    ],
-    "description": "Charm bạc chế tác tinh xảo hình trăng khuyết ôm trọn viên đá Moonstone tự nhiên phát quang ánh xanh dịu dàng. Giúp thanh lọc tâm trí, cân bằng cảm xúc và thu hút may mắn.",
-    "shortDescription": "Charm bạc 925 đính đá Moonstone ánh trăng khuyết thanh tẩy năng lượng.",
-    "images": [
-      "images/bst_da.webp",
-      "https://i.pinimg.com/1200x/18/b9/16/18b916511068155519d7f1c4e7d1a3b3.jpg"
-    ],
-    "material": "Bạc Ý S925 & Đá Moonstone tự nhiên",
+    "badge": "BÁN CHẠY",
+    "category": "Charm đá",
+    "categoryId": "869baa4a458a5d6513556c60",
+    "categoryName": "Charm đá",
     "colors": [
       "Ánh xà cừ ngũ sắc"
     ],
-    "sizes": [
-      "Free size"
-    ],
-    "zodiacIds": [
-      {
-        "$oid": "ce84dd3716c6d1337db8a883"
-      }
-    ],
-    "elementIds": [
-      {
-        "$oid": "2f282b13c139ff9174d71a7d"
-      },
-      {
-        "$oid": "448a24f33e03c0d6d4c7ebe8"
-      }
-    ],
-    "styles": [
-      "Thanh lịch",
-      "Huyền bí"
-    ],
-    "pairingSuggestions": [],
-    "price": 280000,
     "compareAtPrice": 350000,
-    "stock": 50,
-    "ratingAverage": 5,
-    "reviewCount": 0,
-    "isFeatured": true,
-    "status": "active",
-    "createdAt": {
-      "$date": "2026-10-01T00:00:00.000Z"
-    },
-    "updatedAt": {
-      "$date": "2026-11-18T00:00:00.000Z"
-    },
-    "category": "Charm đá",
-    "categoryName": "Charm đá",
-    "element": "Mệnh Kim & Thủy",
-    "stone": "Moonstone Tự Nhiên",
     "compatibleElements": [
       "Mệnh Kim",
       "Mệnh Thủy"
     ],
-    "badge": "BÁN CHẠY",
-    "inStock": true,
-    "sold": "85+"
-  },
-  {
-    "_id": {
-      "$oid": "7caa02962f99fe72f8cfb0e1"
-    },
-    "productCode": "AM-CH002",
-    "name": "Charm Trái Tim Thạch Anh Hồng Venus",
-    "slug": "charm-trai-tim-thach-anh-hong-venus",
-    "categoryId": {
-      "$oid": "869baa4a458a5d6513556c60"
-    },
-    "gemstoneIds": [
-      {
-        "$oid": "6e5d7688f18eabab3fcab6ff"
-      }
+    "createdAt": "2026-10-01T00:00:00.000Z",
+    "description": "Charm bạc chế tác tinh xảo hình trăng khuyết ôm trọn viên đá Moonstone tự nhiên phát quang ánh xanh dịu dàng. Giúp thanh lọc tâm trí, cân bằng cảm xúc và thu hút may mắn.",
+    "element": "Mệnh Kim & Thủy",
+    "elementIds": [
+      "2f282b13c139ff9174d71a7d",
+      "448a24f33e03c0d6d4c7ebe8"
     ],
-    "description": "Viên charm trái tim thạch anh hồng tượng trưng cho tình yêu thuần khiết, năng lượng chữa lành và sự dịu dàng của nữ thần Venus. Món trang sức kết nối tâm hồn đầy thi vị.",
-    "shortDescription": "Charm trái tim thạch anh hồng tự nhiên thu hút tình duyên và bình an nội tại.",
+    "gemstoneIds": [
+      "7f64349e172055022ffc91ee"
+    ],
     "images": [
       "images/bst_da.webp",
       "https://i.pinimg.com/1200x/18/b9/16/18b916511068155519d7f1c4e7d1a3b3.jpg"
     ],
-    "material": "Bạc Ý S925 & Thạch anh hồng Rose Quartz",
-    "colors": [
-      "Hồng pastel"
-    ],
+    "inStock": true,
+    "isFeatured": true,
+    "material": "Bạc Ý S925 & Đá Moonstone tự nhiên",
+    "name": "Charm Bạc Đính Đá Moonstone Ánh Trăng Khuyết",
+    "pairingSuggestions": [],
+    "price": 280000,
+    "ratingAverage": 5,
+    "reviewCount": 0,
+    "shortDescription": "Charm bạc 925 đính đá Moonstone ánh trăng khuyết thanh tẩy năng lượng.",
     "sizes": [
       "Free size"
     ],
-    "zodiacIds": [
-      {
-        "$oid": "dd7f1bcc31ea57bf8970bf38"
-      }
-    ],
-    "elementIds": [
-      {
-        "$oid": "63a4bd3d02a3d5d97bb7d13a"
-      },
-      {
-        "$oid": "609ffe8a9ec708cdf7c30749"
-      }
-    ],
-    "styles": [
-      "Ngọt ngào",
-      "Lãng mạn"
-    ],
-    "pairingSuggestions": [],
-    "price": 250000,
-    "compareAtPrice": 320000,
-    "stock": 45,
-    "ratingAverage": 5,
-    "reviewCount": 0,
-    "isFeatured": true,
+    "slug": "charm-bac-dinh-da-moonstone-anh-trang-khuyet",
+    "sold": "85+",
     "status": "active",
-    "createdAt": {
-      "$date": "2026-10-02T00:00:00.000Z"
-    },
-    "updatedAt": {
-      "$date": "2026-11-18T00:00:00.000Z"
-    },
+    "stock": 50,
+    "stone": "Moonstone Tự Nhiên",
+    "styles": [
+      "Thanh lịch",
+      "Huyền bí"
+    ],
+    "updatedAt": "2026-11-18T00:00:00.000Z",
+    "zodiacIds": [
+      "ce84dd3716c6d1337db8a883"
+    ]
+  },
+  {
+    "_id": "7caa02962f99fe72f8cfb0e1",
+    "productCode": "AM-CH002",
+    "badge": "HOT",
     "category": "Charm đá",
+    "categoryId": "869baa4a458a5d6513556c60",
     "categoryName": "Charm đá",
-    "element": "Mệnh Hỏa & Thổ",
-    "stone": "Thạch anh hồng Rose Quartz",
+    "colors": [
+      "Hồng pastel"
+    ],
+    "compareAtPrice": 320000,
     "compatibleElements": [
       "Mệnh Hỏa",
       "Mệnh Thổ"
     ],
-    "badge": "HOT",
-    "inStock": true,
-    "sold": "92+"
-  },
-  {
-    "_id": {
-      "$oid": "7caa02962f99fe72f8cfb0e2"
-    },
-    "productCode": "AM-CH003",
-    "name": "Charm Cỏ Bốn Cánh Đá Aquamarine May Mắn",
-    "slug": "charm-co-bon-canh-da-aquamarine-may-man",
-    "categoryId": {
-      "$oid": "869baa4a458a5d6513556c60"
-    },
-    "gemstoneIds": [
-      {
-        "$oid": "9dc53fb4f70a8d5f12597f44"
-      }
+    "createdAt": "2026-10-02T00:00:00.000Z",
+    "description": "Viên charm trái tim thạch anh hồng tượng trưng cho tình yêu thuần khiết, năng lượng chữa lành và sự dịu dàng của nữ thần Venus. Món trang sức kết nối tâm hồn đầy thi vị.",
+    "element": "Mệnh Hỏa & Thổ",
+    "elementIds": [
+      "63a4bd3d02a3d5d97bb7d13a",
+      "609ffe8a9ec708cdf7c30749"
     ],
-    "description": "Thiết kế biểu tượng cỏ bốn cánh đính đá Aquamarine xanh ngọc biển khơi, mang lại bình an, thuận buồm xuôi gió và vận khí hanh thông cho chủ nhân.",
-    "shortDescription": "Charm cỏ bốn cánh Aquamarine mang lại may mắn và sự thư thái tinh thần.",
+    "gemstoneIds": [
+      "6e5d7688f18eabab3fcab6ff"
+    ],
     "images": [
       "images/bst_da.webp",
       "https://i.pinimg.com/1200x/18/b9/16/18b916511068155519d7f1c4e7d1a3b3.jpg"
     ],
-    "material": "Bạc Ý S925 & Ngọc Hải Lam Aquamarine",
-    "colors": [
-      "Xanh ngọc biển"
-    ],
+    "inStock": true,
+    "isFeatured": true,
+    "material": "Bạc Ý S925 & Thạch anh hồng Rose Quartz",
+    "name": "Charm Trái Tim Thạch Anh Hồng Venus",
+    "pairingSuggestions": [],
+    "price": 250000,
+    "ratingAverage": 5,
+    "reviewCount": 0,
+    "shortDescription": "Charm trái tim thạch anh hồng tự nhiên thu hút tình duyên và bình an nội tại.",
     "sizes": [
       "Free size"
     ],
-    "zodiacIds": [
-      {
-        "$oid": "ce84dd3716c6d1337db8a883"
-      }
-    ],
-    "elementIds": [
-      {
-        "$oid": "448a24f33e03c0d6d4c7ebe8"
-      },
-      {
-        "$oid": "9d26236c8e94bd24477f1d36"
-      }
-    ],
-    "styles": [
-      "Thanh lịch",
-      "May mắn"
-    ],
-    "pairingSuggestions": [],
-    "price": 290000,
-    "compareAtPrice": 360000,
-    "stock": 35,
-    "ratingAverage": 5,
-    "reviewCount": 0,
-    "isFeatured": true,
+    "slug": "charm-trai-tim-thach-anh-hong-venus",
+    "sold": "92+",
     "status": "active",
-    "createdAt": {
-      "$date": "2026-10-03T00:00:00.000Z"
-    },
-    "updatedAt": {
-      "$date": "2026-11-18T00:00:00.000Z"
-    },
+    "stock": 45,
+    "stone": "Thạch anh hồng Rose Quartz",
+    "styles": [
+      "Ngọt ngào",
+      "Lãng mạn"
+    ],
+    "updatedAt": "2026-11-18T00:00:00.000Z",
+    "zodiacIds": [
+      "dd7f1bcc31ea57bf8970bf38"
+    ]
+  },
+  {
+    "_id": "7caa02962f99fe72f8cfb0e2",
+    "productCode": "AM-CH003",
+    "badge": "MỚI RA MẮT",
     "category": "Charm đá",
+    "categoryId": "869baa4a458a5d6513556c60",
     "categoryName": "Charm đá",
-    "element": "Mệnh Thủy & Mộc",
-    "stone": "Aquamarine May Mắn",
+    "colors": [
+      "Xanh ngọc biển"
+    ],
+    "compareAtPrice": 360000,
     "compatibleElements": [
       "Mệnh Thủy",
       "Mệnh Mộc"
     ],
-    "badge": "MỚI RA MẮT",
+    "createdAt": "2026-10-03T00:00:00.000Z",
+    "description": "Thiết kế biểu tượng cỏ bốn cánh đính đá Aquamarine xanh ngọc biển khơi, mang lại bình an, thuận buồm xuôi gió và vận khí hanh thông cho chủ nhân.",
+    "element": "Mệnh Thủy & Mộc",
+    "elementIds": [
+      "448a24f33e03c0d6d4c7ebe8",
+      "9d26236c8e94bd24477f1d36"
+    ],
+    "gemstoneIds": [
+      "9dc53fb4f70a8d5f12597f44"
+    ],
+    "images": [
+      "images/bst_da.webp",
+      "https://i.pinimg.com/1200x/18/b9/16/18b916511068155519d7f1c4e7d1a3b3.jpg"
+    ],
     "inStock": true,
-    "sold": "64+"
+    "isFeatured": true,
+    "material": "Bạc Ý S925 & Ngọc Hải Lam Aquamarine",
+    "name": "Charm Cỏ Bốn Cánh Đá Aquamarine May Mắn",
+    "pairingSuggestions": [],
+    "price": 290000,
+    "ratingAverage": 5,
+    "reviewCount": 0,
+    "shortDescription": "Charm cỏ bốn cánh Aquamarine mang lại may mắn và sự thư thái tinh thần.",
+    "sizes": [
+      "Free size"
+    ],
+    "slug": "charm-co-bon-canh-da-aquamarine-may-man",
+    "sold": "64+",
+    "status": "active",
+    "stock": 35,
+    "stone": "Aquamarine May Mắn",
+    "styles": [
+      "Thanh lịch",
+      "May mắn"
+    ],
+    "updatedAt": "2026-11-18T00:00:00.000Z",
+    "zodiacIds": [
+      "ce84dd3716c6d1337db8a883"
+    ]
   }
 ]

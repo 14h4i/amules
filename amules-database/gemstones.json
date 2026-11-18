@@ -1,8 +1,6 @@
 [
   {
-    "_id": {
-      "$oid": "e8fa4939d35f1f813fa27449"
-    },
+    "_id": "e8fa4939d35f1f813fa27449",
     "name": "Thạch anh trắng",
     "slug": "thach-anh-trang",
     "description": "Thanh lọc, khai mở trí tuệ minh triết",
@@ -11,22 +9,16 @@
     ],
     "meaning": "Thanh lọc, khai mở trí tuệ minh triết",
     "elementIds": [
-      {
-        "$oid": "2f282b13c139ff9174d71a7d"
-      }
+      "2f282b13c139ff9174d71a7d"
     ],
     "zodiacIds": [
-      {
-        "$oid": "bc840cf0f39e435344d641bc"
-      }
+      "bc840cf0f39e435344d641bc"
     ],
     "image": "https://i.pinimg.com/736x/f7/fa/d5/f7fad56075acd1c5dd7b81f69942176b.jpg",
     "status": "active"
   },
   {
-    "_id": {
-      "$oid": "7f64349e172055022ffc91ee"
-    },
+    "_id": "7f64349e172055022ffc91ee",
     "name": "Moonstone (Đá Mặt Trăng)",
     "slug": "moonstone",
     "description": "Biểu tượng của trực giác, sự dịu dàng và cân bằng cảm xúc",
@@ -36,28 +28,18 @@
     ],
     "meaning": "Biểu tượng của trực giác, sự dịu dàng và cân bằng cảm xúc",
     "elementIds": [
-      {
-        "$oid": "2f282b13c139ff9174d71a7d"
-      },
-      {
-        "$oid": "448a24f33e03c0d6d4c7ebe8"
-      }
+      "2f282b13c139ff9174d71a7d",
+      "448a24f33e03c0d6d4c7ebe8"
     ],
     "zodiacIds": [
-      {
-        "$oid": "ce84dd3716c6d1337db8a883"
-      },
-      {
-        "$oid": "dd7f1bcc31ea57bf8970bf38"
-      }
+      "ce84dd3716c6d1337db8a883",
+      "dd7f1bcc31ea57bf8970bf38"
     ],
     "image": "https://i.pinimg.com/1200x/87/d1/18/87d118e067281c4b6a1aac109df17f31.jpg",
     "status": "active"
   },
   {
-    "_id": {
-      "$oid": "22a019914d19838939debf30"
-    },
+    "_id": "22a019914d19838939debf30",
     "name": "Aventurine",
     "slug": "aventurine",
     "description": "Tái sinh, thu hút cơ hội và sự an yên",
@@ -66,25 +48,17 @@
     ],
     "meaning": "Tái sinh, thu hút cơ hội và sự an yên",
     "elementIds": [
-      {
-        "$oid": "9d26236c8e94bd24477f1d36"
-      }
+      "9d26236c8e94bd24477f1d36"
     ],
     "zodiacIds": [
-      {
-        "$oid": "81e670d0f62bff08b80f31a7"
-      },
-      {
-        "$oid": "f43cc45821e4b00bee346c5c"
-      }
+      "81e670d0f62bff08b80f31a7",
+      "f43cc45821e4b00bee346c5c"
     ],
     "image": "https://i.pinimg.com/1200x/37/ed/27/37ed275d67fc10b3cee8dbac05c76ea7.jpg",
     "status": "active"
   },
   {
-    "_id": {
-      "$oid": "bd5554ded846c2c015693991"
-    },
+    "_id": "bd5554ded846c2c015693991",
     "name": "Cẩm thạch xanh",
     "slug": "cam-thach-xanh",
     "description": "Bình an, may mắn và bảo hộ",
@@ -93,22 +67,16 @@
     ],
     "meaning": "Bình an, may mắn và bảo hộ",
     "elementIds": [
-      {
-        "$oid": "9d26236c8e94bd24477f1d36"
-      }
+      "9d26236c8e94bd24477f1d36"
     ],
     "zodiacIds": [
-      {
-        "$oid": "f43cc45821e4b00bee346c5c"
-      }
+      "f43cc45821e4b00bee346c5c"
     ],
     "image": "https://i.pinimg.com/736x/ef/99/1d/ef991df10a9a1208374ef6c49ad08987.jpg",
     "status": "active"
   },
   {
-    "_id": {
-      "$oid": "9dc53fb4f70a8d5f12597f44"
-    },
+    "_id": "9dc53fb4f70a8d5f12597f44",
     "name": "Aquamarine (Ngọc Hải Lam)",
     "slug": "aquamarine",
     "description": "Làm dịu căng thẳng, khơi mở lòng can đảm và giao tiếp",
@@ -117,28 +85,18 @@
     ],
     "meaning": "Làm dịu căng thẳng, khơi mở lòng can đảm và giao tiếp",
     "elementIds": [
-      {
-        "$oid": "448a24f33e03c0d6d4c7ebe8"
-      }
+      "448a24f33e03c0d6d4c7ebe8"
     ],
     "zodiacIds": [
-      {
-        "$oid": "4a47607c1a70f9389a8d05d1"
-      },
-      {
-        "$oid": "961d179782b672981e04ce9e"
-      },
-      {
-        "$oid": "dd7f1bcc31ea57bf8970bf38"
-      }
+      "4a47607c1a70f9389a8d05d1",
+      "961d179782b672981e04ce9e",
+      "dd7f1bcc31ea57bf8970bf38"
     ],
     "image": "https://i.pinimg.com/1200x/87/47/42/874742d20901ff814de7cd9c387492b5.jpg",
     "status": "active"
   },
   {
-    "_id": {
-      "$oid": "746dd658129993063b79cbe2"
-    },
+    "_id": "746dd658129993063b79cbe2",
     "name": "Thạch anh đen",
     "slug": "thach-anh-den",
     "description": "Bảo hộ, trung hòa năng lượng tiêu cực",
@@ -147,25 +105,17 @@
     ],
     "meaning": "Bảo hộ, trung hòa năng lượng tiêu cực",
     "elementIds": [
-      {
-        "$oid": "448a24f33e03c0d6d4c7ebe8"
-      }
+      "448a24f33e03c0d6d4c7ebe8"
     ],
     "zodiacIds": [
-      {
-        "$oid": "52c85ca736eb6798ca210335"
-      },
-      {
-        "$oid": "0f162990d6468128b6539f7e"
-      }
+      "52c85ca736eb6798ca210335",
+      "0f162990d6468128b6539f7e"
     ],
     "image": "https://i.pinimg.com/736x/63/4d/50/634d501c3e2416d86bd299c8185c9a02.jpg",
     "status": "active"
   },
   {
-    "_id": {
-      "$oid": "980f34aa9b5369103f41c3f0"
-    },
+    "_id": "980f34aa9b5369103f41c3f0",
     "name": "Kyanite",
     "slug": "kyanite",
     "description": "Kết nối trực giác, cân bằng năng lượng",
@@ -174,22 +124,16 @@
     ],
     "meaning": "Kết nối trực giác, cân bằng năng lượng",
     "elementIds": [
-      {
-        "$oid": "448a24f33e03c0d6d4c7ebe8"
-      }
+      "448a24f33e03c0d6d4c7ebe8"
     ],
     "zodiacIds": [
-      {
-        "$oid": "462f95e301ec64d5c2d1e330"
-      }
+      "462f95e301ec64d5c2d1e330"
     ],
     "image": "https://i.pinimg.com/1200x/a2/d4/fd/a2d4fd05360a0ee1daf6a5af74c8f19d.jpg",
     "status": "active"
   },
   {
-    "_id": {
-      "$oid": "df402604fa501e7721aa94e0"
-    },
+    "_id": "df402604fa501e7721aa94e0",
     "name": "Thạch anh tím (Amethyst)",
     "slug": "thach-anh-tim",
     "description": "Nuôi dưỡng sự bình tĩnh và tập trung",
@@ -198,28 +142,18 @@
     ],
     "meaning": "Nuôi dưỡng sự bình tĩnh và tập trung",
     "elementIds": [
-      {
-        "$oid": "63a4bd3d02a3d5d97bb7d13a"
-      }
+      "63a4bd3d02a3d5d97bb7d13a"
     ],
     "zodiacIds": [
-      {
-        "$oid": "4c1258d137356c0ff0300071"
-      },
-      {
-        "$oid": "462f95e301ec64d5c2d1e330"
-      },
-      {
-        "$oid": "961d179782b672981e04ce9e"
-      }
+      "4c1258d137356c0ff0300071",
+      "462f95e301ec64d5c2d1e330",
+      "961d179782b672981e04ce9e"
     ],
     "image": "https://i.pinimg.com/1200x/e9/c9/2f/e9c92f36f87863226a7411d74f5589bb.jpg",
     "status": "active"
   },
   {
-    "_id": {
-      "$oid": "4091c0bd9e1481c529283aea"
-    },
+    "_id": "4091c0bd9e1481c529283aea",
     "name": "Garnet hồng",
     "slug": "garnet-hong",
     "description": "Nhiệt huyết, đam mê và sức sống",
@@ -228,25 +162,17 @@
     ],
     "meaning": "Nhiệt huyết, đam mê và sức sống",
     "elementIds": [
-      {
-        "$oid": "63a4bd3d02a3d5d97bb7d13a"
-      }
+      "63a4bd3d02a3d5d97bb7d13a"
     ],
     "zodiacIds": [
-      {
-        "$oid": "bc840cf0f39e435344d641bc"
-      },
-      {
-        "$oid": "52c85ca736eb6798ca210335"
-      }
+      "bc840cf0f39e435344d641bc",
+      "52c85ca736eb6798ca210335"
     ],
     "image": "https://i.pinimg.com/736x/c1/71/c3/c171c385c6672f13f43f66daa6f68fc8.jpg",
     "status": "active"
   },
   {
-    "_id": {
-      "$oid": "83f14e52a5650d05df6e4f22"
-    },
+    "_id": "83f14e52a5650d05df6e4f22",
     "name": "Thạch anh vàng Citrine",
     "slug": "citrine",
     "description": "Thu hút tài lộc, sự tự tin",
@@ -255,25 +181,17 @@
     ],
     "meaning": "Thu hút tài lộc, sự tự tin",
     "elementIds": [
-      {
-        "$oid": "609ffe8a9ec708cdf7c30749"
-      }
+      "609ffe8a9ec708cdf7c30749"
     ],
     "zodiacIds": [
-      {
-        "$oid": "4a47607c1a70f9389a8d05d1"
-      },
-      {
-        "$oid": "f094a59593b91a7355ae2c04"
-      }
+      "4a47607c1a70f9389a8d05d1",
+      "f094a59593b91a7355ae2c04"
     ],
     "image": "https://i.pinimg.com/1200x/fb/99/fd/fb99fd32306c20bb500ad742ec14f0c2.jpg",
     "status": "active"
   },
   {
-    "_id": {
-      "$oid": "7be3aca0a094c06093cdf678"
-    },
+    "_id": "7be3aca0a094c06093cdf678",
     "name": "Mắt hổ",
     "slug": "mat-ho",
     "description": "Vững vàng, bảo vệ và tăng ý chí",
@@ -282,22 +200,16 @@
     ],
     "meaning": "Vững vàng, bảo vệ và tăng ý chí",
     "elementIds": [
-      {
-        "$oid": "609ffe8a9ec708cdf7c30749"
-      }
+      "609ffe8a9ec708cdf7c30749"
     ],
     "zodiacIds": [
-      {
-        "$oid": "f094a59593b91a7355ae2c04"
-      }
+      "f094a59593b91a7355ae2c04"
     ],
     "image": "https://i.pinimg.com/736x/16/3d/15/163d15a7ef6ab65a3c3a516b48ec367a.jpg",
     "status": "active"
   },
   {
-    "_id": {
-      "$oid": "6e5d7688f18eabab3fcab6ff"
-    },
+    "_id": "6e5d7688f18eabab3fcab6ff",
     "name": "Thạch anh hồng",
     "slug": "thach-anh-hong",
     "description": "Tình yêu thương, sự dịu dàng, chữa lành cảm xúc",
@@ -306,25 +218,17 @@
     ],
     "meaning": "Tình yêu thương, sự dịu dàng, chữa lành cảm xúc",
     "elementIds": [
-      {
-        "$oid": "63a4bd3d02a3d5d97bb7d13a"
-      }
+      "63a4bd3d02a3d5d97bb7d13a"
     ],
     "zodiacIds": [
-      {
-        "$oid": "81e670d0f62bff08b80f31a7"
-      },
-      {
-        "$oid": "4c1258d137356c0ff0300071"
-      }
+      "81e670d0f62bff08b80f31a7",
+      "4c1258d137356c0ff0300071"
     ],
     "image": "https://i.pinimg.com/1200x/18/ee/e2/18eee2ffcd15b98bb92c01ae6305d155.jpg",
     "status": "active"
   },
   {
-    "_id": {
-      "$oid": "879837444685aa9d0c48761c"
-    },
+    "_id": "879837444685aa9d0c48761c",
     "name": "Ngọc trai tự nhiên",
     "slug": "ngoc-trai",
     "description": "Thanh lịch, thuần khiết, cân bằng tâm hồn",
@@ -334,17 +238,13 @@
     "meaning": "Thanh lịch, thuần khiết, cân bằng tâm hồn",
     "elementIds": [],
     "zodiacIds": [
-      {
-        "$oid": "ce84dd3716c6d1337db8a883"
-      }
+      "ce84dd3716c6d1337db8a883"
     ],
     "image": "https://i.pinimg.com/736x/38/ba/e5/38bae560adac7cd3cbcbcd71a98757a1.jpg",
     "status": "active"
   },
   {
-    "_id": {
-      "$oid": "c7da62fc5e9e08e01bef965a"
-    },
+    "_id": "c7da62fc5e9e08e01bef965a",
     "name": "Thạch anh khói",
     "slug": "thach-anh-khoi",
     "description": "Neo giữ tinh thần, giải tỏa căng thẳng",
@@ -353,22 +253,16 @@
     ],
     "meaning": "Neo giữ tinh thần, giải tỏa căng thẳng",
     "elementIds": [
-      {
-        "$oid": "609ffe8a9ec708cdf7c30749"
-      }
+      "609ffe8a9ec708cdf7c30749"
     ],
     "zodiacIds": [
-      {
-        "$oid": "0f162990d6468128b6539f7e"
-      }
+      "0f162990d6468128b6539f7e"
     ],
     "image": "https://i.pinimg.com/1200x/8a/26/cc/8a26cc6365a16c560347068266bbaeca.jpg",
     "status": "active"
   },
   {
-    "_id": {
-      "$oid": "535fbfedfcbb4b45bd4d2636"
-    },
+    "_id": "535fbfedfcbb4b45bd4d2636",
     "name": "Fluorite",
     "slug": "fluorite",
     "description": "Khơi mở tư duy sáng tạo, giúp tập trung và trực giác linh hoạt",
@@ -378,14 +272,10 @@
     ],
     "meaning": "Khơi mở tư duy sáng tạo, giúp tập trung và trực giác linh hoạt",
     "elementIds": [
-      {
-        "$oid": "9d26236c8e94bd24477f1d36"
-      }
+      "9d26236c8e94bd24477f1d36"
     ],
     "zodiacIds": [
-      {
-        "$oid": "961d179782b672981e04ce9e"
-      }
+      "961d179782b672981e04ce9e"
     ],
     "image": "https://i.pinimg.com/1200x/f5/fa/9d/f5fa9d72520f22f2b5cc327a8637438f.jpg",
     "status": "active"

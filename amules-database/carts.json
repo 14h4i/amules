@@ -1,26 +1,16 @@
 [
   {
-    "_id": {
-      "$oid": "b7a1e08b45b1335cde9b3d58"
-    },
-    "userId": {
-      "$oid": "270c1b084f3f146eb5787075"
-    },
+    "_id": "b7a1e08b45b1335cde9b3d58",
+    "userId": "270c1b084f3f146eb5787075",
     "items": [
       {
-        "productId": {
-          "$oid": "dabcd7e6ca8fe24e72e46af2"
-        },
+        "productId": "dabcd7e6ca8fe24e72e46af2",
         "quantity": 1,
         "selectedColor": "Trắng ánh xanh",
         "selectedSize": "15 cm",
-        "addedAt": {
-          "$date": "2026-11-14T00:00:00.000Z"
-        }
+        "addedAt": "2026-11-14T00:00:00.000Z"
       }
     ],
-    "updatedAt": {
-      "$date": "2026-11-14T00:00:00.000Z"
-    }
+    "updatedAt": "2026-11-14T00:00:00.000Z"
   }
 ]

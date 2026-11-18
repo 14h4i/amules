@@ -1,86 +1,62 @@
 [
   {
-    "_id": {
-      "$oid": "c1b562b77f9cfb0765d9f208"
-    },
+    "_id": "c1b562b77f9cfb0765d9f208",
     "name": "Vòng tay",
     "slug": "vong-tay",
     "description": "Danh mục vòng tay đá năng lượng AMULES",
     "image": "https://i.pinimg.com/1200x/24/69/66/24696604555bbbe63f954765ca3c8b07.jpg",
     "parentId": null,
     "status": "active",
-    "createdAt": {
-      "$date": "2026-09-01T00:00:00.000Z"
-    }
+    "createdAt": "2026-09-01T00:00:00.000Z"
   },
   {
-    "_id": {
-      "$oid": "7d8a7ed01c97c9778766837b"
-    },
+    "_id": "7d8a7ed01c97c9778766837b",
     "name": "Dây chuyền",
     "slug": "day-chuyen",
     "description": "Danh mục dây chuyền đá năng lượng AMULES",
     "image": "https://i.pinimg.com/1200x/28/b7/e0/28b7e0db40a5dd3c7752997c58e83ae0.jpg",
     "parentId": null,
     "status": "active",
-    "createdAt": {
-      "$date": "2026-09-01T00:00:00.000Z"
-    }
+    "createdAt": "2026-09-01T00:00:00.000Z"
   },
   {
-    "_id": {
-      "$oid": "992048d03d0d69cf33067e07"
-    },
+    "_id": "992048d03d0d69cf33067e07",
     "name": "Nhẫn",
     "slug": "nhan",
     "description": "Danh mục nhẫn đá năng lượng AMULES",
     "image": "https://i.pinimg.com/1200x/6f/3d/c5/6f3dc5acc148e8d383345dec9d13cae2.jpg",
     "parentId": null,
     "status": "active",
-    "createdAt": {
-      "$date": "2026-09-01T00:00:00.000Z"
-    }
+    "createdAt": "2026-09-01T00:00:00.000Z"
   },
   {
-    "_id": {
-      "$oid": "5fadd06d453008a6c518bc9e"
-    },
+    "_id": "5fadd06d453008a6c518bc9e",
     "name": "Bông tai",
     "slug": "bong-tai",
     "description": "Danh mục bông tai đá năng lượng AMULES",
     "image": "https://i.pinimg.com/736x/a0/6f/c2/a06fc2a2efdc38f29f10edf2ec720033.jpg",
     "parentId": null,
     "status": "active",
-    "createdAt": {
-      "$date": "2026-09-01T00:00:00.000Z"
-    }
+    "createdAt": "2026-09-01T00:00:00.000Z"
   },
   {
-    "_id": {
-      "$oid": "869baa4a458a5d6513556c60"
-    },
+    "_id": "869baa4a458a5d6513556c60",
     "name": "Charm đá",
     "slug": "charm-da",
     "description": "Danh mục charm đá đá năng lượng AMULES",
     "image": "https://i.pinimg.com/1200x/18/b9/16/18b916511068155519d7f1c4e7d1a3b3.jpg",
     "parentId": null,
     "status": "active",
-    "createdAt": {
-      "$date": "2026-09-01T00:00:00.000Z"
-    }
+    "createdAt": "2026-09-01T00:00:00.000Z"
   },
   {
-    "_id": {
-      "$oid": "c326bff57cfa65f545d70517"
-    },
+    "_id": "c326bff57cfa65f545d70517",
     "name": "Set quà tặng",
     "slug": "set-qua-tang",
     "description": "Danh mục set quà tặng đá năng lượng AMULES",
     "image": "https://i.pinimg.com/736x/ad/3b/fc/ad3bfc026bd75a7824150ff1d8feca88.jpg",
     "parentId": null,
     "status": "active",
-    "createdAt": {
-      "$date": "2026-09-01T00:00:00.000Z"
-    }
+    "createdAt": "2026-09-01T00:00:00.000Z"
   }
 ]

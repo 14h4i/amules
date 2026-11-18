@@ -6,7 +6,8 @@
     "start:backend": "cd backend && npm start",
     "dev:backend": "cd backend && npm run dev",
     "start:frontend": "cd frontend && npm start",
-    "build:frontend": "cd frontend && npm run build"
+    "build:frontend": "cd frontend && npm run build",
+    "export:db": "cd backend && npm run export:db"
   },
   "keywords": [
     "amules",
