@@ -358,6 +358,10 @@ registerStandardCollectionRoute('reviews', 'reviews');
 
 // Helper to resolve distinct, appropriate product images
 function resolveProductImage(p) {
+  // Ảnh đã lưu dạng link CDN trong MongoDB thì dùng luôn (thư mục ảnh local đã bị xóa)
+  if (p.image && typeof p.image === 'string' && p.image.startsWith('http')) {
+    return p.image;
+  }
   if (p.image && typeof p.image === 'string' && p.image.startsWith('/images/product_')) {
     return p.image;
   }

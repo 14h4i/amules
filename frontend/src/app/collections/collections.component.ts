@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { MasterDataService, ICollection } from '../services/master-data.service';
 import { ProductService, IProduct } from '../services/product.service';
@@ -18,7 +18,8 @@ export class CollectionsComponent implements OnInit {
   constructor(
     private _route: ActivatedRoute,
     private _masterDataService: MasterDataService,
-    private _productService: ProductService
+    private _productService: ProductService,
+    private _cdr: ChangeDetectorRef
   ) {}
 
   ngOnInit(): void {
@@ -62,6 +63,7 @@ export class CollectionsComponent implements OnInit {
             this.selectedCollection = this.collections[0];
           }
           this.filterProductsForCollection();
+          this._cdr.detectChanges();
         }
       },
       error: () => {
@@ -74,6 +76,7 @@ export class CollectionsComponent implements OnInit {
       next: (products) => {
         this.allProducts = products || [];
         this.filterProductsForCollection();
+        this._cdr.detectChanges();
       },
       error: () => {}
     });
