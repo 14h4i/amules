@@ -125,7 +125,7 @@ export class AdminVouchersComponent implements OnInit {
     growthText: '+18% tuần này',
     seoScore: 96,
     status: 'published',
-    image: 'images/nhan_tinh_tu.png',
+    image: 'https://i.pinimg.com/736x/47/9c/df/479cdf269b5b50948b8aef6103b475ed.jpg',
     excerpt: 'Khám phá nguồn gốc, thuộc tính quang học và sức mạnh phong thủy kỳ diệu của Thạch Anh Tím (Amethyst) trong việc xoa dịu âu lo, kích hoạt luân xa vương miện và mang lại luồng sinh khí quý phái cho gia chủ.',
     content: 'Được mệnh danh là viên đá của sự thức tỉnh tâm linh, Amethyst từ thời cổ đại đã được các bậc đế vương Hy Lạp và La Mã tôn sùng như một lá bùa hộ thân chống lại sự mê muội và giữ cho tâm trí luôn giữ vững trạng thái tĩnh tại sâu thẳm. Theo các nhà ngọc học hiện đại, sắc tím huyền ảo của đá bắt nguồn từ các tạp chất sắt kết hợp cùng quá trình chiếu xạ tự nhiên qua hàng triệu năm trong lòng đất bazan.\n\nTrong ngũ hành phương Đông, sắc tím thẫm của thạch anh tím dung hòa năng lượng giữa Hỏa và Thủy, tạo thành chu kỳ tương sinh kỳ diệu. Đây là bảo vật tương hợp lý tưởng dành cho người mang mệnh Hỏa và mệnh Thổ.',
     tags: ['#Amethyst', '#ThachAnhTim', '#MenhThuy', '#MenhHoa', '#CungBaoBinh', '#ThanhTayNangLuong'],
@@ -148,7 +148,7 @@ export class AdminVouchersComponent implements OnInit {
       growthText: '+18% xem lượng',
       seoScore: 96,
       status: 'published',
-      image: 'images/lac_tay_bien.png',
+      image: 'https://i.pinimg.com/736x/d4/3c/3d/d43c3d69296b0badad1636033dd34e9c.jpg',
       excerpt: 'Khám phá vẻ đẹp dịu dàng và năng lượng soi dưỡng tâm hồn của Moonstone, viên đá của trực giác và bình yên sâu thẳm.',
       tags: ['#Moonstone', '#DaNangLuong', '#TinhTam']
     },
@@ -167,7 +167,7 @@ export class AdminVouchersComponent implements OnInit {
       growthText: 'Bán chạy',
       seoScore: 94,
       status: 'published',
-      image: 'images/dch_mix_da.png',
+      image: 'https://i.pinimg.com/1200x/5e/19/ca/5e19cae249717d1321564c81f14a1732.jpg',
       excerpt: 'Hướng dẫn chi tiết 5 bước thanh tẩy và nạp năng lượng tâm đá quý tự nhiên tại nhà bằng ánh trăng và trầm hương.',
       tags: ['#ThanhTayDa', '#ChamSocDa', '#NangLuong']
     },
@@ -186,7 +186,7 @@ export class AdminVouchersComponent implements OnInit {
       growthText: '+32% tương tác',
       seoScore: 98,
       status: 'published',
-      image: 'images/nhan_tinh_tu.png',
+      image: 'https://i.pinimg.com/736x/47/9c/df/479cdf269b5b50948b8aef6103b475ed.jpg',
       excerpt: 'Nghệ thuật phối trang sức đá tự nhiên tinh tế, thanh lịch và hài hòa phong thủy cho mọi sự kiện hằng ngày.',
       tags: ['#PhoiDo', '#PhongCach', '#TrangSucDa']
     }
@@ -475,7 +475,7 @@ export class AdminVouchersComponent implements OnInit {
       growthText: '+18% tuần này',
       seoScore: 96,
       status: 'published',
-      image: 'images/nhan_tinh_tu.png',
+      image: 'https://i.pinimg.com/736x/47/9c/df/479cdf269b5b50948b8aef6103b475ed.jpg',
       excerpt: 'Khám phá nguồn gốc, thuộc tính quang học và sức mạnh phong thủy kỳ diệu của Thạch Anh Tím (Amethyst) trong việc xoa dịu âu lo, kích hoạt luân xa vương miện và mang lại luồng sinh khí quý phái cho gia chủ.',
       content: 'Được mệnh danh là viên đá của sự thức tỉnh tâm linh, Amethyst từ thời cổ đại đã được các bậc đế vương Hy Lạp và La Mã tôn sùng như một lá bùa hộ thân chống lại sự mê muội...',
       tags: ['#Amethyst', '#ThachAnhTim', '#MenhThuy', '#MenhHoa', '#CungBaoBinh', '#ThanhTayNangLuong'],

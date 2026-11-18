@@ -183,7 +183,7 @@
             </td>
             <td>
               <div class="item-preview-cell">
-                <img [src]="o.items?.[0]?.image || 'images/lac_tay_bien.png'" [alt]="o.firstItemName" class="table-item-thumb">
+                <img [src]="o.items?.[0]?.image || 'https://i.pinimg.com/736x/d4/3c/3d/d43c3d69296b0badad1636033dd34e9c.jpg'" [alt]="o.firstItemName" class="table-item-thumb">
                 <div class="table-item-info">
                   <span class="item-name">{{ o.firstItemName || o.items?.[0]?.name }}</span>
                   <span class="item-sub-count">{{ o.itemsCountLabel || (o.items?.length + ' tác phẩm') }}</span>
@@ -368,7 +368,7 @@
             <div class="order-items-listing">
               @for (item of selectedOrder.items; track item.name) {
                 <div class="order-item-card">
-                  <img [src]="item.image || 'images/lac_tay_bien.png'" [alt]="item.name" class="item-card-thumb">
+                  <img [src]="item.image || 'https://i.pinimg.com/736x/d4/3c/3d/d43c3d69296b0badad1636033dd34e9c.jpg'" [alt]="item.name" class="item-card-thumb">
                   <div class="item-card-body">
                     <span class="item-cat-tag">{{ item.categoryTag || 'MOONSTONE TỰ NHIÊN • Bạc Ý S925' }}</span>
                     <h4 class="item-card-name">{{ item.name }}</h4>
@@ -782,15 +782,15 @@
         </div>
         <div class="evidence-photos-grid">
           <div class="evidence-item">
-            <img src="images/lac_tay_bien.png" alt="Rộng 2cm cổ tay">
+            <img src="https://i.pinimg.com/736x/d4/3c/3d/d43c3d69296b0badad1636033dd34e9c.jpg" alt="Rộng 2cm cổ tay">
             <span>Rộng 2cm cổ tay</span>
           </div>
           <div class="evidence-item">
-            <img src="images/dch_mix_da.png" alt="Thước đo 15cm">
+            <img src="https://i.pinimg.com/1200x/5e/19/ca/5e19cae249717d1321564c81f14a1732.jpg" alt="Thước đo 15cm">
             <span>Thước đo 15cm</span>
           </div>
           <div class="evidence-item">
-            <img src="images/nhan_tinh_tu.png" alt="Hộp &amp; Thẻ nguyên vẹn">
+            <img src="https://i.pinimg.com/736x/47/9c/df/479cdf269b5b50948b8aef6103b475ed.jpg" alt="Hộp &amp; Thẻ nguyên vẹn">
             <span>Hộp &amp; Thẻ nguyên vẹn</span>
           </div>
         </div>

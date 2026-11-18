@@ -123,7 +123,7 @@ export class AdminOrdersComponent implements OnInit {
         name: it.name || it.productName || 'Bảo vật hộ mệnh AMULES',
         categoryTag: it.categoryTag || 'MOONSTONE TỰ NHIÊN • Bạc Ý S925',
         specs: it.specs || (it.selectedSize ? `Chiều dài: ${it.selectedSize} • Màu: ${it.selectedColor || 'Tiêu chuẩn'}` : 'Chiều dài: 45 cm • Bạc Ý S925'),
-        image: it.image || 'images/lac_tay_bien.png',
+        image: it.image || 'https://i.pinimg.com/736x/d4/3c/3d/d43c3d69296b0badad1636033dd34e9c.jpg',
         price: Number(it.price || it.unitPrice || 650000),
         quantity: Number(it.quantity || 1)
       }))
@@ -370,7 +370,7 @@ export class AdminOrdersComponent implements OnInit {
           name: this.newOrder.itemName,
           categoryTag: this.newOrder.categoryTag,
           specs: 'Chế tác chuẩn ni tay khách hàng',
-          image: 'images/lac_tay_bien.png',
+          image: 'https://i.pinimg.com/736x/d4/3c/3d/d43c3d69296b0badad1636033dd34e9c.jpg',
           price: Number(this.newOrder.itemPrice) || 650000,
           quantity: Number(this.newOrder.quantity) || 1
         }

@@ -73,7 +73,7 @@ export class AdminCatalogComponent implements OnInit {
       description: 'Danh mục vòng tay đá năng lượng AMULES',
       productCount: 5,
       isVisible: true,
-      image: 'images/lac_tay_bien.png'
+      image: 'https://i.pinimg.com/736x/d4/3c/3d/d43c3d69296b0badad1636033dd34e9c.jpg'
     },
     {
       _id: '7d8a7ed01c97c9778766837b',
@@ -83,7 +83,7 @@ export class AdminCatalogComponent implements OnInit {
       description: 'Danh mục dây chuyền đá năng lượng AMULES',
       productCount: 5,
       isVisible: true,
-      image: 'images/dch_mix_da.png'
+      image: 'https://i.pinimg.com/1200x/5e/19/ca/5e19cae249717d1321564c81f14a1732.jpg'
     },
     {
       _id: '992048d03d0d69cf33067e07',
@@ -93,7 +93,7 @@ export class AdminCatalogComponent implements OnInit {
       description: 'Danh mục nhẫn đá năng lượng AMULES',
       productCount: 4,
       isVisible: true,
-      image: 'images/nhan_tinh_tu.png'
+      image: 'https://i.pinimg.com/736x/47/9c/df/479cdf269b5b50948b8aef6103b475ed.jpg'
     },
     {
       _id: '5fadd06d453008a6c518bc9e',
@@ -103,7 +103,7 @@ export class AdminCatalogComponent implements OnInit {
       description: 'Danh mục bông tai đá năng lượng AMULES',
       productCount: 1,
       isVisible: true,
-      image: 'images/bong_tai.png'
+      image: 'https://i.pinimg.com/736x/82/af/ce/82afce704fa0702179286be2a3d293d7.jpg'
     },
     {
       _id: '869baa4a458a5d6513556c60',
@@ -113,7 +113,7 @@ export class AdminCatalogComponent implements OnInit {
       description: 'Danh mục charm đá đá năng lượng AMULES',
       productCount: 0,
       isVisible: true,
-      image: 'images/lac_tay_bien.png'
+      image: 'https://i.pinimg.com/736x/d4/3c/3d/d43c3d69296b0badad1636033dd34e9c.jpg'
     },
     {
       _id: 'c326bff57cfa65f545d70517',
@@ -123,7 +123,7 @@ export class AdminCatalogComponent implements OnInit {
       description: 'Danh mục set quà tặng đá năng lượng AMULES',
       productCount: 1,
       isVisible: true,
-      image: 'images/bst_set_qua.webp'
+      image: 'https://i.pinimg.com/736x/9b/9f/9f/9b9f9f152363271f0c154f437b34def0.jpg'
     }
   ];
 
@@ -142,7 +142,7 @@ export class AdminCatalogComponent implements OnInit {
       mohs: 'Mohs 7.0',
       productCount: 0,
       isVisible: true,
-      image: 'images/nhan_tinh_tu.png'
+      image: 'https://i.pinimg.com/736x/47/9c/df/479cdf269b5b50948b8aef6103b475ed.jpg'
     },
     {
       _id: '7f64349e172055022ffc91ee',
@@ -157,7 +157,7 @@ export class AdminCatalogComponent implements OnInit {
       mohs: 'Mohs 6.0 - 6.5',
       productCount: 5,
       isVisible: true,
-      image: 'images/lac_tay_bien.png'
+      image: 'https://i.pinimg.com/736x/d4/3c/3d/d43c3d69296b0badad1636033dd34e9c.jpg'
     },
     {
       _id: '22a019914d19838939debf30',
@@ -172,7 +172,7 @@ export class AdminCatalogComponent implements OnInit {
       mohs: 'Mohs 7.0',
       productCount: 1,
       isVisible: true,
-      image: 'images/dch_mix_da.png'
+      image: 'https://i.pinimg.com/1200x/5e/19/ca/5e19cae249717d1321564c81f14a1732.jpg'
     },
     {
       _id: 'bd5554ded846c2c015693991',
@@ -187,7 +187,7 @@ export class AdminCatalogComponent implements OnInit {
       mohs: 'Mohs 6.5 - 7.0',
       productCount: 1,
       isVisible: true,
-      image: 'images/bst_vong_tay.png'
+      image: 'https://i.pinimg.com/736x/b3/cf/e0/b3cfe07a389a61eaa7b0f186da90da4f.jpg'
     },
     {
       _id: '9dc53fb4f70a8d5f12597f44',
@@ -202,7 +202,7 @@ export class AdminCatalogComponent implements OnInit {
       mohs: 'Mohs 7.5 - 8.0',
       productCount: 3,
       isVisible: true,
-      image: 'images/lac_tay_bien.png'
+      image: 'https://i.pinimg.com/736x/d4/3c/3d/d43c3d69296b0badad1636033dd34e9c.jpg'
     },
     {
       _id: 'bb3dcf919b6e828452fe3bfa',
@@ -217,7 +217,7 @@ export class AdminCatalogComponent implements OnInit {
       mohs: 'Mohs 7.0',
       productCount: 0,
       isVisible: true,
-      image: 'images/nhan_tinh_tu.png'
+      image: 'https://i.pinimg.com/736x/47/9c/df/479cdf269b5b50948b8aef6103b475ed.jpg'
     },
     {
       _id: 'b5b8c3ba50f8373b50c406ba',
@@ -232,7 +232,7 @@ export class AdminCatalogComponent implements OnInit {
       mohs: 'Mohs 4.5 - 7.0',
       productCount: 1,
       isVisible: true,
-      image: 'images/dch_mix_da.png'
+      image: 'https://i.pinimg.com/1200x/5e/19/ca/5e19cae249717d1321564c81f14a1732.jpg'
     },
     {
       _id: 'e1d272d5efbfb9c4c703d7c4',
@@ -247,7 +247,7 @@ export class AdminCatalogComponent implements OnInit {
       mohs: 'Mohs 7.0',
       productCount: 2,
       isVisible: true,
-      image: 'images/nhan_tinh_tu.png'
+      image: 'https://i.pinimg.com/736x/47/9c/df/479cdf269b5b50948b8aef6103b475ed.jpg'
     },
     {
       _id: 'cf6ebfc4adff2da33d6790b8',
@@ -262,7 +262,7 @@ export class AdminCatalogComponent implements OnInit {
       mohs: 'Mohs 7.0 - 7.5',
       productCount: 0,
       isVisible: true,
-      image: 'images/lac_tay_bien.png'
+      image: 'https://i.pinimg.com/736x/d4/3c/3d/d43c3d69296b0badad1636033dd34e9c.jpg'
     },
     {
       _id: '6e5d7688f18eabab3fcab6ff',
@@ -277,7 +277,7 @@ export class AdminCatalogComponent implements OnInit {
       mohs: 'Mohs 7.0',
       productCount: 1,
       isVisible: true,
-      image: 'images/lac_tay_bien.png'
+      image: 'https://i.pinimg.com/736x/d4/3c/3d/d43c3d69296b0badad1636033dd34e9c.jpg'
     },
     {
       _id: '4091c0bd9e1481c529283aea',
@@ -292,7 +292,7 @@ export class AdminCatalogComponent implements OnInit {
       mohs: 'Mohs 7.0',
       productCount: 0,
       isVisible: true,
-      image: 'images/bst_vong_tay.png'
+      image: 'https://i.pinimg.com/736x/b3/cf/e0/b3cfe07a389a61eaa7b0f186da90da4f.jpg'
     },
     {
       _id: '01869e54a93ca3a886f76239',
@@ -307,7 +307,7 @@ export class AdminCatalogComponent implements OnInit {
       mohs: 'Mohs 7.0',
       productCount: 1,
       isVisible: true,
-      image: 'images/bong_tai.png'
+      image: 'https://i.pinimg.com/736x/82/af/ce/82afce704fa0702179286be2a3d293d7.jpg'
     },
     {
       _id: '61a380e2270929944bfe100c',
@@ -322,7 +322,7 @@ export class AdminCatalogComponent implements OnInit {
       mohs: 'Mohs 2.5 - 4.5',
       productCount: 1,
       isVisible: true,
-      image: 'images/bong_tai.png'
+      image: 'https://i.pinimg.com/736x/82/af/ce/82afce704fa0702179286be2a3d293d7.jpg'
     },
     {
       _id: 'e207e997f7fa205089c9e8ca',
@@ -337,7 +337,7 @@ export class AdminCatalogComponent implements OnInit {
       mohs: 'Mohs 7.0',
       productCount: 1,
       isVisible: true,
-      image: 'images/nhan_tinh_tu.png'
+      image: 'https://i.pinimg.com/736x/47/9c/df/479cdf269b5b50948b8aef6103b475ed.jpg'
     },
     {
       _id: '83f14e52a5650d05df6e4f22',
@@ -352,7 +352,7 @@ export class AdminCatalogComponent implements OnInit {
       mohs: 'Mohs 4.0',
       productCount: 1,
       isVisible: true,
-      image: 'images/bst_vong_tay.png'
+      image: 'https://i.pinimg.com/736x/b3/cf/e0/b3cfe07a389a61eaa7b0f186da90da4f.jpg'
     }
   ];
 
@@ -367,7 +367,7 @@ export class AdminCatalogComponent implements OnInit {
       color: 'Trắng, Ánh kim, Xám bạc',
       productCount: 4,
       isVisible: true,
-      image: 'images/nhan_tinh_tu.png'
+      image: 'https://i.pinimg.com/736x/47/9c/df/479cdf269b5b50948b8aef6103b475ed.jpg'
     },
     {
       _id: '9d26236c8e94bd24477f1d36',
@@ -378,7 +378,7 @@ export class AdminCatalogComponent implements OnInit {
       color: 'Xanh lá, Xanh lục bảo',
       productCount: 4,
       isVisible: true,
-      image: 'images/dch_mix_da.png'
+      image: 'https://i.pinimg.com/1200x/5e/19/ca/5e19cae249717d1321564c81f14a1732.jpg'
     },
     {
       _id: '448a24f33e03c0d6d4c7ebe8',
@@ -389,7 +389,7 @@ export class AdminCatalogComponent implements OnInit {
       color: 'Lam biển dịu êm, Đen huyền bí',
       productCount: 8,
       isVisible: true,
-      image: 'images/lac_tay_bien.png'
+      image: 'https://i.pinimg.com/736x/d4/3c/3d/d43c3d69296b0badad1636033dd34e9c.jpg'
     },
     {
       _id: '63a4bd3d02a3d5d97bb7d13a',
@@ -400,7 +400,7 @@ export class AdminCatalogComponent implements OnInit {
       color: 'Đỏ, Hồng, Tím hoàng gia',
       productCount: 4,
       isVisible: true,
-      image: 'images/nhan_tinh_tu.png'
+      image: 'https://i.pinimg.com/736x/47/9c/df/479cdf269b5b50948b8aef6103b475ed.jpg'
     },
     {
       _id: '9ecaa79fef46d8f28fa8e547',
@@ -411,24 +411,24 @@ export class AdminCatalogComponent implements OnInit {
       color: 'Vàng sậm, Nâu đất, Cam mật ong',
       productCount: 3,
       isVisible: true,
-      image: 'images/bst_vong_tay.png'
+      image: 'https://i.pinimg.com/736x/b3/cf/e0/b3cfe07a389a61eaa7b0f186da90da4f.jpg'
     }
   ];
 
   // 4. Zodiac Signs - 12 items matching MongoDB collection 'zodiac_signs'
   zodiacSigns: CatalogItem[] = [
-    { _id: 'bc840cf0f39e435344d641bc', name: 'Bạch Dương', dateRange: '21/03 - 19/04', element: 'Hỏa', description: 'Nhiệt huyết, tiên phong và giàu dũng khí', productCount: 0, isVisible: true, image: 'images/lac_tay_bien.png' },
-    { _id: '81e670d0f62bff08b80f31a7', name: 'Kim Ngưu', dateRange: '20/04 - 20/05', element: 'Thổ', description: 'Kiên định, ổn định và gu thẩm mỹ tinh tế', productCount: 1, isVisible: true, image: 'images/lac_tay_bien.png' },
-    { _id: '4a47607c1a70f9389a8d05d1', name: 'Song Tử', dateRange: '21/05 - 20/06', element: 'Khí', description: 'Thông minh, linh hoạt và giao tiếp cuốn hút', productCount: 0, isVisible: true, image: 'images/dch_mix_da.png' },
-    { _id: 'ce84dd3716c6d1337db8a883', name: 'Cự Giải', dateRange: '21/06 - 22/07', element: 'Thủy', description: 'Trực giác sâu sắc, che chở và gắn kết gia đình', productCount: 6, isVisible: true, image: 'images/lac_tay_bien.png' },
-    { _id: 'b567dcfa694c96570abdcab1', name: 'Sư Tử', dateRange: '23/07 - 22/08', element: 'Hỏa', description: 'Tự tin, hào phóng và tỏa sáng vị thế', productCount: 1, isVisible: true, image: 'images/nhan_tinh_tu.png' },
-    { _id: 'f43cc45821e4b00bee346c5c', name: 'Xử Nữ', dateRange: '23/08 - 22/09', element: 'Thổ', description: 'Tỉ mỉ, chu đáo và hướng tới vẻ đẹp hoàn mỹ', productCount: 2, isVisible: true, image: 'images/dch_mix_da.png' },
-    { _id: 'ff1c201639d67562f1da677c', name: 'Thiên Bình', dateRange: '23/09 - 22/10', element: 'Khí', description: 'Cân bằng, thanh lịch và hòa ái', productCount: 1, isVisible: true, image: 'images/bong_tai.png' },
-    { _id: '01cf90e9df64639430c0c7d4', name: 'Bọ Cạp', dateRange: '23/10 - 21/11', element: 'Thủy', description: 'Huyền bí, kiên cường và trực cảm mãnh liệt', productCount: 0, isVisible: true, image: 'images/nhan_tinh_tu.png' },
-    { _id: '202abfa532fcbc28801ceb3a', name: 'Nhân Mã', dateRange: '22/11 - 21/12', element: 'Hỏa', description: 'Lạc quan, tự do và đam mê khám phá tri thức', productCount: 2, isVisible: true, image: 'images/lac_tay_bien.png' },
-    { _id: '0f0a47f5cc114d938b81ceeb', name: 'Ma Kết', dateRange: '22/12 - 19/01', element: 'Thổ', description: 'Kỷ luật, bản lĩnh và khát vọng bền bỉ', productCount: 1, isVisible: true, image: 'images/nhan_tinh_tu.png' },
-    { _id: '0289ab748d88fa7bfa635193', name: 'Bảo Bình', dateRange: '20/01 - 18/02', element: 'Khí', description: 'Độc bản, sáng tạo và tư duy nhân đạo đi trước thời đại', productCount: 2, isVisible: true, image: 'images/dch_mix_da.png' },
-    { _id: 'dd7f1bcc31ea57bf8970bf38', name: 'Song Ngư', dateRange: '19/02 - 20/03', element: 'Thủy', description: 'Thấu cảm, lãng mạn và tâm hồn hướng thiện thuần khiết', productCount: 5, isVisible: true, image: 'images/lac_tay_bien.png' }
+    { _id: 'bc840cf0f39e435344d641bc', name: 'Bạch Dương', dateRange: '21/03 - 19/04', element: 'Hỏa', description: 'Nhiệt huyết, tiên phong và giàu dũng khí', productCount: 0, isVisible: true, image: 'https://i.pinimg.com/736x/d4/3c/3d/d43c3d69296b0badad1636033dd34e9c.jpg' },
+    { _id: '81e670d0f62bff08b80f31a7', name: 'Kim Ngưu', dateRange: '20/04 - 20/05', element: 'Thổ', description: 'Kiên định, ổn định và gu thẩm mỹ tinh tế', productCount: 1, isVisible: true, image: 'https://i.pinimg.com/736x/d4/3c/3d/d43c3d69296b0badad1636033dd34e9c.jpg' },
+    { _id: '4a47607c1a70f9389a8d05d1', name: 'Song Tử', dateRange: '21/05 - 20/06', element: 'Khí', description: 'Thông minh, linh hoạt và giao tiếp cuốn hút', productCount: 0, isVisible: true, image: 'https://i.pinimg.com/1200x/5e/19/ca/5e19cae249717d1321564c81f14a1732.jpg' },
+    { _id: 'ce84dd3716c6d1337db8a883', name: 'Cự Giải', dateRange: '21/06 - 22/07', element: 'Thủy', description: 'Trực giác sâu sắc, che chở và gắn kết gia đình', productCount: 6, isVisible: true, image: 'https://i.pinimg.com/736x/d4/3c/3d/d43c3d69296b0badad1636033dd34e9c.jpg' },
+    { _id: 'b567dcfa694c96570abdcab1', name: 'Sư Tử', dateRange: '23/07 - 22/08', element: 'Hỏa', description: 'Tự tin, hào phóng và tỏa sáng vị thế', productCount: 1, isVisible: true, image: 'https://i.pinimg.com/736x/47/9c/df/479cdf269b5b50948b8aef6103b475ed.jpg' },
+    { _id: 'f43cc45821e4b00bee346c5c', name: 'Xử Nữ', dateRange: '23/08 - 22/09', element: 'Thổ', description: 'Tỉ mỉ, chu đáo và hướng tới vẻ đẹp hoàn mỹ', productCount: 2, isVisible: true, image: 'https://i.pinimg.com/1200x/5e/19/ca/5e19cae249717d1321564c81f14a1732.jpg' },
+    { _id: 'ff1c201639d67562f1da677c', name: 'Thiên Bình', dateRange: '23/09 - 22/10', element: 'Khí', description: 'Cân bằng, thanh lịch và hòa ái', productCount: 1, isVisible: true, image: 'https://i.pinimg.com/736x/82/af/ce/82afce704fa0702179286be2a3d293d7.jpg' },
+    { _id: '01cf90e9df64639430c0c7d4', name: 'Bọ Cạp', dateRange: '23/10 - 21/11', element: 'Thủy', description: 'Huyền bí, kiên cường và trực cảm mãnh liệt', productCount: 0, isVisible: true, image: 'https://i.pinimg.com/736x/47/9c/df/479cdf269b5b50948b8aef6103b475ed.jpg' },
+    { _id: '202abfa532fcbc28801ceb3a', name: 'Nhân Mã', dateRange: '22/11 - 21/12', element: 'Hỏa', description: 'Lạc quan, tự do và đam mê khám phá tri thức', productCount: 2, isVisible: true, image: 'https://i.pinimg.com/736x/d4/3c/3d/d43c3d69296b0badad1636033dd34e9c.jpg' },
+    { _id: '0f0a47f5cc114d938b81ceeb', name: 'Ma Kết', dateRange: '22/12 - 19/01', element: 'Thổ', description: 'Kỷ luật, bản lĩnh và khát vọng bền bỉ', productCount: 1, isVisible: true, image: 'https://i.pinimg.com/736x/47/9c/df/479cdf269b5b50948b8aef6103b475ed.jpg' },
+    { _id: '0289ab748d88fa7bfa635193', name: 'Bảo Bình', dateRange: '20/01 - 18/02', element: 'Khí', description: 'Độc bản, sáng tạo và tư duy nhân đạo đi trước thời đại', productCount: 2, isVisible: true, image: 'https://i.pinimg.com/1200x/5e/19/ca/5e19cae249717d1321564c81f14a1732.jpg' },
+    { _id: 'dd7f1bcc31ea57bf8970bf38', name: 'Song Ngư', dateRange: '19/02 - 20/03', element: 'Thủy', description: 'Thấu cảm, lãng mạn và tâm hồn hướng thiện thuần khiết', productCount: 5, isVisible: true, image: 'https://i.pinimg.com/736x/d4/3c/3d/d43c3d69296b0badad1636033dd34e9c.jpg' }
   ];
 
   // 5. Collections - 3 items matching MongoDB collection 'collections'
@@ -441,7 +441,7 @@ export class AdminCatalogComponent implements OnInit {
       description: 'Dấu ấn hoàng gia phương Tây kết hợp chiều sâu chiêm nghiệm phương Đông.',
       productCount: 2,
       isVisible: true,
-      image: 'images/banner_mys.jpg'
+      image: 'https://i.pinimg.com/736x/8b/56/4e/8b564e66f5a26e5a7761873879e15a44.jpg'
     },
     {
       _id: 'b2c3d4e5f6a708192a3b4c5d',
@@ -451,7 +451,7 @@ export class AdminCatalogComponent implements OnInit {
       description: 'Cảm hứng chu kỳ trăng tròn và 12 chòm sao dẫn lối với đá ánh trăng quyền năng.',
       productCount: 4,
       isVisible: true,
-      image: 'images/banner_mrs.jpg'
+      image: 'https://i.pinimg.com/736x/8b/56/4e/8b564e66f5a26e5a7761873879e15a44.jpg'
     },
     {
       _id: 'c3d4e5f6a7b8091a2b3c4d5e',
@@ -461,7 +461,7 @@ export class AdminCatalogComponent implements OnInit {
       description: 'Vẻ đẹp tinh tế của ngọc trai tự nhiên và đá Aquamarine đánh thức nét dịu dàng tâm hồn.',
       productCount: 3,
       isVisible: true,
-      image: 'images/banner_muse.jpg'
+      image: 'https://i.pinimg.com/736x/8b/56/4e/8b564e66f5a26e5a7761873879e15a44.jpg'
     }
   ];
 
@@ -683,10 +683,10 @@ export class AdminCatalogComponent implements OnInit {
   }
 
   resolveCatalogImage(img?: string): string {
-    if (!img) return 'images/lac_tay_bien.png';
-    if (img.includes('day_chuyen_merlia')) return 'images/dch_mix_da.png';
-    if (img.includes('nhan_venus')) return 'images/nhan_tinh_tu.png';
-    if (img.includes('bong_tai_baroque')) return 'images/bong_tai.png';
+    if (!img) return 'https://i.pinimg.com/736x/d4/3c/3d/d43c3d69296b0badad1636033dd34e9c.jpg';
+    if (img.includes('day_chuyen_merlia')) return 'https://i.pinimg.com/1200x/5e/19/ca/5e19cae249717d1321564c81f14a1732.jpg';
+    if (img.includes('nhan_venus')) return 'https://i.pinimg.com/736x/47/9c/df/479cdf269b5b50948b8aef6103b475ed.jpg';
+    if (img.includes('bong_tai_baroque')) return 'https://i.pinimg.com/736x/82/af/ce/82afce704fa0702179286be2a3d293d7.jpg';
     return img;
   }
 
@@ -803,7 +803,7 @@ export class AdminCatalogComponent implements OnInit {
         name: '',
         scientificName: '',
         description: '',
-        image: 'images/lac_tay_bien.png',
+        image: 'https://i.pinimg.com/736x/d4/3c/3d/d43c3d69296b0badad1636033dd34e9c.jpg',
         colorHex: '#E0F2FE',
         mohs: '6.0 - 6.5 Mohs (Feldspar)',
         crystalSystem: 'Monoclinic (Một nghiêng)',

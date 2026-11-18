@@ -35,12 +35,12 @@ export class HomeComponent implements OnInit, OnDestroy {
   ];
 
   categories: ICategory[] = [
-    { name: 'Vòng tay', image: 'images/bst_vong_tay.png' },
-    { name: 'Dây chuyền', image: 'images/bst_dch.png' },
-    { name: 'Nhẫn', image: 'images/bst_nhan_lg.png' },
-    { name: 'Bông tai', image: 'images/bst_bt.webp' },
-    { name: 'Charm đá', image: 'images/bst_da.webp' },
-    { name: 'Set quà tặng', image: 'images/bst_set_qua.webp' }
+    { name: 'Vòng tay', image: 'https://i.pinimg.com/736x/b3/cf/e0/b3cfe07a389a61eaa7b0f186da90da4f.jpg' },
+    { name: 'Dây chuyền', image: 'https://i.pinimg.com/1200x/5e/19/ca/5e19cae249717d1321564c81f14a1732.jpg' },
+    { name: 'Nhẫn', image: 'https://i.pinimg.com/736x/47/9c/df/479cdf269b5b50948b8aef6103b475ed.jpg' },
+    { name: 'Bông tai', image: 'https://i.pinimg.com/736x/82/af/ce/82afce704fa0702179286be2a3d293d7.jpg' },
+    { name: 'Charm đá', image: 'https://i.pinimg.com/1200x/33/52/d2/3352d2c48c5755e6f8110e386d63898e.jpg' },
+    { name: 'Set quà tặng', image: 'https://i.pinimg.com/736x/9b/9f/9f/9b9f9f152363271f0c154f437b34def0.jpg' }
   ];
 
   elements = [
@@ -52,22 +52,22 @@ export class HomeComponent implements OnInit, OnDestroy {
   ];
 
   products: ProductItem[] = [
-    { id: 'lac-tay-hoi-tho-bien-xanh', slug: 'lac-tay-hoi-tho-bien-xanh', name: 'Lắc tay Hơi Thở Biển Xanh', stone: 'Aquamarine & Bạc 925', price: 590000, sold: '320+', badge: 'Bán chạy', element: 'Mệnh Thủy & Mộc', image: 'images/lac_tay_bien.png', liked: false },
-    { id: 'day-chuyen-bac-nu-mix-da-merlia', slug: 'day-chuyen-bac-nu-mix-da-merlia', name: 'Dây chuyền Bạc Nữ Mix Đá Merlia', stone: 'Moonstone', price: 650000, sold: '540+', badge: 'Hot', element: 'Mệnh Kim & Thủy', image: 'images/dch_mix_da.png', liked: false },
-    { id: 'nhan-tinh-tu-venus', slug: 'nhan-tinh-tu-venus', name: 'Nhẫn Tinh Tú Venus', stone: 'Thạch anh hồng tự nhiên', price: 450000, sold: '180+', badge: 'Mới ra mắt', element: 'Mệnh Hỏa & Thổ', image: 'images/nhan_tinh_tu.png', liked: false },
-    { id: 'bong-tai-sao-bac-baroque', slug: 'bong-tai-sao-bac-baroque', name: 'Bông tai Sao Bạc & Baroque', stone: 'Ngọc trai tự nhiên & Bạc', price: 320000, sold: '210+', badge: 'Ngọc trai Baroque', element: '', image: 'images/bong_tai.png', liked: false }
+    { id: 'lac-tay-hoi-tho-bien-xanh', slug: 'lac-tay-hoi-tho-bien-xanh', name: 'Lắc tay Hơi Thở Biển Xanh', stone: 'Aquamarine & Bạc 925', price: 590000, sold: '320+', badge: 'Bán chạy', element: 'Mệnh Thủy & Mộc', image: 'https://i.pinimg.com/736x/d4/3c/3d/d43c3d69296b0badad1636033dd34e9c.jpg', liked: false },
+    { id: 'day-chuyen-bac-nu-mix-da-merlia', slug: 'day-chuyen-bac-nu-mix-da-merlia', name: 'Dây chuyền Bạc Nữ Mix Đá Merlia', stone: 'Moonstone', price: 650000, sold: '540+', badge: 'Hot', element: 'Mệnh Kim & Thủy', image: 'https://i.pinimg.com/1200x/5e/19/ca/5e19cae249717d1321564c81f14a1732.jpg', liked: false },
+    { id: 'nhan-tinh-tu-venus', slug: 'nhan-tinh-tu-venus', name: 'Nhẫn Tinh Tú Venus', stone: 'Thạch anh hồng tự nhiên', price: 450000, sold: '180+', badge: 'Mới ra mắt', element: 'Mệnh Hỏa & Thổ', image: 'https://i.pinimg.com/736x/47/9c/df/479cdf269b5b50948b8aef6103b475ed.jpg', liked: false },
+    { id: 'bong-tai-sao-bac-baroque', slug: 'bong-tai-sao-bac-baroque', name: 'Bông tai Sao Bạc & Baroque', stone: 'Ngọc trai tự nhiên & Bạc', price: 320000, sold: '210+', badge: 'Ngọc trai Baroque', element: '', image: 'https://i.pinimg.com/736x/82/af/ce/82afce704fa0702179286be2a3d293d7.jpg', liked: false }
   ];
 
   collections: ICollection[] = [
-    { tag: 'Cổ điển & Huyền bí', name: 'Mystical Vintage', desc: 'Dấu ấn hoàng gia Tây phương kết hợp chiều sâu chiêm nghiệm phương Đông, dành cho người yêu nét đẹp hoài niệm.', image: 'images/banner_mys.jpg' },
-    { tag: 'Thiên thể & Chiêm tinh', name: 'Moon & Stars', desc: 'Cảm hứng chu kỳ trăng tròn và 12 chòm sao thắp sáng, tượng trưng cho trực giác và sự soi đường dẫn lối.', image: 'images/banner_mrs.jpg' },
-    { tag: 'Dịu dàng & Lãng mạn', name: 'Nàng Thơ (The Muse)', desc: 'Thức khởi, dịu êm với ngọc trai mạnh ngọt, dành thức trắc ẩn của yêu thương.', image: 'images/banner_muse.jpg' }
+    { tag: 'Cổ điển & Huyền bí', name: 'Mystical Vintage', desc: 'Dấu ấn hoàng gia Tây phương kết hợp chiều sâu chiêm nghiệm phương Đông, dành cho người yêu nét đẹp hoài niệm.', image: 'https://i.pinimg.com/736x/8b/56/4e/8b564e66f5a26e5a7761873879e15a44.jpg' },
+    { tag: 'Thiên thể & Chiêm tinh', name: 'Moon & Stars', desc: 'Cảm hứng chu kỳ trăng tròn và 12 chòm sao thắp sáng, tượng trưng cho trực giác và sự soi đường dẫn lối.', image: 'https://i.pinimg.com/736x/8b/56/4e/8b564e66f5a26e5a7761873879e15a44.jpg' },
+    { tag: 'Dịu dàng & Lãng mạn', name: 'Nàng Thơ (The Muse)', desc: 'Thức khởi, dịu êm với ngọc trai mạnh ngọt, dành thức trắc ẩn của yêu thương.', image: 'https://i.pinimg.com/736x/8b/56/4e/8b564e66f5a26e5a7761873879e15a44.jpg' }
   ];
 
   posts: IArticle[] = [
-    { tag: 'Ý nghĩa loại đá', read: '4 phút đọc', date: '12 Tháng 10, 2025', title: 'Moonstone: Vẻ đẹp dịu dàng và năng lượng soi dưỡng tâm hồn', excerpt: 'Được mệnh danh là viên đá của phụ nữ, Moonstone khơi mở dòng chảy nội tâm mềm dịu, làm dịu bớt căng thẳng và cân bằng nội tiết tố tự nhiên.', image: 'images/moonstone.jpg' },
-    { tag: 'Thực hành thanh tẩy', read: '6 phút đọc', date: '08 Tháng 10, 2025', title: '5 bước thanh tẩy và nạp năng lượng tâm đá quý tại nhà', excerpt: 'Hướng dẫn chi tiết cách thanh tẩy đá phong thủy bằng ánh trăng rằm, khói xô thơm và nước muối biển để giữ cho tinh thể luôn sáng trong.', image: 'images/thanh_tay.png' },
-    { tag: 'Cảm hứng phối đồ', read: '5 phút đọc', date: '02 Tháng 10, 2025', title: 'Cách phối trang sức tự nhiên tinh tế cho phong cách hằng ngày', excerpt: 'Nghệ thuật xếp lớp (layering) vòng tay và dây chuyền phong thủy một cách sang trọng, không phô trương mà vẫn giữ trọn linh hồn bình yên.', image: 'images/phoi.jpg' }
+    { tag: 'Ý nghĩa loại đá', read: '4 phút đọc', date: '12 Tháng 10, 2025', title: 'Moonstone: Vẻ đẹp dịu dàng và năng lượng soi dưỡng tâm hồn', excerpt: 'Được mệnh danh là viên đá của phụ nữ, Moonstone khơi mở dòng chảy nội tâm mềm dịu, làm dịu bớt căng thẳng và cân bằng nội tiết tố tự nhiên.', image: 'https://i.pinimg.com/736x/8c/01/6d/8c016d17da264368845d7d7ae0ad195a.jpg' },
+    { tag: 'Thực hành thanh tẩy', read: '6 phút đọc', date: '08 Tháng 10, 2025', title: '5 bước thanh tẩy và nạp năng lượng tâm đá quý tại nhà', excerpt: 'Hướng dẫn chi tiết cách thanh tẩy đá phong thủy bằng ánh trăng rằm, khói xô thơm và nước muối biển để giữ cho tinh thể luôn sáng trong.', image: 'https://i.pinimg.com/736x/65/12/56/6512568af032cfb982e96c42c6218599.jpg' },
+    { tag: 'Cảm hứng phối đồ', read: '5 phút đọc', date: '02 Tháng 10, 2025', title: 'Cách phối trang sức tự nhiên tinh tế cho phong cách hằng ngày', excerpt: 'Nghệ thuật xếp lớp (layering) vòng tay và dây chuyền phong thủy một cách sang trọng, không phô trương mà vẫn giữ trọn linh hồn bình yên.', image: 'https://i.pinimg.com/736x/b5/03/40/b50340697147b14ca4fd8f6b815bf8aa.jpg' }
   ];
 
   email = '';
@@ -103,7 +103,7 @@ export class HomeComponent implements OnInit, OnDestroy {
             sold: p.sold ? `${p.sold}+` : '100+',
             badge: p.badge || 'Nổi bật',
             element: p.element || '',
-            image: p.image || (p.images && p.images[0]) || 'images/lac_tay_bien.png',
+            image: p.image || (p.images && p.images[0]) || 'https://i.pinimg.com/736x/d4/3c/3d/d43c3d69296b0badad1636033dd34e9c.jpg',
             liked: false
           }));
         }
@@ -115,14 +115,14 @@ export class HomeComponent implements OnInit, OnDestroy {
     this._masterDataService.getArticles().pipe(takeUntil(this._destroy$)).subscribe({
       next: (articles) => {
         if (articles && articles.length > 0) {
-          const fallbackImgs = ['images/moonstone.jpg', 'images/thanh_tay.png', 'images/phoi.jpg'];
+          const fallbackImgs = ['https://i.pinimg.com/736x/8c/01/6d/8c016d17da264368845d7d7ae0ad195a.jpg', 'https://i.pinimg.com/736x/65/12/56/6512568af032cfb982e96c42c6218599.jpg', 'https://i.pinimg.com/736x/b5/03/40/b50340697147b14ca4fd8f6b815bf8aa.jpg'];
           this.posts = articles.slice(0, 3).map((a, idx) => {
             let img = a.image || a.thumbnail;
             if (!img || img.includes('drive.google.com') || img.startsWith('http')) {
               const titleLower = (a.title || '').toLowerCase();
-              if (titleLower.includes('moonstone')) img = 'images/moonstone.jpg';
-              else if (titleLower.includes('thanh tẩy') || titleLower.includes('nạp năng lượng')) img = 'images/thanh_tay.png';
-              else if (titleLower.includes('phối') || titleLower.includes('phong cách')) img = 'images/phoi.jpg';
+              if (titleLower.includes('moonstone')) img = 'https://i.pinimg.com/736x/8c/01/6d/8c016d17da264368845d7d7ae0ad195a.jpg';
+              else if (titleLower.includes('thanh tẩy') || titleLower.includes('nạp năng lượng')) img = 'https://i.pinimg.com/736x/65/12/56/6512568af032cfb982e96c42c6218599.jpg';
+              else if (titleLower.includes('phối') || titleLower.includes('phong cách')) img = 'https://i.pinimg.com/736x/b5/03/40/b50340697147b14ca4fd8f6b815bf8aa.jpg';
               else img = fallbackImgs[idx % fallbackImgs.length];
             }
             return {
@@ -148,9 +148,9 @@ export class HomeComponent implements OnInit, OnDestroy {
     const target = event.target as HTMLImageElement;
     if (target) {
       const titleLower = (post?.title || '').toLowerCase();
-      if (titleLower.includes('moonstone')) target.src = 'images/moonstone.jpg';
-      else if (titleLower.includes('thanh tẩy') || titleLower.includes('nạp năng lượng')) target.src = 'images/thanh_tay.png';
-      else target.src = 'images/phoi.jpg';
+      if (titleLower.includes('moonstone')) target.src = 'https://i.pinimg.com/736x/8c/01/6d/8c016d17da264368845d7d7ae0ad195a.jpg';
+      else if (titleLower.includes('thanh tẩy') || titleLower.includes('nạp năng lượng')) target.src = 'https://i.pinimg.com/736x/65/12/56/6512568af032cfb982e96c42c6218599.jpg';
+      else target.src = 'https://i.pinimg.com/736x/b5/03/40/b50340697147b14ca4fd8f6b815bf8aa.jpg';
     }
   }
 

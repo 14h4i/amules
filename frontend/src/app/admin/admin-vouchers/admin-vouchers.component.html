@@ -428,7 +428,7 @@
               <!-- 1. Bài viết & Hình ảnh -->
               <td>
                 <div class="article-cell">
-                  <img [src]="art.image || 'images/nhan_tinh_tu.png'" alt="thumb" class="article-thumb" (error)="art.image = 'images/dch_mix_da.png'">
+                  <img [src]="art.image || 'https://i.pinimg.com/736x/47/9c/df/479cdf269b5b50948b8aef6103b475ed.jpg'" alt="thumb" class="article-thumb" (error)="art.image = 'https://i.pinimg.com/1200x/5e/19/ca/5e19cae249717d1321564c81f14a1732.jpg'">
                   <div class="article-meta">
                     <div class="eyebrow-row">
                       <span class="art-eyebrow">{{ art.eyebrow || 'THẠCH HỌC TÂM LINH' }}</span>
@@ -697,10 +697,10 @@
             </div>
             <div class="side-card-body">
               <div class="featured-image-box">
-                <img [src]="currentEditingArticle.image || 'images/nhan_tinh_tu.png'" alt="hero" class="featured-preview" (error)="currentEditingArticle.image = 'images/dch_mix_da.png'">
+                <img [src]="currentEditingArticle.image || 'https://i.pinimg.com/736x/47/9c/df/479cdf269b5b50948b8aef6103b475ed.jpg'" alt="hero" class="featured-preview" (error)="currentEditingArticle.image = 'https://i.pinimg.com/1200x/5e/19/ca/5e19cae249717d1321564c81f14a1732.jpg'">
               </div>
               <div class="featured-actions">
-                <button type="button" class="btn-side-action" (click)="currentEditingArticle.image = 'images/dch_mix_da.png'">
+                <button type="button" class="btn-side-action" (click)="currentEditingArticle.image = 'https://i.pinimg.com/1200x/5e/19/ca/5e19cae249717d1321564c81f14a1732.jpg'">
                   <app-icon name="image" [size]="12"></app-icon> Đổi ảnh đại diện
                 </button>
               </div>

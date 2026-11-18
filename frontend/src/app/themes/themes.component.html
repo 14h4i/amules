@@ -18,7 +18,7 @@
         (click)="selectTheme(t)"
       >
         <div class="theme-card__media">
-          <img [src]="t.image || 'images/banner_mys.jpg'" [alt]="t.name">
+          <img [src]="t.image || 'https://i.pinimg.com/736x/8b/56/4e/8b564e66f5a26e5a7761873879e15a44.jpg'" [alt]="t.name">
           @if (selectedTheme?.slug === t.slug || selectedTheme?.name === t.name) {
             <span class="theme-card__active-badge">
               <app-icon name="sparkle" [size]="12"></app-icon> Đang chọn
@@ -55,7 +55,7 @@
         @for (p of products; track p.slug || p.id || p.name) {
           <article class="p-card" [routerLink]="['/products', p.slug || p.id]">
             <div class="p-media">
-              <img [src]="p.image || 'images/lac_tay_bien.png'" [alt]="p.name">
+              <img [src]="p.image || 'https://i.pinimg.com/736x/d4/3c/3d/d43c3d69296b0badad1636033dd34e9c.jpg'" [alt]="p.name">
               @if (p.badge) {
                 <span class="p-badge">{{ p.badge }}</span>
               }

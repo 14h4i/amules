@@ -82,29 +82,29 @@ export class MysticMatchToolComponent implements OnInit {
   }
 
   normalizeProductImage(p: IProduct): string {
-    if (p.image && p.image !== 'images/lac_tay_bien.png' && !p.image.includes('lac_tay_bien')) {
+    if (p.image && p.image !== 'https://i.pinimg.com/736x/d4/3c/3d/d43c3d69296b0badad1636033dd34e9c.jpg' && !p.image.includes('lac_tay_bien')) {
       return p.image;
     }
     const name = `${p.name || ''} ${p.slug || ''}`.toLowerCase();
     if (name.includes('hơi thở biển') || (name.includes('lắc tay') && !name.includes('dây chuyền'))) {
-      return 'images/lac_tay_bien.png';
+      return 'https://i.pinimg.com/736x/d4/3c/3d/d43c3d69296b0badad1636033dd34e9c.jpg';
     }
     if (name.includes('dây chuyền') || name.includes('day-chuyen') || name.includes('merlia') || name.includes('mặt trăng khuyết') || name.includes('giọt lệ') || name.includes('aventurine') || name.includes('amethyst tím')) {
-      return (name.includes('merlia') || name.includes('giọt lệ')) ? 'images/dch_mix_da.png' : 'images/bst_dch.png';
+      return (name.includes('merlia') || name.includes('giọt lệ')) ? 'https://i.pinimg.com/1200x/5e/19/ca/5e19cae249717d1321564c81f14a1732.jpg' : 'https://i.pinimg.com/1200x/5e/19/ca/5e19cae249717d1321564c81f14a1732.jpg';
     }
     if (name.includes('nhẫn') || name.includes('nhan') || name.includes('venus') || name.includes('citrine') || name.includes('khói lam tuyết')) {
-      return name.includes('venus') ? 'images/nhan_tinh_tu.png' : 'images/bst_nhan_lg.png';
+      return name.includes('venus') ? 'https://i.pinimg.com/736x/47/9c/df/479cdf269b5b50948b8aef6103b475ed.jpg' : 'https://i.pinimg.com/736x/47/9c/df/479cdf269b5b50948b8aef6103b475ed.jpg';
     }
     if (name.includes('bông tai') || name.includes('bong-tai') || name.includes('baroque') || name.includes('sao bạc')) {
-      return 'images/bong_tai.png';
+      return 'https://i.pinimg.com/736x/82/af/ce/82afce704fa0702179286be2a3d293d7.jpg';
     }
     if (name.includes('quà') || name.includes('hộp nhung') || name.includes('set')) {
-      return 'images/bst_set_qua.webp';
+      return 'https://i.pinimg.com/736x/9b/9f/9f/9b9f9f152363271f0c154f437b34def0.jpg';
     }
     if (name.includes('vòng tay') || name.includes('vong-tay') || name.includes('fluorite') || name.includes('ngọc bích') || name.includes('hải lam')) {
-      return 'images/bst_vong_tay.png';
+      return 'https://i.pinimg.com/736x/b3/cf/e0/b3cfe07a389a61eaa7b0f186da90da4f.jpg';
     }
-    return p.image || 'images/lac_tay_bien.png';
+    return p.image || 'https://i.pinimg.com/736x/d4/3c/3d/d43c3d69296b0badad1636033dd34e9c.jpg';
   }
 
   getFallbackRecommended(): IProduct[] {
@@ -116,7 +116,7 @@ export class MysticMatchToolComponent implements OnInit {
         stone: 'Aquamarine Thiên Nhiên',
         price: 590000,
         element: this.calculatedElement?.name,
-        image: 'images/lac_tay_bien.png'
+        image: 'https://i.pinimg.com/736x/d4/3c/3d/d43c3d69296b0badad1636033dd34e9c.jpg'
       },
       {
         id: '2',
@@ -125,7 +125,7 @@ export class MysticMatchToolComponent implements OnInit {
         stone: 'Moonstone Nữ Thần',
         price: 650000,
         element: this.calculatedElement?.name,
-        image: 'images/dch_mix_da.png'
+        image: 'https://i.pinimg.com/1200x/5e/19/ca/5e19cae249717d1321564c81f14a1732.jpg'
       },
       {
         id: '3',
@@ -134,7 +134,7 @@ export class MysticMatchToolComponent implements OnInit {
         stone: 'Thạch Anh Tự Nhiên',
         price: 450000,
         element: this.calculatedElement?.name,
-        image: 'images/nhan_tinh_tu.png'
+        image: 'https://i.pinimg.com/736x/47/9c/df/479cdf269b5b50948b8aef6103b475ed.jpg'
       },
       {
         id: '4',
@@ -143,7 +143,7 @@ export class MysticMatchToolComponent implements OnInit {
         stone: 'Ngọc Trai & Bạc',
         price: 520000,
         element: this.calculatedElement?.name,
-        image: 'images/bong_tai.png'
+        image: 'https://i.pinimg.com/736x/82/af/ce/82afce704fa0702179286be2a3d293d7.jpg'
       }
     ];
   }
@@ -236,7 +236,7 @@ export class MysticMatchToolComponent implements OnInit {
       productId: product.id || product._id || product.slug || '',
       name: product.name,
       price: product.price,
-      image: product.image || 'images/lac_tay_bien.png',
+      image: product.image || 'https://i.pinimg.com/736x/d4/3c/3d/d43c3d69296b0badad1636033dd34e9c.jpg',
       quantity: 1,
       stone: product.stone || 'Đá tự nhiên',
       element: this.calculatedElement?.name

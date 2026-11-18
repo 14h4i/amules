@@ -5,7 +5,6 @@ import { MasterDataService } from '../../services/master-data.service';
 import { CartService } from '../../services/cart.service';
 import { AuthService } from '../../services/auth.service';
 import { WishlistService } from '../../services/wishlist.service';
-import { INITIAL_PRODUCTS } from '../../data/initial-products';
 
 export interface FilterState {
   onlyInStock: boolean;
@@ -26,7 +25,7 @@ export interface FilterState {
 })
 export class ProductListComponent implements OnInit {
   products: IProduct[] = [];
-  allProducts: IProduct[] = INITIAL_PRODUCTS;
+  allProducts: IProduct[] = [];
 
   categories = [
     { id: 'nhan', name: 'Nhẫn phong thủy', raw: 'Nhẫn' },
@@ -297,29 +296,22 @@ export class ProductListComponent implements OnInit {
   }
 
   normalizeProductImage(p: IProduct): string {
-    if (p.image && p.image !== 'images/lac_tay_bien.png' && !p.image.includes('lac_tay_bien')) {
+    if (p.image && p.image.startsWith('http') && p.image !== 'https://i.pinimg.com/736x/d4/3c/3d/d43c3d69296b0badad1636033dd34e9c.jpg') {
       return p.image;
     }
     const name = `${p.name || ''} ${p.slug || ''}`.toLowerCase();
-    if (name.includes('hơi thở biển') || (name.includes('lắc tay') && !name.includes('dây chuyền'))) {
-      return 'images/lac_tay_bien.png';
+    if (name.includes('nhẫn') || name.includes('nhan') || name.includes('venus') || name.includes('ring')) {
+      return 'https://i.pinimg.com/736x/47/9c/df/479cdf269b5b50948b8aef6103b475ed.jpg';
     }
-    if (name.includes('dây chuyền') || name.includes('day-chuyen') || name.includes('merlia') || name.includes('mặt trăng khuyết') || name.includes('giọt lệ') || name.includes('aventurine') || name.includes('amethyst tím')) {
-      return name.includes('merlia') || name.includes('giọt lệ') ? 'images/dch_mix_da.png' : 'images/bst_dch.png';
+    if (name.includes('dây chuyền') || name.includes('day-chuyen') || name.includes('merlia')) {
+      return 'https://i.pinimg.com/1200x/5e/19/ca/5e19cae249717d1321564c81f14a1732.jpg';
     }
-    if (name.includes('nhẫn') || name.includes('nhan') || name.includes('venus') || name.includes('citrine') || name.includes('khói lam tuyết')) {
-      return name.includes('venus') ? 'images/nhan_tinh_tu.png' : 'images/bst_nhan_lg.png';
+    if (name.includes('bông tai') || name.includes('bong-tai') || name.includes('baroque')) {
+      return 'https://i.pinimg.com/736x/82/af/ce/82afce704fa0702179286be2a3d293d7.jpg';
     }
-    if (name.includes('bông tai') || name.includes('bong-tai') || name.includes('baroque') || name.includes('sao bạc')) {
-      return 'images/bong_tai.png';
-    }
-    if (name.includes('quà') || name.includes('hộp nhung') || name.includes('set')) {
-      return 'images/bst_set_qua.webp';
-    }
-    if (name.includes('vòng tay') || name.includes('vong-tay') || name.includes('fluorite') || name.includes('ngọc bích') || name.includes('hải lam')) {
-      return 'images/bst_vong_tay.png';
-    }
-    return p.image || 'images/lac_tay_bien.png';
+    if (p.image && p.image.startsWith('http')) return p.image;
+    if (p.images && p.images.length > 0 && p.images[0].startsWith('http')) return p.images[0];
+    return 'https://i.pinimg.com/736x/d4/3c/3d/d43c3d69296b0badad1636033dd34e9c.jpg';
   }
 
   // Bộ lọc tức thời (0ms latency) - Áp dụng chính xác quy luật lọc và sắp xếp
@@ -459,10 +451,10 @@ export class ProductListComponent implements OnInit {
       if (pr.max !== undefined) query.maxPrice = pr.max;
     }
 
-    // Bước 1: Lọc tức thời 0ms trên allProducts
+    // Bước 1: Lọc trên allProducts hoặc cache của ProductService
     const pool = (this.allProducts && this.allProducts.length > 0)
       ? this.allProducts
-      : (this._productService.products().length > 0 ? this._productService.products() : INITIAL_PRODUCTS);
+      : this._productService.products();
 
     if (this.allProducts.length === 0 && pool.length > 0) {
       this.allProducts = pool;
@@ -497,7 +489,7 @@ export class ProductListComponent implements OnInit {
       name: product.name,
       price: product.price,
       originalPrice: product.compareAtPrice || product.price,
-      image: product.image || 'images/lac_tay_bien.png',
+      image: product.image || 'https://i.pinimg.com/736x/d4/3c/3d/d43c3d69296b0badad1636033dd34e9c.jpg',
       quantity: 1,
       stone: product.stone || 'Đá tự nhiên',
       size: (product.sizes && product.sizes[0]) || '15 cm'

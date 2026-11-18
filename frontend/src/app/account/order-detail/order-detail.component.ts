@@ -51,7 +51,7 @@ export class OrderDetailComponent implements OnInit {
       spec: 'Size 15cm',
       qty: '01',
       price: 680000,
-      image: 'images/lac_tay_bien.png'
+      image: 'https://i.pinimg.com/736x/d4/3c/3d/d43c3d69296b0badad1636033dd34e9c.jpg'
     },
     {
       name: 'Dây Chuyền Trầm Thủy Aquamarine Biển Sâu',
@@ -59,7 +59,7 @@ export class OrderDetailComponent implements OnInit {
       spec: '45cm Bạc Ý mạ vàng 18K',
       qty: '01',
       price: 620000,
-      image: 'images/dch_mix_da.png'
+      image: 'https://i.pinimg.com/1200x/5e/19/ca/5e19cae249717d1321564c81f14a1732.jpg'
     }
   ];
 
@@ -102,7 +102,7 @@ export class OrderDetailComponent implements OnInit {
                 spec: `Kích thước: ${i.size || '15 cm'}`,
                 qty: (i.quantity || 1).toString().padStart(2, '0'),
                 price: i.price,
-                image: i.image || 'images/lac_tay_bien.png'
+                image: i.image || 'https://i.pinimg.com/736x/d4/3c/3d/d43c3d69296b0badad1636033dd34e9c.jpg'
               }));
             }
             if (order.customer || order.shippingAddress) {

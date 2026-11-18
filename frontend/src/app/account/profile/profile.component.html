@@ -35,15 +35,21 @@
     <div class="avatar-row__info">
       <strong>Ảnh đại diện thẻ thành viên</strong>
       <p>Hình ảnh này sẽ hiển thị tại hồ sơ cá nhân, các đánh giá sản phẩm và thẻ thành viên AMULES Boutique.</p>
+      
+      <!-- Hidden file input để chọn ảnh từ máy -->
+      <input type="file" #avatarInput accept="image/png, image/jpeg, image/webp" (change)="onAvatarSelected($event)" style="display: none">
+      
       <div class="avatar-row__actions">
-        <button type="button" class="btn btn--soft btn--xs">
+        <button type="button" class="btn btn--soft btn--xs" (click)="avatarInput.click()">
           <app-icon name="camera" [size]="13"></app-icon> Thay đổi ảnh
         </button>
-        <button type="button" class="btn btn--outline btn--xs">
-          <app-icon name="trash" [size]="13"></app-icon> Gỡ bỏ
-        </button>
+        @if (profile.avatar) {
+          <button type="button" class="btn btn--outline btn--xs" (click)="removeAvatar()">
+            <app-icon name="trash" [size]="13"></app-icon> Gỡ bỏ
+          </button>
+        }
       </div>
-      <small>ĐỊNH DẠNG JPG, PNG TỐI ĐA 5MB • KÍCH THƯỚC KHUYẾN NGHỊ 400×400PX</small>
+      <small>ĐỊNH DẠNG JPG, PNG, WEBP TỐI ĐA 5MB • KÍCH THƯỚC KHUYẾN NGHỊ 400×400PX</small>
     </div>
   </div>
 </section>
@@ -104,10 +110,10 @@
     <div class="field">
       <label>Ngày sinh</label>
       <div class="input-wrap no-left-icon">
-        <input type="text" [(ngModel)]="profile.dob" (input)="onDobChange()" placeholder="dd / mm / yyyy (Chưa cập nhật)">
+        <input type="text" [(ngModel)]="profile.dob" (input)="onDobChange()" (change)="onDobChange()" placeholder="DD/MM/YYYY (Ví dụ: 15/08/1998)">
         <span class="suffix"><app-icon name="calendar" [size]="15"></app-icon></span>
       </div>
-      <small class="field-hint">Dùng để gợi ý cung hoàng đạo &amp; nhận quà tặng sinh nhật bí mật.</small>
+      <small class="field-hint">Dùng để gợi ý cung hoàng đạo &amp; nhận quà tặng sinh nhật.</small>
     </div>
 
     <div class="field">
@@ -145,28 +151,20 @@
     <div class="field">
       <label><app-icon name="drop" [size]="13"></app-icon> Mệnh Ngũ Hành</label>
       <div class="input-wrap no-left-icon">
-        <input type="text" [value]="profile.element || 'Chưa thiết lập (Cập nhật ngày sinh để tự tính)'" readonly [style.color]="profile.element ? 'inherit' : '#888'">
+        <input type="text" [value]="profile.element || 'Chưa thiết lập'" readonly [style.color]="profile.element ? 'var(--plum)' : '#888'" class="readonly-calc">
       </div>
       <small class="field-hint">
-        @if (profile.element) {
-          <i>●</i> Đá gợi ý: Aquamarine, Thạch anh đen, Topaz
-        } @else {
-          <i>●</i> Cập nhật ngày sinh phía trên để tự động kích hoạt năng lượng bản mệnh
-        }
+        <i>●</i> {{ elementHint }}
       </small>
     </div>
 
     <div class="field">
       <label><app-icon name="sparkle" [size]="13"></app-icon> Cung Hoàng Đạo</label>
       <div class="input-wrap no-left-icon">
-        <input type="text" [value]="profile.zodiac || 'Chưa thiết lập (Cập nhật ngày sinh để tự tính)'" readonly [style.color]="profile.zodiac ? 'inherit' : '#888'">
+        <input type="text" [value]="profile.zodiac || 'Chưa thiết lập'" readonly [style.color]="profile.zodiac ? 'var(--plum)' : '#888'" class="readonly-calc">
       </div>
       <small class="field-hint">
-        @if (profile.zodiac) {
-          <i>●</i> Hành tinh bảo trợ: Sao Hải Vương (Neptune)
-        } @else {
-          <i>●</i> Cập nhật ngày sinh phía trên để giải mã chòm sao hoàng đạo
-        }
+        <i>●</i> {{ zodiacHint }}
       </small>
     </div>
 
@@ -194,13 +192,17 @@
 <!-- Thanh lưu thay đổi -->
 <div class="profile-actions">
   <span class="last-update">
-    <app-icon name="clock" [size]="13"></app-icon> Cập nhật gần nhất: Hôm nay, 14:30 bởi bạn
-    @if (savedNotice) { <b style="color: var(--ok); margin-left: 8px;">✓ Đã lưu!</b> }
+    <app-icon name="clock" [size]="13"></app-icon> Cập nhật gần nhất: {{ lastUpdateText }}
+    @if (savedNotice) { <b class="save-toast-text">✓ Cập nhật hồ sơ thành công!</b> }
   </span>
   <div class="profile-actions__btns">
-    <button type="button" class="btn btn--outline">Hủy bỏ</button>
-    <button type="button" class="btn btn--primary" (click)="saveProfile()">
-      <app-icon name="check" [size]="15"></app-icon> Lưu Thay Đổi
+    <button type="button" class="btn btn--outline" (click)="cancelChanges()" [disabled]="saving">Hủy bỏ</button>
+    <button type="button" class="btn btn--primary" (click)="saveProfile()" [disabled]="saving">
+      @if (saving) {
+        <span>Đang lưu...</span>
+      } @else {
+        <app-icon name="check" [size]="15"></app-icon> Lưu Thay Đổi
+      }
     </button>
   </div>
 </div>

@@ -28,7 +28,7 @@ export class HeroBannerComponent implements OnInit, OnDestroy {
       desc: 'Khám phá trang sức đá tinh tế, mang dấu ấn cá nhân và nguồn cảm hứng dịu dàng cho tâm hồn bạn. Mỗi thiết kế là một lá bùa nâng niu vẻ đẹp nội tại thuần khiết.',
       cta1: 'Khám phá bộ sưu tập', cta1Link: '/collections',
       cta2: 'Tìm viên đá dành cho bạn', cta2Link: '/mystic-match',
-      image: 'images/dch_mix_da.png',
+      image: 'https://i.pinimg.com/1200x/5e/19/ca/5e19cae249717d1321564c81f14a1732.jpg',
       featured: {
         label: 'Tác phẩm biểu tượng',
         name: 'Dây chuyền Bạc Nữ Mix Đá Merlia',
@@ -43,7 +43,7 @@ export class HeroBannerComponent implements OnInit, OnDestroy {
       desc: 'Làm bài trắc nghiệm 60 giây để tìm viên đá đồng điệu với ngũ hành, cung hoàng đạo và điều bạn đang mong cầu trong cuộc sống.',
       cta1: 'Làm bài trắc nghiệm', cta1Link: '/mystic-match',
       cta2: 'Xem đá theo mệnh', cta2Link: '/themes',
-      image: 'images/nhan_tinh_tu.png',
+      image: 'https://i.pinimg.com/736x/47/9c/df/479cdf269b5b50948b8aef6103b475ed.jpg',
       featured: {
         label: 'Được yêu thích nhất',
         name: 'Nhẫn Tinh Tú Venus Thạch Anh Hồng',
@@ -58,7 +58,7 @@ export class HeroBannerComponent implements OnInit, OnDestroy {
       desc: 'Cảm hứng từ chu kỳ trăng tròn và 12 chòm sao, bộ sưu tập giới hạn dành cho những tâm hồn mơ mộng và trực giác nhạy bén.',
       cta1: 'Khám phá Moon & Stars', cta1Link: '/collections',
       cta2: 'Xem tất cả bộ sưu tập', cta2Link: '/collections',
-      image: 'images/lac_tay_bien.png',
+      image: 'https://i.pinimg.com/736x/d4/3c/3d/d43c3d69296b0badad1636033dd34e9c.jpg',
       featured: {
         label: 'Bộ sưu tập mới',
         name: 'Lắc tay Hơi Thở Biển Xanh',

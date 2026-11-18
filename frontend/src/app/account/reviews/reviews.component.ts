@@ -27,7 +27,7 @@ export class ReviewsComponent implements OnInit {
   submittedReviews = [
     {
       productName: 'Vòng Tay Nguyệt Quang Moonstone Ánh Lam S925',
-      image: 'images/lac_tay_bien.png',
+      image: 'https://i.pinimg.com/736x/d4/3c/3d/d43c3d69296b0badad1636033dd34e9c.jpg',
       date: '29/10/2025',
       stars: 5,
       quote:
@@ -36,7 +36,7 @@ export class ReviewsComponent implements OnInit {
     },
     {
       productName: 'Dây Chuyền Trầm Thủy Aquamarine Biển Sâu',
-      image: 'images/dch_mix_da.png',
+      image: 'https://i.pinimg.com/1200x/5e/19/ca/5e19cae249717d1321564c81f14a1732.jpg',
       date: '18/09/2025',
       stars: 5,
       quote: '“Mặt đá cắt facet giọt lệ tinh xảo, xích bạc Ý sáng bóng không gây ngứa cổ.”',
@@ -52,7 +52,7 @@ export class ReviewsComponent implements OnInit {
         if (list && list.length > 0) {
           const mapped = list.map(r => ({
             productName: r.productName || 'Bảo vật phong thủy AMULES',
-            image: r.image || 'images/lac_tay_bien.png',
+            image: r.image || 'https://i.pinimg.com/736x/d4/3c/3d/d43c3d69296b0badad1636033dd34e9c.jpg',
             date: r.createdAt ? new Date(r.createdAt).toLocaleDateString('vi-VN') : '29/10/2025',
             stars: r.stars || r.rating || 5,
             quote: `“${r.content || r.quote || r.title || 'Sản phẩm tuyệt vời!'}”`,
@@ -78,7 +78,7 @@ export class ReviewsComponent implements OnInit {
       rating: this.rating,
       title: this.reviewTitle,
       content: this.reviewContent,
-      image: 'images/bong_tai.png'
+      image: 'https://i.pinimg.com/736x/82/af/ce/82afce704fa0702179286be2a3d293d7.jpg'
     };
 
     this._http.post<any>('/api/reviews', payload, { withCredentials: true }).subscribe({

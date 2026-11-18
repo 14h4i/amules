@@ -46,7 +46,7 @@ export class CollectionsComponent implements OnInit {
             name: c.name,
             tag: c.tag || ((c.slug || '').includes('moon') ? 'Thiên thể & Chiêm tinh' : (c.slug || '').includes('mystic') ? 'Cổ điển & Huyền bí' : 'Dịu dàng & Lãng mạn'),
             desc: c.desc || (c as any).description || 'Bộ sưu tập trang sức phong thủy độc bản chế tác thủ công từ đá quý thiên nhiên.',
-            image: c.image || (c as any).coverImage || 'images/banner_mys.jpg',
+            image: c.image || (c as any).coverImage || 'https://i.pinimg.com/736x/8b/56/4e/8b564e66f5a26e5a7761873879e15a44.jpg',
             slug: c.slug || c.name.toLowerCase().replace(/[^a-z0-9]+/g, '-')
           }));
 
@@ -114,19 +114,19 @@ export class CollectionsComponent implements OnInit {
         name: 'Mystical Vintage',
         tag: 'Cổ điển & Huyền bí',
         desc: 'Dấu ấn hoàng gia phương Tây kết hợp chiều sâu chiêm nghiệm phương Đông, dành cho người yêu nét đẹp hoài niệm vĩnh cửu.',
-        image: 'images/banner_mys.jpg'
+        image: 'https://i.pinimg.com/736x/8b/56/4e/8b564e66f5a26e5a7761873879e15a44.jpg'
       },
       {
         name: 'Moon & Stars',
         tag: 'Thiên thể & Chiêm tinh',
         desc: 'Cảm hứng chu kỳ trăng tròn và 12 chòm sao dẫn lối, tượng trưng cho trực giác nhạy bén và nguồn ánh sáng soi rọi bóng đêm.',
-        image: 'images/banner_mrs.jpg'
+        image: 'https://i.pinimg.com/736x/8b/56/4e/8b564e66f5a26e5a7761873879e15a44.jpg'
       },
       {
         name: 'Nàng Thơ (The Muse)',
         tag: 'Dịu dàng & Lãng mạn',
         desc: 'Vẻ đẹp tinh tế của ngọc trai tự nhiên và đá Moonstone, đánh thức trọn vẹn sự dịu dàng và lòng trắc ẩn của tâm hồn.',
-        image: 'images/banner_muse.jpg'
+        image: 'https://i.pinimg.com/736x/8b/56/4e/8b564e66f5a26e5a7761873879e15a44.jpg'
       }
     ];
   }

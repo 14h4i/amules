@@ -4,14 +4,14 @@
     "name": "Tình yêu & Kết nối",
     "slug": "tinh-yeu-ket-noi",
     "description": "Thạch anh hồng dịu dàng, khơi mở luồng yêu thương thuần khiết và gắn kết tâm hồn tri kỷ.",
-    "bannerImage": "images/nhan_venus.png",
+    "bannerImage": "https://i.pinimg.com/736x/47/9c/df/479cdf269b5b50948b8aef6103b475ed.jpg",
     "productIds": [
       "397cc13e3a983bc4060cc878",
       "7caa02962f99fe72f8cfb0e1"
     ],
     "status": "active",
-    "coverImage": "images/nhan_venus.png",
-    "image": "images/nhan_venus.png",
+    "coverImage": "https://i.pinimg.com/736x/47/9c/df/479cdf269b5b50948b8aef6103b475ed.jpg",
+    "image": "https://i.pinimg.com/736x/47/9c/df/479cdf269b5b50948b8aef6103b475ed.jpg",
     "productCodes": [
       "AM-RQ020",
       "AM-CH002"
@@ -23,7 +23,7 @@
     "name": "Bình an & Cân bằng",
     "slug": "binh-an-can-bang",
     "description": "Aquamarine và Moonstone làm dịu tâm trí, giữ sự tĩnh tại, thông suốt trước mọi thử thách.",
-    "bannerImage": "images/lac_tay_bien.png",
+    "bannerImage": "https://i.pinimg.com/736x/d4/3c/3d/d43c3d69296b0badad1636033dd34e9c.jpg",
     "productIds": [
       "7caa02962f99fe72f8cfb0d6",
       "dabcd7e6ca8fe24e72e46af2",
@@ -31,8 +31,8 @@
       "07701fa38b41160cee3f0d29"
     ],
     "status": "active",
-    "coverImage": "images/lac_tay_bien.png",
-    "image": "images/lac_tay_bien.png",
+    "coverImage": "https://i.pinimg.com/736x/d4/3c/3d/d43c3d69296b0badad1636033dd34e9c.jpg",
+    "image": "https://i.pinimg.com/736x/d4/3c/3d/d43c3d69296b0badad1636033dd34e9c.jpg",
     "productCodes": [
       "AM-AQ001",
       "AM-MS042",
@@ -46,14 +46,14 @@
     "name": "Tự tin & Tỏa sáng",
     "slug": "tu-tin-toa-sang",
     "description": "Citrine thắp sáng nguồn năng lượng thái dương, tiếp thêm dũng khí và sức hút rực rỡ.",
-    "bannerImage": "images/banner_mrs.jpg",
+    "bannerImage": "https://i.pinimg.com/736x/8b/56/4e/8b564e66f5a26e5a7761873879e15a44.jpg",
     "productIds": [
       "a7b1c298566e03c8c1f82b3d",
       "028049c2c1d73579085756f5"
     ],
     "status": "active",
-    "coverImage": "images/banner_mrs.jpg",
-    "image": "images/banner_mrs.jpg",
+    "coverImage": "https://i.pinimg.com/736x/8b/56/4e/8b564e66f5a26e5a7761873879e15a44.jpg",
+    "image": "https://i.pinimg.com/736x/8b/56/4e/8b564e66f5a26e5a7761873879e15a44.jpg",
     "productCodes": [
       "AM-CT060",
       "AM-MS044"
@@ -65,14 +65,14 @@
     "name": "May mắn & Cơ hội",
     "slug": "may-man-co-hoi",
     "description": "Aventurine xanh ngọc thu hút vượng khí hưng thịnh, mở khóa nhân duyên và cơ hội hanh thông.",
-    "bannerImage": "images/bst_da.webp",
+    "bannerImage": "https://i.pinimg.com/1200x/d9/7e/2f/d97e2f5138a3f151bb55613e38f15350.jpg",
     "productIds": [
       "b5331d2cc61bf3451fa01cd9",
       "7caa02962f99fe72f8cfb0e2"
     ],
     "status": "active",
-    "coverImage": "images/bst_da.webp",
-    "image": "images/bst_da.webp",
+    "coverImage": "https://i.pinimg.com/1200x/d9/7e/2f/d97e2f5138a3f151bb55613e38f15350.jpg",
+    "image": "https://i.pinimg.com/1200x/d9/7e/2f/d97e2f5138a3f151bb55613e38f15350.jpg",
     "productCodes": [
       "AM-AV061",
       "AM-CH003"
@@ -84,14 +84,14 @@
     "name": "Chữa lành & Thư giãn",
     "slug": "chua-lanh-thu-gian",
     "description": "Amethyst tím khói giải tỏa áp lực tâm thức, xoa dịu cảm xúc và mang lại giấc ngủ an lành.",
-    "bannerImage": "images/thanh_tay.png",
+    "bannerImage": "https://i.pinimg.com/1200x/19/ae/48/19ae4807b1c9b47d2cf7ad70fef19fbb.jpg",
     "productIds": [
       "a5afdce6f13421985c88f0ac",
       "5ca64aea1b1133e6088c848e"
     ],
     "status": "active",
-    "coverImage": "images/thanh_tay.png",
-    "image": "images/thanh_tay.png",
+    "coverImage": "https://i.pinimg.com/1200x/19/ae/48/19ae4807b1c9b47d2cf7ad70fef19fbb.jpg",
+    "image": "https://i.pinimg.com/1200x/19/ae/48/19ae4807b1c9b47d2cf7ad70fef19fbb.jpg",
     "productCodes": [
       "AM-AM062",
       "AM-SQ050"
@@ -103,14 +103,14 @@
     "name": "Tình bạn & Gắn kết",
     "slug": "tinh-ban-gan-ket",
     "description": "Bạc Ý 925 và ngọc bích thiên nhiên, biểu tượng tình bạn son sắt, thắt chặt mối thâm giao.",
-    "bannerImage": "images/bst_vong_tay.png",
+    "bannerImage": "https://i.pinimg.com/736x/b3/cf/e0/b3cfe07a389a61eaa7b0f186da90da4f.jpg",
     "productIds": [
       "e15ebba46e88221c8c531868",
       "7caa02962f99fe72f8cfb0d6"
     ],
     "status": "active",
-    "coverImage": "images/bst_vong_tay.png",
-    "image": "images/bst_vong_tay.png",
+    "coverImage": "https://i.pinimg.com/736x/b3/cf/e0/b3cfe07a389a61eaa7b0f186da90da4f.jpg",
+    "image": "https://i.pinimg.com/736x/b3/cf/e0/b3cfe07a389a61eaa7b0f186da90da4f.jpg",
     "productCodes": [
       "AM-JD063",
       "AM-AQ001"
@@ -122,14 +122,14 @@
     "name": "Năng lượng sáng tạo",
     "slug": "nang-luong-sang-tao",
     "description": "Fluorite khai thông dòng chảy trực giác, giải phóng cảm hứng nghệ thuật và tư duy sáng tạo.",
-    "bannerImage": "images/dch_mix_da.png",
+    "bannerImage": "https://i.pinimg.com/736x/f8/c8/db/f8c8dbe300b276861a7e7feb87c9e4fe.jpg",
     "productIds": [
       "52664aa06af1d45a0ebdd298",
       "420903a9c3bacabc1ea790a7"
     ],
     "status": "active",
-    "coverImage": "images/dch_mix_da.png",
-    "image": "images/dch_mix_da.png",
+    "coverImage": "https://i.pinimg.com/736x/f8/c8/db/f8c8dbe300b276861a7e7feb87c9e4fe.jpg",
+    "image": "https://i.pinimg.com/736x/f8/c8/db/f8c8dbe300b276861a7e7feb87c9e4fe.jpg",
     "productCodes": [
       "AM-FL064",
       "AM-MS010"
@@ -141,14 +141,14 @@
     "name": "Quà tặng ý nghĩa",
     "slug": "qua-tang-y-nghia",
     "description": "Hộp quà nhung tinh tế cùng trang sức thủ công mang thông điệp chúc phúc bình an gửi trao.",
-    "bannerImage": "images/bst_set_qua.webp",
+    "bannerImage": "https://i.pinimg.com/736x/9b/9f/9f/9b9f9f152363271f0c154f437b34def0.jpg",
     "productIds": [
       "19253ba3a00f40f0588eb5da",
       "b2a6e97daf8e589b35880cdc"
     ],
     "status": "active",
-    "coverImage": "images/bst_set_qua.webp",
-    "image": "images/bst_set_qua.webp",
+    "coverImage": "https://i.pinimg.com/736x/9b/9f/9f/9b9f9f152363271f0c154f437b34def0.jpg",
+    "image": "https://i.pinimg.com/736x/9b/9f/9f/9b9f9f152363271f0c154f437b34def0.jpg",
     "productCodes": [
       "AM-GS065",
       "AM-PR030"

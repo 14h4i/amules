@@ -61,7 +61,7 @@ export class WishlistComponent implements OnInit {
               desc: p.description || 'Bạc S925 • Đá tự nhiên cao cấp',
               price: p.price,
               inStock: p.inStock !== false,
-              image: p.image || 'images/lac_tay_bien.png'
+              image: p.image || 'https://i.pinimg.com/736x/d4/3c/3d/d43c3d69296b0badad1636033dd34e9c.jpg'
             };
           });
           this.items = mapped;

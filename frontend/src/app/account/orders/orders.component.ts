@@ -92,7 +92,7 @@ export class OrdersComponent implements OnInit {
                 variant: i.specs || `Kích thước: ${i.size || 'Tiêu chuẩn'}`,
                 qty: Number(i.quantity || 1),
                 price: Number(i.price || i.unitPrice || 650000),
-                image: i.image || 'images/lac_tay_bien.png'
+                image: i.image || 'https://i.pinimg.com/736x/d4/3c/3d/d43c3d69296b0badad1636033dd34e9c.jpg'
               })),
               total: Number(o.totalAmount || 0),
               paymentMethod: o.paymentMethod === 'COD' ? 'Thanh toán khi nhận hàng (COD)' : `Đã thanh toán qua ${o.paymentMethod || 'VNPay'}`,
@@ -144,7 +144,7 @@ export class OrdersComponent implements OnInit {
             qty: 1,
             price: 680000,
             oldPrice: 750000,
-            image: 'images/lac_tay_bien.png'
+            image: 'https://i.pinimg.com/736x/d4/3c/3d/d43c3d69296b0badad1636033dd34e9c.jpg'
           }
         ],
         total: 1200000,

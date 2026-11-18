@@ -2,7 +2,6 @@ import { Injectable, signal } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable, of, throwError } from 'rxjs';
 import { catchError, map, retry, tap, timeout } from 'rxjs/operators';
-import { INITIAL_PRODUCTS } from '../data/initial-products';
 
 export interface IProduct {
   _id?: any;
@@ -51,8 +50,8 @@ export class ProductService {
   private readonly API = '/api/products';
 
   // Signals for state management (Chapter III & IV)
-  products = signal<IProduct[]>(INITIAL_PRODUCTS);
-  featuredProducts = signal<IProduct[]>(INITIAL_PRODUCTS.slice(0, 4));
+  products = signal<IProduct[]>([]);
+  featuredProducts = signal<IProduct[]>([]);
   selectedProduct = signal<IProduct | null>(null);
   isLoading = signal<boolean>(false);
   errorMessage = signal<string>('');

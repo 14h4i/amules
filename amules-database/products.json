@@ -49,7 +49,8 @@
     "updatedAt": "2026-11-10T08:00:00.000Z",
     "category": "Vòng tay",
     "categoryName": "Vòng tay",
-    "stone": "Aquamarine (Ngọc Hải Lam)"
+    "stone": "Aquamarine (Ngọc Hải Lam)",
+    "image": "https://i.pinimg.com/736x/d4/3c/3d/d43c3d69296b0badad1636033dd34e9c.jpg"
   },
   {
     "_id": "420903a9c3bacabc1ea790a7",
@@ -97,7 +98,8 @@
     "updatedAt": "2026-11-10T08:00:00.000Z",
     "category": "Dây chuyền",
     "categoryName": "Dây chuyền",
-    "stone": "Moonstone (Đá Mặt Trăng)"
+    "stone": "Moonstone (Đá Mặt Trăng)",
+    "image": "https://i.pinimg.com/1200x/5e/19/ca/5e19cae249717d1321564c81f14a1732.jpg"
   },
   {
     "_id": "397cc13e3a983bc4060cc878",
@@ -147,7 +149,8 @@
     "updatedAt": "2026-11-10T08:00:00.000Z",
     "category": "Nhẫn",
     "categoryName": "Nhẫn",
-    "stone": "Thạch anh hồng Tự Nhiên"
+    "stone": "Thạch anh hồng Tự Nhiên",
+    "image": "https://i.pinimg.com/736x/47/9c/df/479cdf269b5b50948b8aef6103b475ed.jpg"
   },
   {
     "_id": "b2a6e97daf8e589b35880cdc",
@@ -193,7 +196,8 @@
     "updatedAt": "2026-11-10T08:00:00.000Z",
     "category": "Bông tai",
     "categoryName": "Bông tai",
-    "stone": "Ngọc trai Baroque & Bạc Ý"
+    "stone": "Ngọc trai Baroque & Bạc Ý",
+    "image": "https://i.pinimg.com/736x/82/af/ce/82afce704fa0702179286be2a3d293d7.jpg"
   },
   {
     "_id": "dabcd7e6ca8fe24e72e46af2",
@@ -249,7 +253,8 @@
     "updatedAt": "2026-11-10T08:00:00.000Z",
     "category": "Vòng tay",
     "categoryName": "Vòng tay",
-    "stone": "Moonstone & Bạc 925"
+    "stone": "Moonstone & Bạc 925",
+    "image": "https://i.pinimg.com/736x/3f/6f/e3/3f6fe370ce181e597790a3e14f44f6e2.jpg"
   },
   {
     "_id": "cef158eeb3534491b1bb60b8",
@@ -296,7 +301,8 @@
     "updatedAt": "2026-11-10T08:00:00.000Z",
     "category": "Dây chuyền",
     "categoryName": "Dây chuyền",
-    "stone": "Moonstone Ánh Trăng Khuyết"
+    "stone": "Moonstone Ánh Trăng Khuyết",
+    "image": "https://i.pinimg.com/1200x/92/5c/a8/925ca8c108a721944b101c9a2bd9a946.jpg"
   },
   {
     "_id": "028049c2c1d73579085756f5",
@@ -340,7 +346,8 @@
     "updatedAt": "2026-11-10T08:00:00.000Z",
     "category": "Nhẫn",
     "categoryName": "Nhẫn",
-    "stone": "Moonstone Tinh Tú Huyền Ảo"
+    "stone": "Moonstone Tinh Tú Huyền Ảo",
+    "image": "https://i.pinimg.com/1200x/75/86/a2/7586a2d4a6e845eb764e5f21cdd828f1.jpg"
   },
   {
     "_id": "0b960313cef9e50d9eed12c3",
@@ -386,7 +393,8 @@
     "updatedAt": "2026-11-10T08:00:00.000Z",
     "category": "Dây chuyền",
     "categoryName": "Dây chuyền",
-    "stone": "Aquamarine Biển Sâu"
+    "stone": "Aquamarine Biển Sâu",
+    "image": "https://i.pinimg.com/1200x/66/64/79/6664794cbd554bb709e2bb277d4506d5.jpg"
   },
   {
     "_id": "5ca64aea1b1133e6088c848e",
@@ -433,7 +441,8 @@
     "updatedAt": "2026-11-10T08:00:00.000Z",
     "category": "Nhẫn",
     "categoryName": "Nhẫn",
-    "stone": "Thạch anh khói Lam Tuyết"
+    "stone": "Thạch anh khói Lam Tuyết",
+    "image": "https://i.pinimg.com/1200x/c9/e6/ef/c9e6efdfd095edf6a5e2b9154f9a4c83.jpg"
   },
   {
     "_id": "07701fa38b41160cee3f0d29",
@@ -481,7 +490,8 @@
     "updatedAt": "2026-11-10T08:00:00.000Z",
     "category": "Vòng tay",
     "categoryName": "Vòng tay",
-    "stone": "Aquamarine Hải Lam Thủy Tiểu"
+    "stone": "Aquamarine Hải Lam Thủy Tiểu",
+    "image": "https://i.pinimg.com/1200x/57/00/40/5700401775e2a6e780220b3d6b8d90fb.jpg"
   },
   {
     "_id": "a7b1c298566e03c8c1f82b3d",
@@ -524,7 +534,8 @@
     "updatedAt": "2026-11-10T08:00:00.000Z",
     "category": "Nhẫn",
     "categoryName": "Nhẫn",
-    "stone": "Thạch anh vàng Citrine"
+    "stone": "Thạch anh vàng Citrine",
+    "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQQGvOi1vIIkv0AAbqEgG_iSdx-oHjh6oP9yFCqy0nC9Q&s=10"
   },
   {
     "_id": "b5331d2cc61bf3451fa01cd9",
@@ -565,7 +576,8 @@
     "updatedAt": "2026-11-10T08:00:00.000Z",
     "category": "Dây chuyền",
     "categoryName": "Dây chuyền",
-    "stone": "Aventurine Xanh Ngọc"
+    "stone": "Aventurine Xanh Ngọc",
+    "image": "https://i.pinimg.com/1200x/d9/7e/2f/d97e2f5138a3f151bb55613e38f15350.jpg"
   },
   {
     "_id": "a5afdce6f13421985c88f0ac",
@@ -607,7 +619,8 @@
     "updatedAt": "2026-11-10T08:00:00.000Z",
     "category": "Dây chuyền",
     "categoryName": "Dây chuyền",
-    "stone": "Thạch anh tím Amethyst"
+    "stone": "Thạch anh tím Amethyst",
+    "image": "https://i.pinimg.com/1200x/19/ae/48/19ae4807b1c9b47d2cf7ad70fef19fbb.jpg"
   },
   {
     "_id": "e15ebba46e88221c8c531868",
@@ -648,7 +661,8 @@
     "updatedAt": "2026-11-10T08:00:00.000Z",
     "category": "Vòng tay",
     "categoryName": "Vòng tay",
-    "stone": "Ngọc Bích Cẩm Thạch"
+    "stone": "Ngọc Bích Cẩm Thạch",
+    "image": "https://i.pinimg.com/736x/b3/cf/e0/b3cfe07a389a61eaa7b0f186da90da4f.jpg"
   },
   {
     "_id": "52664aa06af1d45a0ebdd298",
@@ -691,7 +705,8 @@
     "updatedAt": "2026-11-10T08:00:00.000Z",
     "category": "Vòng tay",
     "categoryName": "Vòng tay",
-    "stone": "Fluorite Sáng Tạo"
+    "stone": "Fluorite Sáng Tạo",
+    "image": "https://i.pinimg.com/736x/f8/c8/db/f8c8dbe300b276861a7e7feb87c9e4fe.jpg"
   },
   {
     "_id": "19253ba3a00f40f0588eb5da",
@@ -733,7 +748,8 @@
     "updatedAt": "2026-11-10T08:00:00.000Z",
     "category": "Set quà tặng",
     "categoryName": "Set quà tặng",
-    "stone": "Amethyst Hộp Nhung"
+    "stone": "Amethyst Hộp Nhung",
+    "image": "https://i.pinimg.com/736x/9b/9f/9f/9b9f9f152363271f0c154f437b34def0.jpg"
   },
   {
     "_id": "6afd38c0ca8f6cf6179722cf",
@@ -769,10 +785,13 @@
     "stock": 24,
     "lowStockAlert": 5,
     "weight": "Khối lượng tịnh tiêu chuẩn 12 gam (~3.2 chỉ)",
-    "image": "images/lac_tay_bien.png",
+    "image": "https://i.pinimg.com/736x/d4/3c/3d/d43c3d69296b0badad1636033dd34e9c.jpg",
     "badge": "Mới",
     "lastSaved": "14:38 hôm nay",
-    "createdAt": "2026-11-18T05:33:52.261Z"
+    "createdAt": "2026-11-18T05:33:52.261Z",
+    "images": [
+      "https://i.pinimg.com/736x/d4/3c/3d/d43c3d69296b0badad1636033dd34e9c.jpg"
+    ]
   },
   {
     "_id": "6afd38c3ca8f6cf6179722d0",
@@ -808,10 +827,13 @@
     "stock": 24,
     "lowStockAlert": 5,
     "weight": "Khối lượng tịnh tiêu chuẩn 12 gam (~3.2 chỉ)",
-    "image": "images/lac_tay_bien.png",
+    "image": "https://i.pinimg.com/736x/d4/3c/3d/d43c3d69296b0badad1636033dd34e9c.jpg",
     "badge": "Mới",
     "lastSaved": "14:38 hôm nay",
-    "createdAt": "2026-11-18T05:33:55.952Z"
+    "createdAt": "2026-11-18T05:33:55.952Z",
+    "images": [
+      "https://i.pinimg.com/736x/d4/3c/3d/d43c3d69296b0badad1636033dd34e9c.jpg"
+    ]
   },
   {
     "_id": "7caa02962f99fe72f8cfb0e0",
@@ -839,8 +861,7 @@
       "7f64349e172055022ffc91ee"
     ],
     "images": [
-      "images/bst_da.webp",
-      "https://i.pinimg.com/1200x/18/b9/16/18b916511068155519d7f1c4e7d1a3b3.jpg"
+      "https://i.pinimg.com/736x/d4/3c/3d/d43c3d69296b0badad1636033dd34e9c.jpg"
     ],
     "inStock": true,
     "isFeatured": true,
@@ -866,7 +887,8 @@
     "updatedAt": "2026-11-18T00:00:00.000Z",
     "zodiacIds": [
       "ce84dd3716c6d1337db8a883"
-    ]
+    ],
+    "image": "https://i.pinimg.com/736x/d4/3c/3d/d43c3d69296b0badad1636033dd34e9c.jpg"
   },
   {
     "_id": "7caa02962f99fe72f8cfb0e1",
@@ -894,8 +916,7 @@
       "6e5d7688f18eabab3fcab6ff"
     ],
     "images": [
-      "images/bst_da.webp",
-      "https://i.pinimg.com/1200x/18/b9/16/18b916511068155519d7f1c4e7d1a3b3.jpg"
+      "https://i.pinimg.com/736x/d4/3c/3d/d43c3d69296b0badad1636033dd34e9c.jpg"
     ],
     "inStock": true,
     "isFeatured": true,
@@ -921,7 +942,8 @@
     "updatedAt": "2026-11-18T00:00:00.000Z",
     "zodiacIds": [
       "dd7f1bcc31ea57bf8970bf38"
-    ]
+    ],
+    "image": "https://i.pinimg.com/736x/d4/3c/3d/d43c3d69296b0badad1636033dd34e9c.jpg"
   },
   {
     "_id": "7caa02962f99fe72f8cfb0e2",
@@ -949,8 +971,7 @@
       "9dc53fb4f70a8d5f12597f44"
     ],
     "images": [
-      "images/bst_da.webp",
-      "https://i.pinimg.com/1200x/18/b9/16/18b916511068155519d7f1c4e7d1a3b3.jpg"
+      "https://i.pinimg.com/736x/d4/3c/3d/d43c3d69296b0badad1636033dd34e9c.jpg"
     ],
     "inStock": true,
     "isFeatured": true,
@@ -976,6 +997,7 @@
     "updatedAt": "2026-11-18T00:00:00.000Z",
     "zodiacIds": [
       "ce84dd3716c6d1337db8a883"
-    ]
+    ],
+    "image": "https://i.pinimg.com/736x/d4/3c/3d/d43c3d69296b0badad1636033dd34e9c.jpg"
   }
 ]

@@ -38,10 +38,11 @@ describe('ProductListComponent', () => {
     const necklaceImg = component.normalizeProductImage({ name: 'Dây chuyền Merlia', price: 650000, image: '' });
     const braceletImg = component.normalizeProductImage({ name: 'Lắc tay Biển Xanh', price: 590000, image: '' });
 
-    expect(ringImg).toContain('nhan_tinh_tu');
-    expect(necklaceImg).toContain('dch_mix_da');
-    expect(braceletImg).toContain('lac_tay_bien');
+    expect(ringImg).toMatch(/^https?:\/\//);
+    expect(necklaceImg).toMatch(/^https?:\/\//);
+    expect(braceletImg).toMatch(/^https?:\/\//);
     expect(ringImg).not.toBe(braceletImg);
     expect(necklaceImg).not.toBe(braceletImg);
+    expect(ringImg).not.toBe(necklaceImg);
   });
 });

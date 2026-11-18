@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { ProductService, IProduct } from '../services/product.service';
-import { INITIAL_PRODUCTS } from '../data/initial-products';
 
 interface IThemeItem {
   name: string;
@@ -23,19 +22,19 @@ interface IThemeItem {
 export class ThemesComponent implements OnInit {
   themes: IThemeItem[] = this.getFallbackThemes();
   selectedTheme: IThemeItem = this.getFallbackThemes()[0];
-  allProducts: IProduct[] = INITIAL_PRODUCTS;
+  allProducts: IProduct[] = [];
   products: IProduct[] = [];
   loading = false;
 
   private readonly themeImageMap: Record<string, string> = {
-    'tinh-yeu-ket-noi': 'images/nhan_venus.png',
-    'binh-an-can-bang': 'images/lac_tay_bien.png',
-    'tu-tin-toa-sang': 'images/banner_mrs.jpg',
-    'may-man-co-hoi': 'images/bst_da.webp',
-    'chua-lanh-thu-gian': 'images/thanh_tay.png',
-    'tinh-ban-gan-ket': 'images/bst_vong_tay.png',
-    'nang-luong-sang-tao': 'images/dch_mix_da.png',
-    'qua-tang-y-nghia': 'images/bst_set_qua.webp'
+    'tinh-yeu-ket-noi': 'https://i.pinimg.com/736x/47/9c/df/479cdf269b5b50948b8aef6103b475ed.jpg',
+    'binh-an-can-bang': 'https://i.pinimg.com/736x/d4/3c/3d/d43c3d69296b0badad1636033dd34e9c.jpg',
+    'tu-tin-toa-sang': 'https://i.pinimg.com/736x/8b/56/4e/8b564e66f5a26e5a7761873879e15a44.jpg',
+    'may-man-co-hoi': 'https://i.pinimg.com/1200x/d9/7e/2f/d97e2f5138a3f151bb55613e38f15350.jpg',
+    'chua-lanh-thu-gian': 'https://i.pinimg.com/1200x/19/ae/48/19ae4807b1c9b47d2cf7ad70fef19fbb.jpg',
+    'tinh-ban-gan-ket': 'https://i.pinimg.com/736x/b3/cf/e0/b3cfe07a389a61eaa7b0f186da90da4f.jpg',
+    'nang-luong-sang-tao': 'https://i.pinimg.com/736x/f8/c8/db/f8c8dbe300b276861a7e7feb87c9e4fe.jpg',
+    'qua-tang-y-nghia': 'https://i.pinimg.com/736x/9b/9f/9f/9b9f9f152363271f0c154f437b34def0.jpg'
   };
 
   constructor(
@@ -81,7 +80,7 @@ export class ThemesComponent implements OnInit {
         if (data && data.length > 0) {
           this.themes = data.map(t => {
             const slug = t.slug || '';
-            const correctImg = this.themeImageMap[slug] || t.image || t.coverImage || t.bannerImage || 'images/banner_mys.jpg';
+            const correctImg = this.themeImageMap[slug] || t.image || t.coverImage || t.bannerImage || 'https://i.pinimg.com/736x/8b/56/4e/8b564e66f5a26e5a7761873879e15a44.jpg';
             return {
               name: t.name,
               slug: slug,
@@ -186,7 +185,7 @@ export class ThemesComponent implements OnInit {
         slug: 'tinh-yeu-ket-noi',
         tag: 'TÌNH DUYÊN & HÀN GẮN',
         description: 'Thạch anh hồng dịu dàng, khơi mở luồng yêu thương thuần khiết và gắn kết tâm hồn tri kỷ.',
-        image: 'images/nhan_venus.png',
+        image: 'https://i.pinimg.com/736x/47/9c/df/479cdf269b5b50948b8aef6103b475ed.jpg',
         productCodes: ['AM-RQ020', 'AM-CH002']
       },
       {
@@ -194,7 +193,7 @@ export class ThemesComponent implements OnInit {
         slug: 'binh-an-can-bang',
         tag: 'TĨNH TÂM & NĂNG LƯỢNG',
         description: 'Aquamarine và Moonstone làm dịu tâm trí, giữ sự tĩnh tại, thông suốt trước mọi thử thách.',
-        image: 'images/lac_tay_bien.png',
+        image: 'https://i.pinimg.com/736x/d4/3c/3d/d43c3d69296b0badad1636033dd34e9c.jpg',
         productCodes: ['AM-AQ001', 'AM-MS042', 'AM-CH001', 'AM-AQ003']
       },
       {
@@ -202,7 +201,7 @@ export class ThemesComponent implements OnInit {
         slug: 'tu-tin-toa-sang',
         tag: 'DŨNG KHÍ & BẢN LĨNH',
         description: 'Citrine thắp sáng nguồn năng lượng thái dương, tiếp thêm dũng khí và sức hút rực rỡ.',
-        image: 'images/banner_mrs.jpg',
+        image: 'https://i.pinimg.com/736x/8b/56/4e/8b564e66f5a26e5a7761873879e15a44.jpg',
         productCodes: ['AM-CT060', 'AM-MS044']
       },
       {
@@ -210,7 +209,7 @@ export class ThemesComponent implements OnInit {
         slug: 'may-man-co-hoi',
         tag: 'TÀI LỘC & VẬN KHÍ',
         description: 'Aventurine xanh ngọc thu hút vượng khí hưng thịnh, mở khóa nhân duyên và cơ hội hanh thông.',
-        image: 'images/bst_da.webp',
+        image: 'https://i.pinimg.com/1200x/d9/7e/2f/d97e2f5138a3f151bb55613e38f15350.jpg',
         productCodes: ['AM-AV061', 'AM-CH003']
       },
       {
@@ -218,7 +217,7 @@ export class ThemesComponent implements OnInit {
         slug: 'chua-lanh-thu-gian',
         tag: 'THANH TẨY & AN YÊN',
         description: 'Amethyst tím khói giải tỏa áp lực tâm thức, xoa dịu cảm xúc và mang lại giấc ngủ an lành.',
-        image: 'images/thanh_tay.png',
+        image: 'https://i.pinimg.com/1200x/19/ae/48/19ae4807b1c9b47d2cf7ad70fef19fbb.jpg',
         productCodes: ['AM-AM062', 'AM-SQ050']
       },
       {
@@ -226,7 +225,7 @@ export class ThemesComponent implements OnInit {
         slug: 'tinh-ban-gan-ket',
         tag: 'TRI KỶ & BỀN VỮNG',
         description: 'Bạc Ý 925 và ngọc bích thiên nhiên, biểu tượng tình bạn son sắt, thắt chặt mối thâm giao.',
-        image: 'images/bst_vong_tay.png',
+        image: 'https://i.pinimg.com/736x/b3/cf/e0/b3cfe07a389a61eaa7b0f186da90da4f.jpg',
         productCodes: ['AM-JD063', 'AM-AQ001']
       },
       {
@@ -234,7 +233,7 @@ export class ThemesComponent implements OnInit {
         slug: 'nang-luong-sang-tao',
         tag: 'TRỰC GIÁC & CẢM HỨNG',
         description: 'Fluorite khai thông dòng chảy trực giác, giải phóng cảm hứng nghệ thuật và tư duy sáng tạo.',
-        image: 'images/dch_mix_da.png',
+        image: 'https://i.pinimg.com/736x/f8/c8/db/f8c8dbe300b276861a7e7feb87c9e4fe.jpg',
         productCodes: ['AM-FL064', 'AM-MS010']
       },
       {
@@ -242,7 +241,7 @@ export class ThemesComponent implements OnInit {
         slug: 'qua-tang-y-nghia',
         tag: 'TRAO GỬI YÊU THƯƠNG',
         description: 'Hộp quà nhung tinh tế cùng trang sức thủ công mang thông điệp chúc phúc bình an gửi trao.',
-        image: 'images/bst_set_qua.webp',
+        image: 'https://i.pinimg.com/736x/9b/9f/9f/9b9f9f152363271f0c154f437b34def0.jpg',
         productCodes: ['AM-GS065', 'AM-PR030']
       }
     ];

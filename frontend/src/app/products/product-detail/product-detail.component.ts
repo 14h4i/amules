@@ -3,7 +3,6 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { ProductService, IProduct } from '../../services/product.service';
 import { CartService } from '../../services/cart.service';
-import { INITIAL_PRODUCTS } from '../../data/initial-products';
 
 @Component({
   selector: 'app-product-detail',
@@ -137,7 +136,7 @@ export class ProductDetailComponent implements OnInit {
   }
 
   filterProductImages(product: IProduct): string[] {
-    const mainImg = product.image || 'images/lac_tay_bien.png';
+    const mainImg = product.image || 'https://i.pinimg.com/736x/d4/3c/3d/d43c3d69296b0badad1636033dd34e9c.jpg';
     const name = `${product.name || ''} ${product.slug || ''}`.toLowerCase();
 
     // Lắc tay / Vòng tay: TUYỆT ĐỐI không chứa dây chuyền (dch), nhẫn (nhan), bông tai (bong_tai)
@@ -202,7 +201,7 @@ export class ProductDetailComponent implements OnInit {
 
   onImageError(event: any): void {
     if (event && event.target) {
-      event.target.src = this.product?.image || 'images/lac_tay_bien.png';
+      event.target.src = this.product?.image || 'https://i.pinimg.com/736x/d4/3c/3d/d43c3d69296b0badad1636033dd34e9c.jpg';
     }
   }
 
@@ -220,7 +219,7 @@ export class ProductDetailComponent implements OnInit {
       name: this.product.name,
       price: this.product.price,
       originalPrice: this.product.compareAtPrice || this.product.price,
-      image: (this.product.images && this.product.images[0]) || this.product.image || 'images/lac_tay_bien.png',
+      image: (this.product.images && this.product.images[0]) || this.product.image || 'https://i.pinimg.com/736x/d4/3c/3d/d43c3d69296b0badad1636033dd34e9c.jpg',
       quantity: this.quantity,
       stone: this.product.stone || 'Đá tự nhiên',
       size: this.selectedSize,
@@ -239,11 +238,7 @@ export class ProductDetailComponent implements OnInit {
   }
 
   private getFallbackProduct(slug: string): IProduct {
-    const fromInitial = INITIAL_PRODUCTS.find(p => p.slug === slug || p.id === slug || p._id === slug || p.productCode === slug);
-    if (fromInitial) {
-      return fromInitial;
-    }
-
+    const defaultImg = 'https://i.pinimg.com/736x/d4/3c/3d/d43c3d69296b0badad1636033dd34e9c.jpg';
     const fallbackCatalog: Record<string, Partial<IProduct>> = {
       'lac-tay-hoi-tho-bien-xanh': {
         name: 'Lắc tay Hơi Thở Biển Xanh',
@@ -252,8 +247,8 @@ export class ProductDetailComponent implements OnInit {
         compareAtPrice: 650000,
         stone: 'Aquamarine Tự Nhiên & Bạc 925',
         element: 'Mệnh Thủy & Mộc',
-        image: 'images/lac_tay_bien.png',
-        images: ['images/lac_tay_bien.png'],
+        image: 'https://i.pinimg.com/736x/d4/3c/3d/d43c3d69296b0badad1636033dd34e9c.jpg',
+        images: ['https://i.pinimg.com/736x/d4/3c/3d/d43c3d69296b0badad1636033dd34e9c.jpg'],
         description: 'Chuỗi hạt Aquamarine giác cắt kết hợp bạc 925, mang cảm giác bình an, nuôi dưỡng trực giác và tĩnh tâm thiền định.',
         ratingAverage: 5.0,
         reviewCount: 2
@@ -265,8 +260,8 @@ export class ProductDetailComponent implements OnInit {
         compareAtPrice: 720000,
         stone: 'Moonstone Nữ Thần & Bạc 925',
         element: 'Mệnh Kim & Thủy',
-        image: 'images/dch_mix_da.png',
-        images: ['images/dch_mix_da.png', 'images/bst_dch.png'],
+        image: 'https://i.pinimg.com/1200x/5e/19/ca/5e19cae249717d1321564c81f14a1732.jpg',
+        images: ['https://i.pinimg.com/1200x/5e/19/ca/5e19cae249717d1321564c81f14a1732.jpg'],
         description: 'Thiết kế dây chuyền dáng thanh mảnh đính kết Moonstone tự nhiên, phản quang ánh xanh lam huyền bí dưới ánh trăng.'
       },
       'nhan-tinh-tu-venus': {
@@ -276,8 +271,8 @@ export class ProductDetailComponent implements OnInit {
         compareAtPrice: 500000,
         stone: 'Thạch anh hồng tự nhiên & Bạc 925',
         element: 'Mệnh Hỏa & Thổ',
-        image: 'images/nhan_tinh_tu.png',
-        images: ['images/nhan_tinh_tu.png', 'images/bst_nhan_lg.png'],
+        image: 'https://i.pinimg.com/736x/47/9c/df/479cdf269b5b50948b8aef6103b475ed.jpg',
+        images: ['https://i.pinimg.com/736x/47/9c/df/479cdf269b5b50948b8aef6103b475ed.jpg'],
         description: 'Nhẫn biểu tượng vì sao Kim tinh, thu hút năng lượng tình duyên, sự ấm áp và kết nối thiện lành cho chủ nhân.'
       },
       'bong-tai-sao-bac-baroque': {
@@ -287,8 +282,8 @@ export class ProductDetailComponent implements OnInit {
         compareAtPrice: 580000,
         stone: 'Ngọc trai Baroque & Bạc 925',
         element: 'Mệnh Kim & Thủy',
-        image: 'images/bong_tai.png',
-        images: ['images/bong_tai.png'],
+        image: 'https://i.pinimg.com/736x/82/af/ce/82afce704fa0702179286be2a3d293d7.jpg',
+        images: ['https://i.pinimg.com/736x/82/af/ce/82afce704fa0702179286be2a3d293d7.jpg'],
         description: 'Bông tai ngọc trai Baroque tự nhiên độc bản kết hợp charm sao bạc, mang nét đẹp cổ điển kiêu sa.'
       },
       'charm-bac-dinh-da-moonstone-anh-trang-khuyet': {
@@ -298,8 +293,8 @@ export class ProductDetailComponent implements OnInit {
         compareAtPrice: 350000,
         stone: 'Moonstone Tự Nhiên & Bạc Ý S925',
         element: 'Mệnh Kim & Thủy',
-        image: 'images/bst_da.webp',
-        images: ['images/bst_da.webp'],
+        image: 'https://i.pinimg.com/1200x/33/52/d2/3352d2c48c5755e6f8110e386d63898e.jpg',
+        images: ['https://i.pinimg.com/1200x/33/52/d2/3352d2c48c5755e6f8110e386d63898e.jpg'],
         description: 'Charm bạc chế tác tinh xảo hình trăng khuyết ôm trọn viên đá Moonstone tự nhiên phát quang ánh xanh dịu dàng. Giúp thanh lọc tâm trí, cân bằng cảm xúc và thu hút may mắn.'
       },
       'charm-trai-tim-thach-anh-hong-venus': {
@@ -309,8 +304,8 @@ export class ProductDetailComponent implements OnInit {
         compareAtPrice: 320000,
         stone: 'Thạch anh hồng Rose Quartz & Bạc Ý S925',
         element: 'Mệnh Hỏa & Thổ',
-        image: 'images/bst_da.webp',
-        images: ['images/bst_da.webp'],
+        image: 'https://i.pinimg.com/736x/47/9c/df/479cdf269b5b50948b8aef6103b475ed.jpg',
+        images: ['https://i.pinimg.com/736x/47/9c/df/479cdf269b5b50948b8aef6103b475ed.jpg'],
         description: 'Viên charm trái tim thạch anh hồng tượng trưng cho tình yêu thuần khiết, năng lượng chữa lành và sự dịu dàng của nữ thần Venus.'
       },
       'charm-co-bon-canh-da-aquamarine-may-man': {
@@ -320,8 +315,8 @@ export class ProductDetailComponent implements OnInit {
         compareAtPrice: 360000,
         stone: 'Ngọc Hải Lam Aquamarine & Bạc Ý S925',
         element: 'Mệnh Thủy & Mộc',
-        image: 'images/bst_da.webp',
-        images: ['images/bst_da.webp'],
+        image: 'https://i.pinimg.com/736x/d4/3c/3d/d43c3d69296b0badad1636033dd34e9c.jpg',
+        images: ['https://i.pinimg.com/736x/d4/3c/3d/d43c3d69296b0badad1636033dd34e9c.jpg'],
         description: 'Thiết kế biểu tượng cỏ bốn cánh đính đá Aquamarine xanh ngọc biển khơi, mang lại bình an, thuận buồm xuôi gió và vận khí hanh thông.'
       }
     };
@@ -339,8 +334,8 @@ export class ProductDetailComponent implements OnInit {
       badge: 'Bán chạy',
       stock: 35,
       sizes: ['14 cm', '15 cm', '16 cm'],
-      image: specific.image || 'images/lac_tay_bien.png',
-      images: specific.images || ['images/lac_tay_bien.png'],
+      image: specific.image || defaultImg,
+      images: specific.images || [defaultImg],
       description: specific.description || 'Được chế tác từ những viên đá Aquamarine thiên nhiên mang sắc xanh thanh khiết của đại dương sâu thẳm, kết hợp cùng chi tiết bạc Ý 925 cao cấp. Tạo tác là biểu tượng của sự bình an, tĩnh tâm và soi sáng trực giác cho người đeo.',
       ratingAverage: specific.ratingAverage !== undefined ? specific.ratingAverage : 5.0,
       reviewCount: specific.reviewCount !== undefined ? specific.reviewCount : this.reviews.length

@@ -13,6 +13,7 @@ export class ProfileComponent implements OnInit {
   savedNotice = false;
   saving = false;
   errorMsg = '';
+  lastUpdateText = 'Hôm nay, 14:30 bởi bạn';
 
   // Tất cả trường thông tin mặc định để TRỐNG đối với tài khoản mới chưa cập nhật
   profile = {
@@ -50,6 +51,9 @@ export class ProfileComponent implements OnInit {
     this.profile.zodiac = u.zodiac || '';
     this.profile.wristSize = u.wristSize || '';
     this.profile.avatar = u.avatar || '';
+    if (this.profile.dob && (!this.profile.element || !this.profile.zodiac)) {
+      this.onDobChange();
+    }
   }
 
   ngOnInit(): void {
@@ -73,6 +77,38 @@ export class ProfileComponent implements OnInit {
     });
   }
 
+  // Tải ảnh đại diện mới từ thiết bị
+  onAvatarSelected(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    if (input.files && input.files[0]) {
+      const file = input.files[0];
+      if (file.size > 5 * 1024 * 1024) {
+        alert('Kích thước ảnh đại diện không được vượt quá 5MB!');
+        return;
+      }
+      const reader = new FileReader();
+      reader.onload = (e: any) => {
+        this.profile.avatar = e.target.result;
+      };
+      reader.readAsDataURL(file);
+    }
+  }
+
+  // Gỡ bỏ ảnh đại diện
+  removeAvatar(): void {
+    this.profile.avatar = '';
+  }
+
+  // Hủy bỏ các thay đổi và khôi phục thông tin ban đầu
+  cancelChanges(): void {
+    const cur = this._auth.currentUser();
+    if (cur) {
+      this.populateUser(cur);
+    }
+    this.savedNotice = false;
+    this.errorMsg = '';
+  }
+
   // Tự động tính toán Mệnh Ngũ Hành & Cung Hoàng Đạo khi người dùng nhập ngày sinh
   onDobChange(): void {
     const dob = (this.profile.dob || '').trim();
@@ -81,7 +117,7 @@ export class ProfileComponent implements OnInit {
       this.profile.zodiac = '';
       return;
     }
-    // Hỗ trợ cả định dạng dd/mm/yyyy và yyyy-mm-dd
+    // Hỗ trợ cả định dạng dd/mm/yyyy, dd-mm-yyyy và yyyy-mm-dd
     let day = 0, month = 0, year = 0;
     if (dob.includes('/')) {
       const parts = dob.split('/').map(p => parseInt(p.trim(), 10));
@@ -93,9 +129,15 @@ export class ProfileComponent implements OnInit {
     } else if (dob.includes('-')) {
       const parts = dob.split('-').map(p => parseInt(p.trim(), 10));
       if (parts.length === 3) {
-        year = parts[0];
-        month = parts[1];
-        day = parts[2];
+        if (parts[0] > 1000) {
+          year = parts[0];
+          month = parts[1];
+          day = parts[2];
+        } else {
+          day = parts[0];
+          month = parts[1];
+          year = parts[2];
+        }
       }
     }
 
@@ -110,19 +152,19 @@ export class ProfileComponent implements OnInit {
   private calcZodiac(day: number, month: number): string {
     const dates = [20, 19, 21, 20, 21, 22, 23, 23, 23, 24, 23, 22];
     const signs = [
-      'Ma Kết (Capricorn) - 22/12 - 19/01',
-      'Bảo Bình (Aquarius) - 20/01 - 18/02',
-      'Song Ngư (Pisces) - 19/02 - 20/03',
-      'Bạch Dương (Aries) - 21/03 - 19/04',
-      'Kim Ngưu (Taurus) - 20/04 - 20/05',
-      'Song Tử (Gemini) - 21/05 - 20/06',
-      'Cự Giải (Cancer) - 21/06 - 22/07',
-      'Sư Tử (Leo) - 23/07 - 22/08',
-      'Xử Nữ (Virgo) - 23/08 - 22/09',
-      'Thiên Bình (Libra) - 23/09 - 22/10',
-      'Bọ Cạp (Scorpio) - 23/10 - 21/11',
-      'Nhân Mã (Sagittarius) - 22/11 - 21/12',
-      'Ma Kết (Capricorn) - 22/12 - 19/01'
+      'Ma Kết (Capricorn)',
+      'Bảo Bình (Aquarius)',
+      'Song Ngư (Pisces)',
+      'Bạch Dương (Aries)',
+      'Kim Ngưu (Taurus)',
+      'Song Tử (Gemini)',
+      'Cự Giải (Cancer)',
+      'Sư Tử (Leo)',
+      'Xử Nữ (Virgo)',
+      'Thiên Bình (Libra)',
+      'Bọ Cạp (Scorpio)',
+      'Nhân Mã (Sagittarius)',
+      'Ma Kết (Capricorn)'
     ];
     return day < dates[month - 1] ? signs[month - 1] : signs[month];
   }
@@ -135,13 +177,29 @@ export class ProfileComponent implements OnInit {
     let sum = (canVal[can] || 1) + (chiVal[chi] || 0);
     if (sum > 5) sum -= 5;
     const elements: any = {
-      1: 'Mệnh Kim (Tương sinh: Thổ & Thủy)',
-      2: 'Mệnh Thủy (Tương sinh: Kim & Mộc)',
-      3: 'Mệnh Hỏa (Tương sinh: Mộc & Thổ)',
-      4: 'Mệnh Thổ (Tương sinh: Hỏa & Kim)',
-      5: 'Mệnh Mộc (Tương sinh: Thủy & Hỏa)'
+      1: 'Mệnh Kim',
+      2: 'Mệnh Thủy',
+      3: 'Mệnh Hỏa',
+      4: 'Mệnh Thổ',
+      5: 'Mệnh Mộc'
     };
-    return elements[sum] || 'Mệnh Thủy (Tương sinh: Kim & Thủy)';
+    return elements[sum] || 'Mệnh Thủy';
+  }
+
+  get elementHint(): string {
+    if (!this.profile.element) return 'Nhập ngày sinh phía trên để tự động kích hoạt năng lượng bản mệnh.';
+    const el = this.profile.element.toLowerCase();
+    if (el.includes('kim')) return 'Tương sinh: Thổ & Thủy • Đá phù trợ: Thạch anh trắng, Moonstone';
+    if (el.includes('thủy')) return 'Tương sinh: Kim & Mộc • Đá phù trợ: Aquamarine, Thạch anh khói';
+    if (el.includes('mộc')) return 'Tương sinh: Thủy & Hỏa • Đá phù trợ: Ngọc bích, Aventurine';
+    if (el.includes('hỏa')) return 'Tương sinh: Mộc & Thổ • Đá phù trợ: Thạch anh hồng, Ruby';
+    if (el.includes('thổ')) return 'Tương sinh: Hỏa & Kim • Đá phù trợ: Citrine, Thạch anh vàng';
+    return 'Tương sinh tương hợp theo ngũ hành bản mệnh.';
+  }
+
+  get zodiacHint(): string {
+    if (!this.profile.zodiac) return 'Nhập ngày sinh phía trên để giải mã chòm sao hoàng đạo.';
+    return 'Chiêm tinh thiên thể AMULES định hướng năng lượng tương thích.';
   }
 
   getInitials(name?: string): string {
@@ -151,27 +209,29 @@ export class ProfileComponent implements OnInit {
     return (parts[0][0] + parts[parts.length - 1][0]).toUpperCase();
   }
 
-  saveProfile() {
+  saveProfile(): void {
     this.saving = true;
     this.errorMsg = '';
     this._http.put('/api/auth/profile', this.profile, { withCredentials: true }).subscribe({
       next: (res: any) => {
         this.saving = false;
         this.savedNotice = true;
+        this.lastUpdateText = 'Vừa xong';
         const cur = this._auth.currentUser() || {};
         const updated = { ...cur, ...this.profile };
         this._auth.currentUser.set(updated);
         localStorage.setItem('amules_user', JSON.stringify(updated));
-        setTimeout(() => (this.savedNotice = false), 3500);
+        setTimeout(() => (this.savedNotice = false), 4000);
       },
-      error: () => {
+      error: (err) => {
         const cur = this._auth.currentUser() || {};
         const updated = { ...cur, ...this.profile };
         this._auth.currentUser.set(updated);
         localStorage.setItem('amules_user', JSON.stringify(updated));
         this.saving = false;
         this.savedNotice = true;
-        setTimeout(() => (this.savedNotice = false), 3500);
+        this.lastUpdateText = 'Vừa xong';
+        setTimeout(() => (this.savedNotice = false), 4000);
       }
     });
   }

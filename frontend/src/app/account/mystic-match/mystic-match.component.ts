@@ -55,7 +55,7 @@ export class MysticMatchComponent implements OnInit {
       name: 'Vòng Tay Nguyệt Quang Moonstone Ánh Lam',
       desc: 'Viên đá Moonstone quang học tự nhiên ánh cầu vồng xanh biển, cân bằng cảm xúc.',
       price: 680000,
-      image: 'images/lac_tay_bien.png'
+      image: 'https://i.pinimg.com/736x/d4/3c/3d/d43c3d69296b0badad1636033dd34e9c.jpg'
     },
     {
       match: 'TƯƠNG HỢP 95%',
@@ -64,7 +64,7 @@ export class MysticMatchComponent implements OnInit {
       name: 'Dây Chuyền Giọt Lệ Aquamarine Biển Sâu',
       desc: 'Viên đá Aquamarine thiết kế tinh giọt nước trong vắt, hỗ trợ thông suốt giao tiếp.',
       price: 520000,
-      image: 'images/dch_mix_da.png'
+      image: 'https://i.pinimg.com/1200x/5e/19/ca/5e19cae249717d1321564c81f14a1732.jpg'
     },
     {
       match: 'TƯƠNG HỢP 91%',
@@ -73,7 +73,7 @@ export class MysticMatchComponent implements OnInit {
       name: 'Nhẫn Hộ Thân Thạch Anh Khói Lam Tuyết',
       desc: 'Năng lượng trầm ổn của thạch anh khói hòa cùng tinh thể lam tuyết bảo vệ trường khí.',
       price: 450000,
-      image: 'images/nhan_tinh_tu.png'
+      image: 'https://i.pinimg.com/736x/47/9c/df/479cdf269b5b50948b8aef6103b475ed.jpg'
     }
   ];
 
@@ -140,7 +140,7 @@ export class MysticMatchComponent implements OnInit {
             name: p.name,
             desc: p.description || 'Bảo vật tương sinh được tuyển chọn theo ngũ hành chiêm tinh bản mệnh.',
             price: p.price,
-            image: p.image || 'images/lac_tay_bien.png'
+            image: p.image || 'https://i.pinimg.com/736x/d4/3c/3d/d43c3d69296b0badad1636033dd34e9c.jpg'
           }));
         }
       },

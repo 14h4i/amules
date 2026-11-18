@@ -39,7 +39,7 @@ export class AdminProductsComponent implements OnInit {
     "price": 590000,
     "compareAtPrice": 678500,
     "stock": 40,
-    "image": "images/lac_tay_bien.png",
+    "image": "https://i.pinimg.com/736x/d4/3c/3d/d43c3d69296b0badad1636033dd34e9c.jpg",
     "badge": "Nổi bật"
   },
   {
@@ -61,7 +61,7 @@ export class AdminProductsComponent implements OnInit {
     "price": 650000,
     "compareAtPrice": 747500,
     "stock": 35,
-    "image": "images/dch_mix_da.png",
+    "image": "https://i.pinimg.com/1200x/5e/19/ca/5e19cae249717d1321564c81f14a1732.jpg",
     "badge": "Nổi bật"
   },
   {
@@ -83,7 +83,7 @@ export class AdminProductsComponent implements OnInit {
     "price": 450000,
     "compareAtPrice": 517500,
     "stock": 25,
-    "image": "images/nhan_tinh_tu.png",
+    "image": "https://i.pinimg.com/736x/47/9c/df/479cdf269b5b50948b8aef6103b475ed.jpg",
     "badge": "Nổi bật"
   },
   {
@@ -104,7 +104,7 @@ export class AdminProductsComponent implements OnInit {
     "price": 520000,
     "compareAtPrice": 598000,
     "stock": 30,
-    "image": "images/bong_tai.png",
+    "image": "https://i.pinimg.com/736x/82/af/ce/82afce704fa0702179286be2a3d293d7.jpg",
     "badge": "Nổi bật"
   },
   {
@@ -126,7 +126,7 @@ export class AdminProductsComponent implements OnInit {
     "price": 580000,
     "compareAtPrice": 680000,
     "stock": 50,
-    "image": "images/bst_vong_tay.png",
+    "image": "https://i.pinimg.com/736x/b3/cf/e0/b3cfe07a389a61eaa7b0f186da90da4f.jpg",
     "badge": "Nổi bật"
   },
   {
@@ -148,7 +148,7 @@ export class AdminProductsComponent implements OnInit {
     "price": 650000,
     "compareAtPrice": 747500,
     "stock": 28,
-    "image": "images/bst_dch.png",
+    "image": "https://i.pinimg.com/1200x/5e/19/ca/5e19cae249717d1321564c81f14a1732.jpg",
     "badge": "Nổi bật"
   },
   {
@@ -169,7 +169,7 @@ export class AdminProductsComponent implements OnInit {
     "price": 450000,
     "compareAtPrice": 517500,
     "stock": 22,
-    "image": "images/bst_nhan_lg.png",
+    "image": "https://i.pinimg.com/736x/47/9c/df/479cdf269b5b50948b8aef6103b475ed.jpg",
     "badge": "Nổi bật"
   },
   {
@@ -190,7 +190,7 @@ export class AdminProductsComponent implements OnInit {
     "price": 720000,
     "compareAtPrice": 828000,
     "stock": 18,
-    "image": "images/bst_set_qua.webp",
+    "image": "https://i.pinimg.com/736x/9b/9f/9f/9b9f9f152363271f0c154f437b34def0.jpg",
     "badge": "Nổi bật"
   },
   {
@@ -212,7 +212,7 @@ export class AdminProductsComponent implements OnInit {
     "price": 460000,
     "compareAtPrice": 529000,
     "stock": 12,
-    "image": "images/lac_tay_bien.png",
+    "image": "https://i.pinimg.com/736x/d4/3c/3d/d43c3d69296b0badad1636033dd34e9c.jpg",
     "badge": "Nổi bật"
   },
   {
@@ -233,7 +233,7 @@ export class AdminProductsComponent implements OnInit {
     "price": 590000,
     "compareAtPrice": 678500,
     "stock": 33,
-    "image": "images/dch_mix_da.png",
+    "image": "https://i.pinimg.com/1200x/5e/19/ca/5e19cae249717d1321564c81f14a1732.jpg",
     "badge": "Nổi bật"
   },
   {
@@ -255,7 +255,7 @@ export class AdminProductsComponent implements OnInit {
     "price": 480000,
     "compareAtPrice": 552000,
     "stock": 30,
-    "image": "images/nhan_tinh_tu.png",
+    "image": "https://i.pinimg.com/736x/47/9c/df/479cdf269b5b50948b8aef6103b475ed.jpg",
     "badge": "Nổi bật"
   },
   {
@@ -276,7 +276,7 @@ export class AdminProductsComponent implements OnInit {
     "price": 560000,
     "compareAtPrice": 644000,
     "stock": 30,
-    "image": "images/bong_tai.png",
+    "image": "https://i.pinimg.com/736x/82/af/ce/82afce704fa0702179286be2a3d293d7.jpg",
     "badge": "Nổi bật"
   },
   {
@@ -297,7 +297,7 @@ export class AdminProductsComponent implements OnInit {
     "price": 620000,
     "compareAtPrice": 713000,
     "stock": 30,
-    "image": "images/bst_vong_tay.png",
+    "image": "https://i.pinimg.com/736x/b3/cf/e0/b3cfe07a389a61eaa7b0f186da90da4f.jpg",
     "badge": "Nổi bật"
   },
   {
@@ -318,7 +318,7 @@ export class AdminProductsComponent implements OnInit {
     "price": 690000,
     "compareAtPrice": 793500,
     "stock": 30,
-    "image": "images/bst_dch.png",
+    "image": "https://i.pinimg.com/1200x/5e/19/ca/5e19cae249717d1321564c81f14a1732.jpg",
     "badge": "Nổi bật"
   },
   {
@@ -339,7 +339,7 @@ export class AdminProductsComponent implements OnInit {
     "price": 540000,
     "compareAtPrice": 621000,
     "stock": 30,
-    "image": "images/bst_nhan_lg.png",
+    "image": "https://i.pinimg.com/736x/47/9c/df/479cdf269b5b50948b8aef6103b475ed.jpg",
     "badge": "Nổi bật"
   },
   {
@@ -360,7 +360,7 @@ export class AdminProductsComponent implements OnInit {
     "price": 890000,
     "compareAtPrice": 1023500,
     "stock": 30,
-    "image": "images/bst_set_qua.webp",
+    "image": "https://i.pinimg.com/736x/9b/9f/9f/9b9f9f152363271f0c154f437b34def0.jpg",
     "badge": "Nổi bật"
   }
 ];
@@ -522,7 +522,7 @@ export class AdminProductsComponent implements OnInit {
       stock: 24,
       lowStockAlert: 5,
       weight: 'Khối lượng tịnh tiêu chuẩn 12 gam (~3.2 chỉ)',
-      image: 'images/lac_tay_bien.png',
+      image: 'https://i.pinimg.com/736x/d4/3c/3d/d43c3d69296b0badad1636033dd34e9c.jpg',
       badge: 'Mới',
       lastSaved: '14:38 hôm nay'
     };

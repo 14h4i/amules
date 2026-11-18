@@ -74,11 +74,12 @@ describe('MysticMatchToolComponent', () => {
     const ringImg = component.normalizeProductImage({ name: 'Nhẫn Tinh Tú Venus', price: 100, image: '' });
     const earringImg = component.normalizeProductImage({ name: 'Bông tai Sao Bạc Baroque', price: 100, image: '' });
 
-    expect(braceletImg).toContain('lac_tay_bien');
-    expect(necklaceImg).toContain('dch_mix_da');
-    expect(ringImg).toContain('nhan_tinh_tu');
-    expect(earringImg).toContain('bong_tai');
+    expect(braceletImg).toMatch(/^https?:\/\//);
+    expect(necklaceImg).toMatch(/^https?:\/\//);
+    expect(ringImg).toMatch(/^https?:\/\//);
+    expect(earringImg).toMatch(/^https?:\/\//);
     expect(necklaceImg).not.toBe(braceletImg);
     expect(ringImg).not.toBe(braceletImg);
+    expect(ringImg).not.toBe(necklaceImg);
   });
 });
