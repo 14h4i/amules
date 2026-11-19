@@ -358,10 +358,9 @@ registerStandardCollectionRoute('reviews', 'reviews');
 
 // Helper to resolve distinct, appropriate product images
 function resolveProductImage(p) {
-  // Ảnh đã lưu dạng link CDN trong MongoDB thì dùng luôn (thư mục ảnh local đã bị xóa)
-  if (p.image && typeof p.image === 'string' && p.image.startsWith('http')) {
-    return p.image;
-  }
+  // Ảnh đã lưu dạng link CDN trong MongoDB (image hoặc images[]) thì dùng luôn (thư mục ảnh local đã bị xóa)
+  const cdnImage = [p.image, ...(p.images || [])].find(img => typeof img === 'string' && img.startsWith('http'));
+  if (cdnImage) return cdnImage;
   if (p.image && typeof p.image === 'string' && p.image.startsWith('/images/product_')) {
     return p.image;
   }
