@@ -752,48 +752,6 @@
     "image": "https://i.pinimg.com/736x/9b/9f/9f/9b9f9f152363271f0c154f437b34def0.jpg"
   },
   {
-    "_id": "6afd38c0ca8f6cf6179722cf",
-    "name": "Vòng tay Đá Mặt Trăng Moonstone Ánh Lam Celestial",
-    "productCode": "AMU-VT-327",
-    "slug": "vong-tay-moonstone-anh-lam-celestial",
-    "category": "Vòng tay & Lắc tay",
-    "collection": "Moonlight & Stars Collection",
-    "shortDesc": "Chiếc vòng tay thủ công đính kết từng viên đá Mặt Trăng nguyên bản từ Sri Lanka, mang dải quang phổ xanh lam huyền ảo, biểu trưng cho sự bình yên và trực giác thức tỉnh.",
-    "stone": "Moonstone (Đá Mặt Trăng)",
-    "mohs": "6.0 - 6.5",
-    "metal": "Bạc Ý 925 mạ Rhodium bạch kim 3 lớp",
-    "compatibleElements": [
-      "Mệnh Thủy (Tương Hợp)",
-      "Mệnh Kim (Tương Sinh)"
-    ],
-    "compatibleZodiacs": [
-      "Cự Giải (Cancer)",
-      "Song Ngư (Pisces)"
-    ],
-    "spectrumColors": [
-      "Trắng ánh lam",
-      "Ánh xà cừ ngọc"
-    ],
-    "styles": [
-      "Vintage Minimal",
-      "Thanh lịch hoàng gia",
-      "Talisman bảo hộ"
-    ],
-    "listingStatus": "active",
-    "price": 580000,
-    "compareAtPrice": 650000,
-    "stock": 24,
-    "lowStockAlert": 5,
-    "weight": "Khối lượng tịnh tiêu chuẩn 12 gam (~3.2 chỉ)",
-    "image": "https://i.pinimg.com/736x/d4/3c/3d/d43c3d69296b0badad1636033dd34e9c.jpg",
-    "badge": "Mới",
-    "lastSaved": "14:38 hôm nay",
-    "createdAt": "2026-11-18T05:33:52.261Z",
-    "images": [
-      "https://i.pinimg.com/736x/d4/3c/3d/d43c3d69296b0badad1636033dd34e9c.jpg"
-    ]
-  },
-  {
     "_id": "6afd38c3ca8f6cf6179722d0",
     "name": "Vòng tay Đá Mặt Trăng Moonstone Ánh Lam Celestial",
     "productCode": "AMU-VT-327",
@@ -832,8 +790,7 @@
     "lastSaved": "14:38 hôm nay",
     "createdAt": "2026-11-18T05:33:55.952Z",
     "images": [
-      "https://i.pinimg.com/736x/8b/56/4e/8b564e66f5a26e5a7761873879e15a44.jpg",
-      "https://i.pinimg.com/736x/53/a4/0f/53a40fcf65d77d5dcc8a9efcb531ac32.jpg"
+      "https://i.pinimg.com/736x/8b/56/4e/8b564e66f5a26e5a7761873879e15a44.jpg"
     ]
   },
   {
@@ -862,7 +819,7 @@
       "7f64349e172055022ffc91ee"
     ],
     "images": [
-      "https://i.pinimg.com/736x/d4/3c/3d/d43c3d69296b0badad1636033dd34e9c.jpg"
+      "https://i.pinimg.com/736x/95/96/98/959698c56fa76e93eebe924d08479e39.jpg"
     ],
     "inStock": true,
     "isFeatured": true,
@@ -889,7 +846,7 @@
     "zodiacIds": [
       "ce84dd3716c6d1337db8a883"
     ],
-    "image": "https://i.pinimg.com/736x/d4/3c/3d/d43c3d69296b0badad1636033dd34e9c.jpg"
+    "image": "https://i.pinimg.com/736x/95/96/98/959698c56fa76e93eebe924d08479e39.jpg"
   },
   {
     "_id": "7caa02962f99fe72f8cfb0e1",
@@ -917,7 +874,7 @@
       "6e5d7688f18eabab3fcab6ff"
     ],
     "images": [
-      "https://i.pinimg.com/736x/d4/3c/3d/d43c3d69296b0badad1636033dd34e9c.jpg"
+      "https://i.pinimg.com/736x/cb/dc/01/cbdc012803b0d24268e367fc9b084e56.jpg"
     ],
     "inStock": true,
     "isFeatured": true,
@@ -944,7 +901,7 @@
     "zodiacIds": [
       "dd7f1bcc31ea57bf8970bf38"
     ],
-    "image": "https://i.pinimg.com/736x/d4/3c/3d/d43c3d69296b0badad1636033dd34e9c.jpg"
+    "image": "https://i.pinimg.com/736x/cb/dc/01/cbdc012803b0d24268e367fc9b084e56.jpg"
   },
   {
     "_id": "7caa02962f99fe72f8cfb0e2",
@@ -972,7 +929,7 @@
       "9dc53fb4f70a8d5f12597f44"
     ],
     "images": [
-      "https://i.pinimg.com/736x/d4/3c/3d/d43c3d69296b0badad1636033dd34e9c.jpg"
+      "https://i.pinimg.com/736x/47/ec/9a/47ec9afcfb619e075c3167191317ba81.jpg"
     ],
     "inStock": true,
     "isFeatured": true,
@@ -999,7 +956,7 @@
     "zodiacIds": [
       "ce84dd3716c6d1337db8a883"
     ],
-    "image": "https://i.pinimg.com/736x/d4/3c/3d/d43c3d69296b0badad1636033dd34e9c.jpg"
+    "image": "https://i.pinimg.com/736x/47/ec/9a/47ec9afcfb619e075c3167191317ba81.jpg"
   },
   {
     "_id": "673b0001ca8f6cf617970001",
