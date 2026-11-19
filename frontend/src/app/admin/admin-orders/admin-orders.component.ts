@@ -14,6 +14,7 @@ export class AdminOrdersComponent implements OnInit {
   searchQuery = '';
   paymentFilter = 'all';
   methodFilter = 'all';
+  dateFilter = 'all';
   loading = false;
   selectedOrder: any = null;
   returnModalOrder: any = null;
@@ -60,22 +61,27 @@ export class AdminOrdersComponent implements OnInit {
   }
 
   get pendingOrdersCount(): number {
-    return this.orders.filter(o => o.status === 'pending' || o.orderStatus === 'Chờ xác nhận').length;
+    return this.orders.filter(o => o.status === 'pending' || (o.orderStatus && (o.orderStatus.includes('Chờ') || o.orderStatus.includes('pending')))).length;
   }
 
   get shippingOrdersCount(): number {
-    return this.orders.filter(o => o.status === 'shipping' || (o.orderStatus && o.orderStatus.includes('Đang giao'))).length;
+    return this.orders.filter(o => o.status === 'shipping' || (o.orderStatus && o.orderStatus.includes('giao'))).length;
   }
 
   get completedOrdersCount(): number {
-    return this.orders.filter(o => o.status === 'completed' || o.status === 'Completed' || (o.orderStatus && o.orderStatus.includes('Đã giao'))).length;
+    return this.orders.filter(o => o.status === 'completed' || o.status === 'Completed' || (o.orderStatus && (o.orderStatus.includes('thành công') || o.orderStatus.includes('Đã giao')))).length;
   }
 
   get returnOrdersCount(): number {
     return this.orders.filter(o => o.hasReturnRequest || o.status === 'return' || o.returnStatus === 'pending').length;
   }
 
-  constructor(private _adminService: AdminService) { }
+  constructor(private _adminService: AdminService) {
+    // Khởi tạo ngay lập tức với đơn hàng tiêu chuẩn để UI không bao giờ bị chớp 0
+    this.orders = this.getDefaultOrders().map(d => this.normalizeOrder(d));
+    this.updateTabCounts();
+    this.filterOrders();
+  }
 
   ngOnInit(): void {
     this.loadOrders();
@@ -88,16 +94,13 @@ export class AdminOrdersComponent implements OnInit {
       next: (data) => {
         if (Array.isArray(data) && data.length > 0) {
           this.orders = data.map(d => this.normalizeOrder(d));
-        } else {
-          // Nếu database chưa có đơn, khởi tạo danh sách tiêu chuẩn
-          this.orders = this.getDefaultOrders().map(d => this.normalizeOrder(d));
         }
         this.updateTabCounts();
         this.filterOrders();
         this.loading = false;
       },
-      error: () => {
-        this.orders = this.getDefaultOrders().map(d => this.normalizeOrder(d));
+      error: (err) => {
+        console.error('loadOrders error:', err);
         this.updateTabCounts();
         this.filterOrders();
         this.loading = false;
@@ -189,14 +192,15 @@ export class AdminOrdersComponent implements OnInit {
 
   // Cập nhật số lượng đếm trên từng tab trạng thái
   updateTabCounts(): void {
+    const list = this.orders || [];
     this.tabs = [
-      { key: 'all', label: 'Tất cả', count: this.orders.length },
-      { key: 'pending', label: 'Chờ xác nhận', count: this.orders.filter(o => o.status === 'pending' || o.orderStatus === 'Chờ xác nhận').length },
-      { key: 'processing', label: 'Đang xử lý', count: this.orders.filter(o => o.status === 'processing' || o.orderStatus === 'Đang xử lý').length },
-      { key: 'shipping', label: 'Đang giao', count: this.orders.filter(o => o.status === 'shipping' || (o.orderStatus && o.orderStatus.includes('Đang giao'))).length },
-      { key: 'completed', label: 'Đã giao', count: this.orders.filter(o => o.status === 'completed' || o.status === 'Completed' || (o.orderStatus && o.orderStatus.includes('Đã giao'))).length },
-      { key: 'cancelled', label: 'Đã hủy', count: this.orders.filter(o => o.status === 'cancelled' || o.orderStatus === 'Đã hủy').length },
-      { key: 'return', label: 'Yêu cầu đổi trả', count: this.orders.filter(o => o.hasReturnRequest || o.status === 'return' || o.returnStatus === 'pending').length }
+      { key: 'all', label: 'Tất cả', count: list.length },
+      { key: 'pending', label: 'Chờ xác nhận', count: list.filter(o => o.status === 'pending' || (o.orderStatus && (o.orderStatus.includes('Chờ') || o.orderStatus.includes('pending')))).length },
+      { key: 'processing', label: 'Đang xử lý', count: list.filter(o => o.status === 'processing' || (o.orderStatus && o.orderStatus.includes('xử lý'))).length },
+      { key: 'shipping', label: 'Đang giao', count: list.filter(o => o.status === 'shipping' || (o.orderStatus && o.orderStatus.includes('giao'))).length },
+      { key: 'completed', label: 'Đã giao', count: list.filter(o => o.status === 'completed' || o.status === 'Completed' || (o.orderStatus && (o.orderStatus.includes('thành công') || o.orderStatus.includes('Đã giao')))).length },
+      { key: 'cancelled', label: 'Đã hủy', count: list.filter(o => o.status === 'cancelled' || (o.orderStatus && o.orderStatus.includes('hủy'))).length },
+      { key: 'return', label: 'Yêu cầu đổi trả', count: list.filter(o => o.hasReturnRequest || o.status === 'return' || o.returnStatus === 'pending').length }
     ];
   }
 
@@ -208,20 +212,60 @@ export class AdminOrdersComponent implements OnInit {
     if (this.activeTab !== 'all') {
       if (this.activeTab === 'return') {
         result = result.filter(o => o.hasReturnRequest || o.status === 'return' || o.returnStatus === 'pending');
+      } else if (this.activeTab === 'pending') {
+        result = result.filter(o => o.status === 'pending' || (o.orderStatus && (o.orderStatus.includes('Chờ') || o.orderStatus.includes('pending'))));
+      } else if (this.activeTab === 'processing') {
+        result = result.filter(o => o.status === 'processing' || (o.orderStatus && o.orderStatus.includes('xử lý')));
+      } else if (this.activeTab === 'shipping') {
+        result = result.filter(o => o.status === 'shipping' || (o.orderStatus && o.orderStatus.includes('giao')));
+      } else if (this.activeTab === 'completed') {
+        result = result.filter(o => o.status === 'completed' || o.status === 'Completed' || (o.orderStatus && (o.orderStatus.includes('thành công') || o.orderStatus.includes('Đã giao'))));
+      } else if (this.activeTab === 'cancelled') {
+        result = result.filter(o => o.status === 'cancelled' || (o.orderStatus && o.orderStatus.includes('hủy')));
       } else {
-        result = result.filter(o => o.status === this.activeTab || (this.getStatusLabel(this.activeTab) === o.orderStatus));
+        result = result.filter(o => o.status === this.activeTab || o.orderStatus === this.getStatusLabel(this.activeTab));
       }
     }
 
-    // Lọc theo Phương thức thanh toán
+    // Lọc theo Phương thức / Trạng thái thanh toán
     if (this.paymentFilter !== 'all') {
-      result = result.filter(o => o.paymentMethod?.toLowerCase().includes(this.paymentFilter.toLowerCase()));
+      const pf = this.paymentFilter.toLowerCase();
+      result = result.filter(o => {
+        const method = (o.paymentMethod || '').toLowerCase();
+        const status = (o.paymentStatus || '').toLowerCase();
+        return method.includes(pf) || status.includes(pf);
+      });
     }
 
     // Lọc theo Phương thức vận chuyển
     if (this.methodFilter !== 'all') {
-      if (this.methodFilter === 'express') {
-        result = result.filter(o => o.carrier?.toLowerCase().includes('express') || o.carrier?.toLowerCase().includes('hỏa tốc'));
+      const mf = this.methodFilter.toLowerCase();
+      if (mf === 'express') {
+        result = result.filter(o =>
+          (o.shippingMethod && o.shippingMethod.toLowerCase().includes('express')) ||
+          (o.carrier && (o.carrier.toLowerCase().includes('express') || o.carrier.toLowerCase().includes('hỏa tốc')))
+        );
+      } else if (mf === 'standard') {
+        result = result.filter(o =>
+          (o.shippingMethod && o.shippingMethod.toLowerCase().includes('standard')) ||
+          (o.carrier && (o.carrier.toLowerCase().includes('standard') || o.carrier.toLowerCase().includes('tiêu chuẩn'))) ||
+          (!o.carrier?.toLowerCase().includes('hỏa tốc'))
+        );
+      }
+    }
+
+    // Lọc theo mốc thời gian
+    if (this.dateFilter !== 'all') {
+      const now = new Date();
+      if (this.dateFilter === 'this_month') {
+        result = result.filter(o => {
+          if (!o.createdAt) return true;
+          const d = new Date(o.createdAt);
+          return !isNaN(d.getTime()) && d.getMonth() === now.getMonth() && d.getFullYear() === now.getFullYear();
+        });
+      } else if (this.dateFilter === 'today') {
+        const todayStr = now.toDateString();
+        result = result.filter(o => o.createdAt && new Date(o.createdAt).toDateString() === todayStr);
       }
     }
 
@@ -230,6 +274,7 @@ export class AdminOrdersComponent implements OnInit {
       const q = this.searchQuery.toLowerCase().trim();
       result = result.filter(o =>
         (o.orderCode && o.orderCode.toLowerCase().includes(q)) ||
+        (o.trackingCode && o.trackingCode.toLowerCase().includes(q)) ||
         (o.customer?.fullName && o.customer.fullName.toLowerCase().includes(q)) ||
         (o.customer?.phone && o.customer.phone.includes(q)) ||
         (o.customer?.email && o.customer.email.toLowerCase().includes(q)) ||

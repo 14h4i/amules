@@ -472,107 +472,118 @@ export class AdminCatalogComponent implements OnInit {
   }
 
   loadBackendData(): void {
-    // 1. Load Categories from database
+    // 1. Load Categories directly from database
     this._http.get<any[]>('/api/categories').subscribe({
       next: (data) => {
         if (data && data.length) {
-          this.categories = data.map((c, i) => {
-            const fallback = this.categories[i % this.categories.length];
-            return {
-              ...fallback,
-              ...c,
-              name: c.name || fallback.name,
-              code: c.code || fallback.code,
-              slug: c.slug ? (c.slug.startsWith('/') ? c.slug : '/' + c.slug) : fallback.slug,
-              description: c.description || fallback.description,
-              image: this.resolveCatalogImage(c.image || fallback.image)
-            };
-          });
+          this.categories = data.map((c, i) => ({
+            _id: c._id || c.id,
+            id: c._id || c.id,
+            code: c.code || `DM-${String(i + 1).padStart(2, '0')}`,
+            name: c.name,
+            slug: c.slug ? (c.slug.startsWith('/') ? c.slug : '/' + c.slug) : `/${c.name.toLowerCase()}`,
+            description: c.description || `Danh mục ${c.name} đá năng lượng AMULES`,
+            image: this.resolveCatalogImage(c.image),
+            productCount: Number(c.productCount || 0),
+            isVisible: c.isVisible !== false
+          }));
           this.recalculateProductCounts();
         }
       },
-      error: () => {}
+      error: (err) => console.error('Load categories error:', err)
     });
 
-    // 2. Load Gemstones from database
+    // 2. Load Gemstones directly from database
     this._http.get<any[]>('/api/gemstones').subscribe({
       next: (data) => {
         if (data && data.length) {
-          this.gemstones = data.map((g, i) => {
-            const fallback = this.gemstones[i % this.gemstones.length];
-            return {
-              ...fallback,
-              ...g,
-              name: g.name || fallback.name,
-              code: g.code || `GEM-${String(i + 1).padStart(3, '0')}`,
-              slug: g.slug || fallback.slug,
-              description: g.description || fallback.description,
-              metaphysicalMeaning: g.meaning || g.description || fallback.metaphysicalMeaning,
-              image: this.resolveCatalogImage(g.image || fallback.image)
-            };
-          });
+          this.gemstones = data.map((g, i) => ({
+            _id: g._id || g.id,
+            id: g._id || g.id,
+            code: g.code || `GEM-${String(i + 1).padStart(3, '0')}`,
+            name: g.name,
+            scientificName: g.scientificName || g.name,
+            slug: g.slug || g.name.toLowerCase().replace(/\s+/g, '-'),
+            description: g.description || `Đá quý tự nhiên ${g.name}`,
+            metaphysicalMeaning: g.meaning || g.metaphysicalMeaning || g.description || '',
+            color: g.color || 'Đa sắc tự nhiên',
+            colorHex: g.colorHex || '#E0F2FE',
+            mohs: g.mohs || 'Mohs 6.5 - 7.5',
+            crystalSystem: g.crystalSystem || 'Hệ lục phương',
+            opticalFeature: g.opticalFeature || '',
+            compatibleElements: Array.isArray(g.compatibleElements) ? g.compatibleElements : (g.element ? [g.element] : []),
+            image: this.resolveCatalogImage(g.image),
+            productCount: Number(g.productCount || 0),
+            isVisible: g.isVisible !== false
+          }));
           this.recalculateProductCounts();
         }
       },
-      error: () => {}
+      error: (err) => console.error('Load gemstones error:', err)
     });
 
-    // 3. Load Collections from database
+    // 3. Load Collections directly from database
     this._http.get<any[]>('/api/collections').subscribe({
       next: (data) => {
         if (data && data.length) {
-          this.collections = data.map((col, i) => {
-            const fallback = this.collections[i % this.collections.length];
-            return {
-              ...fallback,
-              ...col,
-              name: col.name || fallback.name,
-              code: col.code || `BST-${String(i + 1).padStart(2, '0')}`,
-              slug: col.slug ? (col.slug.startsWith('/') ? col.slug : '/' + col.slug) : fallback.slug,
-              description: col.description || col.desc || fallback.description,
-              image: this.resolveCatalogImage(col.coverImage || col.image || fallback.image)
-            };
-          });
+          this.collections = data.map((col, i) => ({
+            _id: col._id || col.id,
+            id: col._id || col.id,
+            code: col.code || `BST-${String(i + 1).padStart(2, '0')}`,
+            name: col.name,
+            slug: col.slug ? (col.slug.startsWith('/') ? col.slug : '/' + col.slug) : `/${col.name.toLowerCase()}`,
+            description: col.description || col.desc || `Bộ sưu tập ${col.name} độc bản AMULES`,
+            image: this.resolveCatalogImage(col.coverImage || col.image),
+            productCount: Number(col.productCount || (col.productIds ? col.productIds.length : 0)),
+            isVisible: col.isVisible !== false
+          }));
           this.recalculateProductCounts();
         }
       },
-      error: () => {}
+      error: (err) => console.error('Load collections error:', err)
     });
 
-    // 4. Load Elements
+    // 4. Load Elements directly from database
     this._http.get<any[]>('/api/elements').subscribe({
       next: (data) => {
         if (data && data.length) {
-          this.elementsList = data.map((e, i) => {
-            const fallback = this.elementsList[i % this.elementsList.length];
-            return {
-              ...fallback,
-              ...e,
-              name: e.name || fallback.name
-            };
-          });
+          this.elementsList = data.map((e, i) => ({
+            _id: e._id || e.id,
+            id: e._id || e.id,
+            code: e.code || `MENH-${String(e.name || i + 1).toUpperCase()}`,
+            name: e.name,
+            element: e.element || e.name.replace('Mệnh ', ''),
+            description: e.description || `Năng lượng ngũ hành ${e.name}`,
+            color: e.color || '',
+            image: this.resolveCatalogImage(e.image),
+            productCount: Number(e.productCount || 0),
+            isVisible: e.isVisible !== false
+          }));
           this.recalculateProductCounts();
         }
       },
-      error: () => {}
+      error: (err) => console.error('Load elements error:', err)
     });
 
-    // 5. Load Zodiac Signs
+    // 5. Load Zodiac Signs directly from database
     this._http.get<any[]>('/api/zodiac-signs').subscribe({
       next: (data) => {
         if (data && data.length) {
-          this.zodiacSigns = data.map((z, i) => {
-            const fallback = this.zodiacSigns[i % this.zodiacSigns.length];
-            return {
-              ...fallback,
-              ...z,
-              name: z.name || fallback.name
-            };
-          });
+          this.zodiacSigns = data.map((z, i) => ({
+            _id: z._id || z.id,
+            id: z._id || z.id,
+            name: z.name,
+            dateRange: z.dateRange || z.dates || '',
+            element: z.element || '',
+            description: z.description || `Cung hoàng đạo ${z.name}`,
+            image: this.resolveCatalogImage(z.image),
+            productCount: Number(z.productCount || 0),
+            isVisible: z.isVisible !== false
+          }));
           this.recalculateProductCounts();
         }
       },
-      error: () => {}
+      error: (err) => console.error('Load zodiac error:', err)
     });
 
     // 6. Load Products to compute live dynamic counts across every catalog entity
@@ -583,7 +594,7 @@ export class AdminCatalogComponent implements OnInit {
           this.recalculateProductCounts();
         }
       },
-      error: () => {}
+      error: (err) => console.error('Load products for catalog count error:', err)
     });
   }
 
