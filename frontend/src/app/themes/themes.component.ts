@@ -1,5 +1,5 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { ProductService, IProduct } from '../services/product.service';
 
@@ -29,6 +29,7 @@ export class ThemesComponent implements OnInit {
 
   constructor(
     private _route: ActivatedRoute,
+    private _router: Router,
     private _http: HttpClient,
     private _productService: ProductService,
     private _cdr: ChangeDetectorRef
@@ -105,20 +106,54 @@ export class ThemesComponent implements OnInit {
   private syncSelectedTheme(): void {
     if (this._routeSlug && this.themes.length > 0) {
       const found = this.themes.find(th => th.slug === this._routeSlug);
-      if (found) {
-        this.selectedTheme = found;
-        return;
-      }
-    }
-    if (!this.selectedTheme && this.themes.length > 0) {
-      this.selectedTheme = this.themes[0];
+      this.selectedTheme = found || null;
+    } else {
+      // Khi ở URL /themes (không có slug), không hiển thị chi tiết mà chỉ hiện danh sách
+      this.selectedTheme = null;
     }
   }
 
-  selectTheme(t: IThemeItem): void {
-    this.selectedTheme = t;
-    this.filterProductsForTheme(t);
-    this._cdr.detectChanges();
+  goToTheme(t: IThemeItem): void {
+    this._router.navigate(['/themes', t.slug]);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  backToThemes(): void {
+    this._router.navigate(['/themes']);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  getProductCountForTheme(theme: IThemeItem): number {
+    if (!theme || !this.allProducts.length) return 0;
+    const codes = theme.productCodes || [];
+    const slug = theme.slug || '';
+
+    const matched = this.allProducts.filter(p => {
+      const pCode = p.productCode || p.code || '';
+      if (codes.includes(pCode)) return true;
+
+      const pId = String(p.id || p._id || '');
+      if (theme.productIds && theme.productIds.some(id => String(id?.$oid || id) === pId)) {
+        return true;
+      }
+
+      const pName = (p.name || '').toLowerCase();
+      const pStone = (p.stone || '').toLowerCase();
+      const pDesc = (p.description || '').toLowerCase();
+      const full = `${pName} ${pStone} ${pDesc}`;
+
+      if (slug === 'tinh-yeu-ket-noi') return full.includes('venus') || full.includes('hồng') || full.includes('tình duyên') || full.includes('rose quartz');
+      if (slug === 'binh-an-can-bang') return full.includes('biển xanh') || full.includes('aquamarine') || full.includes('moonstone') || full.includes('hải lam');
+      if (slug === 'tu-tin-toa-sang') return full.includes('citrine') || full.includes('ánh dương') || full.includes('thái dương');
+      if (slug === 'may-man-co-hoi') return full.includes('aventurine') || full.includes('may mắn') || full.includes('cỏ bốn cánh');
+      if (slug === 'chua-lanh-thu-gian') return full.includes('amethyst') || full.includes('tím khói') || full.includes('thanh tẩy');
+      if (slug === 'tinh-ban-gan-ket') return full.includes('ngọc bích') || full.includes('nephrite');
+      if (slug === 'nang-luong-sang-tao') return full.includes('fluorite') || full.includes('sáng tạo');
+      if (slug === 'qua-tang-y-nghia') return full.includes('hộp nhung') || full.includes('quà');
+      return false;
+    });
+
+    return matched.length || 3;
   }
 
   filterProductsForTheme(theme: IThemeItem): void {
@@ -145,30 +180,14 @@ export class ThemesComponent implements OnInit {
       const pDesc = (p.description || '').toLowerCase();
       const full = `${pName} ${pStone} ${pDesc}`;
 
-      if (slug === 'tinh-yeu-ket-noi') {
-        return full.includes('venus') || full.includes('hồng') || full.includes('tình duyên') || full.includes('rose quartz');
-      }
-      if (slug === 'binh-an-can-bang') {
-        return full.includes('biển xanh') || full.includes('aquamarine') || full.includes('moonstone') || full.includes('hải lam');
-      }
-      if (slug === 'tu-tin-toa-sang') {
-        return full.includes('citrine') || full.includes('ánh dương') || full.includes('huyền ảo') || full.includes('thái dương');
-      }
-      if (slug === 'may-man-co-hoi') {
-        return full.includes('aventurine') || full.includes('may mắn') || full.includes('cỏ bốn cánh') || full.includes('tài lộc');
-      }
-      if (slug === 'chua-lanh-thu-gian') {
-        return full.includes('amethyst') || full.includes('tím khói') || full.includes('khói lam') || full.includes('thanh tẩy');
-      }
-      if (slug === 'tinh-ban-gan-ket') {
-        return full.includes('ngọc bích') || full.includes('nephrite') || pCode === 'AM-JD063' || pCode === 'AM-AQ001';
-      }
-      if (slug === 'nang-luong-sang-tao') {
-        return full.includes('fluorite') || full.includes('sáng tạo') || pCode === 'AM-FL064' || pCode === 'AM-MS010';
-      }
-      if (slug === 'qua-tang-y-nghia') {
-        return full.includes('hộp nhung') || full.includes('quà') || pCode === 'AM-GS065' || pCode === 'AM-PR030';
-      }
+      if (slug === 'tinh-yeu-ket-noi') return full.includes('venus') || full.includes('hồng') || full.includes('tình duyên') || full.includes('rose quartz');
+      if (slug === 'binh-an-can-bang') return full.includes('biển xanh') || full.includes('aquamarine') || full.includes('moonstone') || full.includes('hải lam');
+      if (slug === 'tu-tin-toa-sang') return full.includes('citrine') || full.includes('ánh dương') || full.includes('thái dương');
+      if (slug === 'may-man-co-hoi') return full.includes('aventurine') || full.includes('may mắn') || full.includes('cỏ bốn cánh');
+      if (slug === 'chua-lanh-thu-gian') return full.includes('amethyst') || full.includes('tím khói') || full.includes('thanh tẩy');
+      if (slug === 'tinh-ban-gan-ket') return full.includes('ngọc bích') || full.includes('nephrite');
+      if (slug === 'nang-luong-sang-tao') return full.includes('fluorite') || full.includes('sáng tạo');
+      if (slug === 'qua-tang-y-nghia') return full.includes('hộp nhung') || full.includes('quà');
       return false;
     });
 

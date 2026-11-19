@@ -1,5 +1,5 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { MasterDataService } from '../services/master-data.service';
 import { ProductService, IProduct } from '../services/product.service';
 
@@ -18,6 +18,7 @@ export class CollectionsComponent implements OnInit {
 
   constructor(
     private _route: ActivatedRoute,
+    private _router: Router,
     private _masterDataService: MasterDataService,
     private _productService: ProductService,
     private _cdr: ChangeDetectorRef
@@ -80,25 +81,48 @@ export class CollectionsComponent implements OnInit {
         c.name.toLowerCase().includes(this._routeSlug) ||
         this._routeSlug.includes(c.name.toLowerCase())
       );
-      if (found) {
-        this.selectedCollection = found;
-        return;
-      }
-    }
-    if (!this.selectedCollection && this.collections.length > 0) {
-      this.selectedCollection = this.collections[0];
+      this.selectedCollection = found || null;
+    } else {
+      // Khi ở URL /collections (không có slug), không hiển thị chi tiết mà chỉ hiện danh sách
+      this.selectedCollection = null;
     }
   }
 
-  selectCollection(col: any): void {
-    this.selectedCollection = col;
-    this.filterProductsForCollection();
-    this._cdr.detectChanges();
+  goToCollection(col: any): void {
+    this._router.navigate(['/collections', col.slug]);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  backToCollections(): void {
+    this._router.navigate(['/collections']);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  getProductCount(col: any): number {
+    if (!col || !this.allProducts.length) return 0;
+    const name = (col.name || '').toLowerCase();
+    const slug = (col.slug || '').toLowerCase();
+    return this.allProducts.filter(p => {
+      const pName = (p.name || '').toLowerCase();
+      const pStone = (p.stone || '').toLowerCase();
+      const pCol = ((p as any).collection || '').toLowerCase();
+
+      if (slug.includes('moon') || name.includes('moon') || name.includes('sao') || name.includes('tinh tú')) {
+        return pName.includes('moonstone') || pName.includes('tinh tú') || pStone.includes('moonstone') || pCol.includes('moon') || pName.includes('celestial');
+      }
+      if (slug.includes('muse') || name.includes('muse') || name.includes('nàng thơ')) {
+        return pName.includes('merlia') || pName.includes('hơi thở') || pName.includes('baroque') || pName.includes('venus') || pCol.includes('muse');
+      }
+      if (slug.includes('mystic') || name.includes('mystic') || name.includes('vintage') || name.includes('cổ điển')) {
+        return pName.includes('amethyst') || pName.includes('khói') || pName.includes('bảo tháp') || pName.includes('kim tự tháp') || pCol.includes('mystic');
+      }
+      return false;
+    }).length || 3;
   }
 
   private filterProductsForCollection(): void {
     if (!this.selectedCollection || this.allProducts.length === 0) {
-      this.featuredProducts = this.allProducts.slice(0, 6);
+      this.featuredProducts = [];
       return;
     }
 
@@ -125,6 +149,6 @@ export class CollectionsComponent implements OnInit {
     if (filtered.length === 0) {
       filtered = this.allProducts;
     }
-    this.featuredProducts = filtered.slice(0, 8);
+    this.featuredProducts = filtered;
   }
 }
