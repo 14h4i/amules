@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { AdminService } from '../../services/admin.service';
 
 @Component({
@@ -18,7 +18,10 @@ export class AdminProductsComponent implements OnInit {
 
   currentProduct: any = this.getEmptyProduct();
 
-  constructor(private _adminService: AdminService) {}
+  constructor(
+    private _adminService: AdminService,
+    private _cdr: ChangeDetectorRef
+  ) {}
 
   ngOnInit(): void {
     this.loadProducts();
@@ -50,16 +53,19 @@ export class AdminProductsComponent implements OnInit {
 
   loadProducts(): void {
     this.loading = true;
+    this._cdr.markForCheck();
     this._adminService.getProducts().subscribe({
       next: (data) => {
         if (data && data.length) {
           this.products = data.map((p) => this.formatProduct(p));
         }
         this.loading = false;
+        this._cdr.detectChanges();
       },
       error: (err) => {
         console.error('loadProducts error:', err);
         this.loading = false;
+        this._cdr.detectChanges();
       }
     });
   }

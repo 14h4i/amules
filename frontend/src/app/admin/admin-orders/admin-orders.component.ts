@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { AdminService } from '../../services/admin.service';
 
 @Component({
@@ -76,7 +76,10 @@ export class AdminOrdersComponent implements OnInit {
     return this.orders.filter(o => o.hasReturnRequest || o.status === 'return' || o.returnStatus === 'pending').length;
   }
 
-  constructor(private _adminService: AdminService) {
+  constructor(
+    private _adminService: AdminService,
+    private _cdr: ChangeDetectorRef
+  ) {
     // Khởi tạo ngay lập tức với đơn hàng tiêu chuẩn để UI không bao giờ bị chớp 0
     this.orders = this.getDefaultOrders().map(d => this.normalizeOrder(d));
     this.updateTabCounts();
@@ -90,6 +93,7 @@ export class AdminOrdersComponent implements OnInit {
   // Tải danh sách đơn hàng từ CSDL MongoDB Backend
   loadOrders(): void {
     this.loading = true;
+    this._cdr.markForCheck();
     this._adminService.getOrders('all', '', 'all').subscribe({
       next: (data) => {
         if (Array.isArray(data) && data.length > 0) {
@@ -98,12 +102,14 @@ export class AdminOrdersComponent implements OnInit {
         this.updateTabCounts();
         this.filterOrders();
         this.loading = false;
+        this._cdr.detectChanges();
       },
       error: (err) => {
         console.error('loadOrders error:', err);
         this.updateTabCounts();
         this.filterOrders();
         this.loading = false;
+        this._cdr.detectChanges();
       }
     });
   }
@@ -552,7 +558,91 @@ export class AdminOrdersComponent implements OnInit {
   }
 
   exportData(): void {
-    this.showToast('Đã xuất file dữ liệu Excel danh sách đơn hàng!');
+    const list = (this.filteredOrders && this.filteredOrders.length > 0) ? this.filteredOrders : this.orders;
+    if (!list || list.length === 0) {
+      this.showToast('Không có dữ liệu đơn hàng để xuất!');
+      return;
+    }
+
+    const headers = [
+      'Mã đơn hàng',
+      'Thời gian đặt',
+      'Tên khách hàng',
+      'Số điện thoại',
+      'Email',
+      'Hạng thành viên',
+      'Địa chỉ giao hàng',
+      'Danh sách sản phẩm',
+      'Số lượng SP',
+      'Tổng tiền (VNĐ)',
+      'Phương thức thanh toán',
+      'Trạng thái thanh toán',
+      'Trạng thái đơn hàng',
+      'Đơn vị vận chuyển',
+      'Mã vận đơn',
+      'Ghi chú'
+    ];
+
+    const escapeCsv = (val: any): string => {
+      if (val === null || val === undefined) return '""';
+      const str = String(val).replace(/"/g, '""');
+      return `"${str}"`;
+    };
+
+    const rows = list.map(o => {
+      const address = [
+        o.shippingAddress?.street,
+        o.shippingAddress?.ward,
+        o.shippingAddress?.district,
+        o.shippingAddress?.province
+      ].filter(Boolean).join(', ');
+
+      const itemsStr = (o.items || []).map((it: any) => `${it.name || it.productName || 'Bảo vật'} (x${it.quantity || 1})`).join('; ');
+      let timeStr = o.timeLabel || '';
+      if (o.createdAt) {
+        try {
+          timeStr = new Date(o.createdAt).toLocaleString('vi-VN');
+        } catch (e) {}
+      }
+      const notes = (o.internalNotes || []).map((n: any) => n.content).join('; ');
+
+      return [
+        escapeCsv(o.orderCode || ''),
+        escapeCsv(timeStr),
+        escapeCsv(o.customer?.fullName || ''),
+        escapeCsv(o.customer?.phone || ''),
+        escapeCsv(o.customer?.email || ''),
+        escapeCsv(o.customer?.tier || ''),
+        escapeCsv(address),
+        escapeCsv(itemsStr),
+        escapeCsv(o.items?.length || 1),
+        escapeCsv(o.totalAmount || 0),
+        escapeCsv(o.paymentMethod || 'COD'),
+        escapeCsv(o.paymentStatusLabel || (o.paymentStatus === 'paid' ? 'Đã thanh toán' : 'Chờ thanh toán')),
+        escapeCsv(o.statusLabel || this.getStatusLabel(o.status)),
+        escapeCsv(o.carrier || 'GHN Express'),
+        escapeCsv(o.trackingCode || ''),
+        escapeCsv(notes || o.shippingAddress?.note || '')
+      ].join(',');
+    });
+
+    // Bổ sung ký tự BOM UTF-8 (\uFEFF) để Excel hiển thị tiếng Việt có dấu chuẩn đẹp 100%
+    const csvContent = '\uFEFF' + [headers.join(','), ...rows].join('\r\n');
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+
+    const a = document.createElement('a');
+    a.href = url;
+    const now = new Date();
+    const dateStr = `${now.getFullYear()}${String(now.getMonth() + 1).padStart(2, '0')}${String(now.getDate()).padStart(2, '0')}_${String(now.getHours()).padStart(2, '0')}${String(now.getMinutes()).padStart(2, '0')}`;
+    a.download = `AMULES_Danh_Sach_Don_Hang_${dateStr}.csv`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+
+    this.showToast(`Đã xuất và tải về file Excel (${list.length} đơn hàng) thành công!`);
+    this._cdr.detectChanges();
   }
 
   printInvoice(): void {

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { AdminService } from '../../services/admin.service';
 
 @Component({
@@ -31,7 +31,10 @@ export class AdminUsersComponent implements OnInit {
     { code: '#AMU-20261105-0001', title: 'Dây Chuyền Mặt Trăng Khuyết Moonstone + Dây Merlia', date: '05/11/2026', price: 1200000, status: 'ĐÃ GIAO HÀNG', statusClass: 'status-completed' }
   ];
 
-  constructor(private _adminService: AdminService) {}
+  constructor(
+    private _adminService: AdminService,
+    private _cdr: ChangeDetectorRef
+  ) {}
 
   get totalUsersCount(): number {
     return this.users.length;
@@ -138,16 +141,19 @@ export class AdminUsersComponent implements OnInit {
 
   loadUsers(): void {
     this.loading = true;
+    this._cdr.markForCheck();
     this._adminService.getUsers().subscribe({
       next: (data) => {
         if (data && data.length) {
           this.users = data.map((u: any, i: number) => this.formatUser(u, i));
         }
         this.loading = false;
+        this._cdr.detectChanges();
       },
       error: (err) => {
         console.error('loadUsers error:', err);
         this.loading = false;
+        this._cdr.detectChanges();
       }
     });
   }
@@ -220,7 +226,63 @@ export class AdminUsersComponent implements OnInit {
   }
 
   exportCrm(): void {
-    this.showToast('Đã xuất báo cáo CRM khách hàng định dạng CSV/Excel!');
+    const list = (this.filteredUsers && this.filteredUsers.length > 0) ? this.filteredUsers : this.users;
+    if (!list || list.length === 0) {
+      this.showToast('Không có dữ liệu hội viên để xuất báo cáo!');
+      return;
+    }
+
+    const headers = [
+      'Mã khách hàng',
+      'Họ và tên',
+      'Email',
+      'Số điện thoại',
+      'Hạng thành viên',
+      'Cấp VIP',
+      'Điểm tích lũy',
+      'Số đơn hàng',
+      'Tổng chi tiêu (VNĐ)',
+      'Ngày tham gia',
+      'Trạng thái tài khoản'
+    ];
+
+    const escapeCsv = (val: any): string => {
+      if (val === null || val === undefined) return '""';
+      const str = String(val).replace(/"/g, '""');
+      return `"${str}"`;
+    };
+
+    const rows = list.map(u => [
+      escapeCsv(u.code || ''),
+      escapeCsv(u.fullName || ''),
+      escapeCsv(u.email || ''),
+      escapeCsv(u.phone || ''),
+      escapeCsv(u.tier || ''),
+      escapeCsv(u.vipLevel || ''),
+      escapeCsv(u.points || 0),
+      escapeCsv(u.orderCount || 0),
+      escapeCsv(u.totalSpent || 0),
+      escapeCsv(u.joinDate || ''),
+      escapeCsv(u.statusLabel || (u.status === 'locked' ? 'Đã khóa' : 'Đang hoạt động'))
+    ].join(','));
+
+    // Ký tự BOM UTF-8 (\uFEFF) cho tiếng Việt có dấu trong Excel
+    const csvContent = '\uFEFF' + [headers.join(','), ...rows].join('\r\n');
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+
+    const a = document.createElement('a');
+    a.href = url;
+    const now = new Date();
+    const dateStr = `${now.getFullYear()}${String(now.getMonth() + 1).padStart(2, '0')}${String(now.getDate()).padStart(2, '0')}`;
+    a.download = `AMULES_Bao_Cao_CRM_Khach_Hang_${dateStr}.csv`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+
+    this.showToast(`Đã xuất và tải về báo cáo CRM (${list.length} khách hàng) thành công!`);
+    this._cdr.detectChanges();
   }
 
   showToast(msg: string): void {
