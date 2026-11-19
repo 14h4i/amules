@@ -683,11 +683,7 @@ export class AdminCatalogComponent implements OnInit {
   }
 
   resolveCatalogImage(img?: string): string {
-    if (!img) return 'https://i.pinimg.com/736x/d4/3c/3d/d43c3d69296b0badad1636033dd34e9c.jpg';
-    if (img.includes('day_chuyen_merlia')) return 'https://i.pinimg.com/1200x/5e/19/ca/5e19cae249717d1321564c81f14a1732.jpg';
-    if (img.includes('nhan_venus')) return 'https://i.pinimg.com/736x/47/9c/df/479cdf269b5b50948b8aef6103b475ed.jpg';
-    if (img.includes('bong_tai_baroque')) return 'https://i.pinimg.com/736x/82/af/ce/82afce704fa0702179286be2a3d293d7.jpg';
-    return img;
+    return img || '';
   }
 
   get currentTabItems(): CatalogItem[] {

@@ -21,7 +21,7 @@
   },
   {
     "_id": "B-1JHFzonfpt2_fa71Rof1kCEL7KeTI9",
-    "expires": "2026-11-19T16:24:28.194Z",
+    "expires": "2026-11-19T16:28:21.031Z",
     "session": "{\"cookie\":{\"originalMaxAge\":86399999,\"expires\":\"2026-11-19T16:15:56.766Z\",\"secure\":false,\"httpOnly\":true,\"path\":\"/\",\"sameSite\":\"lax\"},\"user\":{\"id\":\"6afd90886110da292e0b54b0\",\"email\":\"anan265464@gmail.com\",\"fullName\":\"Thu An\",\"phone\":\"\",\"avatar\":\"\",\"role\":\"customer\",\"tier\":\"Thành viên mới\",\"points\":0,\"authProvider\":\"google\",\"_id\":\"6afd90886110da292e0b54b0\",\"dob\":\"\",\"gender\":\"\",\"element\":\"\",\"zodiac\":\"\",\"wristSize\":\"\",\"addresses\":[],\"createdAt\":\"2026-11-18T11:48:24.451Z\",\"updatedAt\":\"2026-11-18T11:48:31.991Z\",\"nickname\":\"An\"},\"cart\":[]}"
   },
   {
@@ -38,5 +38,30 @@
     "_id": "1kSRi2HsZZsNhJB2LY_6QPMA4oVQJMtD",
     "expires": "2026-11-19T16:25:49.450Z",
     "session": "{\"cookie\":{\"originalMaxAge\":86400000,\"expires\":\"2026-11-19T16:25:49.450Z\",\"secure\":false,\"httpOnly\":true,\"path\":\"/\",\"sameSite\":\"lax\"}}"
+  },
+  {
+    "_id": "Y3ng5_B2b2hzPCiUQMMDHmIl8hR73DKz",
+    "expires": "2026-11-20T04:39:07.143Z",
+    "session": "{\"cookie\":{\"originalMaxAge\":86400000,\"expires\":\"2026-11-20T04:39:07.143Z\",\"secure\":false,\"httpOnly\":true,\"path\":\"/\",\"sameSite\":\"lax\"}}"
+  },
+  {
+    "_id": "aGVN7Giiphb_G9L8uozhRzReF6rVCWex",
+    "expires": "2026-11-20T04:39:09.564Z",
+    "session": "{\"cookie\":{\"originalMaxAge\":86400000,\"expires\":\"2026-11-20T04:39:09.564Z\",\"secure\":false,\"httpOnly\":true,\"path\":\"/\",\"sameSite\":\"lax\"}}"
+  },
+  {
+    "_id": "mYLKqMUqfL_vOcIwhi0mJNwYF0rFtzK5",
+    "expires": "2026-11-20T04:39:09.588Z",
+    "session": "{\"cookie\":{\"originalMaxAge\":86400000,\"expires\":\"2026-11-20T04:39:09.588Z\",\"secure\":false,\"httpOnly\":true,\"path\":\"/\",\"sameSite\":\"lax\"}}"
+  },
+  {
+    "_id": "p1gqbzBQ1R-LWcts8ZV3k4giBlUMr5jt",
+    "expires": "2026-11-20T04:40:45.529Z",
+    "session": "{\"cookie\":{\"originalMaxAge\":86400000,\"expires\":\"2026-11-20T04:40:45.529Z\",\"secure\":false,\"httpOnly\":true,\"path\":\"/\",\"sameSite\":\"lax\"}}"
+  },
+  {
+    "_id": "LlVFDlea22-hMYF4WSGlZs5S3WuUQLKw",
+    "expires": "2026-11-20T04:40:45.544Z",
+    "session": "{\"cookie\":{\"originalMaxAge\":86400000,\"expires\":\"2026-11-20T04:40:45.544Z\",\"secure\":false,\"httpOnly\":true,\"path\":\"/\",\"sameSite\":\"lax\"}}"
   }
 ]
