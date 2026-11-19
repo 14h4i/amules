@@ -1456,7 +1456,7 @@ const handleCheckout = async (req, res) => {
     const trackingCode = req.body.trackingCode || `GHN-AMU-${rawNumber}`;
     const carrier = req.body.carrier || 'Giao Hàng Nhanh (GHN Express)';
     const paymentMethod = req.body.paymentMethod || 'COD';
-    const isPaid = paymentMethod === 'VNPAY' || paymentMethod === 'MOMO' || req.body.paymentStatus === 'paid';
+    const isPaid = req.body.paymentStatus === 'paid';
 
     const fullName = cust.fullName || (sessionUser ? sessionUser.fullName : 'Khách hàng AMULES');
     const phone = cust.phone || (sessionUser ? sessionUser.phone : '');
@@ -1505,7 +1505,7 @@ const handleCheckout = async (req, res) => {
       paymentStatus: isPaid ? 'paid' : (paymentMethod === 'COD' ? 'pending_cod' : 'unpaid'),
       paymentStatusLabel: isPaid ? 'Đã thanh toán' : (paymentMethod === 'COD' ? 'Chờ thu hộ COD' : 'Chờ thanh toán'),
       status: 'pending',
-      orderStatus: isPaid ? 'Đã thanh toán (Chờ giao hàng)' : 'Chờ xác nhận & thanh tẩy đá',
+      orderStatus: isPaid ? 'Đã thanh toán (Chờ giao hàng)' : (paymentMethod === 'COD' ? 'Chờ xác nhận & thanh tẩy đá' : 'Chờ thanh toán trực tuyến'),
       hasReturnRequest: false,
       returnReason: null,
       internalNotes: [

@@ -147,6 +147,22 @@
   align-items: center;
   gap: 4px;
 }
+.status-pill.status-pending {
+  background: #fef3c7;
+  color: #b45309;
+  border: 1px solid #fde68a;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+.status-pill.status-cod {
+  background: #f3f4f6;
+  color: #374151;
+  border: 1px solid #e5e7eb;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
 
 /* 3rd-Party Logistics Box */
 .logistics-3rd-box {
@@ -324,4 +340,90 @@
 }
 .btn-paid-confirm:hover {
   opacity: 0.9;
+}
+.btn-paid-confirm:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+.btn-paid-confirm.btn-vnpay {
+  background: #005baa;
+}
+.btn-paid-confirm.btn-momo {
+  background: #a50064;
+}
+
+.payment-confirmed-box {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  background: #e6f6ed;
+  border: 1.5px solid #86efac;
+  border-radius: 18px;
+  padding: 18px 22px;
+  margin-bottom: 28px;
+  text-align: left;
+}
+.confirmed-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: #15803d;
+  color: #fff;
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+}
+.confirmed-content h4 {
+  font-size: 15px;
+  font-weight: 700;
+  color: #14532d;
+  margin: 0 0 4px;
+}
+.confirmed-content p {
+  font-size: 13.5px;
+  color: #166534;
+  margin: 0;
+  line-height: 1.5;
+}
+
+.cod-instruction-box {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  background: #fffbf0;
+  border: 1.5px solid #fed7aa;
+  border-radius: 18px;
+  padding: 18px 22px;
+  margin-bottom: 28px;
+  text-align: left;
+}
+.cod-icon-wrap {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: #f97316;
+  color: #fff;
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+}
+.cod-content h4 {
+  font-size: 15px;
+  font-weight: 700;
+  color: #9a3412;
+  margin: 0 0 4px;
+}
+.cod-content p {
+  font-size: 13.5px;
+  color: #7c2d12;
+  margin: 0;
+  line-height: 1.5;
+}
+
+.pay-guide {
+  font-size: 12.5px;
+  color: #4b5563;
+  line-height: 1.5;
+  text-align: right;
+  max-width: 280px;
 }

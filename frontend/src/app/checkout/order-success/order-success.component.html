@@ -26,57 +26,180 @@
         <span>Thanh toán</span>
         @if (isPaid) {
           <span class="status-pill status-paid">
-            <app-icon name="check" [size]="12"></app-icon> Đã thanh toán ({{ paymentGateway || 'Online' }})
+            <app-icon name="check" [size]="12"></app-icon> Đã thanh toán ({{ paymentGatewayLabel }})
           </span>
+        } @else if (paymentGateway === 'COD') {
+          <span class="status-pill status-cod">COD (Tiền mặt khi nhận)</span>
         } @else {
-          <span class="status-pill">COD (Tiền mặt khi nhận)</span>
+          <span class="status-pill status-pending">
+            <app-icon name="clock" [size]="12"></app-icon> {{ paymentGatewayLabel }} (Chờ thanh toán)
+          </span>
         }
       </div>
     </div>
 
-    <!-- Khối Thanh Toán Trực Tuyến (Nếu chọn VNPAY, MOMO hoặc VIETQR) -->
-    @if (paymentGateway && !isPaid) {
-      <div class="online-payment-card">
-        <div class="online-pay-head">
-          <app-icon name="sparkle" [size]="18"></app-icon>
-          <h3>Quét Mã Hoàn Tất Thanh Toán ({{ paymentGateway === 'BANKING' ? 'Chuyển khoản VietQR' : paymentGateway }})</h3>
+    <!-- Thông báo ĐÃ THANH TOÁN THÀNH CÔNG -->
+    @if (isPaid) {
+      <div class="payment-confirmed-box">
+        <div class="confirmed-icon"><app-icon name="check" [size]="24"></app-icon></div>
+        <div class="confirmed-content">
+          <h4>Thanh toán hoàn tất thành công!</h4>
+          <p>Hệ thống AMULES đã ghi nhận thanh toán cho đơn hàng <b>{{ orderCode }}</b> qua <b>{{ paymentGatewayLabel }}</b>. Đơn hàng đang được chuyển sang bộ phận chế tác &amp; thanh tẩy đá quý.</p>
         </div>
-        <div class="online-pay-body">
-          <div class="qr-col">
-            <img [src]="qrUrl" alt="Mã thanh toán QR" class="pay-qr-img">
-            <small>Mở ứng dụng Ngân hàng hoặc ví để quét mã</small>
+      </div>
+    }
+
+    <!-- Khối Thanh Toán Trực Tuyến khi CHƯA thanh toán (BANKING, VNPAY, MOMO) -->
+    @if (paymentGateway && paymentGateway !== 'COD' && !isPaid) {
+      <div class="online-payment-card">
+        
+        <!-- Trường hợp 1: Chuyển khoản ngân hàng VietQR (BANKING) -->
+        @if (paymentGateway === 'BANKING') {
+          <div class="online-pay-head">
+            <app-icon name="sparkle" [size]="18"></app-icon>
+            <h3>Quét Mã Hoàn Tất Thanh Toán (Chuyển khoản VietQR)</h3>
           </div>
-          <div class="info-col">
-            <div class="pay-field">
-              <span>Số tiền:</span>
-              <strong class="pay-amount">{{ totalAmount | number }}đ</strong>
+          <div class="online-pay-body">
+            <div class="qr-col">
+              <img [src]="qrUrl" alt="Mã thanh toán VietQR" class="pay-qr-img">
+              <small>Mở ứng dụng Ngân hàng để quét mã VietQR tự động điền thông tin</small>
             </div>
-            <div class="pay-field">
-              <span>Ngân hàng:</span>
-              <strong>{{ bankName }}</strong>
-            </div>
-            <div class="pay-field">
-              <span>Số tài khoản:</span>
-              <div class="copy-box">
-                <strong>{{ accountNo }}</strong>
-                <button type="button" class="btn-copy-sm" (click)="copyInfo(accountNo, 'stk')">
-                  {{ copiedText === 'stk' ? 'Đã sao chép' : 'Sao chép' }}
-                </button>
+            <div class="info-col">
+              <div class="pay-field">
+                <span>Số tiền:</span>
+                <strong class="pay-amount">{{ totalAmount | number }}đ</strong>
               </div>
-            </div>
-            <div class="pay-field">
-              <span>Nội dung chuyển khoản:</span>
-              <div class="copy-box">
-                <strong>AMU {{ orderCode }}</strong>
-                <button type="button" class="btn-copy-sm" (click)="copyInfo('AMU ' + orderCode, 'memo')">
-                  {{ copiedText === 'memo' ? 'Đã sao chép' : 'Sao chép' }}
-                </button>
+              <div class="pay-field">
+                <span>Ngân hàng:</span>
+                <strong>{{ bankName }}</strong>
               </div>
+              <div class="pay-field">
+                <span>Số tài khoản:</span>
+                <div class="copy-box">
+                  <strong>{{ accountNo }}</strong>
+                  <button type="button" class="btn-copy-sm" (click)="copyInfo(accountNo, 'stk')">
+                    {{ copiedText === 'stk' ? 'Đã sao chép' : 'Sao chép' }}
+                  </button>
+                </div>
+              </div>
+              <div class="pay-field">
+                <span>Chủ tài khoản:</span>
+                <strong>{{ accountName }}</strong>
+              </div>
+              <div class="pay-field">
+                <span>Nội dung chuyển khoản:</span>
+                <div class="copy-box">
+                  <strong>{{ transferMemo }}</strong>
+                  <button type="button" class="btn-copy-sm" (click)="copyInfo(transferMemo, 'memo')">
+                    {{ copiedText === 'memo' ? 'Đã sao chép' : 'Sao chép' }}
+                  </button>
+                </div>
+              </div>
+              <button type="button" class="btn-paid-confirm" (click)="confirmPayment()" [disabled]="isConfirming">
+                <app-icon name="check" [size]="16"></app-icon>
+                {{ isConfirming ? 'Đang xác thực giao dịch...' : 'Tôi Đã Chuyển Khoản Thành Công' }}
+              </button>
             </div>
-            <button type="button" class="btn-paid-confirm" (click)="confirmPayment()">
-              <app-icon name="check" [size]="16"></app-icon> Tôi Đã Chuyển Khoản Thành Công
-            </button>
           </div>
+        }
+
+        <!-- Trường hợp 2: Cổng thanh toán VNPAY-QR -->
+        @if (paymentGateway === 'VNPAY') {
+          <div class="online-pay-head">
+            <app-icon name="sparkle" [size]="18"></app-icon>
+            <h3>Cổng Thanh Toán Quốc Gia VNPAY-QR</h3>
+          </div>
+          <div class="online-pay-body">
+            <div class="qr-col">
+              <img [src]="qrUrl" alt="Mã VNPAY QR" class="pay-qr-img">
+              <small>Quét bằng ứng dụng Ngân hàng (VCB, MB, BIDV, TCB...) hoặc Ví VNPAY</small>
+            </div>
+            <div class="info-col">
+              <div class="pay-field">
+                <span>Số tiền:</span>
+                <strong class="pay-amount">{{ totalAmount | number }}đ</strong>
+              </div>
+              <div class="pay-field">
+                <span>Cổng thanh toán:</span>
+                <strong>VNPAY-QR (Hỗ trợ 35+ Ngân hàng &amp; Ví VNPAY)</strong>
+              </div>
+              <div class="pay-field">
+                <span>Mã đơn hàng:</span>
+                <div class="copy-box">
+                  <strong>{{ orderCode }}</strong>
+                  <button type="button" class="btn-copy-sm" (click)="copyInfo(orderCode, 'code')">
+                    {{ copiedText === 'code' ? 'Đã sao chép' : 'Sao chép' }}
+                  </button>
+                </div>
+              </div>
+              <div class="pay-field">
+                <span>Hướng dẫn:</span>
+                <span class="pay-guide">Mở App Ngân hàng hoặc Ví VNPAY &rarr; Chọn Quét QR để hoàn tất thanh toán.</span>
+              </div>
+              <button type="button" class="btn-paid-confirm btn-vnpay" (click)="confirmPayment()" [disabled]="isConfirming">
+                <app-icon name="check" [size]="16"></app-icon>
+                {{ isConfirming ? 'Đang xác thực qua VNPAY...' : 'Xác Nhận Đã Thanh Toán Qua VNPAY' }}
+              </button>
+            </div>
+          </div>
+        }
+
+        <!-- Trường hợp 3: Ví điện tử MoMo -->
+        @if (paymentGateway === 'MOMO') {
+          <div class="online-pay-head">
+            <app-icon name="sparkle" [size]="18"></app-icon>
+            <h3>Thanh Toán Qua Ví Điện Tử MoMo</h3>
+          </div>
+          <div class="online-pay-body">
+            <div class="qr-col">
+              <img [src]="qrUrl" alt="Mã MoMo QR" class="pay-qr-img">
+              <small>Mở ứng dụng Ví MoMo trên điện thoại để quét mã</small>
+            </div>
+            <div class="info-col">
+              <div class="pay-field">
+                <span>Số tiền:</span>
+                <strong class="pay-amount">{{ totalAmount | number }}đ</strong>
+              </div>
+              <div class="pay-field">
+                <span>Số điện thoại / Ví MoMo:</span>
+                <div class="copy-box">
+                  <strong>{{ accountNo }}</strong>
+                  <button type="button" class="btn-copy-sm" (click)="copyInfo(accountNo, 'momo')">
+                    {{ copiedText === 'momo' ? 'Đã sao chép' : 'Sao chép' }}
+                  </button>
+                </div>
+              </div>
+              <div class="pay-field">
+                <span>Tên người nhận:</span>
+                <strong>{{ accountName }}</strong>
+              </div>
+              <div class="pay-field">
+                <span>Lời nhắn thanh toán:</span>
+                <div class="copy-box">
+                  <strong>{{ transferMemo }}</strong>
+                  <button type="button" class="btn-copy-sm" (click)="copyInfo(transferMemo, 'memo')">
+                    {{ copiedText === 'memo' ? 'Đã sao chép' : 'Sao chép' }}
+                  </button>
+                </div>
+              </div>
+              <button type="button" class="btn-paid-confirm btn-momo" (click)="confirmPayment()" [disabled]="isConfirming">
+                <app-icon name="check" [size]="16"></app-icon>
+                {{ isConfirming ? 'Đang xác thực qua MoMo...' : 'Xác Nhận Đã Thanh Toán Qua MoMo' }}
+              </button>
+            </div>
+          </div>
+        }
+
+      </div>
+    }
+
+    <!-- Khối hướng dẫn cho khách chọn COD -->
+    @if (paymentGateway === 'COD' && !isPaid) {
+      <div class="cod-instruction-box">
+        <div class="cod-icon-wrap"><app-icon name="truck" [size]="24"></app-icon></div>
+        <div class="cod-content">
+          <h4>Phương thức: Thanh toán khi nhận hàng (COD)</h4>
+          <p>Quý khách vui lòng chuẩn bị số tiền <strong>{{ totalAmount | number }}đ</strong> khi bưu tá giao hàng. Bạn có quyền kiểm tra niêm phong hộp nhung và chứng thư kiểm định đá quý trước khi thanh toán tiền mặt.</p>
         </div>
       </div>
     }
