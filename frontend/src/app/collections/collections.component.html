@@ -12,10 +12,19 @@
 
   <!-- Danh sách Bộ sưu tập lớn -->
   <div class="col-cards-grid">
-    @for (c of collections; track c.name) {
-      <article class="col-card" [class.active]="selectedCollection?.name === c.name" (click)="selectCollection(c)">
+    @for (c of collections; track c._id || c.slug || c.name || $index) {
+      <article
+        class="col-card"
+        [class.active]="selectedCollection?.name === c.name || selectedCollection?.slug === c.slug"
+        (click)="selectCollection(c)"
+      >
         <div class="col-card__media">
-          <img [src]="c.image" [alt]="c.name">
+          <img [src]="c.image || c.coverImage" [alt]="c.name" loading="lazy">
+          @if (selectedCollection?.name === c.name || selectedCollection?.slug === c.slug) {
+            <span class="col-active-badge">
+              <app-icon name="sparkle" [size]="12"></app-icon> Đang xem
+            </span>
+          }
           <div class="col-card__overlay">
             <span class="col-card__tag">{{ c.tag || 'Bộ sưu tập' }}</span>
             <h2 class="col-card__name serif">{{ c.name }}</h2>
@@ -31,8 +40,9 @@
     <section class="col-focus">
       <div class="col-focus__head">
         <div>
-          <span class="eyebrow"><app-icon name="gem" [size]="14"></app-icon> Bảo vật nổi bật thuộc bộ sưu tập</span>
+          <span class="eyebrow"><app-icon name="gem" [size]="14"></app-icon> BẢO VẬT NỔI BẬT THUỘC BỘ SƯU TẬP</span>
           <h2 class="serif">{{ selectedCollection.name }}</h2>
+          <p class="col-focus__sub">{{ selectedCollection.desc }}</p>
         </div>
         <a routerLink="/products" class="btn btn--soft">
           Xem tất cả trong cửa hàng &rarr;
@@ -40,15 +50,23 @@
       </div>
 
       <div class="focus-grid">
-        @for (p of featuredProducts; track p.name) {
+        @for (p of featuredProducts; track p.slug || p.id || p.name || $index) {
           <article class="p-card" [routerLink]="['/products', p.slug || p.id]">
             <div class="p-media">
-              <img [src]="p.image" [alt]="p.name">
+              <img [src]="p.image" [alt]="p.name" loading="lazy">
+              @if (p.badge) {
+                <span class="p-badge">{{ p.badge }}</span>
+              }
             </div>
             <div class="p-info">
-              <span class="p-stone">{{ p.stone }}</span>
-              <h3 class="p-title">{{ p.name }}</h3>
-              <strong class="p-price">{{ p.price | number }}đ</strong>
+              <span class="p-stone">{{ p.stone || 'ĐÁ TỰ NHIÊN' | uppercase }}</span>
+              <h3 class="p-title" [title]="p.name">{{ p.name }}</h3>
+              <div class="p-foot">
+                <strong class="p-price">{{ p.price | number }}đ</strong>
+                @if (p.compareAtPrice && p.compareAtPrice > p.price) {
+                  <del class="p-compare">{{ p.compareAtPrice | number }}đ</del>
+                }
+              </div>
             </div>
           </article>
         }

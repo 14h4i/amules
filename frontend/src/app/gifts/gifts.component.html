@@ -9,19 +9,38 @@
     <p class="gifts-sub">Mỗi món quà từ AMULES là một lời chúc phúc bình an, may mắn được gói trọn trong hộp nhung hoàng gia sang trọng.</p>
   </header>
 
+  <!-- Toast notification -->
+  @if (addedToast) {
+    <div class="gift-toast">
+      <app-icon name="sparkle" [size]="14"></app-icon>
+      <span>{{ addedToast }}</span>
+    </div>
+  }
+
   <!-- Gift Packages -->
   <section class="packages-sec">
-    <h2 class="serif sec-title">Dịch Vụ Đóng Gói Quà Tặng Hoàng Gia</h2>
+    <div class="sec-head">
+      <span class="eyebrow"><app-icon name="sparkle" [size]="13"></app-icon> HỘP QUÀ &amp; DỊCH VỤ ĐẶC QUYỀN</span>
+      <h2 class="serif sec-title">Dịch Vụ Đóng Gói Quà Tặng Hoàng Gia</h2>
+      <p class="sec-sub">Nâng niu từng xúc cảm với chất liệu nhung hoàng gia, thiệp chúc may mắn và ấn niệm sáp vàng độc bản.</p>
+    </div>
+
     <div class="pkg-grid">
-      @for (p of packages; track p.name) {
+      @for (p of packages; track p._id || p.slug || p.name || $index) {
         <div class="pkg-card">
           <div class="pkg-img">
-            <img [src]="p.image" [alt]="p.name">
+            <img [src]="p.image" [alt]="p.name" loading="lazy">
+            <span class="pkg-tag">{{ p.tag || 'HOÀNG GIA' }}</span>
           </div>
           <div class="pkg-body">
-            <h3>{{ p.name }}</h3>
+            <h3 class="serif">{{ p.name }}</h3>
             <p>{{ p.desc }}</p>
-            <strong class="pkg-price">{{ p.price | number }}đ</strong>
+            <div class="pkg-footer">
+              <strong class="pkg-price">{{ p.price | number }}đ</strong>
+              <button type="button" class="btn btn--primary btn-sm" (click)="addPackageToCart(p)">
+                Chọn gói này
+              </button>
+            </div>
           </div>
         </div>
       }
@@ -34,20 +53,29 @@
       <div>
         <span class="eyebrow"><app-icon name="gem" [size]="14"></app-icon> BẢO VẬT TINH TUYỂN LÀM QUÀ TẶNG</span>
         <h2 class="serif">Gợi Ý Trang Sức Quà Tặng Ý Nghĩa Nhất</h2>
+        <p class="sec-sub">Những tạo tác được ưa chuộng nhất để dành tặng bản thân và những người trân quý.</p>
       </div>
       <a routerLink="/products" class="btn btn--soft">Xem toàn bộ bảo vật &rarr;</a>
     </div>
 
     <div class="focus-grid">
-      @for (p of giftProducts; track p.name) {
+      @for (p of giftProducts; track p.slug || p.id || p.name || $index) {
         <article class="p-card" [routerLink]="['/products', p.slug || p.id]">
           <div class="p-media">
-            <img [src]="p.image" [alt]="p.name">
+            <img [src]="p.image" [alt]="p.name" loading="lazy">
+            @if (p.badge) {
+              <span class="p-badge">{{ p.badge }}</span>
+            }
           </div>
           <div class="p-info">
-            <span class="p-stone">{{ p.stone }}</span>
-            <h3 class="p-title">{{ p.name }}</h3>
-            <strong class="p-price">{{ p.price | number }}đ</strong>
+            <span class="p-stone">{{ p.stone || 'ĐÁ TỰ NHIÊN' | uppercase }}</span>
+            <h3 class="p-title" [title]="p.name">{{ p.name }}</h3>
+            <div class="p-foot">
+              <strong class="p-price">{{ p.price | number }}đ</strong>
+              @if (p.compareAtPrice && p.compareAtPrice > p.price) {
+                <del class="p-compare">{{ p.compareAtPrice | number }}đ</del>
+              }
+            </div>
           </div>
         </article>
       }

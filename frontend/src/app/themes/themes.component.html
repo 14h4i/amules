@@ -11,14 +11,14 @@
 
   <!-- Danh sách 8 chủ đề năng lượng tinh tuyển -->
   <div class="themes-grid">
-    @for (t of themes; track t.slug || t.name) {
+    @for (t of themes; track t.slug || t.name || $index) {
       <article
         class="theme-card"
         [class.active]="selectedTheme?.slug === t.slug || selectedTheme?.name === t.name"
         (click)="selectTheme(t)"
       >
         <div class="theme-card__media">
-          <img [src]="t.image" [alt]="t.name">
+          <img [src]="t.image" [alt]="t.name" loading="lazy">
           @if (selectedTheme?.slug === t.slug || selectedTheme?.name === t.name) {
             <span class="theme-card__active-badge">
               <app-icon name="sparkle" [size]="12"></app-icon> Đang chọn
@@ -39,7 +39,7 @@
     <section class="theme-focus">
       <div class="theme-focus__head">
         <div>
-          <span class="eyebrow"><app-icon name="gem" [size]="14"></app-icon> Bảo vật cộng hưởng chủ đề</span>
+          <span class="eyebrow"><app-icon name="gem" [size]="14"></app-icon> BẢO VẬT CỘNG HƯỞNG CHỦ ĐỀ</span>
           <h2 class="serif">
             {{ selectedTheme.name }}
             <span class="focus-count">({{ products.length }} tạo tác tinh tuyển)</span>
@@ -52,10 +52,10 @@
       </div>
 
       <div class="focus-grid">
-        @for (p of products; track p.slug || p.id || p.name) {
+        @for (p of products; track p.slug || p.id || p.name || $index) {
           <article class="p-card" [routerLink]="['/products', p.slug || p.id]">
             <div class="p-media">
-              <img [src]="p.image" [alt]="p.name">
+              <img [src]="p.image" [alt]="p.name" loading="lazy">
               @if (p.badge) {
                 <span class="p-badge">{{ p.badge }}</span>
               }

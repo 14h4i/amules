@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 
@@ -26,7 +26,8 @@ export class OrderSuccessComponent implements OnInit {
 
   constructor(
     private _route: ActivatedRoute,
-    private _http: HttpClient
+    private _http: HttpClient,
+    private _cdr: ChangeDetectorRef
   ) {}
 
   ngOnInit(): void {
@@ -34,11 +35,17 @@ export class OrderSuccessComponent implements OnInit {
       this.orderCode = params['code'] || `AMU-${Date.now().toString().slice(-6)}`;
       this.trackingCode = `GHN-${this.orderCode.replace(/^AMU-?/, '')}`;
       this.fetchOrderDetails();
+      this._cdr.detectChanges();
     });
 
     this._route.queryParams.subscribe(q => {
       if (q['gateway']) {
-        this.paymentGateway = q['gateway'];
+        const gw = (q['gateway'] || '').toUpperCase();
+        if (gw.includes('VN') || gw.includes('VNPAY')) this.paymentGateway = 'VNPAY';
+        else if (gw.includes('MOMO')) this.paymentGateway = 'MOMO';
+        else if (gw.includes('BANK') || gw.includes('CK')) this.paymentGateway = 'BANKING';
+        else if (gw.includes('COD')) this.paymentGateway = 'COD';
+        else this.paymentGateway = q['gateway'];
       }
       if (q['amount']) {
         this.totalAmount = Number(q['amount']) || 0;
@@ -47,6 +54,7 @@ export class OrderSuccessComponent implements OnInit {
         this.isPaid = true;
       }
       this.updateQrCode();
+      this._cdr.detectChanges();
     });
 
     const now = new Date();
@@ -64,7 +72,14 @@ export class OrderSuccessComponent implements OnInit {
     this._http.get<any>(`/api/orders/${this.orderCode}`).subscribe({
       next: (order) => {
         if (order) {
-          if (order.paymentMethod) this.paymentGateway = order.paymentMethod;
+          if (order.paymentMethod) {
+            const pm = (order.paymentMethod || '').toUpperCase();
+            if (pm.includes('VN') || pm.includes('VNPAY')) this.paymentGateway = 'VNPAY';
+            else if (pm.includes('MOMO')) this.paymentGateway = 'MOMO';
+            else if (pm.includes('BANK') || pm.includes('CK')) this.paymentGateway = 'BANKING';
+            else if (pm.includes('COD')) this.paymentGateway = 'COD';
+            else this.paymentGateway = order.paymentMethod;
+          }
           if (order.totalAmount) this.totalAmount = order.totalAmount;
           if (order.trackingCode) this.trackingCode = order.trackingCode;
           if (order.carrier) this.carrier = order.carrier;
@@ -72,14 +87,19 @@ export class OrderSuccessComponent implements OnInit {
             this.isPaid = true;
           }
           this.updateQrCode();
+          this._cdr.detectChanges();
         }
       },
-      error: () => {}
+      error: () => {
+        this._cdr.detectChanges();
+      }
     });
   }
 
   get transferMemo(): string {
-    return this.orderCode || 'AMULES';
+    const code = this.orderCode || 'AMULES';
+    // Đảm bảo không bị lặp "AMU AMU-..."
+    return code.startsWith('AMU-') ? code : `AMU-${code}`;
   }
 
   get paymentGatewayLabel(): string {
@@ -107,13 +127,18 @@ export class OrderSuccessComponent implements OnInit {
   copyInfo(text: string, label: string): void {
     navigator.clipboard?.writeText(text);
     this.copiedText = label;
+    this._cdr.detectChanges();
     setTimeout(() => {
-      if (this.copiedText === label) this.copiedText = '';
+      if (this.copiedText === label) {
+        this.copiedText = '';
+        this._cdr.detectChanges();
+      }
     }, 2000);
   }
 
   confirmPayment(): void {
     this.isConfirming = true;
+    this._cdr.detectChanges();
     this._http.post<any>('/api/payments/verify', {
       orderCode: this.orderCode,
       paymentMethod: this.paymentGateway || 'BANKING',
@@ -122,10 +147,12 @@ export class OrderSuccessComponent implements OnInit {
       next: () => {
         this.isPaid = true;
         this.isConfirming = false;
+        this._cdr.detectChanges();
       },
       error: () => {
         this.isPaid = true;
         this.isConfirming = false;
+        this._cdr.detectChanges();
       }
     });
   }
