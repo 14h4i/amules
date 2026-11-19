@@ -1000,5 +1000,77 @@
       "ce84dd3716c6d1337db8a883"
     ],
     "image": "https://i.pinimg.com/736x/d4/3c/3d/d43c3d69296b0badad1636033dd34e9c.jpg"
+  },
+  {
+    "_id": "673b0001ca8f6cf617970001",
+    "category": "Set quà tặng",
+    "categoryId": "c326bff57cfa65f545d70517",
+    "categoryName": "Set quà tặng",
+    "compareAtPrice": null,
+    "createdAt": "2026-10-01T00:00:00.000Z",
+    "description": "Hộp nhung tím cao cấp, thiệp chúc mừng dập nhũ vàng 24K và túi giấy AMULES Signature.",
+    "image": "https://i.pinimg.com/736x/9b/9f/9f/9b9f9f152363271f0c154f437b34def0.jpg",
+    "images": [
+      "https://i.pinimg.com/736x/9b/9f/9f/9b9f9f152363271f0c154f437b34def0.jpg"
+    ],
+    "isFeatured": false,
+    "isGiftPackage": true,
+    "material": "Nhung & Giấy mỹ thuật dập nhũ",
+    "name": "Hộp Quà Tri Ân Nữ Thần",
+    "price": 99000,
+    "productCode": "AM-GF001",
+    "shortDescription": "Hộp nhung tím cao cấp, thiệp chúc mừng dập nhũ vàng 24K và túi giấy AMULES Signature.",
+    "slug": "hop-qua-tri-an-nu-than",
+    "status": "active",
+    "stock": 50,
+    "updatedAt": "2026-11-19T05:55:56.315Z"
+  },
+  {
+    "_id": "673b0001ca8f6cf617970002",
+    "category": "Set quà tặng",
+    "categoryId": "c326bff57cfa65f545d70517",
+    "categoryName": "Set quà tặng",
+    "compareAtPrice": null,
+    "createdAt": "2026-10-01T00:00:00.000Z",
+    "description": "Thanh trầm hương tự nhiên, tinh thể thạch anh trắng và chuông xoay thanh tẩy đá quý.",
+    "image": "https://i.pinimg.com/736x/65/12/56/6512568af032cfb982e96c42c6218599.jpg",
+    "images": [
+      "https://i.pinimg.com/736x/65/12/56/6512568af032cfb982e96c42c6218599.jpg"
+    ],
+    "isFeatured": false,
+    "isGiftPackage": true,
+    "material": "Trầm hương & Thạch anh trắng tự nhiên",
+    "name": "Combo Thanh Tẩy Năng Lượng",
+    "price": 150000,
+    "productCode": "AM-GF002",
+    "shortDescription": "Thanh trầm hương tự nhiên, tinh thể thạch anh trắng và chuông xoay thanh tẩy đá quý.",
+    "slug": "combo-thanh-tay-nang-luong",
+    "status": "active",
+    "stock": 30,
+    "updatedAt": "2026-11-19T05:55:56.315Z"
+  },
+  {
+    "_id": "673b0001ca8f6cf617970003",
+    "category": "Set quà tặng",
+    "categoryId": "c326bff57cfa65f545d70517",
+    "categoryName": "Set quà tặng",
+    "compareAtPrice": null,
+    "createdAt": "2026-10-01T00:00:00.000Z",
+    "description": "Bao gồm phong thư thông điệp năng lượng chiêm tinh theo ngày tháng năm sinh của người nhận.",
+    "image": "https://i.pinimg.com/736x/53/a4/0f/53a40fcf65d77d5dcc8a9efcb531ac32.jpg",
+    "images": [
+      "https://i.pinimg.com/736x/53/a4/0f/53a40fcf65d77d5dcc8a9efcb531ac32.jpg"
+    ],
+    "isFeatured": false,
+    "isGiftPackage": true,
+    "material": "Thiệp sáp niêm phong hoàng gia",
+    "name": "Gói Quà Sinh Nhật Chiêm Tinh",
+    "price": 120000,
+    "productCode": "AM-GF003",
+    "shortDescription": "Bao gồm phong thư thông điệp năng lượng chiêm tinh theo ngày tháng năm sinh của người nhận.",
+    "slug": "goi-qua-sinh-nhat-chiem-tinh",
+    "status": "active",
+    "stock": 40,
+    "updatedAt": "2026-11-19T05:55:56.315Z"
   }
 ]

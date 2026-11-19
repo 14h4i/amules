@@ -34,7 +34,8 @@ export class ArticlesComponent implements OnInit {
           ...a,
           image: a.image || a.thumbnail || '',
           category: a.category || a.tag || 'CẨM NANG NĂNG LƯỢNG',
-          readTime: a.readTime || a.read || '5 phút đọc'
+          readTime: a.readTime || a.read || '5 phút đọc',
+          excerpt: a.excerpt || a.summary || a.description || ''
         })) : [];
         if (routeSlug) {
           const found = this.articles.find(a => (a.slug || '').toLowerCase() === routeSlug || (a._id && a._id === routeSlug));

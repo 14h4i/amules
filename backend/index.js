@@ -334,7 +334,36 @@ registerStandardCollectionRoute('themes', 'themes');
 registerStandardCollectionRoute('articles', 'articles');
 registerStandardCollectionRoute('vouchers', 'vouchers');
 registerStandardCollectionRoute('reviews', 'reviews');
-registerStandardCollectionRoute('gift-packages', 'gift_packages');
+app.get('/api/gift-packages', async (req, res) => {
+  try {
+    const db = getDB();
+    let prods = [];
+    if (db) {
+      prods = await db.collection('products').find({
+        $or: [
+          { isGiftPackage: true },
+          { categoryId: 'c326bff57cfa65f545d70517' },
+          { category: 'Set quà tặng' }
+        ]
+      }).toArray();
+    }
+    if (!prods || prods.length === 0) {
+      const all = loadFallbackJsonData('products') || [];
+      prods = all.filter(p => p.isGiftPackage || p.categoryId === 'c326bff57cfa65f545d70517' || p.category === 'Set quà tặng');
+    }
+    const packages = prods.map(p => ({
+      _id: p._id,
+      name: p.name,
+      slug: p.slug,
+      desc: p.shortDescription || p.description || p.desc || '',
+      price: p.price,
+      image: p.image || (p.images && p.images[0]) || ''
+    }));
+    res.json(packages);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
 
 // Helper to resolve distinct, appropriate product images
 function resolveProductImage(p) {

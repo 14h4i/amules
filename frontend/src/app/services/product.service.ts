@@ -73,7 +73,7 @@ export class ProductService {
     }
 
     return this._http.get<IProduct[]>(url).pipe(
-      timeout(1500),
+      timeout(8000),
       map(items => (items || []).map(p => {
         if (p.element) {
           const parts = p.element.split(/&|,|\+/).map(s => s.trim()).filter(Boolean);
