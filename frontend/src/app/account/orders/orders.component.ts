@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { AuthService } from '../../services/auth.service';
 
@@ -63,11 +63,11 @@ export class OrdersComponent implements OnInit {
 
   constructor(
     private _http: HttpClient,
-    private _auth: AuthService
+    private _auth: AuthService,
+    private _cdr: ChangeDetectorRef
   ) { }
 
   ngOnInit(): void {
-    const isDemo = this._auth.currentUser()?.email === 'lananh.gemini@gmail.com';
     this._http.get<any[]>('/api/orders', { withCredentials: true }).subscribe({
       next: (apiOrders) => {
         if (apiOrders && apiOrders.length > 0) {
@@ -92,7 +92,7 @@ export class OrdersComponent implements OnInit {
                 variant: i.specs || `Kích thước: ${i.size || 'Tiêu chuẩn'}`,
                 qty: Number(i.quantity || 1),
                 price: Number(i.price || i.unitPrice || 650000),
-                image: i.image || 'https://i.pinimg.com/736x/d4/3c/3d/d43c3d69296b0badad1636033dd34e9c.jpg'
+                image: i.image || ''
               })),
               total: Number(o.totalAmount || 0),
               paymentMethod: o.paymentMethod === 'COD' ? 'Thanh toán khi nhận hàng (COD)' : `Đã thanh toán qua ${o.paymentMethod || 'VNPay'}`,
@@ -100,13 +100,15 @@ export class OrdersComponent implements OnInit {
             };
           });
         } else {
-          this.orders = isDemo ? this.getDefaultOrders() : [];
+          this.orders = [];
         }
         this.updateTabs();
+        this._cdr.detectChanges();
       },
       error: () => {
-        this.orders = isDemo ? this.getDefaultOrders() : [];
+        this.orders = [];
         this.updateTabs();
+        this._cdr.detectChanges();
       }
     });
   }
@@ -119,38 +121,6 @@ export class OrdersComponent implements OnInit {
       { key: 'shipping', label: `Đang giao (${this.orders.filter(o => o.statusKey === 'shipping').length})`, dot: this.orders.some(o => o.statusKey === 'shipping') },
       { key: 'completed', label: `Đã giao (${this.orders.filter(o => o.statusKey === 'completed').length})` },
       { key: 'cancelled', label: `Đã hủy (${this.orders.filter(o => o.statusKey === 'cancelled').length})` }
-    ];
-  }
-
-  private getDefaultOrders(): OrderRecord[] {
-    return [
-      {
-        id: 'AMU-2025-8942',
-        code: '#AMU-2025-8942',
-        date: '28/10/2025 (14:30)',
-        statusKey: 'shipping',
-        statusLabel: 'Đang giao hàng • Hỏa tốc',
-        statusIcon: 'truck',
-        transitBanner: {
-          title: 'Đơn hàng đã rời trạm phân loại Hà Nội VIP Hub',
-          sub: 'Dự kiến trao tận tay quý khách: Hôm nay, 16:30 - 18:00',
-          badge: 'Đã thanh tẩy chuông xoay Tây Tạng'
-        },
-        items: [
-          {
-            elementTag: 'Mệnh Thủy & Kim',
-            name: 'Vòng Tay Nguyệt Quang Moonstone Ánh Lam S925',
-            variant: 'Phân loại: Ni tay 15cm • Bạc xi bạch kim cao cấp',
-            qty: 1,
-            price: 680000,
-            oldPrice: 750000,
-            image: 'https://i.pinimg.com/736x/d4/3c/3d/d43c3d69296b0badad1636033dd34e9c.jpg'
-          }
-        ],
-        total: 1200000,
-        paymentMethod: 'Chuyển khoản VietQR (Napas 247)',
-        shippingNote: 'Giao trong giờ hành chính'
-      }
     ];
   }
 

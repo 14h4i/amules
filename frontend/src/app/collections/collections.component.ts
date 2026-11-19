@@ -1,37 +1,7 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { MasterDataService, ICollection } from '../services/master-data.service';
+import { MasterDataService } from '../services/master-data.service';
 import { ProductService, IProduct } from '../services/product.service';
-
-const FALLBACK_COLLECTIONS: any[] = [
-  {
-    _id: "6802277ac81512ae86f3cf06",
-    name: "Mystical Vintage",
-    slug: "mystical-vintage",
-    desc: "Phong cách cổ điển huyền bí với nét chạm khắc gothic và đá thạch anh tự nhiên.",
-    image: "https://i.pinimg.com/736x/d2/c1/cd/d2c1cd50bee4cf66b8a095b253a55beb.jpg",
-    coverImage: "https://i.pinimg.com/736x/d2/c1/cd/d2c1cd50bee4cf66b8a095b253a55beb.jpg",
-    tag: "Cổ điển & Huyền bí"
-  },
-  {
-    _id: "0450d63abbb045d94b39c028",
-    name: "Moon & Stars",
-    slug: "moon-and-stars",
-    desc: "Bộ sưu tập lấy cảm hứng từ vầng trăng rằm và chòm sao hộ mệnh, kết tinh từ Moonstone và ngọc trai.",
-    image: "https://i.pinimg.com/736x/53/a4/0f/53a40fcf65d77d5dcc8a9efcb531ac32.jpg",
-    coverImage: "https://i.pinimg.com/736x/53/a4/0f/53a40fcf65d77d5dcc8a9efcb531ac32.jpg",
-    tag: "Thiên thể & Chiêm tinh"
-  },
-  {
-    _id: "1672b26122c713603ba39420",
-    name: "Nàng Thơ (The Muse)",
-    slug: "nang-tho",
-    desc: "Vẻ đẹp thuần khiết, dịu êm của những nàng thơ qua lăng kính đá quý tự nhiên đa sắc.",
-    image: "https://i.pinimg.com/736x/88/cc/a9/88cca9873ac223970e511970e84f478d.jpg",
-    coverImage: "https://i.pinimg.com/736x/88/cc/a9/88cca9873ac223970e511970e84f478d.jpg",
-    tag: "Dịu dàng & Lãng mạn"
-  }
-];
 
 @Component({
   selector: 'app-collections',
@@ -40,10 +10,10 @@ const FALLBACK_COLLECTIONS: any[] = [
   styleUrl: './collections.component.css'
 })
 export class CollectionsComponent implements OnInit {
-  collections: any[] = FALLBACK_COLLECTIONS;
+  collections: any[] = [];
   featuredProducts: IProduct[] = [];
   allProducts: IProduct[] = [];
-  selectedCollection: any = FALLBACK_COLLECTIONS[0];
+  selectedCollection: any = null;
   private _routeSlug = '';
 
   constructor(
@@ -68,23 +38,19 @@ export class CollectionsComponent implements OnInit {
           this.collections = list.map(c => ({
             name: c.name,
             tag: c.tag || ((c.slug || '').includes('moon') ? 'Thiên thể & Chiêm tinh' : (c.slug || '').includes('mystic') ? 'Cổ điển & Huyền bí' : 'Dịu dàng & Lãng mạn'),
-            desc: c.desc || (c as any).description || 'Bộ sưu tập trang sức phong thủy AMULES.',
-            image: c.image || (c as any).coverImage || 'https://i.pinimg.com/736x/d2/c1/cd/d2c1cd50bee4cf66b8a095b253a55beb.jpg',
+            desc: c.desc || (c as any).description || '',
+            image: c.image || (c as any).coverImage || '',
             slug: c.slug || c.name.toLowerCase().replace(/[^a-z0-9]+/g, '-')
           }));
-        } else if (!this.collections || this.collections.length === 0) {
-          this.collections = FALLBACK_COLLECTIONS;
+        } else {
+          this.collections = [];
         }
         this.syncSelectedCollection();
         this.filterProductsForCollection();
         this._cdr.detectChanges();
       },
       error: () => {
-        if (!this.collections || this.collections.length === 0) {
-          this.collections = FALLBACK_COLLECTIONS;
-        }
-        this.syncSelectedCollection();
-        this.filterProductsForCollection();
+        this.collections = [];
         this._cdr.detectChanges();
       }
     });
@@ -94,11 +60,14 @@ export class CollectionsComponent implements OnInit {
       next: (products) => {
         if (products && products.length > 0) {
           this.allProducts = products;
+        } else {
+          this.allProducts = [];
         }
         this.filterProductsForCollection();
         this._cdr.detectChanges();
       },
       error: () => {
+        this.allProducts = [];
         this._cdr.detectChanges();
       }
     });

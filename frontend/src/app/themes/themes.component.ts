@@ -13,73 +13,6 @@ interface IThemeItem {
   productIds?: any[];
 }
 
-const FALLBACK_THEMES: IThemeItem[] = [
-  {
-    name: "Tình yêu & Kết nối",
-    slug: "tinh-yeu-ket-noi",
-    tag: "TÌNH DUYÊN & HÀN GẮN",
-    description: "Thạch anh hồng dịu dàng, khơi mở luồng yêu thương thuần khiết và gắn kết tâm hồn tri kỷ.",
-    image: "https://i.pinimg.com/736x/47/9c/df/479cdf269b5b50948b8aef6103b475ed.jpg",
-    productCodes: ["AM-RQ020", "AM-CH002"]
-  },
-  {
-    name: "Bình an & Cân bằng",
-    slug: "binh-an-can-bang",
-    tag: "TĨNH TÂM & NĂNG LƯỢNG",
-    description: "Aquamarine và Moonstone làm dịu tâm trí, giữ sự tĩnh tại, thông suốt trước mọi thử thách.",
-    image: "https://i.pinimg.com/736x/d4/3c/3d/d43c3d69296b0badad1636033dd34e9c.jpg",
-    productCodes: ["AM-AQ001", "AM-MS042", "AM-CH001", "AM-AQ003"]
-  },
-  {
-    name: "Tự tin & Tỏa sáng",
-    slug: "tu-tin-toa-sang",
-    tag: "DŨNG KHÍ & BẢN LĨNH",
-    description: "Citrine thắp sáng nguồn năng lượng thái dương, tiếp thêm dũng khí và sức hút rực rỡ.",
-    image: "https://i.pinimg.com/736x/8b/56/4e/8b564e66f5a26e5a7761873879e15a44.jpg",
-    productCodes: ["AM-CT004", "AM-CH003"]
-  },
-  {
-    name: "May mắn & Cơ hội",
-    slug: "may-man-co-hoi",
-    tag: "TÀI LỘC & VẬN KHÍ",
-    description: "Aventurine xanh ngọc bích mở lối tài lộc, đón nhận vận may bất ngờ và cát khí dồi dào.",
-    image: "https://i.pinimg.com/736x/1c/26/6c/1c266ca556baad51cba3d0fa8514949a.jpg",
-    productCodes: ["AM-AV005", "AM-CH004"]
-  },
-  {
-    name: "Chữa lành & Thư giãn",
-    slug: "chua-lanh-thu-gian",
-    tag: "THANH TẨY & AN YÊN",
-    description: "Thạch anh tím Amethyst xua tan âu lo, bảo hộ giấc ngủ an lành và nâng đỡ tần số tinh thần.",
-    image: "https://i.pinimg.com/736x/67/20/bb/6720bb1b590c9b0e1a12903333333333.jpg",
-    productCodes: ["AM-AM006", "AM-CH005"]
-  },
-  {
-    name: "Tình bạn & Gắn kết",
-    slug: "tinh-ban-gan-ket",
-    tag: "TRI KỶ & BỀN VỮNG",
-    description: "Ngọc bích Nephrite kết nối sự đồng điệu, giữ gìn mối thâm giao chân thành và trọn vẹn.",
-    image: "https://i.pinimg.com/736x/43/5e/5f/435e5fe6e3c545362ffb7623a31c5ee9.jpg",
-    productCodes: ["AM-JD063", "AM-AQ001"]
-  },
-  {
-    name: "Năng lượng sáng tạo",
-    slug: "nang-luong-sang-tao",
-    tag: "TRỰC GIÁC & CẢM HỨNG",
-    description: "Fluorite đa sắc kích hoạt trí tuệ mẫn tiệp, mở ra tầm nhìn trực giác và ý tưởng đột phá.",
-    image: "https://i.pinimg.com/736x/e8/3b/bc/e83bbc521fc41e97669d675681c625ae.jpg",
-    productCodes: ["AM-FL064", "AM-MS010"]
-  },
-  {
-    name: "Quà tặng ý nghĩa",
-    slug: "qua-tang-y-nghia",
-    tag: "TRAO GỬI YÊU THƯƠNG",
-    description: "Những tuyệt tác trang sức tinh tuyển trong hộp nhung hoàng gia, gửi gắm lời chúc bình an sâu sắc.",
-    image: "https://i.pinimg.com/736x/d9/3e/26/d93e26bbbbff2a9bb411ce4999999999.jpg",
-    productCodes: ["AM-GS065", "AM-PR030"]
-  }
-];
-
 @Component({
   selector: 'app-themes',
   standalone: false,
@@ -87,8 +20,8 @@ const FALLBACK_THEMES: IThemeItem[] = [
   styleUrl: './themes.component.css'
 })
 export class ThemesComponent implements OnInit {
-  themes: IThemeItem[] = FALLBACK_THEMES;
-  selectedTheme: IThemeItem = FALLBACK_THEMES[0];
+  themes: IThemeItem[] = [];
+  selectedTheme: IThemeItem | null = null;
   allProducts: IProduct[] = [];
   products: IProduct[] = [];
   loading = false;
@@ -105,7 +38,9 @@ export class ThemesComponent implements OnInit {
     this._route.params.subscribe(params => {
       this._routeSlug = (params['slug'] || '').toLowerCase();
       this.syncSelectedTheme();
-      this.filterProductsForTheme(this.selectedTheme);
+      if (this.selectedTheme) {
+        this.filterProductsForTheme(this.selectedTheme);
+      }
       this._cdr.detectChanges();
     });
 
@@ -116,12 +51,17 @@ export class ThemesComponent implements OnInit {
       next: (prods) => {
         if (prods && prods.length > 0) {
           this.allProducts = prods;
-          this.filterProductsForTheme(this.selectedTheme);
+          if (this.selectedTheme) {
+            this.filterProductsForTheme(this.selectedTheme);
+          }
+        } else {
+          this.allProducts = [];
         }
         this.loading = false;
         this._cdr.detectChanges();
       },
       error: () => {
+        this.allProducts = [];
         this.loading = false;
         this._cdr.detectChanges();
       }
@@ -138,26 +78,24 @@ export class ThemesComponent implements OnInit {
               slug: slug,
               tag: t.tag || this.getThemeTag(slug),
               description: t.description || t.desc || 'Chủ đề bảo vật phong thủy AMULES.',
-              image: t.image || t.coverImage || t.bannerImage || 'https://i.pinimg.com/736x/47/9c/df/479cdf269b5b50948b8aef6103b475ed.jpg',
+              image: t.image || t.coverImage || t.bannerImage || '',
               productCodes: t.productCodes || [],
               productIds: t.productIds || []
             };
           });
-        } else if (!this.themes || this.themes.length === 0) {
-          this.themes = FALLBACK_THEMES;
+        } else {
+          this.themes = [];
         }
 
         this.syncSelectedTheme();
-        this.filterProductsForTheme(this.selectedTheme);
+        if (this.selectedTheme) {
+          this.filterProductsForTheme(this.selectedTheme);
+        }
         this.loading = false;
         this._cdr.detectChanges();
       },
       error: () => {
-        if (!this.themes || this.themes.length === 0) {
-          this.themes = FALLBACK_THEMES;
-        }
-        this.syncSelectedTheme();
-        this.filterProductsForTheme(this.selectedTheme);
+        this.themes = [];
         this.loading = false;
         this._cdr.detectChanges();
       }
