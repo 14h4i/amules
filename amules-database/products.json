@@ -268,10 +268,7 @@
     "description": "Dây chuyền bạc mặt trăng khuyết đính Moonstone.",
     "shortDescription": "Dây chuyền bạc mặt trăng khuyết đính Moonstone.",
     "images": [
-      "https://i.pinimg.com/1200x/92/5c/a8/925ca8c108a721944b101c9a2bd9a946.jpg",
-      "hhttps://i.pinimg.com/1200x/f2/f5/e2/f2f5e207c1e0892d9be00d0ec8f9cc0d.jpg",
-      "https://i.pinimg.com/1200x/1a/fe/46/1afe46a74899c25fe21b2100c611fa68.jpg",
-      "https://i.pinimg.com/736x/e6/a9/5d/e6a95dbb226be002601330c99458c286.jpg"
+      "https://i.pinimg.com/1200x/92/5c/a8/925ca8c108a721944b101c9a2bd9a946.jpg"
     ],
     "material": "Bạc 925",
     "colors": [],
@@ -756,15 +753,15 @@
     "name": "Vòng tay Đá Mặt Trăng Moonstone Ánh Lam Celestial",
     "productCode": "AMU-VT-327",
     "slug": "vong-tay-moonstone-anh-lam-celestial",
-    "category": "Vòng tay & Lắc tay",
+    "category": "Vòng tay",
     "collection": "Moonlight & Stars Collection",
     "shortDesc": "Chiếc vòng tay thủ công đính kết từng viên đá Mặt Trăng nguyên bản từ Sri Lanka, mang dải quang phổ xanh lam huyền ảo, biểu trưng cho sự bình yên và trực giác thức tỉnh.",
     "stone": "Moonstone (Đá Mặt Trăng)",
     "mohs": "6.0 - 6.5",
     "metal": "Bạc Ý 925 mạ Rhodium bạch kim 3 lớp",
     "compatibleElements": [
-      "Mệnh Thủy (Tương Hợp)",
-      "Mệnh Kim (Tương Sinh)"
+      "Mệnh Thủy",
+      "Mệnh Kim"
     ],
     "compatibleZodiacs": [
       "Cự Giải (Cancer)",
@@ -791,6 +788,15 @@
     "createdAt": "2026-11-18T05:33:55.952Z",
     "images": [
       "https://i.pinimg.com/736x/8b/56/4e/8b564e66f5a26e5a7761873879e15a44.jpg"
+    ],
+    "categoryId": "c1b562b77f9cfb0765d9f208",
+    "element": "Mệnh Thủy & Mệnh Kim",
+    "elementIds": [
+      "448a24f33e03c0d6d4c7ebe8",
+      "2f282b13c139ff9174d71a7d"
+    ],
+    "gemstoneIds": [
+      "7f64349e172055022ffc91ee"
     ]
   },
   {
@@ -810,7 +816,7 @@
     ],
     "createdAt": "2026-10-01T00:00:00.000Z",
     "description": "Charm bạc chế tác tinh xảo hình trăng khuyết ôm trọn viên đá Moonstone tự nhiên phát quang ánh xanh dịu dàng. Giúp thanh lọc tâm trí, cân bằng cảm xúc và thu hút may mắn.",
-    "element": "Mệnh Kim & Thủy",
+    "element": "Mệnh Kim & Mệnh Thủy",
     "elementIds": [
       "2f282b13c139ff9174d71a7d",
       "448a24f33e03c0d6d4c7ebe8"
@@ -819,7 +825,7 @@
       "7f64349e172055022ffc91ee"
     ],
     "images": [
-      "https://i.pinimg.com/736x/95/96/98/959698c56fa76e93eebe924d08479e39.jpg"
+      "https://i.pinimg.com/736x/ee/72/d4/ee72d4dd3f4d7da02d34912724db5ca4.jpg"
     ],
     "inStock": true,
     "isFeatured": true,
@@ -846,7 +852,7 @@
     "zodiacIds": [
       "ce84dd3716c6d1337db8a883"
     ],
-    "image": "https://i.pinimg.com/736x/95/96/98/959698c56fa76e93eebe924d08479e39.jpg"
+    "image": "https://i.pinimg.com/736x/ee/72/d4/ee72d4dd3f4d7da02d34912724db5ca4.jpg"
   },
   {
     "_id": "7caa02962f99fe72f8cfb0e1",
@@ -865,7 +871,7 @@
     ],
     "createdAt": "2026-10-02T00:00:00.000Z",
     "description": "Viên charm trái tim thạch anh hồng tượng trưng cho tình yêu thuần khiết, năng lượng chữa lành và sự dịu dàng của nữ thần Venus. Món trang sức kết nối tâm hồn đầy thi vị.",
-    "element": "Mệnh Hỏa & Thổ",
+    "element": "Mệnh Hỏa & Mệnh Thổ",
     "elementIds": [
       "63a4bd3d02a3d5d97bb7d13a",
       "609ffe8a9ec708cdf7c30749"
@@ -874,7 +880,7 @@
       "6e5d7688f18eabab3fcab6ff"
     ],
     "images": [
-      "https://i.pinimg.com/736x/cb/dc/01/cbdc012803b0d24268e367fc9b084e56.jpg"
+      "https://i.pinimg.com/736x/5b/eb/24/5beb2450d920a3ad6150cd5e27ce4344.jpg"
     ],
     "inStock": true,
     "isFeatured": true,
@@ -901,7 +907,7 @@
     "zodiacIds": [
       "dd7f1bcc31ea57bf8970bf38"
     ],
-    "image": "https://i.pinimg.com/736x/cb/dc/01/cbdc012803b0d24268e367fc9b084e56.jpg"
+    "image": "https://i.pinimg.com/736x/5b/eb/24/5beb2450d920a3ad6150cd5e27ce4344.jpg"
   },
   {
     "_id": "7caa02962f99fe72f8cfb0e2",
@@ -920,7 +926,7 @@
     ],
     "createdAt": "2026-10-03T00:00:00.000Z",
     "description": "Thiết kế biểu tượng cỏ bốn cánh đính đá Aquamarine xanh ngọc biển khơi, mang lại bình an, thuận buồm xuôi gió và vận khí hanh thông cho chủ nhân.",
-    "element": "Mệnh Thủy & Mộc",
+    "element": "Mệnh Thủy & Mệnh Mộc",
     "elementIds": [
       "448a24f33e03c0d6d4c7ebe8",
       "9d26236c8e94bd24477f1d36"
@@ -929,7 +935,7 @@
       "9dc53fb4f70a8d5f12597f44"
     ],
     "images": [
-      "https://i.pinimg.com/736x/47/ec/9a/47ec9afcfb619e075c3167191317ba81.jpg"
+      "https://i.pinimg.com/736x/37/ed/3a/37ed3aa8d29c355ff330467c18f5a907.jpg"
     ],
     "inStock": true,
     "isFeatured": true,
@@ -956,7 +962,7 @@
     "zodiacIds": [
       "ce84dd3716c6d1337db8a883"
     ],
-    "image": "https://i.pinimg.com/736x/47/ec/9a/47ec9afcfb619e075c3167191317ba81.jpg"
+    "image": "https://i.pinimg.com/736x/37/ed/3a/37ed3aa8d29c355ff330467c18f5a907.jpg"
   },
   {
     "_id": "673b0001ca8f6cf617970001",
@@ -980,7 +986,10 @@
     "slug": "hop-qua-tri-an-nu-than",
     "status": "active",
     "stock": 50,
-    "updatedAt": "2026-11-19T05:55:56.315Z"
+    "updatedAt": "2026-11-19T05:55:56.315Z",
+    "compatibleElements": [],
+    "element": "",
+    "elementIds": []
   },
   {
     "_id": "673b0001ca8f6cf617970002",
@@ -1004,7 +1013,10 @@
     "slug": "combo-thanh-tay-nang-luong",
     "status": "active",
     "stock": 30,
-    "updatedAt": "2026-11-19T05:55:56.315Z"
+    "updatedAt": "2026-11-19T05:55:56.315Z",
+    "compatibleElements": [],
+    "element": "",
+    "elementIds": []
   },
   {
     "_id": "673b0001ca8f6cf617970003",
@@ -1028,6 +1040,9 @@
     "slug": "goi-qua-sinh-nhat-chiem-tinh",
     "status": "active",
     "stock": 40,
-    "updatedAt": "2026-11-19T05:55:56.315Z"
+    "updatedAt": "2026-11-19T05:55:56.315Z",
+    "compatibleElements": [],
+    "element": "",
+    "elementIds": []
   }
 ]

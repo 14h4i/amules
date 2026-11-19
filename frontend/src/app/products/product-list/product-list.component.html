@@ -330,7 +330,11 @@
                     </div>
 
                     @if (p.element) {
-                      <span class="p-elem-tag">{{ formatElement(p.element) }}</span>
+                      <div class="p-elem-tags">
+                        @for (el of getElementsList(p.element); track el) {
+                          <span class="p-elem-tag">{{ el }}</span>
+                        }
+                      </div>
                     }
                   </div>
 

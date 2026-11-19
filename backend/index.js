@@ -339,11 +339,14 @@ app.get('/api/gift-packages', async (req, res) => {
     const db = getDB();
     let prods = [];
     if (db) {
+      const cOid = toObjectId('c326bff57cfa65f545d70517');
       prods = await db.collection('products').find({
         $or: [
           { isGiftPackage: true },
           { categoryId: 'c326bff57cfa65f545d70517' },
-          { category: 'Set quà tặng' }
+          { categoryId: cOid },
+          { category: 'Set quà tặng' },
+          { category: { $regex: 'quà tặng', $options: 'i' } }
         ]
       }).toArray();
     }
@@ -473,7 +476,7 @@ async function enrichProductsWithMetadata(rawProducts, db) {
     });
     const colName = colFound ? colFound.name : (p.collection || 'Bộ sưu tập độc bản');
 
-    const cleanFallbackEl = p.element ? [...new Set(p.element.split(/&|,|\+/).map(s => s.trim()).filter(Boolean))].join(' & ') : 'Mệnh Thổ';
+    const cleanFallbackEl = p.element ? [...new Set(p.element.split(/&|,|\+/).map(s => s.trim()).filter(Boolean))].join(' & ') : '';
 
     const prodReviews = (reviews || []).filter(r => {
       const rPid = getOid(r.productId);
@@ -497,7 +500,7 @@ async function enrichProductsWithMetadata(rawProducts, db) {
       category: categoryName,
       stone: stoneName,
       collection: colName,
-      compatibleElements: elNames.length > 0 ? elNames : (Array.isArray(p.compatibleElements) ? [...new Set(p.compatibleElements)] : [cleanFallbackEl]),
+      compatibleElements: elNames.length > 0 ? elNames : (Array.isArray(p.compatibleElements) && p.compatibleElements.length > 0 ? [...new Set(p.compatibleElements)] : (cleanFallbackEl ? [cleanFallbackEl] : [])),
       element: elNames.length > 0 ? elNames.join(' & ') : cleanFallbackEl,
       compatibleZodiacs: zodNames.length > 0 ? zodNames : (p.compatibleZodiacs || ['Cự Giải', 'Song Ngư']),
       sold: p.sold || '120+',
