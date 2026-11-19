@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { AuthService } from '../../services/auth.service';
 import { ProductService, IProduct } from '../../services/product.service';
@@ -12,31 +12,36 @@ import { ProductService, IProduct } from '../../services/product.service';
 export class MysticMatchComponent implements OnInit {
   sharedToast = false;
   userName = '';
+  hasCompletedQuiz = false;
+  latestSession: any = null;
+  sessionDateStr = 'Hôm nay';
+  elementName = 'Bản Mệnh Hộ Thân';
+  dominantChakra = 'Luân xa Tim (Anahata)';
 
   energyPillars = [
     {
       icon: 'moon',
       label: 'CUNG HOÀNG ĐẠO',
-      title: 'Song Ngư (Pisces) ♓',
-      sub: 'Trực giác sâu sắc, nhạy cảm'
+      title: 'Đang tải...',
+      sub: 'Tọa độ thiên thể lúc chào đời'
     },
     {
       icon: 'drop',
       label: 'MỆNH NGŨ HÀNH',
-      title: 'Hải Trung Thủy',
-      sub: 'Dòng nước biển sâu, bao dung'
+      title: 'Đang tải...',
+      sub: 'Can Chi Nạp Âm phương Đông'
     },
     {
       icon: 'sparkle',
-      label: 'NGUYÊN TỐ TƯƠNG SINH',
-      title: 'Kim sinh Thủy • Thủy hợp',
-      sub: 'Cân bằng tài lộc & bình an'
+      label: 'LUÂN XA CỘNG HƯỞNG',
+      title: 'Luân xa Tim (Anahata)',
+      sub: 'Vùng năng lượng chủ đạo đã thức tỉnh'
     },
     {
       icon: 'globe',
-      label: 'HÀNH TINH BẢO TRỢ',
-      title: 'Sao Hải Vương ♆',
-      sub: 'Thức tỉnh tâm linh & cảm xúc'
+      label: 'TẦN SỐ NGUYỆN ƯỚC',
+      title: 'Bình An & Chữa Lành',
+      sub: 'Thu hút phúc lành và định tĩnh'
     }
   ];
 
@@ -47,80 +52,22 @@ export class MysticMatchComponent implements OnInit {
     { name: 'Xanh Thẫm Đại Dương', sub: 'Thu hút quý nhân phù trợ', hex: '#1d3658' }
   ];
 
-  recommendedProducts = [
-    {
-      match: 'TƯƠNG HỢP 98%',
-      badge: 'BEST MATCH',
-      stone: 'ĐÁ MOONSTONE TỰ NHIÊN • Bạc 925',
-      name: 'Vòng Tay Nguyệt Quang Moonstone Ánh Lam',
-      desc: 'Viên đá Moonstone quang học tự nhiên ánh cầu vồng xanh biển, cân bằng cảm xúc.',
-      price: 680000,
-      image: 'https://i.pinimg.com/736x/d4/3c/3d/d43c3d69296b0badad1636033dd34e9c.jpg'
-    },
-    {
-      match: 'TƯƠNG HỢP 95%',
-      badge: '',
-      stone: 'ĐÁ AQUAMARINE THÔ • Bạc 925',
-      name: 'Dây Chuyền Giọt Lệ Aquamarine Biển Sâu',
-      desc: 'Viên đá Aquamarine thiết kế tinh giọt nước trong vắt, hỗ trợ thông suốt giao tiếp.',
-      price: 520000,
-      image: 'https://i.pinimg.com/1200x/5e/19/ca/5e19cae249717d1321564c81f14a1732.jpg'
-    },
-    {
-      match: 'TƯƠNG HỢP 91%',
-      badge: 'BÙA HỘ THÂN',
-      stone: 'THẠCH ANH KHÓI ÁNH TUYẾT • Free size',
-      name: 'Nhẫn Hộ Thân Thạch Anh Khói Lam Tuyết',
-      desc: 'Năng lượng trầm ổn của thạch anh khói hòa cùng tinh thể lam tuyết bảo vệ trường khí.',
-      price: 450000,
-      image: 'https://i.pinimg.com/736x/47/9c/df/479cdf269b5b50948b8aef6103b475ed.jpg'
-    }
-  ];
+  recommendedProducts: any[] = [];
 
   constructor(
     private _auth: AuthService,
     private _productService: ProductService,
-    private _http: HttpClient
+    private _http: HttpClient,
+    private _cdr: ChangeDetectorRef
   ) {}
 
   ngOnInit(): void {
-    // 1. Tải bản mệnh đã lưu của người dùng từ MongoDB profile
+    // 1. Tải thông tin người dùng từ profile
     this._http.get<any>('/api/auth/profile', { withCredentials: true }).subscribe({
       next: (res) => {
         const u = res?.user || this._auth.currentUser();
         if (u) {
           this.userName = u.fullName || u.name || '';
-          if (u.zodiac) {
-            this.energyPillars[0].title = u.zodiac;
-          } else if (u.email !== 'lananh.gemini@gmail.com') {
-            this.energyPillars[0].title = 'Chưa thiết lập';
-            this.energyPillars[0].sub = 'Cập nhật ngày sinh tại Hồ sơ để kích hoạt';
-          }
-          if (u.element) {
-            this.energyPillars[1].title = u.element;
-            if (u.element.includes('Kim')) {
-              this.energyPillars[2].title = 'Thổ sinh Kim • Kim hợp';
-              this.colors[0] = { name: 'Vàng Hoàng Kim', sub: 'Màu tương sinh', hex: '#eab308' };
-              this.colors[1] = { name: 'Trắng Tinh Khiết', sub: 'Màu bản mệnh', hex: '#f8fafc' };
-            } else if (u.element.includes('Mộc')) {
-              this.energyPillars[2].title = 'Thủy sinh Mộc • Mộc hợp';
-              this.colors[0] = { name: 'Xanh Lục Bảo', sub: 'Màu bản mệnh', hex: '#16a34a' };
-              this.colors[1] = { name: 'Xanh Biển Sâu', sub: 'Màu tương sinh', hex: '#0284c7' };
-            } else if (u.element.includes('Hỏa')) {
-              this.energyPillars[2].title = 'Mộc sinh Hỏa • Hỏa hợp';
-              this.colors[0] = { name: 'Đỏ Ruby', sub: 'Màu bản mệnh', hex: '#dc2626' };
-              this.colors[1] = { name: 'Hồng Thạch Anh', sub: 'Màu tương hợp', hex: '#f43f5e' };
-            } else if (u.element.includes('Thổ')) {
-              this.energyPillars[2].title = 'Hỏa sinh Thổ • Thổ hợp';
-              this.colors[0] = { name: 'Vàng Hổ Phách', sub: 'Màu bản mệnh', hex: '#d97706' };
-              this.colors[1] = { name: 'Nâu Đất Mẹ', sub: 'Màu tương hợp', hex: '#78350f' };
-            }
-          } else if (u.email !== 'lananh.gemini@gmail.com') {
-            this.energyPillars[1].title = 'Chưa thiết lập';
-            this.energyPillars[1].sub = 'Cập nhật ngày sinh tại Hồ sơ để kích hoạt';
-            this.energyPillars[2].title = 'Đang chờ ngày sinh';
-            this.energyPillars[3].title = 'Đang chờ ngày sinh';
-          }
         }
       },
       error: () => {
@@ -129,7 +76,92 @@ export class MysticMatchComponent implements OnInit {
       }
     });
 
-    // 2. Tải sản phẩm tương sinh thật từ MongoDB products
+    // 2. Tải phiên trắc nghiệm mới nhất từ CSDL MongoDB thật
+    this._http.get<any>('/api/mystic-match/my-session', { withCredentials: true }).subscribe({
+      next: (res) => {
+        if (res && res.session) {
+          this.hasCompletedQuiz = true;
+          this.latestSession = res.session;
+
+          if (res.session.createdAt) {
+            const d = new Date(res.session.createdAt);
+            this.sessionDateStr = `${d.getDate().toString().padStart(2, '0')}/${(d.getMonth() + 1).toString().padStart(2, '0')}/${d.getFullYear()}`;
+          }
+
+          this.elementName = res.session.element || 'Bản Mệnh Hộ Thân';
+          this.dominantChakra = res.session.dominantChakra || 'Luân xa Tim (Anahata)';
+
+          const zName = res.session.zodiac || '';
+          const zLatin = res.session.zodiacLatin ? `(${res.session.zodiacLatin})` : '';
+          this.energyPillars[0].title = `${zName} ${zLatin}`.trim() || 'Cung Hoàng Đạo';
+
+          this.energyPillars[1].title = res.session.element || 'Ngũ Hành Can Chi';
+          this.energyPillars[2].title = this.dominantChakra;
+
+          const wishMap: Record<string, string> = {
+            peace: 'Bình An & Chữa Lành',
+            love: 'Tình Duyên & Gắn Kết',
+            wealth: 'Tài Lộc & Thịnh Vượng',
+            clarity: 'Trực Giác & Trí Tuệ'
+          };
+          this.energyPillars[3].title = wishMap[res.session.wish] || 'Bình An & Hộ Thân';
+
+          // Cập nhật bảng màu tương sinh
+          this.updateColorsByElement(this.elementName);
+
+          // Cập nhật bảo vật tương sinh từ MongoDB
+          if (res.products && res.products.length > 0) {
+            const recMap = new Map<string, any>();
+            (res.recommendations || []).forEach((r: any) => {
+              recMap.set(String(r.productId), r);
+            });
+
+            this.recommendedProducts = res.products.map((p: any, idx: number) => {
+              const rec = recMap.get(String(p._id)) || recMap.get(String(p.id)) || {};
+              return {
+                match: `TƯƠNG HỢP ${rec.matchScore || (98 - idx * 3)}%`,
+                badge: idx === 0 ? 'BEST MATCH' : idx === 1 ? 'TƯƠNG SINH' : 'BÙA HỘ THÂN',
+                stone: `${(p.stone || 'Đá tự nhiên').toUpperCase()} • Bạc 925`,
+                name: p.name,
+                desc: (rec.matchReasons && rec.matchReasons.join(' • ')) || p.description || 'Bảo vật tương sinh được tuyển chọn theo ngũ hành chiêm tinh bản mệnh.',
+                price: p.price,
+                image: p.image || (p.images && p.images[0]) || '',
+                slug: p.slug || p.id || p._id
+              };
+            });
+            this._cdr.detectChanges();
+            return;
+          }
+        } else {
+          // Chưa có bài test trong MongoDB -> fallback lấy thông tin user profile
+          this.hasCompletedQuiz = false;
+          const u = this._auth.currentUser();
+          if (u?.zodiac) {
+            this.energyPillars[0].title = u.zodiac;
+          } else {
+            this.energyPillars[0].title = 'Chưa thiết lập';
+            this.energyPillars[0].sub = 'Làm bài trắc nghiệm để mở khóa';
+          }
+          if (u?.element) {
+            this.energyPillars[1].title = u.element;
+            this.elementName = u.element;
+            this.updateColorsByElement(u.element);
+          } else {
+            this.energyPillars[1].title = 'Chưa thiết lập';
+            this.energyPillars[1].sub = 'Làm bài trắc nghiệm để mở khóa';
+          }
+        }
+
+        // Tải sản phẩm tương sinh mặc định từ MongoDB
+        this.loadProductsFallback();
+      },
+      error: () => {
+        this.loadProductsFallback();
+      }
+    });
+  }
+
+  private loadProductsFallback(): void {
     this._productService.getProducts().subscribe({
       next: (products) => {
         if (products && products.length > 0) {
@@ -140,12 +172,53 @@ export class MysticMatchComponent implements OnInit {
             name: p.name,
             desc: p.description || 'Bảo vật tương sinh được tuyển chọn theo ngũ hành chiêm tinh bản mệnh.',
             price: p.price,
-            image: p.image || 'https://i.pinimg.com/736x/d4/3c/3d/d43c3d69296b0badad1636033dd34e9c.jpg'
+            image: p.image || (p.images && p.images[0]) || '',
+            slug: p.slug || p.id || p._id
           }));
+          this._cdr.detectChanges();
         }
       },
       error: () => {}
     });
+  }
+
+  private updateColorsByElement(el: string): void {
+    if (el.includes('Kim')) {
+      this.colors = [
+        { name: 'Trắng Tinh Khiết', sub: 'Màu bản mệnh • Sáng suốt', hex: '#f8fafc' },
+        { name: 'Vàng Hoàng Kim (Thổ)', sub: 'Màu tương sinh • Khai vận', hex: '#eab308' },
+        { name: 'Xám Bạc Tinh Tế', sub: 'Hộ thân & Minh triết', hex: '#94a3b8' },
+        { name: 'Nâu Hổ Phách', sub: 'Vững vàng cội nguồn', hex: '#b45309' }
+      ];
+    } else if (el.includes('Mộc')) {
+      this.colors = [
+        { name: 'Xanh Lục Bảo', sub: 'Màu bản mệnh • Tươi mới', hex: '#16a34a' },
+        { name: 'Xanh Biển Sâu (Thủy)', sub: 'Màu tương sinh • Dưỡng sinh', hex: '#0284c7' },
+        { name: 'Đen Huyền Bí', sub: 'Thủy sinh Mộc • Tích phúc', hex: '#1e1c24' },
+        { name: 'Xanh Ngọc Lam', sub: 'Nuôi dưỡng trực giác', hex: '#0d9488' }
+      ];
+    } else if (el.includes('Hỏa')) {
+      this.colors = [
+        { name: 'Đỏ Ruby Quý Tộc', sub: 'Màu bản mệnh • Nhiệt huyết', hex: '#dc2626' },
+        { name: 'Hồng Thạch Anh', sub: 'Tương hợp • Tình duyên', hex: '#f43f5e' },
+        { name: 'Xanh Lá Tươi (Mộc)', sub: 'Màu tương sinh • Sinh sôi', hex: '#22c55e' },
+        { name: 'Tím Hoàng Gia', sub: 'Khai mở linh thức', hex: '#7c3aed' }
+      ];
+    } else if (el.includes('Thổ')) {
+      this.colors = [
+        { name: 'Vàng Hổ Phách', sub: 'Màu bản mệnh • Vượng tài', hex: '#d97706' },
+        { name: 'Nâu Đất Mẹ', sub: 'Bản mệnh • Điểm tựa vững bền', hex: '#78350f' },
+        { name: 'Đỏ Ruby (Hỏa)', sub: 'Hỏa sinh Thổ • Tương sinh', hex: '#b91c1c' },
+        { name: 'Cam Hoàng Hôn', sub: 'Thúc đẩy sinh khí', hex: '#ea580c' }
+      ];
+    } else {
+      this.colors = [
+        { name: 'Lam Biển Dịu Êm', sub: 'Màu bản mệnh • Bình an nội tâm', hex: '#4986a7' },
+        { name: 'Trắng Ánh Bạc (Kim)', sub: 'Màu tương sinh • Khai mở trí tuệ', hex: '#d8dde6' },
+        { name: 'Đen Huyền Bí', sub: 'Hộ thân & Trừ tà khí', hex: '#1e1c24' },
+        { name: 'Xanh Thẫm Đại Dương', sub: 'Thu hút quý nhân phù trợ', hex: '#1d3658' }
+      ];
+    }
   }
 
   shareProfile(): void {

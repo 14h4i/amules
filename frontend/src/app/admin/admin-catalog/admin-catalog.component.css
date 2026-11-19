@@ -61,90 +61,112 @@
 }
 
 .btn-action-outline {
-  display: flex;
+  display: inline-flex;
   align-items: center;
   gap: 6px;
   background: #ffffff;
-  border: 1px solid #e2e8f0;
-  border-radius: 9px;
-  padding: 8px 14px;
+  border: 1px solid #efe6ec;
+  border-radius: 10px;
+  padding: 9px 16px;
   font-size: 12.5px;
   font-weight: 600;
   color: #475569;
   cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-action-outline:hover {
+  background: #faf5f8;
+  border-color: #7b1e58;
+  color: #7b1e58;
 }
 
 .btn-action-primary {
-  display: flex;
+  display: inline-flex;
   align-items: center;
-  gap: 6px;
-  background: #80235c;
+  gap: 8px;
+  background: linear-gradient(135deg, #7b1e58 0%, #5b1340 100%);
   color: #ffffff;
   border: none;
-  border-radius: 9px;
-  padding: 8px 16px;
-  font-size: 12.5px;
+  border-radius: 10px;
+  padding: 10px 18px;
+  font-size: 13px;
   font-weight: 600;
   cursor: pointer;
-  box-shadow: 0 4px 10px rgba(128, 35, 92, 0.25);
+  box-shadow: 0 4px 14px rgba(123, 30, 88, 0.28);
+  transition: all 0.2s ease;
+}
+
+.btn-action-primary:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 18px rgba(123, 30, 88, 0.38);
 }
 
 .admin-toast-banner {
   background: #ecfdf5;
   border: 1px solid #a7f3d0;
   color: #065f46;
-  padding: 10px 16px;
-  border-radius: 10px;
+  padding: 12px 18px;
+  border-radius: 12px;
   font-size: 13px;
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 10px;
+  box-shadow: 0 2px 8px rgba(16, 185, 129, 0.08);
 }
 
 /* 4 Metric Cards for Gemstones */
 .gemstone-kpi-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 14px;
+  gap: 16px;
 }
 
 .kpi-mini-card {
   background: #ffffff;
-  border: 1px solid #f1e5e8;
-  border-radius: 12px;
-  padding: 14px 18px;
+  border: 1px solid #efe6ec;
+  border-radius: 16px;
+  padding: 16px 20px;
   display: flex;
   align-items: center;
   justify-content: space-between;
+  box-shadow: 0 4px 18px rgba(74, 21, 75, 0.03);
+  transition: all 0.2s ease;
+}
+
+.kpi-mini-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 22px rgba(74, 21, 75, 0.06);
 }
 
 .mini-card-text small {
-  font-size: 9.5px;
+  font-size: 10.5px;
   font-weight: 800;
   letter-spacing: 0.6px;
-  color: #64748b;
+  color: #7b6876;
   display: block;
+  margin-bottom: 4px;
 }
 
 .mini-card-text strong {
   font-family: 'Playfair Display', Georgia, serif;
-  font-size: 24px;
+  font-size: 26px;
   font-weight: 700;
-  color: #1e1b4b;
+  color: #1e1822;
 }
 
 .mini-card-icon {
-  width: 32px;
-  height: 32px;
-  border-radius: 8px;
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
   display: grid;
   place-items: center;
 }
 
-.ico-gem { background: #fdf2f6; color: #80235c; }
-.ico-tag { background: #fdf2f6; color: #80235c; }
-.ico-shield { background: #fdf2f6; color: #80235c; }
-.ico-check { background: #f0fdf4; color: #16a34a; }
+.ico-gem { background: #fdf2f7; color: #7b1e58; }
+.ico-tag { background: #fdf2f7; color: #7b1e58; }
+.ico-shield { background: #fdf2f7; color: #7b1e58; }
+.ico-check { background: #ecfdf5; color: #059669; }
 
 /* 5 Tabs */
 .catalog-tabs-bar {
@@ -152,7 +174,7 @@
   align-items: center;
   gap: 8px;
   overflow-x: auto;
-  border-bottom: 2px solid #f3e6e9;
+  border-bottom: 2px solid #f0e4eb;
   padding-bottom: 2px;
 }
 
@@ -162,25 +184,26 @@
   gap: 6px;
   background: transparent;
   border: none;
-  padding: 10px 16px;
-  font-size: 13px;
+  padding: 10px 18px;
+  font-size: 13.5px;
   font-weight: 600;
   color: #64748b;
   cursor: pointer;
-  border-radius: 8px;
-  transition: all 0.15s;
+  border-radius: 10px 10px 0 0;
+  transition: all 0.18s ease;
   white-space: nowrap;
 }
 
 .catalog-tab-btn:hover {
-  background: #fdf2f6;
-  color: #80235c;
+  background: #faf5f8;
+  color: #7b1e58;
 }
 
 .catalog-tab-btn.active {
-  background: #80235c;
-  color: #ffffff;
-  box-shadow: 0 4px 12px rgba(128, 35, 92, 0.25);
+  background: #ffffff;
+  color: #7b1e58;
+  font-weight: 700;
+  border-bottom: 3px solid #7b1e58;
 }
 
 .tab-count-badge {

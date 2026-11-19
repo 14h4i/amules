@@ -119,7 +119,8 @@ function loadFallbackJsonData(collectionName) {
             if (clean.updatedAt && clean.updatedAt.$date) clean.updatedAt = new Date(clean.updatedAt.$date);
             // Chuẩn hóa ảnh và mô tả cho bộ sưu tập & chủ đề
             if (collectionName === 'collections') {
-              clean.image = clean.image || clean.coverImage || 'images/banner_mys.jpg';
+              clean.image = clean.image || clean.coverImage || 'https://i.pinimg.com/736x/d2/c1/cd/d2c1cd50bee4cf66b8a095b253a55beb.jpg';
+              clean.coverImage = clean.coverImage || clean.image;
               clean.desc = clean.desc || clean.description || '';
               if (!clean.tag) {
                 if ((clean.slug || '').includes('mystic')) clean.tag = 'Cổ điển & Huyền bí';
@@ -128,17 +129,7 @@ function loadFallbackJsonData(collectionName) {
               }
             }
             if (collectionName === 'themes') {
-              const themeImageMap = {
-                'tinh-yeu-ket-noi': 'images/nhan_venus.png',
-                'binh-an-can-bang': 'images/lac_tay_bien.png',
-                'tu-tin-toa-sang': 'images/banner_mrs.jpg',
-                'may-man-co-hoi': 'images/bst_da.webp',
-                'chua-lanh-thu-gian': 'images/thanh_tay.png',
-                'tinh-ban-gan-ket': 'images/bst_vong_tay.png',
-                'nang-luong-sang-tao': 'images/dch_mix_da.png',
-                'qua-tang-y-nghia': 'images/bst_set_qua.webp'
-              };
-              clean.image = themeImageMap[clean.slug] || clean.image || 'images/banner_mys.jpg';
+              clean.image = clean.image || clean.coverImage || clean.bannerImage || 'https://i.pinimg.com/736x/47/9c/df/479cdf269b5b50948b8aef6103b475ed.jpg';
               clean.coverImage = clean.image;
               clean.bannerImage = clean.image;
             }
@@ -259,28 +250,16 @@ function registerStandardCollectionRoute(endpoint, collectionName) {
       if (collectionName === 'collections' && items) {
         items = items.map(c => ({
           ...c,
-          image: c.image || c.coverImage || 'images/banner_mys.jpg',
+          image: c.image || c.coverImage || 'https://i.pinimg.com/736x/d2/c1/cd/d2c1cd50bee4cf66b8a095b253a55beb.jpg',
+          coverImage: c.coverImage || c.image || 'https://i.pinimg.com/736x/d2/c1/cd/d2c1cd50bee4cf66b8a095b253a55beb.jpg',
           desc: c.desc || c.description || '',
           tag: c.tag || ((c.slug || '').includes('moon') ? 'Thiên thể & Chiêm tinh' : (c.slug || '').includes('mystic') ? 'Cổ điển & Huyền bí' : 'Dịu dàng & Lãng mạn')
         }));
       }
 
       if (endpoint === 'themes' && items) {
-        const themeImageMap = {
-          'tinh-yeu-ket-noi': 'images/nhan_venus.png',
-          'binh-an-can-bang': 'images/lac_tay_bien.png',
-          'tu-tin-toa-sang': 'images/banner_mrs.jpg',
-          'may-man-co-hoi': 'images/bst_da.webp',
-          'chua-lanh-thu-gian': 'images/thanh_tay.png',
-          'tinh-ban-gan-ket': 'images/bst_vong_tay.png',
-          'nang-luong-sang-tao': 'images/dch_mix_da.png',
-          'qua-tang-y-nghia': 'images/bst_set_qua.webp'
-        };
         items = items.map(t => {
-          let img = t.image || t.coverImage || t.bannerImage;
-          if (!img || img.includes('drive.google.com') || !img.startsWith('images/')) {
-            img = themeImageMap[t.slug] || 'images/banner_mys.jpg';
-          }
+          let img = t.image || t.coverImage || t.bannerImage || 'https://i.pinimg.com/736x/47/9c/df/479cdf269b5b50948b8aef6103b475ed.jpg';
           return {
             ...t,
             image: img,
@@ -290,16 +269,16 @@ function registerStandardCollectionRoute(endpoint, collectionName) {
         });
       }
 
-      if (endpoint === 'articles') {
-        const fallbackImgs = ['images/moonstone.jpg', 'images/thanh_tay.png', 'images/phoi.jpg'];
+      if (endpoint === 'articles' && items) {
+        const fallbackImgs = [
+          'https://i.pinimg.com/736x/8c/01/6d/8c016d17da264368845d7d7ae0ad195a.jpg',
+          'https://i.pinimg.com/736x/65/12/56/6512568af032cfb982e96c42c6218599.jpg',
+          'https://i.pinimg.com/736x/b5/03/40/b50340697147b14ca4fd8f6b815bf8aa.jpg'
+        ];
         items = (items || []).map((a, idx) => {
           let img = a.image || a.thumbnail;
-          if (!img || img.includes('drive.google.com') || img.startsWith('http')) {
-            const titleLower = (a.title || '').toLowerCase();
-            if (titleLower.includes('moonstone')) img = 'images/moonstone.jpg';
-            else if (titleLower.includes('thanh tẩy') || titleLower.includes('nạp năng lượng')) img = 'images/thanh_tay.png';
-            else if (titleLower.includes('phối') || titleLower.includes('phong cách')) img = 'images/phoi.jpg';
-            else img = fallbackImgs[idx % fallbackImgs.length];
+          if (!img || img.startsWith('images/')) {
+            img = fallbackImgs[idx % fallbackImgs.length];
           }
           return {
             ...a,
@@ -355,41 +334,74 @@ registerStandardCollectionRoute('themes', 'themes');
 registerStandardCollectionRoute('articles', 'articles');
 registerStandardCollectionRoute('vouchers', 'vouchers');
 registerStandardCollectionRoute('reviews', 'reviews');
+app.get('/api/gift-packages', async (req, res) => {
+  try {
+    const db = getDB();
+    let prods = [];
+    if (db) {
+      const cOid = toObjectId('c326bff57cfa65f545d70517');
+      prods = await db.collection('products').find({
+        $or: [
+          { isGiftPackage: true },
+          { categoryId: 'c326bff57cfa65f545d70517' },
+          { categoryId: cOid },
+          { category: 'Set quà tặng' },
+          { category: { $regex: 'quà tặng', $options: 'i' } }
+        ]
+      }).toArray();
+    }
+    if (!prods || prods.length === 0) {
+      const all = loadFallbackJsonData('products') || [];
+      prods = all.filter(p => p.isGiftPackage || p.categoryId === 'c326bff57cfa65f545d70517' || p.category === 'Set quà tặng');
+    }
+    const packages = prods.map(p => ({
+      _id: p._id,
+      name: p.name,
+      slug: p.slug,
+      desc: p.shortDescription || p.description || p.desc || '',
+      price: p.price,
+      image: p.image || (p.images && p.images[0]) || ''
+    }));
+    res.json(packages);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
 
 // Helper to resolve distinct, appropriate product images
 function resolveProductImage(p) {
-  // Ưu tiên link ảnh CDN lưu trong DB (image hoặc images[]).
-  const cdnImage = [p.image, ...(p.images || [])].find(img => typeof img === 'string' && img.startsWith('http'));
-  if (cdnImage) return cdnImage;
-  if (p.image && typeof p.image === 'string' && p.image.startsWith('/images/product_')) {
+  if (!p) return 'https://i.pinimg.com/736x/d4/3c/3d/d43c3d69296b0badad1636033dd34e9c.jpg';
+
+  // 1. Ưu tiên URL ảnh online hoặc upload hợp lệ từ p.image
+  if (typeof p.image === 'string' && (p.image.startsWith('http://') || p.image.startsWith('https://') || p.image.startsWith('data:image/') || p.image.startsWith('/images/product_'))) {
     return p.image;
   }
+
+  // 2. Kiểm tra mảng p.images
+  if (Array.isArray(p.images) && p.images.length > 0) {
+    const validImg = p.images.find(img => typeof img === 'string' && (img.startsWith('http://') || img.startsWith('https://') || img.startsWith('data:image/') || img.startsWith('/images/product_')));
+    if (validImg) return validImg;
+    if (typeof p.images[0] === 'string' && p.images[0].trim() && !p.images[0].startsWith('images/')) return p.images[0];
+  }
+
+  // 3. Fallback bằng ảnh CDN trực tuyến chất lượng cao theo danh mục / tên sản phẩm
   const nameText = `${p.name || ''} ${p.slug || ''} ${p.productCode || ''}`.toLowerCase();
-  if (nameText.includes('hơi thở biển') || (nameText.includes('lắc tay') && !nameText.includes('dây chuyền'))) {
-    return 'images/lac_tay_bien.png';
+  if (nameText.includes('hơi thở biển') || nameText.includes('aquamarine') || nameText.includes('hải lam')) {
+    return 'https://i.pinimg.com/736x/d4/3c/3d/d43c3d69296b0badad1636033dd34e9c.jpg';
   }
-  if (nameText.includes('dây chuyền') || nameText.includes('day-chuyen') || nameText.includes('dch') || nameText.includes('merlia') || nameText.includes('mặt trăng khuyết') || nameText.includes('giọt lệ') || nameText.includes('aventurine') || nameText.includes('amethyst tím')) {
-    return (nameText.includes('merlia') || nameText.includes('giọt lệ')) ? 'images/dch_mix_da.png' : 'images/bst_dch.png';
+  if (nameText.includes('moonstone') || nameText.includes('mặt trăng') || nameText.includes('tinh tú')) {
+    return 'https://i.pinimg.com/736x/8b/56/4e/8b564e66f5a26e5a7761873879e15a44.jpg';
   }
-  if (nameText.includes('nhẫn') || nameText.includes('nhan') || nameText.includes('venus') || nameText.includes('citrine') || nameText.includes('khói lam tuyết')) {
-    return nameText.includes('venus') ? 'images/nhan_tinh_tu.png' : 'images/bst_nhan_lg.png';
+  if (nameText.includes('thạch anh hồng') || nameText.includes('venus') || nameText.includes('trái tim')) {
+    return 'https://i.pinimg.com/736x/cb/dc/01/cbdc012803b0d24268e367fc9b084e56.jpg';
   }
-  if (nameText.includes('bông tai') || nameText.includes('bong-tai') || nameText.includes('baroque') || nameText.includes('sao bạc')) {
-    return 'images/bong_tai.png';
+  if (nameText.includes('dây chuyền') || nameText.includes('merlia')) {
+    return 'https://i.pinimg.com/736x/88/cc/a9/88cca9873ac223970e511970e84f478d.jpg';
   }
-  if (nameText.includes('quà') || nameText.includes('hộp nhung') || nameText.includes('set')) {
-    return 'images/bst_set_qua.webp';
+  if (nameText.includes('bông tai') || nameText.includes('baroque')) {
+    return 'https://i.pinimg.com/736x/e8/62/3e/e8623eb64eb7f5c5311910bc49247d8e.jpg';
   }
-  if (nameText.includes('vòng tay') || nameText.includes('vong-tay') || nameText.includes('fluorite') || nameText.includes('ngọc bích') || nameText.includes('hải lam')) {
-    return 'images/bst_vong_tay.png';
-  }
-  if (nameText.includes('moonstone')) {
-    return 'images/moonstone.jpg';
-  }
-  if (p.image && p.image !== 'images/lac_tay_bien.png' && !p.image.includes('lac_tay_bien')) {
-    return p.image;
-  }
-  return 'images/lac_tay_bien.png';
+  return 'https://i.pinimg.com/736x/d4/3c/3d/d43c3d69296b0badad1636033dd34e9c.jpg';
 }
 
 // Enrich products with metadata (Category, Stone, Collection, Elements, Zodiacs) from database
@@ -464,7 +476,7 @@ async function enrichProductsWithMetadata(rawProducts, db) {
     });
     const colName = colFound ? colFound.name : (p.collection || 'Bộ sưu tập độc bản');
 
-    const cleanFallbackEl = p.element ? [...new Set(p.element.split(/&|,|\+/).map(s => s.trim()).filter(Boolean))].join(' & ') : 'Mệnh Thổ';
+    const cleanFallbackEl = p.element ? [...new Set(p.element.split(/&|,|\+/).map(s => s.trim()).filter(Boolean))].join(' & ') : '';
 
     const prodReviews = (reviews || []).filter(r => {
       const rPid = getOid(r.productId);
@@ -482,11 +494,13 @@ async function enrichProductsWithMetadata(rawProducts, db) {
       ...p,
       id: pId || p.slug,
       image: primaryImage,
-      images: [primaryImage, ...(p.images || []).filter(img => img && img !== primaryImage)],
+      images: (p.images && p.images.length > 0)
+        ? p.images.map(img => (typeof img === 'string' && img.startsWith('images/')) ? primaryImage : img)
+        : [primaryImage],
       category: categoryName,
       stone: stoneName,
       collection: colName,
-      compatibleElements: elNames.length > 0 ? elNames : (Array.isArray(p.compatibleElements) ? [...new Set(p.compatibleElements)] : [cleanFallbackEl]),
+      compatibleElements: elNames.length > 0 ? elNames : (Array.isArray(p.compatibleElements) && p.compatibleElements.length > 0 ? [...new Set(p.compatibleElements)] : (cleanFallbackEl ? [cleanFallbackEl] : [])),
       element: elNames.length > 0 ? elNames.join(' & ') : cleanFallbackEl,
       compatibleZodiacs: zodNames.length > 0 ? zodNames : (p.compatibleZodiacs || ['Cự Giải', 'Song Ngư']),
       sold: p.sold || '120+',
@@ -1474,7 +1488,7 @@ const handleCheckout = async (req, res) => {
     const trackingCode = req.body.trackingCode || `GHN-AMU-${rawNumber}`;
     const carrier = req.body.carrier || 'Giao Hàng Nhanh (GHN Express)';
     const paymentMethod = req.body.paymentMethod || 'COD';
-    const isPaid = paymentMethod === 'VNPAY' || paymentMethod === 'MOMO' || req.body.paymentStatus === 'paid';
+    const isPaid = req.body.paymentStatus === 'paid';
 
     const fullName = cust.fullName || (sessionUser ? sessionUser.fullName : 'Khách hàng AMULES');
     const phone = cust.phone || (sessionUser ? sessionUser.phone : '');
@@ -1486,7 +1500,7 @@ const handleCheckout = async (req, res) => {
       name: it.name || it.productName || 'Bảo vật phong thủy AMULES',
       categoryTag: it.categoryTag || (it.stone ? `${it.stone.toUpperCase()} • Bạc Ý S925` : 'TRANG SỨC BẢO MỆNH • Bạc Ý S925'),
       specs: it.specs || (it.size ? `Kích thước: ${it.size}` : (it.selectedSize ? `Chiều dài: ${it.selectedSize}` : 'Tiêu chuẩn nghệ nhân AMULES')),
-      image: it.image || 'images/lac_tay_bien.png',
+      image: it.image || 'https://i.pinimg.com/736x/d4/3c/3d/d43c3d69296b0badad1636033dd34e9c.jpg',
       price: Number(it.price || it.unitPrice || 650000),
       quantity: Number(it.quantity || 1)
     }));
@@ -1523,7 +1537,7 @@ const handleCheckout = async (req, res) => {
       paymentStatus: isPaid ? 'paid' : (paymentMethod === 'COD' ? 'pending_cod' : 'unpaid'),
       paymentStatusLabel: isPaid ? 'Đã thanh toán' : (paymentMethod === 'COD' ? 'Chờ thu hộ COD' : 'Chờ thanh toán'),
       status: 'pending',
-      orderStatus: isPaid ? 'Đã thanh toán (Chờ giao hàng)' : 'Chờ xác nhận & thanh tẩy đá',
+      orderStatus: isPaid ? 'Đã thanh toán (Chờ giao hàng)' : (paymentMethod === 'COD' ? 'Chờ xác nhận & thanh tẩy đá' : 'Chờ thanh toán trực tuyến'),
       hasReturnRequest: false,
       returnReason: null,
       internalNotes: [
@@ -2397,6 +2411,173 @@ app.put('/api/users/addresses/:id/default', async (req, res) => {
 });
 
 // -------------------------------------------------------------
+// MYSTIC MATCH SESSIONS & RECOMMENDATIONS (MONGODB SYNC)
+// -------------------------------------------------------------
+app.get('/api/mystic-match/my-session', async (req, res) => {
+  try {
+    const db = getDB();
+    const email = (req.session.user && req.session.user.email) || (req.cookies && req.cookies.remember_user);
+    if (!email || !db) {
+      return res.json({ session: null, recommendations: [], products: [] });
+    }
+
+    const user = await db.collection('users').findOne({ email });
+    if (!user) {
+      return res.json({ session: null, recommendations: [], products: [] });
+    }
+
+    const uId = user._id;
+    // Tìm session trắc nghiệm mới nhất
+    const session = await db.collection('mystic_match_sessions')
+      .findOne({ $or: [{ userId: uId }, { userId: uId.toString() }] }, { sort: { createdAt: -1 } });
+
+    if (!session) {
+      return res.json({ session: null, recommendations: [], products: [] });
+    }
+
+    const sId = session._id;
+    const recs = await db.collection('mystic_match_recommendations')
+      .find({ $or: [{ sessionId: sId }, { sessionId: sId.toString() }] })
+      .sort({ displayOrder: 1 })
+      .toArray();
+
+    let prods = [];
+    if (recs && recs.length > 0) {
+      const pIds = recs.map(r => toObjectId(r.productId) || r.productId);
+      prods = await db.collection('products').find({
+        $or: [
+          { _id: { $in: pIds } },
+          { id: { $in: recs.map(r => String(r.productId)) } }
+        ]
+      }).toArray();
+    }
+
+    res.json({ session, recommendations: recs, products: prods });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+app.post('/api/mystic-match/submit', async (req, res) => {
+  try {
+    const db = getDB();
+    const email = (req.session.user && req.session.user.email) || (req.cookies && req.cookies.remember_user);
+    let user = null;
+    if (email && db) {
+      try { user = await db.collection('users').findOne({ email }); } catch (e) {}
+    }
+
+    const {
+      birthDate,
+      birthDay,
+      birthMonth,
+      birthYear,
+      gender,
+      wish,
+      quizAnswers,
+      calculatedZodiac,
+      calculatedElement,
+      dominantChakra,
+      matchSummary,
+      recommendedProductIds
+    } = req.body;
+
+    const uId = user ? user._id : null;
+    const sessionDoc = {
+      userId: uId ? uId : (req.body.userId || null),
+      userEmail: email || null,
+      birthDate: birthDate || `${birthYear}-${String(birthMonth).padStart(2, '0')}-${String(birthDay).padStart(2, '0')}`,
+      zodiac: calculatedZodiac?.name || req.body.zodiac || '',
+      zodiacLatin: calculatedZodiac?.latin || '',
+      element: calculatedElement?.name || req.body.element || '',
+      gender: gender || 'female',
+      wish: wish || 'peace',
+      quizAnswers: quizAnswers || [],
+      dominantChakra: dominantChakra || 'Luân xa Tim (An Nhiên & Yêu Thương)',
+      matchSummary: matchSummary || 'Bản mệnh hài hòa, đón nhận tần số cát tường và hộ thân bình an.',
+      createdAt: new Date()
+    };
+
+    let sessionId = null;
+    if (db) {
+      const sessionResult = await db.collection('mystic_match_sessions').insertOne(sessionDoc);
+      sessionId = sessionResult.insertedId;
+
+      const recDocs = (recommendedProductIds || []).map((pId, idx) => ({
+        sessionId: sessionId,
+        userId: uId,
+        productId: pId,
+        matchScore: 98 - idx * 3,
+        matchReasons: [
+          `Tương hợp bản mệnh ${sessionDoc.element}`,
+          `Cộng hưởng ${sessionDoc.dominantChakra}`
+        ],
+        displayOrder: idx + 1,
+        createdAt: new Date()
+      }));
+
+      if (recDocs.length > 0) {
+        await db.collection('mystic_match_recommendations').insertMany(recDocs);
+      }
+
+      if (uId) {
+        await db.collection('users').updateOne(
+          { _id: uId },
+          {
+            $set: {
+              zodiac: sessionDoc.zodiac,
+              element: sessionDoc.element,
+              dob: `${birthDay}/${birthMonth}/${birthYear}`,
+              mysticMatchCompleted: true,
+              lastMysticMatchAt: new Date()
+            }
+          }
+        );
+      }
+
+      // Tự động đồng bộ ra file JSON amules-database
+      try {
+        const allSessions = await db.collection('mystic_match_sessions').find({}).toArray();
+        const allRecs = await db.collection('mystic_match_recommendations').find({}).toArray();
+        const sCandidates = [
+          path.join(__dirname, '..', '..', 'amules-database', 'mystic_match_sessions.json'),
+          path.join(__dirname, '..', 'amules-database', 'mystic_match_sessions.json'),
+          path.join(process.cwd(), 'amules-database', 'mystic_match_sessions.json')
+        ];
+        for (const p of sCandidates) {
+          if (fs.existsSync(p)) {
+            fs.writeFileSync(p, JSON.stringify(allSessions, null, 2), 'utf-8');
+            break;
+          }
+        }
+        const rCandidates = [
+          path.join(__dirname, '..', '..', 'amules-database', 'mystic_match_recommendations.json'),
+          path.join(__dirname, '..', 'amules-database', 'mystic_match_recommendations.json'),
+          path.join(process.cwd(), 'amules-database', 'mystic_match_recommendations.json')
+        ];
+        for (const p of rCandidates) {
+          if (fs.existsSync(p)) {
+            fs.writeFileSync(p, JSON.stringify(allRecs, null, 2), 'utf-8');
+            break;
+          }
+        }
+      } catch (e) {
+        console.error('[Sync] Lỗi ghi file mystic_match JSON:', e.message);
+      }
+    }
+
+    res.json({
+      success: true,
+      sessionId,
+      session: sessionDoc,
+      message: 'Đã lưu kết quả bài trắc nghiệm năng lượng tâm thức vào hồ sơ CSDL MongoDB!'
+    });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// -------------------------------------------------------------
 // WISHLISTS (MONGODB SYNC) - BPMN Mục 3.5 collection 'wishlists'
 // -------------------------------------------------------------
 app.get('/api/wishlists', async (req, res) => {
@@ -2536,7 +2717,7 @@ app.post('/api/reviews', async (req, res) => {
       title: req.body.title || '',
       content: req.body.content || req.body.comment || '',
       quote: req.body.content || '',
-      image: req.body.image || 'images/lac_tay_bien.png',
+      image: req.body.image || 'https://i.pinimg.com/736x/d4/3c/3d/d43c3d69296b0badad1636033dd34e9c.jpg',
       helpfulCount: 0,
       createdAt: new Date(),
       updatedAt: new Date()
@@ -2946,7 +3127,7 @@ app.post('/api/admin/orders', async (req, res) => {
           name: it.name || it.productName || 'Bảo vật hộ mệnh AMULES',
           categoryTag: it.categoryTag || 'TRANG SỨC BẢO MỆNH • Bạc Ý S925',
           specs: it.specs || 'Tiêu chuẩn nghệ nhân AMULES',
-          image: it.image || 'images/lac_tay_bien.png',
+          image: it.image || 'https://i.pinimg.com/736x/d4/3c/3d/d43c3d69296b0badad1636033dd34e9c.jpg',
           price: Number(it.price || it.unitPrice || 650000),
           quantity: Number(it.quantity || 1)
         }))

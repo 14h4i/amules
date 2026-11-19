@@ -382,7 +382,7 @@
         </div>
 
         <div class="history-cards">
-          @for (ord of selectedUser.recentOrders || mockUsers[0].recentOrders; track ord.code) {
+          @for (ord of (selectedUser.recentOrders && selectedUser.recentOrders.length ? selectedUser.recentOrders : defaultRecentOrders); track ord.code) {
             <div class="history-order-card">
               <div class="card-left-icon">
                 <app-icon name="package" [size]="16"></app-icon>

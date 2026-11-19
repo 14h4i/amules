@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { AdminService } from '../../services/admin.service';
 
 @Component({
@@ -27,64 +27,14 @@ export class AdminUsersComponent implements OnInit {
   showDetailDrawer = false;
   selectedUser: any = null;
 
-  mockUsers: any[] = [
-    {
-      _id: '270c1b084f3f146eb5787075',
-      code: '#KH-00892',
-      fullName: 'Trần Thu Hà',
-      initial: 'TH',
-      email: 'thuha.tran@gmail.com',
-      phone: '0911222333',
-      tier: 'Gemstone VIP',
-      tierBadgeClass: 'badge-gemstone-vip',
-      vipLevel: 'VIP CẤP II',
-      points: 0,
-      orderCount: 4,
-      totalSpent: 8920000,
-      joinDate: '02/10/2026',
-      status: 'active',
-      statusLabel: 'Đang hoạt động'
-    },
-    {
-      _id: 'e4774cdda0793f86414e8b91',
-      code: '#KH-00845',
-      fullName: 'Nguyễn Hoàng Lan Anh',
-      initial: 'LA',
-      email: 'lananh.gemini@gmail.com',
-      phone: '0982456789',
-      tier: 'Thành Viên Tinh Tú',
-      tierBadgeClass: 'badge-star-member',
-      vipLevel: 'VIP CẤP I',
-      points: 12000,
-      orderCount: 2,
-      totalSpent: 3650000,
-      joinDate: '15/09/2026',
-      status: 'active',
-      statusLabel: 'Đang hoạt động',
-      recentOrders: [
-        { code: '#AMU-20261105-0001', title: 'Dây Chuyền Mặt Trăng Khuyết Moonstone + Dây Merlia', date: '05/11/2026', price: 1200000, status: 'ĐÃ GIAO HÀNG', statusClass: 'status-completed' }
-      ]
-    },
-    {
-      _id: '0077ee7a934a956624ff30e6',
-      code: '#KH-00712',
-      fullName: 'Quản trị AMULES',
-      initial: 'AM',
-      email: 'admin@amules.vn',
-      phone: '0900000001',
-      tier: 'Quản Trị Viên',
-      tierBadgeClass: 'badge-admin-role',
-      vipLevel: 'SUPER ADMIN',
-      points: 0,
-      orderCount: 1,
-      totalSpent: 890000,
-      joinDate: '01/09/2026',
-      status: 'active',
-      statusLabel: 'Đang hoạt động'
-    }
+  defaultRecentOrders = [
+    { code: '#AMU-20261105-0001', title: 'Dây Chuyền Mặt Trăng Khuyết Moonstone + Dây Merlia', date: '05/11/2026', price: 1200000, status: 'ĐÃ GIAO HÀNG', statusClass: 'status-completed' }
   ];
 
-  constructor(private _adminService: AdminService) {}
+  constructor(
+    private _adminService: AdminService,
+    private _cdr: ChangeDetectorRef
+  ) {}
 
   get totalUsersCount(): number {
     return this.users.length;
@@ -140,31 +90,70 @@ export class AdminUsersComponent implements OnInit {
     this.loadUsers();
   }
 
+  formatUser(u: any, index: number): any {
+    const id = u.id || u._id;
+    const fullName = u.fullName || u.username || 'Khách hàng AMULES';
+    const initials = fullName
+      .split(' ')
+      .filter(Boolean)
+      .map((w: string) => w[0].toUpperCase())
+      .slice(-2)
+      .join('') || 'KH';
+
+    const tier = u.tier || (u.role === 'admin' ? 'Quản Trị Viên' : 'Thành viên mới');
+    let tierBadgeClass = 'badge-member';
+    if (tier.toLowerCase().includes('gemstone') || tier.includes('VIP')) {
+      tierBadgeClass = 'badge-gemstone-vip';
+    } else if (tier.toLowerCase().includes('tinh tú')) {
+      tierBadgeClass = 'badge-star-member';
+    } else if (u.role === 'admin') {
+      tierBadgeClass = 'badge-admin-role';
+    }
+
+    let joinDate = 'Hôm nay';
+    if (u.createdAt) {
+      try {
+        const d = new Date(u.createdAt);
+        joinDate = `${String(d.getDate()).padStart(2, '0')}/${String(d.getMonth() + 1).padStart(2, '0')}/${d.getFullYear()}`;
+      } catch (e) {}
+    }
+
+    return {
+      _id: id,
+      id: id,
+      code: u.code || `#KH-${String(index + 1).padStart(4, '0')}`,
+      fullName,
+      initial: initials,
+      email: u.email || 'khachhang@amules.vn',
+      phone: u.phone || 'Chưa cập nhật',
+      tier,
+      tierBadgeClass,
+      vipLevel: u.vipLevel || (tier.includes('VIP') ? 'VIP CẤP II' : (u.role === 'admin' ? 'SUPER ADMIN' : 'THÀNH VIÊN')),
+      points: Number(u.points || 0),
+      orderCount: Number(u.orderCount || (u.orders ? u.orders.length : 0)),
+      totalSpent: Number(u.totalSpent || 0),
+      joinDate,
+      status: u.status || 'active',
+      statusLabel: u.status === 'locked' ? 'Đã khóa' : 'Đang hoạt động',
+      recentOrders: u.recentOrders || []
+    };
+  }
+
   loadUsers(): void {
     this.loading = true;
+    this._cdr.markForCheck();
     this._adminService.getUsers().subscribe({
       next: (data) => {
         if (data && data.length) {
-          this.users = data.map((u: any, i: number) => {
-            const fallback = this.mockUsers[i % this.mockUsers.length];
-            return {
-              ...fallback,
-              ...u,
-              fullName: u.fullName || fallback.fullName,
-              email: u.email || fallback.email,
-              phone: u.phone || fallback.phone,
-              points: u.points !== undefined ? u.points : fallback.points,
-              status: u.status || fallback.status
-            };
-          });
-        } else {
-          this.users = [...this.mockUsers];
+          this.users = data.map((u: any, i: number) => this.formatUser(u, i));
         }
         this.loading = false;
+        this._cdr.detectChanges();
       },
-      error: () => {
-        this.users = [...this.mockUsers];
+      error: (err) => {
+        console.error('loadUsers error:', err);
         this.loading = false;
+        this._cdr.detectChanges();
       }
     });
   }
@@ -237,7 +226,63 @@ export class AdminUsersComponent implements OnInit {
   }
 
   exportCrm(): void {
-    this.showToast('Đã xuất báo cáo CRM khách hàng định dạng CSV/Excel!');
+    const list = (this.filteredUsers && this.filteredUsers.length > 0) ? this.filteredUsers : this.users;
+    if (!list || list.length === 0) {
+      this.showToast('Không có dữ liệu hội viên để xuất báo cáo!');
+      return;
+    }
+
+    const headers = [
+      'Mã khách hàng',
+      'Họ và tên',
+      'Email',
+      'Số điện thoại',
+      'Hạng thành viên',
+      'Cấp VIP',
+      'Điểm tích lũy',
+      'Số đơn hàng',
+      'Tổng chi tiêu (VNĐ)',
+      'Ngày tham gia',
+      'Trạng thái tài khoản'
+    ];
+
+    const escapeCsv = (val: any): string => {
+      if (val === null || val === undefined) return '""';
+      const str = String(val).replace(/"/g, '""');
+      return `"${str}"`;
+    };
+
+    const rows = list.map(u => [
+      escapeCsv(u.code || ''),
+      escapeCsv(u.fullName || ''),
+      escapeCsv(u.email || ''),
+      escapeCsv(u.phone || ''),
+      escapeCsv(u.tier || ''),
+      escapeCsv(u.vipLevel || ''),
+      escapeCsv(u.points || 0),
+      escapeCsv(u.orderCount || 0),
+      escapeCsv(u.totalSpent || 0),
+      escapeCsv(u.joinDate || ''),
+      escapeCsv(u.statusLabel || (u.status === 'locked' ? 'Đã khóa' : 'Đang hoạt động'))
+    ].join(','));
+
+    // Ký tự BOM UTF-8 (\uFEFF) cho tiếng Việt có dấu trong Excel
+    const csvContent = '\uFEFF' + [headers.join(','), ...rows].join('\r\n');
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+
+    const a = document.createElement('a');
+    a.href = url;
+    const now = new Date();
+    const dateStr = `${now.getFullYear()}${String(now.getMonth() + 1).padStart(2, '0')}${String(now.getDate()).padStart(2, '0')}`;
+    a.download = `AMULES_Bao_Cao_CRM_Khach_Hang_${dateStr}.csv`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+
+    this.showToast(`Đã xuất và tải về báo cáo CRM (${list.length} khách hàng) thành công!`);
+    this._cdr.detectChanges();
   }
 
   showToast(msg: string): void {

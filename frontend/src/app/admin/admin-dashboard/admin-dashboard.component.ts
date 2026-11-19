@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { AdminService, AdminStats } from '../../services/admin.service';
 
 @Component({
@@ -20,9 +20,13 @@ export class AdminDashboardComponent implements OnInit {
   };
   loading = true;
 
-  constructor(private _adminService: AdminService) {}
+  constructor(
+    private _adminService: AdminService,
+    private _cdr: ChangeDetectorRef
+  ) {}
 
   ngOnInit(): void {
+    this._cdr.markForCheck();
     this._adminService.getStats().subscribe({
       next: (data) => {
         if (data) {
@@ -37,9 +41,11 @@ export class AdminDashboardComponent implements OnInit {
           };
         }
         this.loading = false;
+        this._cdr.detectChanges();
       },
       error: () => {
         this.loading = false;
+        this._cdr.detectChanges();
       }
     });
   }

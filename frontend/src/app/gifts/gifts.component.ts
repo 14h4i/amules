@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 import { ProductService, IProduct } from '../services/product.service';
+import { CartService } from '../services/cart.service';
 
 @Component({
   selector: 'app-gifts',
@@ -9,25 +11,87 @@ import { ProductService, IProduct } from '../services/product.service';
 })
 export class GiftsComponent implements OnInit {
   giftProducts: IProduct[] = [];
-  loading = true;
+  packages: any[] = [];
+  loading = false;
+  addedToast: string | null = null;
 
-  packages = [
-    { name: 'Hộp Quà Tri Ân Nữ Thần', desc: 'Hộp nhung tím cao cấp, thiệp chúc mừng dập nhũ vàng 24K và túi giấy AMULES Signature.', price: 99000, image: 'https://i.pinimg.com/736x/8b/56/4e/8b564e66f5a26e5a7761873879e15a44.jpg' },
-    { name: 'Combo Thanh Tẩy Năng Lượng', desc: 'Thanh trầm hương tự nhiên, tinh thể thạch anh trắng và chuông xoay thanh tẩy đá quý.', price: 150000, image: 'https://i.pinimg.com/736x/8b/56/4e/8b564e66f5a26e5a7761873879e15a44.jpg' },
-    { name: 'Gói Quà Sinh Nhật Chiêm Tinh', desc: 'Bao gồm phong thư thông điệp năng lượng chiêm tinh theo ngày tháng năm sinh của người nhận.', price: 120000, image: 'https://i.pinimg.com/736x/8b/56/4e/8b564e66f5a26e5a7761873879e15a44.jpg' }
-  ];
-
-  constructor(private _productService: ProductService) {}
+  constructor(
+    private _http: HttpClient,
+    private _productService: ProductService,
+    private _cartService: CartService,
+    private _cdr: ChangeDetectorRef
+  ) {}
 
   ngOnInit(): void {
-    this._productService.getProducts().subscribe({
-      next: (prods) => {
-        this.giftProducts = (prods || []).slice(0, 8);
-        this.loading = false;
+    this.loading = true;
+
+    // 1. Tải danh sách gói quà trực tiếp từ CSDL MongoDB
+    this._http.get<any[]>('/api/gift-packages').subscribe({
+      next: (data) => {
+        if (data && data.length > 0) {
+          this.packages = data.map(p => ({
+            ...p,
+            name: p.name,
+            desc: p.desc || p.description || p.shortDescription || 'Gói quà tặng ý nghĩa trang sức AMULES.',
+            price: p.price || 99000,
+            image: p.image || p.thumbnail || '',
+            tag: p.tag || 'DỊCH VỤ QUÀ TẶNG'
+          }));
+        } else {
+          this.packages = [];
+        }
+        this._cdr.detectChanges();
       },
       error: () => {
-        this.loading = false;
+        this.packages = [];
+        this._cdr.detectChanges();
       }
     });
+
+    // 2. Tải danh sách bảo vật gợi ý quà tặng từ MongoDB
+    this._productService.getProducts().subscribe({
+      next: (prods) => {
+        if (prods && prods.length > 0) {
+          const giftSuitable = prods.filter(p => !(p as any).isGiftPackage && p.category !== 'Set quà tặng');
+          this.giftProducts = (giftSuitable.length > 0 ? giftSuitable : prods).slice(0, 8);
+        } else {
+          this.giftProducts = [];
+        }
+        this.loading = false;
+        this._cdr.detectChanges();
+      },
+      error: () => {
+        this.giftProducts = [];
+        this.loading = false;
+        this._cdr.detectChanges();
+      }
+    });
+  }
+
+  addPackageToCart(pkg: any): void {
+    this._cartService.addToCart({
+      productId: pkg._id || pkg.id || pkg.slug,
+      name: pkg.name,
+      price: pkg.price,
+      image: pkg.image,
+      quantity: 1,
+      stone: 'Gói quà tặng'
+    }).subscribe({
+      next: () => {
+        this.showToast(`Đã thêm "${pkg.name}" vào giỏ hàng`);
+      },
+      error: () => {
+        this.showToast(`Đã thêm "${pkg.name}" vào giỏ hàng`);
+      }
+    });
+  }
+
+  private showToast(msg: string): void {
+    this.addedToast = msg;
+    this._cdr.detectChanges();
+    setTimeout(() => {
+      this.addedToast = null;
+      this._cdr.detectChanges();
+    }, 3000);
   }
 }

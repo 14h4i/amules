@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { AdminService } from '../../services/admin.service';
 
 @Component({
@@ -18,383 +18,54 @@ export class AdminProductsComponent implements OnInit {
 
   currentProduct: any = this.getEmptyProduct();
 
-  // Mock standard products for robust UI matching mockup
-  mockProducts: any[] = [
-  {
-    "_id": "7caa02962f99fe72f8cfb0d6",
-    "name": "Lắc tay Hơi Thở Biển Xanh",
-    "productCode": "AM-AQ001",
-    "slug": "lac-tay-hoi-tho-bien-xanh",
-    "category": "Vòng tay",
-    "collection": "Nàng Thơ (The Muse)",
-    "shortDesc": "Chuỗi hạt Aquamarine giác cắt kết hợp bạc 925, mang cảm giác bình an, nuôi dưỡng trực giác.",
-    "stone": "Aquamarine (Ngọc Hải Lam)",
-    "mohs": "Mohs 6.5 - 7.5",
-    "metal": "Bạc 925",
-    "compatibleElements": [
-      "Mệnh Thủy",
-      "Mệnh Mộc"
-    ],
-    "listingStatus": "active",
-    "price": 590000,
-    "compareAtPrice": 678500,
-    "stock": 40,
-    "image": "https://i.pinimg.com/736x/d4/3c/3d/d43c3d69296b0badad1636033dd34e9c.jpg",
-    "badge": "Nổi bật"
-  },
-  {
-    "_id": "420903a9c3bacabc1ea790a7",
-    "name": "Dây chuyền Bạc Nữ Mix Đá Merlia",
-    "productCode": "AM-MS010",
-    "slug": "day-chuyen-bac-nu-mix-da-merlia",
-    "category": "Dây chuyền",
-    "collection": "Moon & Stars",
-    "shortDesc": "Dây chuyền bạc mặt Moonstone giọt lệ ánh xanh, thanh lịch và nữ tính.",
-    "stone": "Moonstone (Đá Mặt Trăng)",
-    "mohs": "Mohs 6.5 - 7.5",
-    "metal": "Bạc 925",
-    "compatibleElements": [
-      "Mệnh Kim",
-      "Mệnh Thủy"
-    ],
-    "listingStatus": "active",
-    "price": 650000,
-    "compareAtPrice": 747500,
-    "stock": 35,
-    "image": "https://i.pinimg.com/1200x/5e/19/ca/5e19cae249717d1321564c81f14a1732.jpg",
-    "badge": "Nổi bật"
-  },
-  {
-    "_id": "397cc13e3a983bc4060cc878",
-    "name": "Nhẫn Tinh Tú Venus",
-    "productCode": "AM-RQ020",
-    "slug": "nhan-tinh-tu-venus",
-    "category": "Nhẫn",
-    "collection": "Mystical Vintage",
-    "shortDesc": "Nhẫn thạch anh hồng tự nhiên, gắn kết năng lượng tình yêu và sự dịu dàng.",
-    "stone": "Thạch anh hồng",
-    "mohs": "Mohs 6.5 - 7.5",
-    "metal": "Vàng hồng 14K mạ",
-    "compatibleElements": [
-      "Mệnh Hỏa",
-      "Mệnh Thổ"
-    ],
-    "listingStatus": "active",
-    "price": 450000,
-    "compareAtPrice": 517500,
-    "stock": 25,
-    "image": "https://i.pinimg.com/736x/47/9c/df/479cdf269b5b50948b8aef6103b475ed.jpg",
-    "badge": "Nổi bật"
-  },
-  {
-    "_id": "b2a6e97daf8e589b35880cdc",
-    "name": "Bông tai Sao Bạc & Baroque",
-    "productCode": "AM-PR030",
-    "slug": "bong-tai-sao-bac-baroque",
-    "category": "Bông tai",
-    "collection": "Mystical Vintage",
-    "shortDesc": "Bông tai ngọc trai Baroque tự nhiên phối ngôi sao bạc 925.",
-    "stone": "Ngọc trai tự nhiên",
-    "mohs": "Mohs 6.5 - 7.5",
-    "metal": "Bạc 925",
-    "compatibleElements": [
-      "Mệnh Kim"
-    ],
-    "listingStatus": "active",
-    "price": 520000,
-    "compareAtPrice": 598000,
-    "stock": 30,
-    "image": "https://i.pinimg.com/736x/82/af/ce/82afce704fa0702179286be2a3d293d7.jpg",
-    "badge": "Nổi bật"
-  },
-  {
-    "_id": "dabcd7e6ca8fe24e72e46af2",
-    "name": "Vòng Tay Moonstone & Bạc 925 - Celestial Moon Whispers",
-    "productCode": "AM-MS042",
-    "slug": "vong-tay-moonstone-bac-925-celestial-moon-whispers",
-    "category": "Vòng tay",
-    "collection": "Moon & Stars",
-    "shortDesc": "Vòng tay Moonstone ánh xanh kết hợp charm mặt trăng khuyết, thanh tẩy và cân bằng cảm xúc.",
-    "stone": "Moonstone (Đá Mặt Trăng)",
-    "mohs": "Mohs 6.5 - 7.5",
-    "metal": "Bạc 925",
-    "compatibleElements": [
-      "Mệnh Thủy",
-      "Mệnh Kim"
-    ],
-    "listingStatus": "active",
-    "price": 580000,
-    "compareAtPrice": 680000,
-    "stock": 50,
-    "image": "https://i.pinimg.com/736x/b3/cf/e0/b3cfe07a389a61eaa7b0f186da90da4f.jpg",
-    "badge": "Nổi bật"
-  },
-  {
-    "_id": "cef158eeb3534491b1bb60b8",
-    "name": "Dây Chuyền Mặt Trăng Khuyết Moonstone",
-    "productCode": "AM-MS043",
-    "slug": "day-chuyen-mat-trang-khuyet-moonstone",
-    "category": "Dây chuyền",
-    "collection": "Moon & Stars",
-    "shortDesc": "Dây chuyền bạc mặt trăng khuyết đính Moonstone.",
-    "stone": "Moonstone (Đá Mặt Trăng)",
-    "mohs": "Mohs 6.5 - 7.5",
-    "metal": "Bạc 925",
-    "compatibleElements": [
-      "Mệnh Thủy",
-      "Mệnh Kim"
-    ],
-    "listingStatus": "active",
-    "price": 650000,
-    "compareAtPrice": 747500,
-    "stock": 28,
-    "image": "https://i.pinimg.com/1200x/5e/19/ca/5e19cae249717d1321564c81f14a1732.jpg",
-    "badge": "Nổi bật"
-  },
-  {
-    "_id": "028049c2c1d73579085756f5",
-    "name": "Nhẫn Tinh Tú Huyền Ảo Bạc 925",
-    "productCode": "AM-MS044",
-    "slug": "nhan-tinh-tu-huyen-ao-bac-925",
-    "category": "Nhẫn",
-    "collection": "Moon & Stars",
-    "shortDesc": "Nhẫn bạc 925 đính Moonstone phong cách huyền ảo.",
-    "stone": "Moonstone (Đá Mặt Trăng)",
-    "mohs": "Mohs 6.5 - 7.5",
-    "metal": "Bạc 925",
-    "compatibleElements": [
-      "Mệnh Thủy"
-    ],
-    "listingStatus": "active",
-    "price": 450000,
-    "compareAtPrice": 517500,
-    "stock": 22,
-    "image": "https://i.pinimg.com/736x/47/9c/df/479cdf269b5b50948b8aef6103b475ed.jpg",
-    "badge": "Nổi bật"
-  },
-  {
-    "_id": "0b960313cef9e50d9eed12c3",
-    "name": "Dây Chuyền Giọt Lệ Aquamarine Biển Sâu",
-    "productCode": "AM-AQ002",
-    "slug": "day-chuyen-giot-le-aquamarine-bien-sau",
-    "category": "Dây chuyền",
-    "collection": "Bộ sưu tập độc bản",
-    "shortDesc": "Mặt giọt lệ Aquamarine tỏa ánh biển sâu, dây bạc 925.",
-    "stone": "Aquamarine (Ngọc Hải Lam)",
-    "mohs": "Mohs 6.5 - 7.5",
-    "metal": "Bạc 925",
-    "compatibleElements": [
-      "Mệnh Thủy"
-    ],
-    "listingStatus": "active",
-    "price": 720000,
-    "compareAtPrice": 828000,
-    "stock": 18,
-    "image": "https://i.pinimg.com/736x/9b/9f/9f/9b9f9f152363271f0c154f437b34def0.jpg",
-    "badge": "Nổi bật"
-  },
-  {
-    "_id": "5ca64aea1b1133e6088c848e",
-    "name": "Nhẫn Hộ Thân Thạch Anh Khói Lam Tuyết",
-    "productCode": "AM-SQ050",
-    "slug": "nhan-ho-than-thach-anh-khoi-lam-tuyet",
-    "category": "Nhẫn",
-    "collection": "Bộ sưu tập độc bản",
-    "shortDesc": "Nhẫn thạch anh khói kết hợp đá xanh lam, mang ý nghĩa hộ thân.",
-    "stone": "Thạch anh khói, Kyanite",
-    "mohs": "Mohs 6.5 - 7.5",
-    "metal": "Bạc 925",
-    "compatibleElements": [
-      "Mệnh Thủy",
-      "Mệnh Thổ"
-    ],
-    "listingStatus": "active",
-    "price": 460000,
-    "compareAtPrice": 529000,
-    "stock": 12,
-    "image": "https://i.pinimg.com/736x/d4/3c/3d/d43c3d69296b0badad1636033dd34e9c.jpg",
-    "badge": "Nổi bật"
-  },
-  {
-    "_id": "07701fa38b41160cee3f0d29",
-    "name": "Vòng Tay Hải Lam Thủy Tiểu",
-    "productCode": "AM-AQ003",
-    "slug": "vong-tay-hai-lam-thuy-tieu",
-    "category": "Vòng tay",
-    "collection": "Bộ sưu tập độc bản",
-    "shortDesc": "Chuỗi hạt Aquamarine giác cắt, kết hợp khóa bạc bình an.",
-    "stone": "Aquamarine (Ngọc Hải Lam), Moonstone (Đá Mặt Trăng)",
-    "mohs": "Mohs 6.5 - 7.5",
-    "metal": "Bạc 925",
-    "compatibleElements": [
-      "Mệnh Thủy"
-    ],
-    "listingStatus": "active",
-    "price": 590000,
-    "compareAtPrice": 678500,
-    "stock": 33,
-    "image": "https://i.pinimg.com/1200x/5e/19/ca/5e19cae249717d1321564c81f14a1732.jpg",
-    "badge": "Nổi bật"
-  },
-  {
-    "_id": "a7b1c298566e03c8c1f82b3d",
-    "name": "Nhẫn Citrine Ánh Dương",
-    "productCode": "AM-CT060",
-    "slug": "nhan-citrine-anh-duong",
-    "category": "Nhẫn",
-    "collection": "Bộ sưu tập độc bản",
-    "shortDesc": "Nhẫn bạc 925 đính Citrine vàng, gợi sự tự tin và tỏa sáng.",
-    "stone": "Thạch anh vàng Citrine",
-    "mohs": "Mohs 6.5 - 7.5",
-    "metal": "Bạc 925",
-    "compatibleElements": [
-      "Mệnh Thổ",
-      "Mệnh Hỏa"
-    ],
-    "listingStatus": "active",
-    "price": 480000,
-    "compareAtPrice": 552000,
-    "stock": 30,
-    "image": "https://i.pinimg.com/736x/47/9c/df/479cdf269b5b50948b8aef6103b475ed.jpg",
-    "badge": "Nổi bật"
-  },
-  {
-    "_id": "b5331d2cc61bf3451fa01cd9",
-    "name": "Dây Chuyền Aventurine Xanh Ngọc",
-    "productCode": "AM-AV061",
-    "slug": "day-chuyen-aventurine-xanh-ngoc",
-    "category": "Dây chuyền",
-    "collection": "Bộ sưu tập độc bản",
-    "shortDesc": "Mặt Aventurine xanh ngọc trên dây bạc 925, gợi ý may mắn và cơ hội.",
-    "stone": "Aventurine",
-    "mohs": "Mohs 6.5 - 7.5",
-    "metal": "Bạc 925",
-    "compatibleElements": [
-      "Mệnh Mộc"
-    ],
-    "listingStatus": "active",
-    "price": 560000,
-    "compareAtPrice": 644000,
-    "stock": 30,
-    "image": "https://i.pinimg.com/736x/82/af/ce/82afce704fa0702179286be2a3d293d7.jpg",
-    "badge": "Nổi bật"
-  },
-  {
-    "_id": "a5afdce6f13421985c88f0ac",
-    "name": "Dây Chuyền Amethyst Tím Khói",
-    "productCode": "AM-AM062",
-    "slug": "day-chuyen-amethyst-tim-khoi",
-    "category": "Dây chuyền",
-    "collection": "Bộ sưu tập độc bản",
-    "shortDesc": "Dây chuyền Amethyst tím khói, mang lại cảm giác thư giãn và cân bằng.",
-    "stone": "Thạch anh tím (Amethyst)",
-    "mohs": "Mohs 6.5 - 7.5",
-    "metal": "Bạc 925",
-    "compatibleElements": [
-      "Mệnh Hỏa"
-    ],
-    "listingStatus": "active",
-    "price": 620000,
-    "compareAtPrice": 713000,
-    "stock": 30,
-    "image": "https://i.pinimg.com/736x/b3/cf/e0/b3cfe07a389a61eaa7b0f186da90da4f.jpg",
-    "badge": "Nổi bật"
-  },
-  {
-    "_id": "e15ebba46e88221c8c531868",
-    "name": "Vòng Tay Bạc 925 Ngọc Bích",
-    "productCode": "AM-JD063",
-    "slug": "vong-tay-bac-925-ngoc-bich",
-    "category": "Vòng tay",
-    "collection": "Bộ sưu tập độc bản",
-    "shortDesc": "Vòng tay bạc 925 đính ngọc bích, biểu tượng của tình bạn gắn kết.",
-    "stone": "Cẩm thạch xanh",
-    "mohs": "Mohs 6.5 - 7.5",
-    "metal": "Bạc 925",
-    "compatibleElements": [
-      "Mệnh Mộc"
-    ],
-    "listingStatus": "active",
-    "price": 690000,
-    "compareAtPrice": 793500,
-    "stock": 30,
-    "image": "https://i.pinimg.com/1200x/5e/19/ca/5e19cae249717d1321564c81f14a1732.jpg",
-    "badge": "Nổi bật"
-  },
-  {
-    "_id": "52664aa06af1d45a0ebdd298",
-    "name": "Vòng Tay Fluorite Sáng Tạo",
-    "productCode": "AM-FL064",
-    "slug": "vong-tay-fluorite-sang-tao",
-    "category": "Vòng tay",
-    "collection": "Bộ sưu tập độc bản",
-    "shortDesc": "Chuỗi Fluorite nhiều sắc xanh tím, hỗ trợ tập trung và sáng tạo.",
-    "stone": "Fluorite",
-    "mohs": "Mohs 6.5 - 7.5",
-    "metal": "Bạc 925",
-    "compatibleElements": [
-      "Mệnh Mộc"
-    ],
-    "listingStatus": "active",
-    "price": 540000,
-    "compareAtPrice": 621000,
-    "stock": 30,
-    "image": "https://i.pinimg.com/736x/47/9c/df/479cdf269b5b50948b8aef6103b475ed.jpg",
-    "badge": "Nổi bật"
-  },
-  {
-    "_id": "19253ba3a00f40f0588eb5da",
-    "name": "Set Quà Tặng Hộp Nhung Amethyst",
-    "productCode": "AM-GS065",
-    "slug": "set-qua-tang-hop-nhung-amethyst",
-    "category": "Set quà tặng",
-    "collection": "Bộ sưu tập độc bản",
-    "shortDesc": "Set trang sức Amethyst trong hộp quà nhung cao cấp.",
-    "stone": "Thạch anh tím (Amethyst)",
-    "mohs": "Mohs 6.5 - 7.5",
-    "metal": "Bạc 925",
-    "compatibleElements": [
-      "Mệnh Hỏa"
-    ],
-    "listingStatus": "active",
-    "price": 890000,
-    "compareAtPrice": 1023500,
-    "stock": 30,
-    "image": "https://i.pinimg.com/736x/9b/9f/9f/9b9f9f152363271f0c154f437b34def0.jpg",
-    "badge": "Nổi bật"
-  }
-];
-
-  constructor(private _adminService: AdminService) {}
+  constructor(
+    private _adminService: AdminService,
+    private _cdr: ChangeDetectorRef
+  ) {}
 
   ngOnInit(): void {
     this.loadProducts();
   }
 
+  formatProduct(p: any): any {
+    const id = p.id || p._id;
+    return {
+      _id: id,
+      id: id,
+      name: p.name || 'Bảo vật AMULES',
+      productCode: p.productCode || (p.code || 'AM-PRD'),
+      slug: p.slug || 'san-pham',
+      category: p.category || p.categoryName || 'Vòng tay',
+      collection: p.collection || 'Bộ sưu tập độc bản',
+      shortDesc: p.shortDesc || p.shortDescription || p.description || '',
+      stone: p.stone || p.material || 'Đá tự nhiên',
+      mohs: p.mohs || 'Mohs 6.5 - 7.5',
+      metal: p.metal || 'Bạc Ý S925',
+      compatibleElements: Array.isArray(p.compatibleElements) ? p.compatibleElements : (p.element ? [p.element] : ['Mệnh Thủy']),
+      listingStatus: p.status || p.listingStatus || 'active',
+      price: Number(p.price || 0),
+      compareAtPrice: p.compareAtPrice ? Number(p.compareAtPrice) : null,
+      stock: p.stock !== undefined ? Number(p.stock) : 20,
+      image: p.image || (Array.isArray(p.images) && p.images[0]) || 'https://i.pinimg.com/736x/d4/3c/3d/d43c3d69296b0badad1636033dd34e9c.jpg',
+      badge: p.badge || (p.isFeatured ? 'Nổi bật' : '')
+    };
+  }
+
   loadProducts(): void {
     this.loading = true;
+    this._cdr.markForCheck();
     this._adminService.getProducts().subscribe({
       next: (data) => {
         if (data && data.length) {
-          this.products = data.map((p: any, i: number) => {
-            const fallback = this.mockProducts[i % this.mockProducts.length];
-            return {
-              ...fallback,
-              ...p,
-              name: p.name || fallback.name,
-              price: p.price || fallback.price,
-              image: p.image || fallback.image,
-              stock: p.stock !== undefined ? p.stock : fallback.stock
-            };
-          });
-        } else {
-          this.products = [...this.mockProducts];
+          this.products = data.map((p) => this.formatProduct(p));
         }
         this.loading = false;
+        this._cdr.detectChanges();
       },
-      error: () => {
-        this.products = [...this.mockProducts];
+      error: (err) => {
+        console.error('loadProducts error:', err);
         this.loading = false;
+        this._cdr.detectChanges();
       }
     });
   }

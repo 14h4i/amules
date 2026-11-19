@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
 import { ProductService, IProduct } from '../../services/product.service';
 import { MasterDataService } from '../../services/master-data.service';
 import { CartService } from '../../services/cart.service';
@@ -27,7 +28,7 @@ export class ProductListComponent implements OnInit {
   products: IProduct[] = [];
   allProducts: IProduct[] = [];
 
-  categories = [
+  categories: any[] = [
     { id: 'nhan', name: 'Nhẫn phong thủy', raw: 'Nhẫn' },
     { id: 'vong-tay', name: 'Vòng tay & Lắc', raw: 'Vòng tay' },
     { id: 'day-chuyen', name: 'Dây chuyền & Mặt đá', raw: 'Dây chuyền' },
@@ -36,7 +37,7 @@ export class ProductListComponent implements OnInit {
     { id: 'set-qua', name: 'Bộ trang sức tuyển chọn', raw: 'Set quà tặng' }
   ];
 
-  elements = [
+  elements: any[] = [
     { id: 'Kim', name: 'Mệnh Kim', dot: '#d4af37' },
     { id: 'Moc', name: 'Mệnh Mộc', dot: '#2e7d32' },
     { id: 'Thuy', name: 'Mệnh Thủy', dot: '#1976d2' },
@@ -44,7 +45,7 @@ export class ProductListComponent implements OnInit {
     { id: 'Tho', name: 'Mệnh Thổ', dot: '#8d6e63' }
   ];
 
-  gemstonePills = [
+  gemstonePills: any[] = [
     { id: 'moonstone', label: 'Moonstone (Đá Mặt Trăng)', query: 'Moonstone' },
     { id: 'rose_quartz', label: 'Thạch Anh Hồng', query: 'Thạch anh hồng' },
     { id: 'aquamarine', label: 'Aquamarine Hải Lam', query: 'Aquamarine' },
@@ -97,10 +98,61 @@ export class ProductListComponent implements OnInit {
     private _authService: AuthService,
     private _wishlistService: WishlistService,
     private _route: ActivatedRoute,
-    private _router: Router
+    private _router: Router,
+    private _http: HttpClient
   ) {}
 
   ngOnInit(): void {
+    // 1. Tải danh mục thực tế từ CSDL MongoDB
+    this._http.get<any[]>('/api/categories').subscribe({
+      next: (data) => {
+        if (data && data.length > 0) {
+          this.categories = data.map(c => ({
+            id: c.slug || c._id,
+            name: c.name.includes('phong thủy') || c.name.includes('&') ? c.name : (c.name === 'Nhẫn' ? 'Nhẫn phong thủy' : c.name === 'Vòng tay' ? 'Vòng tay & Lắc' : c.name === 'Dây chuyền' ? 'Dây chuyền & Mặt đá' : c.name === 'Bông tai' ? 'Bông tai thanh tẩy' : c.name === 'Charm đá' ? 'Charm đá năng lượng' : c.name === 'Set quà tặng' ? 'Bộ trang sức tuyển chọn' : c.name),
+            raw: c.name
+          }));
+        }
+      }
+    });
+
+    // 2. Tải ngũ hành thực tế từ MongoDB
+    this._http.get<any[]>('/api/elements').subscribe({
+      next: (data) => {
+        if (data && data.length > 0) {
+          const dotMap: Record<string, string> = {
+            'kim': '#d4af37',
+            'mộc': '#2e7d32',
+            'thủy': '#1976d2',
+            'hỏa': '#c2185b',
+            'thổ': '#8d6e63'
+          };
+          this.elements = data.map(e => {
+            const short = e.name.replace('Mệnh', '').trim();
+            const norm = short.toLowerCase();
+            return {
+              id: short,
+              name: e.name.startsWith('Mệnh') ? e.name : `Mệnh ${e.name}`,
+              dot: dotMap[norm] || '#80235c'
+            };
+          });
+        }
+      }
+    });
+
+    // 3. Tải danh sách đá quý từ MongoDB
+    this._http.get<any[]>('/api/gemstones').subscribe({
+      next: (data) => {
+        if (data && data.length > 0) {
+          this.gemstonePills = data.map(g => ({
+            id: g.slug || g._id,
+            label: g.name,
+            query: g.name
+          }));
+        }
+      }
+    });
+
     // Lắng nghe query parameters từ URL
     this._route.queryParams.subscribe(params => {
       const catParam = params['category'] || params['cat'];
@@ -161,47 +213,21 @@ export class ProductListComponent implements OnInit {
     return found ? found.label : this.filters.material;
   }
 
-  // --- Dynamic Counter Helpers ---
+  // --- Dynamic Counter Helpers (Lấy dữ liệu trực tiếp từ MongoDB) ---
   getCategoryCount(catRaw: string): number {
-    const norm = catRaw.toLowerCase();
+    const norm = catRaw.toLowerCase().trim();
     return this.allProducts.filter(p => {
-      const pCat = (p.category || p.categoryName || '').toLowerCase();
-      const pName = (p.name || '').toLowerCase();
-      if (norm.includes('charm')) {
-        return pCat.includes('charm') || pName.includes('charm');
-      }
-      if (norm.includes('vong') || norm.includes('vòng') || norm.includes('lắc')) {
-        return pCat.includes('vòng') || pCat.includes('vong') || pName.includes('vòng') || pName.includes('lắc');
-      }
-      if (norm.includes('day') || norm.includes('dây')) {
-        return pCat.includes('dây') || pCat.includes('day') || pName.includes('dây');
-      }
-      if (norm.includes('nhan') || norm.includes('nhẫn')) {
-        return pCat.includes('nhẫn') || pCat.includes('nhan') || pName.includes('nhẫn');
-      }
-      if (norm.includes('bong') || norm.includes('bông')) {
-        return pCat.includes('bông') || pCat.includes('bong') || pName.includes('bông');
-      }
-      if (norm.includes('qua') || norm.includes('quà') || norm.includes('set')) {
-        return pCat.includes('quà') || pCat.includes('qua') || pCat.includes('set') || pName.includes('set');
-      }
-      return pCat.includes(norm) || pName.includes(norm);
+      const pCat = (p.category || p.categoryName || '').toLowerCase().trim();
+      return pCat.includes(norm) || norm.includes(pCat);
     }).length;
   }
 
   getElementCount(elemKey: string): number {
-    const norm = elemKey.toLowerCase();
+    const norm = elemKey.toLowerCase().replace('mệnh', '').trim();
     return this.allProducts.filter(p => {
       const elStr = (p.element || '').toLowerCase();
-      const nameStr = (p.name || '').toLowerCase();
-      const stoneStr = (p.stone || '').toLowerCase();
-      const full = `${elStr} ${nameStr} ${stoneStr}`;
-      if (norm === 'kim') return elStr.includes('kim') || full.includes('moonstone') || full.includes('bạc') || full.includes('ngọc trai');
-      if (norm === 'moc') return elStr.includes('mộc') || full.includes('ngọc bích') || full.includes('fluorite') || full.includes('aventurine');
-      if (norm === 'thuy') return elStr.includes('thủy') || full.includes('aquamarine') || full.includes('hải lam') || full.includes('moonstone');
-      if (norm === 'hoa') return elStr.includes('hỏa') || full.includes('thạch anh hồng') || full.includes('amethyst') || full.includes('venus');
-      if (norm === 'tho') return elStr.includes('thổ') || full.includes('citrine') || full.includes('thạch anh khói');
-      return false;
+      const comp = (p.compatibleElements || []).map(c => String(c).toLowerCase());
+      return elStr.includes(norm) || comp.some(c => c.includes(norm));
     }).length;
   }
 
@@ -295,20 +321,16 @@ export class ProductListComponent implements OnInit {
     return unique.map(m => `Mệnh ${m}`).join(' & ');
   }
 
+  getElementsList(el?: string): string[] {
+    if (!el) return [];
+    const parts = el.split(/&|\+|,|\bvà\b/i)
+      .map(p => p.replace(/mệnh/gi, '').trim())
+      .filter(Boolean);
+    const unique = [...new Set(parts.map(p => p.charAt(0).toUpperCase() + p.slice(1).toLowerCase()))];
+    return unique.map(m => `Mệnh ${m}`);
+  }
+
   normalizeProductImage(p: IProduct): string {
-    if (p.image && p.image.startsWith('http') && p.image !== 'https://i.pinimg.com/736x/d4/3c/3d/d43c3d69296b0badad1636033dd34e9c.jpg') {
-      return p.image;
-    }
-    const name = `${p.name || ''} ${p.slug || ''}`.toLowerCase();
-    if (name.includes('nhẫn') || name.includes('nhan') || name.includes('venus') || name.includes('ring')) {
-      return 'https://i.pinimg.com/736x/47/9c/df/479cdf269b5b50948b8aef6103b475ed.jpg';
-    }
-    if (name.includes('dây chuyền') || name.includes('day-chuyen') || name.includes('merlia')) {
-      return 'https://i.pinimg.com/1200x/5e/19/ca/5e19cae249717d1321564c81f14a1732.jpg';
-    }
-    if (name.includes('bông tai') || name.includes('bong-tai') || name.includes('baroque')) {
-      return 'https://i.pinimg.com/736x/82/af/ce/82afce704fa0702179286be2a3d293d7.jpg';
-    }
     if (p.image && p.image.startsWith('http')) return p.image;
     if (p.images && p.images.length > 0 && p.images[0].startsWith('http')) return p.images[0];
     return 'https://i.pinimg.com/736x/d4/3c/3d/d43c3d69296b0badad1636033dd34e9c.jpg';
@@ -327,55 +349,18 @@ export class ProductListComponent implements OnInit {
     if (f.category) {
       const cNorm = f.category.toLowerCase().trim();
       list = list.filter(p => {
-        const pCat = (p.category || p.categoryName || '').toLowerCase();
-        const pName = (p.name || '').toLowerCase();
-        if (cNorm.includes('vong') || cNorm.includes('lắc') || cNorm.includes('vòng')) {
-          return pCat.includes('vòng') || pCat.includes('vong') || pName.includes('vòng') || pName.includes('lắc');
-        }
-        if (cNorm.includes('day') || cNorm.includes('dây')) {
-          return pCat.includes('dây') || pCat.includes('day') || pName.includes('dây');
-        }
-        if (cNorm.includes('nhan') || cNorm.includes('nhẫn')) {
-          return pCat.includes('nhẫn') || pCat.includes('nhan') || pName.includes('nhẫn');
-        }
-        if (cNorm.includes('bong') || cNorm.includes('bông')) {
-          return pCat.includes('bông') || pCat.includes('bong') || pName.includes('bông');
-        }
-        if (cNorm.includes('charm')) {
-          return pCat.includes('charm') || pName.includes('charm');
-        }
-        if (cNorm.includes('qua') || cNorm.includes('quà') || cNorm.includes('set')) {
-          return pCat.includes('quà') || pCat.includes('qua') || pCat.includes('set') || pName.includes('set');
-        }
-        return pCat.includes(cNorm) || pName.includes(cNorm);
+        const pCat = (p.category || p.categoryName || '').toLowerCase().trim();
+        return pCat.includes(cNorm) || cNorm.includes(pCat);
       });
     }
 
-    // 3. Lọc theo Mệnh ngũ hành (Kim, Mộc, Thủy, Hỏa, Thổ)
+    // 3. Lọc theo Mệnh ngũ hành (Kim, Mộc, Thủy, Hỏa, Thổ) chuẩn CSDL MongoDB
     if (f.element) {
       const eNorm = f.element.toLowerCase().replace('mệnh', '').trim();
       list = list.filter(p => {
         const elemStr = (p.element || '').toLowerCase();
-        const stoneStr = (p.stone || p.material || '').toLowerCase();
-        const nameStr = (p.name || '').toLowerCase();
-        const full = `${elemStr} ${stoneStr} ${nameStr}`;
-
-        if (eNorm === 'kim') {
-          return elemStr.includes('kim') || full.includes('kim') || full.includes('moonstone') || full.includes('ngọc trai') || full.includes('bạc');
-        }
-        if (eNorm === 'moc') {
-          return elemStr.includes('mộc') || full.includes('mộc') || full.includes('ngọc bích') || full.includes('fluorite') || full.includes('aventurine');
-        }
-        if (eNorm === 'thuy') {
-          return elemStr.includes('thủy') || full.includes('thủy') || full.includes('aquamarine') || full.includes('hải lam') || full.includes('moonstone');
-        }
-        if (eNorm === 'hoa') {
-          return elemStr.includes('hỏa') || full.includes('hỏa') || full.includes('venus') || full.includes('thạch anh hồng') || full.includes('amethyst');
-        }
-        if (eNorm === 'tho') {
-          return elemStr.includes('thổ') || full.includes('thổ') || full.includes('citrine') || full.includes('thạch anh khói');
-        }
-        return true;
+        const comp = (p.compatibleElements || []).map(c => String(c).toLowerCase());
+        return elemStr.includes(eNorm) || comp.some(c => c.includes(eNorm));
       });
     }
 

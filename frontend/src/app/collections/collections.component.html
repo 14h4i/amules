@@ -1,56 +1,118 @@
 <div class="col-page container">
 
-  <nav class="crumb-nav">
-    <a routerLink="/">Trang chủ</a> <span>/</span> <b>Bộ sưu tập bùa hộ mệnh</b>
-  </nav>
+  @if (!selectedCollection) {
+    <!-- VIEW 1: TRANG DANH SÁCH BỘ SƯU TẬP -->
+    <nav class="crumb-nav">
+      <a routerLink="/">Trang chủ</a> <span>/</span> <b>Bộ sưu tập bùa hộ mệnh</b>
+    </nav>
 
-  <header class="col-hero">
-    <span class="eyebrow"><app-icon name="sparkle" [size]="14"></app-icon> Tinh tuyển theo cảm hứng</span>
-    <h1 class="col-title serif">Các Bộ Sưu Tập Trang Sức Độc Bản</h1>
-    <p class="col-sub">Mỗi bộ sưu tập là một chương truyện thần thoại, tái hiện sự giao hòa giữa đất trời, chu kỳ tinh tú và vẻ đẹp vĩnh cửu của đá quý tự nhiên.</p>
-  </header>
+    <header class="col-hero">
+      <span class="eyebrow"><app-icon name="sparkle" [size]="14"></app-icon> Tinh tuyển theo cảm hứng</span>
+      <h1 class="col-title serif">Các Bộ Sưu Tập Trang Sức Độc Bản</h1>
+      <p class="col-sub">Mỗi bộ sưu tập là một chương truyện thần thoại, tái hiện sự giao hòa giữa đất trời, chu kỳ tinh tú và vẻ đẹp vĩnh cửu của đá quý tự nhiên.</p>
+    </header>
 
-  <!-- Danh sách Bộ sưu tập lớn -->
-  <div class="col-cards-grid">
-    @for (c of collections; track c.name) {
-      <article class="col-card" [class.active]="selectedCollection?.name === c.name" (click)="selectCollection(c)">
-        <div class="col-card__media">
-          <img [src]="c.image || 'https://i.pinimg.com/736x/8b/56/4e/8b564e66f5a26e5a7761873879e15a44.jpg'" [alt]="c.name">
-          <div class="col-card__overlay">
-            <span class="col-card__tag">{{ c.tag || 'Bộ sưu tập' }}</span>
-            <h2 class="col-card__name serif">{{ c.name }}</h2>
-            <p class="col-card__desc">{{ c.desc }}</p>
+    <div class="col-cards-grid">
+      @for (c of collections; track c._id || c.slug || c.name || $index) {
+        <article class="col-card" (click)="goToCollection(c)">
+          <div class="col-card__media">
+            <img [src]="c.image || c.coverImage" [alt]="c.name" loading="lazy">
+            <div class="col-card__overlay">
+              <span class="col-card__tag">{{ c.tag || 'Bộ sưu tập' }}</span>
+              <h2 class="col-card__name serif">{{ c.name }}</h2>
+              <p class="col-card__desc">{{ c.desc }}</p>
+              <div class="col-card__foot">
+                <span class="col-count-chip">{{ getProductCount(c) }} tác phẩm</span>
+                <span class="col-cta-btn">Khám phá &rarr;</span>
+              </div>
+            </div>
+          </div>
+        </article>
+      }
+    </div>
+  } @else {
+    <!-- VIEW 2: TRANG CHI TIẾT BỘ SƯU TẬP (NEXT SANG TRANG MỚI) -->
+    <nav class="crumb-nav">
+      <a routerLink="/">Trang chủ</a> <span>/</span> 
+      <a href="javascript:void(0)" (click)="backToCollections()">Bộ sưu tập</a> <span>/</span> 
+      <b>{{ selectedCollection.name }}</b>
+    </nav>
+
+    <div class="col-detail-hero">
+      <button type="button" class="btn-back" (click)="backToCollections()">
+        &larr; Quay lại tất cả bộ sưu tập
+      </button>
+
+      <div class="col-banner-card">
+        <div class="col-banner-img">
+          <img [src]="selectedCollection.image || selectedCollection.coverImage" [alt]="selectedCollection.name">
+        </div>
+        <div class="col-banner-content">
+          <span class="eyebrow"><app-icon name="sparkle" [size]="13"></app-icon> {{ selectedCollection.tag || 'BỘ SƯU TẬP ĐỘC BẢN' }}</span>
+          <h1 class="serif banner-title">{{ selectedCollection.name }}</h1>
+          <p class="banner-desc">{{ selectedCollection.desc }}</p>
+          <div class="banner-meta">
+            <span><app-icon name="gem" [size]="14"></app-icon> {{ featuredProducts.length }} bảo vật độc bản trong BST</span>
+            <span>• Bạc Ý S925 &amp; Đá quý tự nhiên</span>
           </div>
         </div>
-      </article>
-    }
-  </div>
+      </div>
+    </div>
 
-  <!-- Chi tiết bộ sưu tập được chọn -->
-  @if (selectedCollection) {
-    <section class="col-focus">
-      <div class="col-focus__head">
+    <!-- Danh sách bảo vật thuộc BST này -->
+    <section class="col-products-sec">
+      <div class="col-products-head">
         <div>
-          <span class="eyebrow"><app-icon name="gem" [size]="14"></app-icon> Bảo vật nổi bật thuộc bộ sưu tập</span>
-          <h2 class="serif">{{ selectedCollection.name }}</h2>
+          <h2 class="serif sec-title">Tác Phẩm Thuộc Bộ Sưu Tập "{{ selectedCollection.name }}"</h2>
+          <p class="sec-sub">Tuyển chọn các tạo tác mang phong cách và linh hồn của bộ sưu tập.</p>
         </div>
         <a routerLink="/products" class="btn btn--soft">
-          Xem tất cả trong cửa hàng &rarr;
+          Xem toàn bộ cửa hàng &rarr;
         </a>
       </div>
 
       <div class="focus-grid">
-        @for (p of featuredProducts; track p.name) {
+        @for (p of featuredProducts; track p.slug || p.id || p.name || $index) {
           <article class="p-card" [routerLink]="['/products', p.slug || p.id]">
             <div class="p-media">
-              <img [src]="p.image || 'https://i.pinimg.com/736x/d4/3c/3d/d43c3d69296b0badad1636033dd34e9c.jpg'" [alt]="p.name">
+              <img [src]="p.image" [alt]="p.name" loading="lazy">
+              @if (p.badge) {
+                <span class="p-badge">{{ p.badge }}</span>
+              }
             </div>
             <div class="p-info">
-              <span class="p-stone">{{ p.stone }}</span>
-              <h3 class="p-title">{{ p.name }}</h3>
-              <strong class="p-price">{{ p.price | number }}đ</strong>
+              <span class="p-stone">{{ p.stone || 'ĐÁ TỰ NHIÊN' | uppercase }}</span>
+              <h3 class="p-title" [title]="p.name">{{ p.name }}</h3>
+              <div class="p-foot">
+                <strong class="p-price">{{ p.price | number }}đ</strong>
+                @if (p.compareAtPrice && p.compareAtPrice > p.price) {
+                  <del class="p-compare">{{ p.compareAtPrice | number }}đ</del>
+                }
+              </div>
             </div>
           </article>
+        }
+      </div>
+    </section>
+
+    <!-- Khám phá các BST khác -->
+    <section class="other-cols-sec">
+      <h3 class="serif other-cols-title">Khám Phá Các Bộ Sưu Tập Khác</h3>
+      <div class="other-cols-grid">
+        @for (c of collections; track c.name) {
+          @if (c.slug !== selectedCollection.slug) {
+            <div class="mini-col-card" (click)="goToCollection(c)">
+              <div class="mini-col-img">
+                <img [src]="c.image || c.coverImage" [alt]="c.name">
+              </div>
+              <div class="mini-col-info">
+                <span class="mini-tag">{{ c.tag || 'Bộ sưu tập' }}</span>
+                <h4 class="serif">{{ c.name }}</h4>
+                <p>{{ c.desc }}</p>
+                <span class="mini-cta">Xem bộ sưu tập &rarr;</span>
+              </div>
+            </div>
+          }
         }
       </div>
     </section>

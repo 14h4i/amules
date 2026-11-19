@@ -106,7 +106,7 @@
         "name": "Vòng tay Nguyệt Quang Moonstone...",
         "price": 680000,
         "originalPrice": 680000,
-        "image": "images/lac_tay_bien.png",
+        "image": "https://i.pinimg.com/736x/d4/3c/3d/d43c3d69296b0badad1636033dd34e9c.jpg",
         "quantity": 1,
         "stone": "Moonstone Ánh Lam",
         "size": "15 cm",
@@ -149,7 +149,7 @@
         "name": "Dây chuyền Bạc Nữ Mix Đá Merlia",
         "price": 650000,
         "originalPrice": 650000,
-        "image": "images/dch_mix_da.png",
+        "image": "https://i.pinimg.com/1200x/5e/19/ca/5e19cae249717d1321564c81f14a1732.jpg",
         "quantity": 2,
         "stone": "Moonstone (Đá Mặt Trăng)",
         "size": "45 cm"
@@ -200,7 +200,7 @@
         "name": "Lắc tay Hơi Thở Biển Xanh",
         "categoryTag": "AQUAMARINE (NGỌC HẢI LAM) • Bạc Ý S925",
         "specs": "Tiêu chuẩn nghệ nhân AMULES",
-        "image": "images/lac_tay_bien.png",
+        "image": "https://i.pinimg.com/736x/d4/3c/3d/d43c3d69296b0badad1636033dd34e9c.jpg",
         "price": 590000,
         "quantity": 2
       }
@@ -253,7 +253,7 @@
         "name": "Dây Chuyền Mặt Trăng Khuyết Moonstone",
         "categoryTag": "MOONSTONE TỰ NHIÊN • Bạc Ý S925",
         "specs": "Chế tác chuẩn ni tay khách hàng",
-        "image": "images/lac_tay_bien.png",
+        "image": "https://i.pinimg.com/736x/d4/3c/3d/d43c3d69296b0badad1636033dd34e9c.jpg",
         "price": 650000,
         "quantity": 1
       }
@@ -307,7 +307,7 @@
         "name": "Lắc tay Hơi Thở Biển Xanh",
         "categoryTag": "TRANG SỨC BẢO MỆNH • Bạc Ý S925",
         "specs": "Tiêu chuẩn nghệ nhân AMULES",
-        "image": "images/lac_tay_bien.png",
+        "image": "https://i.pinimg.com/736x/d4/3c/3d/d43c3d69296b0badad1636033dd34e9c.jpg",
         "price": 500000,
         "quantity": 1
       }
@@ -361,7 +361,7 @@
         "name": "Lắc tay Hơi Thở Biển Xanh",
         "categoryTag": "TRANG SỨC BẢO MỆNH • Bạc Ý S925",
         "specs": "Tiêu chuẩn nghệ nhân AMULES",
-        "image": "images/lac_tay_bien.png",
+        "image": "https://i.pinimg.com/736x/d4/3c/3d/d43c3d69296b0badad1636033dd34e9c.jpg",
         "price": 500000,
         "quantity": 1
       }
@@ -389,5 +389,115 @@
     ],
     "createdAt": "2026-11-18T09:15:34.607Z",
     "updatedAt": "2026-11-18T09:15:34.607Z"
+  },
+  {
+    "_id": "6afdcf3c2e7d9e2f7612122e",
+    "orderCode": "AMU-20261118-8683",
+    "trackingCode": "GHN-AMU-8683",
+    "carrier": "Giao Hàng Nhanh (GHN Express)",
+    "userId": "6afd90886110da292e0b54b0",
+    "customer": {
+      "fullName": "Thu An",
+      "phone": "0987654321",
+      "email": "anan265464@gmail.com",
+      "tier": "Thành viên mới",
+      "tierNote": "Khách mua lần đầu"
+    },
+    "shippingAddress": {
+      "province": "Hồ Chí Minh",
+      "district": "Quận 1",
+      "ward": "Phường Bến Nghé",
+      "street": "70 pasteur",
+      "note": ""
+    },
+    "items": [
+      {
+        "productId": "420903a9c3bacabc1ea790a7",
+        "name": "Dây chuyền Bạc Nữ Mix Đá Merlia",
+        "categoryTag": "MOONSTONE (ĐÁ MẶT TRĂNG) • Bạc Ý S925",
+        "specs": "Kích thước: 45 cm",
+        "image": "https://i.pinimg.com/1200x/5e/19/ca/5e19cae249717d1321564c81f14a1732.jpg",
+        "price": 650000,
+        "quantity": 1
+      }
+    ],
+    "firstItemName": "Dây chuyền Bạc Nữ Mix Đá Merlia",
+    "itemsCountLabel": "1 tác phẩm",
+    "shippingMethod": "STANDARD",
+    "subtotal": 650000,
+    "discount": 0,
+    "shippingFee": 0,
+    "totalAmount": 650000,
+    "paymentMethod": "VNPAY",
+    "paymentStatus": "paid",
+    "paymentStatusLabel": "Đã thanh toán",
+    "status": "pending",
+    "orderStatus": "Đã thanh toán (Chờ giao hàng)",
+    "hasReturnRequest": false,
+    "returnReason": null,
+    "internalNotes": [
+      {
+        "author": "Hệ thống AMULES",
+        "time": "23:15:56 18/11/2026",
+        "content": "Khách hàng đặt đơn trực tuyến qua phương thức VNPAY."
+      }
+    ],
+    "createdAt": "2026-11-18T16:15:56.750Z",
+    "updatedAt": "2026-11-18T16:15:56.750Z"
+  },
+  {
+    "_id": "6afe89717e312c7099a9bdd2",
+    "orderCode": "AMU-20261119-1877",
+    "trackingCode": "GHN-AMU-1877",
+    "carrier": "Giao Hàng Nhanh (GHN Express)",
+    "userId": "6afd90886110da292e0b54b0",
+    "customer": {
+      "fullName": "Thu An",
+      "phone": "0987654321",
+      "email": "anan265464@gmail.com",
+      "tier": "Thành viên mới",
+      "tierNote": "Khách mua lần đầu"
+    },
+    "shippingAddress": {
+      "province": "Hồ Chí Minh",
+      "district": "Quận 1",
+      "ward": "Phường Bến Nghé",
+      "street": "70 pasteur",
+      "note": ""
+    },
+    "items": [
+      {
+        "productId": "028049c2c1d73579085756f5",
+        "name": "Nhẫn Tinh Tú Huyền Ảo Bạc 925",
+        "categoryTag": "MOONSTONE (ĐÁ MẶT TRĂNG) • Bạc Ý S925",
+        "specs": "Kích thước: Free size",
+        "image": "https://i.pinimg.com/1200x/75/86/a2/7586a2d4a6e845eb764e5f21cdd828f1.jpg",
+        "price": 450000,
+        "quantity": 2
+      }
+    ],
+    "firstItemName": "Nhẫn Tinh Tú Huyền Ảo Bạc 925",
+    "itemsCountLabel": "1 tác phẩm",
+    "shippingMethod": "EXPRESS",
+    "subtotal": 900000,
+    "discount": 0,
+    "shippingFee": 25000,
+    "totalAmount": 925000,
+    "paymentMethod": "VNPAY",
+    "paymentStatus": "paid",
+    "paymentStatusLabel": "Đã thanh toán",
+    "status": "pending",
+    "orderStatus": "Đã thanh toán (Chờ giao hàng)",
+    "hasReturnRequest": false,
+    "returnReason": null,
+    "internalNotes": [
+      {
+        "author": "Hệ thống AMULES",
+        "time": "12:30:25 19/11/2026",
+        "content": "Khách hàng đặt đơn trực tuyến qua phương thức VNPAY."
+      }
+    ],
+    "createdAt": "2026-11-19T05:30:25.994Z",
+    "updatedAt": "2026-11-19T05:30:25.994Z"
   }
 ]

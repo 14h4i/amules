@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { AuthService } from '../../services/auth.service';
 
@@ -33,7 +33,8 @@ export class AddressesComponent implements OnInit {
 
   constructor(
     private _http: HttpClient,
-    private _auth: AuthService
+    private _auth: AuthService,
+    private _cdr: ChangeDetectorRef
   ) {}
 
   ngOnInit(): void {
@@ -49,13 +50,12 @@ export class AddressesComponent implements OnInit {
     const cur = this._auth.currentUser();
     const curName = cur?.fullName || 'Người nhận';
     const curPhone = cur?.phone || '';
-    const isDemo = cur?.email === 'lananh.gemini@gmail.com';
 
     this._http.get<any[]>('/api/users/addresses', { withCredentials: true }).subscribe({
       next: (data) => {
         if (data && data.length > 0) {
           this.addresses = data.map((d, idx) => ({
-            id: d.id || `addr_${idx}`,
+            id: d.id || d._id || `addr_${idx}`,
             recipient: d.fullName || d.recipient || curName,
             phone: d.phone || curPhone,
             typeLabel: d.label || d.typeLabel || 'NHÀ RIÊNG',
@@ -64,11 +64,13 @@ export class AddressesComponent implements OnInit {
             isDefault: !!d.isDefault
           }));
         } else {
-          this.addresses = isDemo ? this.getDefaultAddresses() : [];
+          this.addresses = [];
         }
+        this._cdr.detectChanges();
       },
       error: () => {
-        this.addresses = isDemo ? this.getDefaultAddresses() : [];
+        this.addresses = [];
+        this._cdr.detectChanges();
       }
     });
   }
@@ -99,18 +101,15 @@ export class AddressesComponent implements OnInit {
         this.newAddress.note = '';
       },
       error: () => {
-        // Fallback local update
-        this.addresses.push({
-          id: Date.now(),
-          ...this.newAddress
-        });
         this.closeAddModal();
+        this.loadAddresses();
       }
     });
   }
 
   setDefault(item: AddressItem) {
     this.addresses.forEach(a => (a.isDefault = a.id === item.id));
+    this._cdr.detectChanges();
     this._http.put(`/api/users/addresses/${item.id}/default`, {}, { withCredentials: true }).subscribe({
       next: () => {},
       error: () => {}
@@ -119,32 +118,10 @@ export class AddressesComponent implements OnInit {
 
   removeAddress(id: string | number) {
     this.addresses = this.addresses.filter(a => a.id !== id);
+    this._cdr.detectChanges();
     this._http.delete(`/api/users/addresses/${id}`, { withCredentials: true }).subscribe({
       next: () => {},
       error: () => {}
     });
-  }
-
-  private getDefaultAddresses(): AddressItem[] {
-    return [
-      {
-        id: '1',
-        recipient: 'Nguyễn Hoàng Lan Anh',
-        phone: '0982 456 789',
-        typeLabel: 'CƠ QUAN / VĂN PHÒNG',
-        address: 'Tòa tháp Tràng Tiền Plaza, Số 18 Tràng Tiền, Phường Tràng Tiền, Quận Hoàn Kiếm, Thành phố Hà Nội',
-        note: 'Địa chỉ cơ quan, nhận hàng trong giờ hành chính',
-        isDefault: true
-      },
-      {
-        id: '2',
-        recipient: 'Nguyễn Hoàng Lan Anh',
-        phone: '0982 456 789',
-        typeLabel: 'NHÀ RIÊNG',
-        address: 'Căn hộ 1204, Tòa Park 7, KĐT Times City, 458 Minh Khai, Phường Vĩnh Tuy, Quận Hai Bà Trưng, Thành phố Hà Nội',
-        note: 'Giao ngoài giờ hành chính hoặc cuối tuần',
-        isDefault: false
-      }
-    ];
   }
 }

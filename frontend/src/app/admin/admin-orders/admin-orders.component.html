@@ -119,7 +119,11 @@
         <select [(ngModel)]="paymentFilter" (change)="filterOrders()">
           <option value="all">Tất cả thanh toán</option>
           <option value="vnpay">VNPAY</option>
+          <option value="momo">MoMo</option>
           <option value="cod">COD</option>
+          <option value="banking">Chuyển khoản</option>
+          <option value="paid">Đã thanh toán</option>
+          <option value="pending_cod">Chờ thu hộ COD</option>
         </select>
       </div>
 
@@ -132,9 +136,13 @@
         </select>
       </div>
 
-      <div class="date-range-pill">
+      <div class="filter-select-pill">
         <app-icon name="calendar" [size]="13"></app-icon>
-        <span>01/10 - 28/10/2026</span>
+        <select [(ngModel)]="dateFilter" (change)="filterOrders()">
+          <option value="all">Tất cả thời gian</option>
+          <option value="this_month">Tháng 11/2026</option>
+          <option value="today">Hôm nay</option>
+        </select>
       </div>
 
       <button type="button" class="btn-filter-action" (click)="filterOrders()">
@@ -162,78 +170,89 @@
         </tr>
       </thead>
       <tbody>
-        @for (o of filteredOrders; track o._id || o.orderCode) {
-          <tr [class.row-highlight]="o.hasReturnRequest">
-            <td>
-              <div class="order-code-cell">
-                <span class="code-val">#{{ o.orderCode }}</span>
-                <span class="time-val"><app-icon name="clock" [size]="12"></app-icon> {{ o.timeLabel || (o.createdAt | date:'HH:mm, dd/MM') }}</span>
-              </div>
-            </td>
-            <td>
-              <div class="customer-cell">
-                <span class="cust-name">{{ o.customer?.fullName }}</span>
-                <span class="cust-phone">{{ o.customer?.phone }}</span>
-                @if (o.customer?.tier) {
-                  <span class="vip-tag" [class.vip-gemstone]="o.customer.tier.includes('VIP')">
-                    {{ o.customer.tier }}
-                  </span>
-                }
-              </div>
-            </td>
-            <td>
-              <div class="item-preview-cell">
-                <img [src]="o.items?.[0]?.image || 'https://i.pinimg.com/736x/d4/3c/3d/d43c3d69296b0badad1636033dd34e9c.jpg'" [alt]="o.firstItemName" class="table-item-thumb">
-                <div class="table-item-info">
-                  <span class="item-name">{{ o.firstItemName || o.items?.[0]?.name }}</span>
-                  <span class="item-sub-count">{{ o.itemsCountLabel || (o.items?.length + ' tác phẩm') }}</span>
-                </div>
-              </div>
-            </td>
-            <td>
-              <b class="price-val">{{ o.totalAmount | number }} đ</b>
-            </td>
-            <td>
-              <span class="method-pill" [class.method-vnpay]="o.paymentMethod?.includes('VNPAY')" [class.method-cod]="o.paymentMethod === 'COD'">
-                @if (o.paymentMethod?.includes('VNPAY')) {
-                  <app-icon name="qrcode" [size]="12"></app-icon>
-                }
-                {{ o.paymentMethod || 'COD' }}
-              </span>
-            </td>
-            <td>
-              <div class="pay-status-cell">
-                <span class="pay-dot" [class.dot-green]="o.paymentStatus === 'paid'" [class.dot-amber]="o.paymentStatus === 'pending_cod'" [class.dot-gray]="o.paymentStatus === 'cancelled_pay'"></span>
-                <span class="pay-label">{{ o.paymentStatusLabel || 'Đã thanh toán' }}</span>
-              </div>
-            </td>
-            <td>
-              <span class="status-pill-badge" [ngClass]="o.statusClass || getStatusClass(o.status)">
-                @if (o.status === 'processing') { <app-icon name="refresh" [size]="12"></app-icon> }
-                @if (o.status === 'shipping') { <app-icon name="truck" [size]="12"></app-icon> }
-                @if (o.status === 'completed') { <app-icon name="check-circle" [size]="12"></app-icon> }
-                @if (o.status === 'return') { <app-icon name="exchange" [size]="12"></app-icon> }
-                @if (o.status === 'cancelled') { <app-icon name="close" [size]="12"></app-icon> }
-                <span>{{ o.statusLabel || getStatusLabel(o.status) }}</span>
-              </span>
-            </td>
-            <td>
-              <div class="actions-cell">
-                <button type="button" class="btn-view-detail" (click)="openOrderDetail(o)">
-                  Xem chi tiết
-                </button>
-                <button type="button" class="btn-more-dots" (click)="openOrderDetail(o)">
-                  <app-icon name="more-vertical" [size]="14"></app-icon>
-                </button>
-              </div>
-            </td>
-          </tr>
-        } @empty {
+        @if (loading && orders.length === 0) {
           <tr>
-            <td colspan="8" class="empty-table-row">
-              Không có đơn hàng nào phù hợp với bộ lọc hiện tại.
+            <td colspan="8" class="empty-table-row" style="padding: 40px; text-align: center;">
+              <div style="display: flex; align-items: center; justify-content: center; gap: 10px; color: #8c7284;">
+                <app-icon name="refresh" [size]="18"></app-icon>
+                <span>Đang đồng bộ dữ liệu đơn hàng từ CSDL MongoDB...</span>
+              </div>
             </td>
           </tr>
+        } @else {
+          @for (o of filteredOrders; track o._id || o.orderCode) {
+            <tr [class.row-highlight]="o.hasReturnRequest">
+              <td>
+                <div class="order-code-cell">
+                  <span class="code-val">#{{ o.orderCode }}</span>
+                  <span class="time-val"><app-icon name="clock" [size]="12"></app-icon> {{ o.timeLabel || (o.createdAt | date:'HH:mm, dd/MM') }}</span>
+                </div>
+              </td>
+              <td>
+                <div class="customer-cell">
+                  <span class="cust-name">{{ o.customer?.fullName }}</span>
+                  <span class="cust-phone">{{ o.customer?.phone }}</span>
+                  @if (o.customer?.tier) {
+                    <span class="vip-tag" [class.vip-gemstone]="o.customer.tier.includes('VIP')">
+                      {{ o.customer.tier }}
+                    </span>
+                  }
+                </div>
+              </td>
+              <td>
+                <div class="item-preview-cell">
+                  <img [src]="o.items?.[0]?.image || 'https://i.pinimg.com/736x/d4/3c/3d/d43c3d69296b0badad1636033dd34e9c.jpg'" [alt]="o.firstItemName" class="table-item-thumb">
+                  <div class="table-item-info">
+                    <span class="item-name">{{ o.firstItemName || o.items?.[0]?.name }}</span>
+                    <span class="item-sub-count">{{ o.itemsCountLabel || (o.items?.length + ' tác phẩm') }}</span>
+                  </div>
+                </div>
+              </td>
+              <td>
+                <b class="price-val">{{ o.totalAmount | number }} đ</b>
+              </td>
+              <td>
+                <span class="method-pill" [class.method-vnpay]="o.paymentMethod?.includes('VNPAY')" [class.method-cod]="o.paymentMethod === 'COD'">
+                  @if (o.paymentMethod?.includes('VNPAY')) {
+                    <app-icon name="qrcode" [size]="12"></app-icon>
+                  }
+                  {{ o.paymentMethod || 'COD' }}
+                </span>
+              </td>
+              <td>
+                <div class="pay-status-cell">
+                  <span class="pay-dot" [class.dot-green]="o.paymentStatus === 'paid'" [class.dot-amber]="o.paymentStatus === 'pending_cod'" [class.dot-gray]="o.paymentStatus === 'cancelled_pay'"></span>
+                  <span class="pay-label">{{ o.paymentStatusLabel || 'Đã thanh toán' }}</span>
+                </div>
+              </td>
+              <td>
+                <span class="status-pill-badge" [ngClass]="o.statusClass || getStatusClass(o.status)">
+                  @if (o.status === 'processing') { <app-icon name="refresh" [size]="12"></app-icon> }
+                  @if (o.status === 'shipping') { <app-icon name="truck" [size]="12"></app-icon> }
+                  @if (o.status === 'completed') { <app-icon name="check-circle" [size]="12"></app-icon> }
+                  @if (o.status === 'return') { <app-icon name="exchange" [size]="12"></app-icon> }
+                  @if (o.status === 'cancelled') { <app-icon name="close" [size]="12"></app-icon> }
+                  <span>{{ o.statusLabel || getStatusLabel(o.status) }}</span>
+                </span>
+              </td>
+              <td>
+                <div class="actions-cell">
+                  <button type="button" class="btn-view-detail" (click)="openOrderDetail(o)">
+                    Xem chi tiết
+                  </button>
+                  <button type="button" class="btn-more-dots" (click)="openOrderDetail(o)">
+                    <app-icon name="more-vertical" [size]="14"></app-icon>
+                  </button>
+                </div>
+              </td>
+            </tr>
+          } @empty {
+            <tr>
+              <td colspan="8" class="empty-table-row">
+                Không có đơn hàng nào phù hợp với bộ lọc hiện tại.
+              </td>
+            </tr>
+          }
         }
       </tbody>
     </table>

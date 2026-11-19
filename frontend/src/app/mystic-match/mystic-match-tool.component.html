@@ -22,17 +22,45 @@
 
   <!-- Header -->
   <header class="mm-head">
-    <span class="eyebrow"><app-icon name="sparkle" [size]="14"></app-icon> Công nghệ giải mã thiên thể độc quyền</span>
+    <div class="mm-mode-bar">
+      <span class="eyebrow"><app-icon name="sparkle" [size]="14"></app-icon> Công nghệ giải mã thiên thể độc quyền</span>
+      
+      <!-- Phân định 2 chế độ: Rút gọn cho khách vãng lai vs Đầy đủ cho thành viên -->
+      <div class="mode-switcher">
+        <button type="button" class="mode-tab" [class.active]="mode === 'guest'" (click)="switchMode('guest')">
+          <app-icon name="sun" [size]="14"></app-icon> Rút gọn (Khách vãng lai)
+        </button>
+        <button type="button" class="mode-tab" [class.active]="mode === 'member'" (click)="switchMode('member')">
+          <app-icon name="sparkle" [size]="14"></app-icon> Đầy đủ (Thành viên VIP)
+          @if (!_authService.isLoggedIn()) {
+            <span class="lock-tag"><app-icon name="lock" [size]="11"></app-icon> Đăng nhập</span>
+          }
+        </button>
+      </div>
+    </div>
+
     <h1 class="mm-title serif">Mystic Match™: Tìm Vị Bùa Hộ Mệnh Của Riêng Bạn</h1>
-    <p class="mm-sub">Dựa trên chu kỳ chiêm tinh học phương Tây và quy luật Ngũ hành Can Chi phương Đông, AMULES tính toán chính xác tần số tương sinh để khai mở bảo vật dành riêng cho bạn.</p>
+    <p class="mm-sub">
+      @if (mode === 'guest') {
+        <span>Chế độ rút gọn: Nhập ngày sinh &amp; ước nguyện để tính nhanh Cung hoàng đạo và Ngũ hành Can Chi Nạp Âm.</span>
+      } @else {
+        <span>Chế độ thành viên chuyên sâu: Tích hợp <b>Bài Trắc Nghiệm Năng Lượng Tâm Thức &amp; Luân Xa 4 Chiều</b>, giải mã tần số rung động và tự động lưu trữ vĩnh viễn vào tài khoản cá nhân.</span>
+      }
+    </p>
   </header>
 
+  <!-- ================= BƯỚC 1: NHẬP THÔNG TIN CƠ BẢN ================= -->
   @if (step === 'form') {
 
-    <!-- FORM TRẮC NGHIỆM -->
     <div class="quiz-card">
       <div class="quiz-head">
-        <span class="step-badge">Bước 1 trên 2</span>
+        <span class="step-badge">
+          @if (mode === 'guest') {
+            Chế độ Rút Gọn • Bước 1 trên 1
+          } @else {
+            Chế độ Thành Viên • Bước 1 trên 2: Tọa Độ Ngày Sinh
+          }
+        </span>
         <h2 class="serif">Nhập Thông Tin Ngày Sinh Của Bạn</h2>
         <p>Ngày tháng năm sinh dương lịch xác định tọa độ chiêm tinh và bản mệnh ngũ hành khi bạn cất tiếng khóc chào đời.</p>
       </div>
@@ -89,22 +117,137 @@
         </div>
       </div>
 
-      <button type="button" class="btn-calc" (click)="calculateMatch()">
-        <app-icon name="sparkle" [size]="18"></app-icon> Khai Mở Bản Mệnh &amp; Giải Mã Năng Lượng &rarr;
-      </button>
+      <!-- Nút hành động theo từng chế độ -->
+      @if (mode === 'guest') {
+        <button type="button" class="btn-calc" (click)="calculateQuickMatch()">
+          <app-icon name="sparkle" [size]="18"></app-icon> Khai Mở Bản Mệnh Nhanh &rarr;
+        </button>
+
+        <div class="guest-banner-invite">
+          <div class="gbi-icon"><app-icon name="sparkle" [size]="20"></app-icon></div>
+          <div class="gbi-text">
+            <strong>Mở khóa trắc nghiệm tâm thức 4 chiều</strong>
+            <p>Đăng nhập thành viên để làm bài trắc nghiệm luân xa và nhận hồ sơ độc bản lưu vĩnh viễn vào tài khoản.</p>
+          </div>
+          <button type="button" class="btn-gbi" (click)="startMemberQuiz()">
+            Đăng nhập mở khóa
+          </button>
+        </div>
+      } @else {
+        <div class="member-form-actions">
+          <button type="button" class="btn-calc btn-calc--primary" (click)="startMemberQuiz()">
+            <app-icon name="sparkle" [size]="18"></app-icon> Tiến Vào Bài Trắc Nghiệm Tâm Thức 4 Chiều &rarr;
+          </button>
+          <button type="button" class="btn-calc btn-calc--sub" (click)="calculateQuickMatch()">
+            Tính nhanh bản mệnh (Bỏ qua bài test)
+          </button>
+        </div>
+      }
     </div>
 
-  } @else {
+  } 
+  
+  <!-- ================= BƯỚC 2: BÀI TRẮC NGHIỆM TÂM THỨC & LUÂN XA (THÀNH VIÊN) ================= -->
+  @else if (step === 'quiz') {
 
-    <!-- KẾT QUẢ GIẢI MÃ -->
+    <div class="quiz-card quiz-card--interactive">
+      <div class="quiz-progress-wrap">
+        <div class="quiz-progress-meta">
+          <span class="quiz-step-tag">
+            <app-icon name="sparkle" [size]="12"></app-icon> Trắc Nghiệm Năng Lượng Tâm Thức
+          </span>
+          <span class="quiz-progress-text">Câu {{ currentQuestionIndex + 1 }} / {{ quizQuestions.length }}</span>
+        </div>
+        <div class="quiz-progress-bar">
+          <div class="quiz-progress-fill" [style.width.%]="((currentQuestionIndex + 1) / quizQuestions.length) * 100"></div>
+        </div>
+      </div>
+
+      <div class="quiz-question-box">
+        <span class="q-eyebrow">Trụ Cột {{ currentQuestionIndex + 1 }}: {{ quizQuestions[currentQuestionIndex].title }}</span>
+        <h2 class="serif q-title">{{ quizQuestions[currentQuestionIndex].subtitle }}</h2>
+      </div>
+
+      <div class="quiz-options-grid">
+        @for (opt of quizQuestions[currentQuestionIndex].options; track $index) {
+          <div 
+            class="quiz-option-card" 
+            [class.selected]="selectedAnswers[quizQuestions[currentQuestionIndex].id] === $index"
+            (click)="selectOption(quizQuestions[currentQuestionIndex].id, $index)">
+            <div class="opt-icon">
+              <app-icon [name]="opt.icon" [size]="20"></app-icon>
+            </div>
+            <div class="opt-body">
+              <strong class="opt-text">{{ opt.text }}</strong>
+              <small class="opt-sub">{{ opt.sub }}</small>
+            </div>
+            <div class="opt-check">
+              @if (selectedAnswers[quizQuestions[currentQuestionIndex].id] === $index) {
+                <app-icon name="check-circle" [size]="20"></app-icon>
+              }
+            </div>
+          </div>
+        }
+      </div>
+
+      <div class="quiz-nav-btns">
+        <button 
+          type="button" 
+          class="btn-quiz-nav btn-quiz-prev" 
+          (click)="prevQuestion()" 
+          [disabled]="currentQuestionIndex === 0">
+          &larr; Câu trước
+        </button>
+
+        <button 
+          type="button" 
+          class="btn-quiz-nav btn-quiz-next" 
+          (click)="nextQuestion()">
+          @if (currentQuestionIndex === quizQuestions.length - 1) {
+            Hoàn tất &amp; Khai Mở Hồ Sơ &rarr;
+          } @else {
+            Tiếp tục câu hỏi &rarr;
+          }
+        </button>
+      </div>
+    </div>
+
+  } 
+  
+  <!-- ================= BƯỚC 3: KẾT QUẢ GIẢI MÃ ================= -->
+  @else {
+
     <div class="result-layout">
 
       <!-- CỘT TRÁI: THẺ BẢN MỆNH & CUNG HOÀNG ĐẠO -->
       <section class="result-card">
-        <div class="res-badge-row">
-          <span class="res-tag"><app-icon name="sparkle" [size]="13"></app-icon> Kết Quả Chiêm Tinh Học</span>
-          <span class="res-date">{{ birthDay }}/{{ birthMonth }}/{{ birthYear }}</span>
-        </div>
+
+        <!-- Banner kết quả theo chế độ -->
+        @if (mode === 'member') {
+          <div class="vip-result-header">
+            <div class="vip-badge-pill">
+              <app-icon name="sparkle" [size]="14"></app-icon> HỒ SƠ TÂM THỨC THÀNH VIÊN ĐÃ LƯU
+            </div>
+            <p class="vip-sub">Đã đồng bộ vĩnh viễn vào cơ sở dữ liệu MongoDB tài khoản của bạn.</p>
+          </div>
+
+          <!-- Luân xa chủ đạo & độ tương thích -->
+          <div class="chakra-resonance-box">
+            <div class="chakra-icon">
+              <app-icon name="lotus" [size]="24"></app-icon>
+            </div>
+            <div class="chakra-info">
+              <span class="c-label">LUÂN XA CỘNG HƯỞNG CHỦ ĐẠO</span>
+              <h3 class="serif c-name">{{ dominantChakra }}</h3>
+              <p class="c-score">Độ tương hợp năng lượng: <b>{{ matchScore }}%</b> • Tần số cát tường</p>
+            </div>
+          </div>
+        } @else {
+          <div class="res-badge-row">
+            <span class="res-tag"><app-icon name="sparkle" [size]="13"></app-icon> Kết Quả Rút Gọn (Khách vãng lai)</span>
+            <span class="res-date">{{ birthDay }}/{{ birthMonth }}/{{ birthYear }}</span>
+          </div>
+        }
 
         <div class="res-zodiac-box">
           <div class="z-icon"><app-icon [name]="calculatedZodiac?.icon || 'moon'" [size]="28"></app-icon></div>
@@ -150,10 +293,32 @@
           </div>
         </div>
 
+        <!-- Banner kêu gọi thành viên nếu đang ở chế độ khách vãng lai -->
+        @if (mode === 'guest') {
+          <div class="guest-result-cta-card">
+            <div class="grc-icon"><app-icon name="sparkle" [size]="22"></app-icon></div>
+            <div class="grc-content">
+              <h4>Khai mở Luân Xa &amp; Trường Năng Lượng Đầy Đủ</h4>
+              <p>Bạn muốn biết luân xa chủ đạo và nhận thông điệp tâm thức 4 chiều? Đăng nhập để thực hiện bài trắc nghiệm đầy đủ và lưu vĩnh viễn vào tài khoản.</p>
+              <div class="grc-actions">
+                <a routerLink="/login" [queryParams]="{ returnUrl: '/mystic-match' }" class="btn btn--primary btn-sm">
+                  Đăng nhập làm trắc nghiệm đầy đủ &rarr;
+                </a>
+              </div>
+            </div>
+          </div>
+        }
+
         <div class="result-actions">
-          <button type="button" class="btn btn--soft" (click)="saveToProfile()">
-            <app-icon name="user" [size]="16"></app-icon> Lưu Vào Hồ Sơ Cá Nhân
-          </button>
+          @if (mode === 'member') {
+            <a routerLink="/account/mystic-match" class="btn btn--primary">
+              <app-icon name="user" [size]="16"></app-icon> Xem Trong Tài Khoản
+            </a>
+          } @else {
+            <button type="button" class="btn btn--soft" (click)="saveToProfile()">
+              <app-icon name="user" [size]="16"></app-icon> Lưu Vào Hồ Sơ Cá Nhân
+            </button>
+          }
           <button type="button" class="btn btn-outline" (click)="resetQuiz()">
             Thực hiện lại
           </button>
@@ -164,13 +329,13 @@
       <aside class="recommend-col">
         <div class="rec-head">
           <h3 class="serif">Bảo Vật Hộ Thân Dành Riêng Cho Bạn</h3>
-          <p>Được tuyển chọn tương sinh chính xác với tần số năng lượng {{ calculatedElement?.name }}:</p>
+          <p>Tuyển chọn tương sinh chính xác với tần số năng lượng {{ calculatedElement?.name }}:</p>
         </div>
 
         <div class="rec-grid">
           @for (p of recommendedProducts; track p.name) {
             <article class="rec-card">
-              <img [src]="p.image || 'https://i.pinimg.com/736x/d4/3c/3d/d43c3d69296b0badad1636033dd34e9c.jpg'" [alt]="p.name" class="rec-img">
+              <img [src]="p.image" [alt]="p.name" class="rec-img">
               <div class="rec-info">
                 <span class="rec-stone">{{ p.stone }}</span>
                 <h4 class="rec-name"><a [routerLink]="['/products', p.slug || p.id]">{{ p.name }}</a></h4>
@@ -188,7 +353,7 @@
 
   }
 
-  <!-- Modal thông báo Đăng nhập để lưu bản mệnh (dành cho khách vãng lai) -->
+  <!-- Modal thông báo Đăng nhập để lưu bản mệnh / mở khóa trắc nghiệm (dành cho khách vãng lai) -->
   @if (showAuthPromptModal) {
     <div class="auth-modal-backdrop" (click)="closeAuthModal()"></div>
     <div class="auth-modal-card">
@@ -196,24 +361,22 @@
       <div class="auth-modal-icon">
         <app-icon name="sparkle" [size]="28"></app-icon>
       </div>
-      <h3 class="serif auth-modal-title">Lưu Bản Mệnh Vào Hồ Sơ</h3>
+      <h3 class="serif auth-modal-title">Mở Khóa Trắc Nghiệm Năng Lượng Đầy Đủ</h3>
       <p class="auth-modal-desc">
-        Bạn vừa giải mã thành công: 
-        <strong>{{ calculatedZodiac?.name }} ({{ calculatedZodiac?.latin }})</strong> • 
-        <strong>{{ calculatedElement?.name }}</strong>.
+        Tính năng <strong>Bài Trắc Nghiệm Năng Lượng Tâm Thức &amp; Luân Xa 4 Chiều</strong> được dành riêng cho Thành viên AMULES.
       </p>
       <p class="auth-modal-sub">
-        Đăng nhập hoặc tạo tài khoản để kích hoạt năng lượng bảo hộ vĩnh viễn và nhận thông điệp chiêm tinh tuần độc bản.
+        Đăng nhập hoặc đăng ký tài khoản miễn phí để kích hoạt trường khí hộ thân độc bản và lưu trữ vĩnh viễn kết quả vào tài khoản.
       </p>
       <div class="auth-modal-actions">
-        <a routerLink="/login" [queryParams]="{ returnUrl: '/account/mystic-match' }" class="btn btn--primary auth-btn">
+        <a routerLink="/login" [queryParams]="{ returnUrl: '/mystic-match' }" class="btn btn--primary auth-btn">
           <app-icon name="user" [size]="15"></app-icon> Đăng nhập tài khoản
         </a>
-        <a routerLink="/register" [queryParams]="{ returnUrl: '/account/mystic-match' }" class="btn btn--outline auth-btn">
+        <a routerLink="/register" [queryParams]="{ returnUrl: '/mystic-match' }" class="btn btn--outline auth-btn">
           <app-icon name="sparkle" [size]="15"></app-icon> Đăng ký thành viên mới
         </a>
         <button type="button" class="btn-text-muted" (click)="closeAuthModal()">
-          Để sau
+          Tiếp tục dùng chế độ rút gọn
         </button>
       </div>
     </div>

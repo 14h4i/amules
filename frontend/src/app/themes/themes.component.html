@@ -1,50 +1,70 @@
 <div class="themes-page container">
-  <nav class="crumb-nav">
-    <a routerLink="/">Trang chủ</a> <span>/</span> <b>Khám phá theo chủ đề năng lượng đá</b>
-  </nav>
 
-  <header class="themes-hero">
-    <span class="eyebrow"><app-icon name="sparkle" [size]="14"></app-icon> Tần số năng lượng đá tự nhiên</span>
-    <h1 class="themes-title serif">Khám Phá Theo Chủ Đề Năng Lượng</h1>
-    <p class="themes-sub">Mỗi viên đá quý thiên nhiên mang một bước sóng riêng biệt, tương tác trực tiếp với luân xa và trường hào quang của bạn. Lựa chọn chủ đề để tìm thấy tạo tác cộng hưởng năng lượng phù hợp nhất.</p>
-  </header>
+  @if (!selectedTheme) {
+    <!-- VIEW 1: TRANG DANH SÁCH 8 CHỦ ĐỀ NĂNG LƯỢNG -->
+    <nav class="crumb-nav">
+      <a routerLink="/">Trang chủ</a> <span>/</span> <b>Khám phá theo chủ đề năng lượng đá</b>
+    </nav>
 
-  <!-- Danh sách 8 chủ đề năng lượng tinh tuyển -->
-  <div class="themes-grid">
-    @for (t of themes; track t.slug || t.name) {
-      <article
-        class="theme-card"
-        [class.active]="selectedTheme?.slug === t.slug || selectedTheme?.name === t.name"
-        (click)="selectTheme(t)"
-      >
-        <div class="theme-card__media">
-          <img [src]="t.image || 'https://i.pinimg.com/736x/8b/56/4e/8b564e66f5a26e5a7761873879e15a44.jpg'" [alt]="t.name">
-          @if (selectedTheme?.slug === t.slug || selectedTheme?.name === t.name) {
-            <span class="theme-card__active-badge">
-              <app-icon name="sparkle" [size]="12"></app-icon> Đang chọn
-            </span>
-          }
-          <div class="theme-card__overlay">
-            <span class="theme-tag">{{ t.tag || 'Chủ đề năng lượng' }}</span>
-            <h3 class="serif">{{ t.name }}</h3>
-            <p>{{ t.description }}</p>
+    <header class="themes-hero">
+      <span class="eyebrow"><app-icon name="sparkle" [size]="14"></app-icon> Tần số năng lượng đá tự nhiên</span>
+      <h1 class="themes-title serif">Khám Phá Theo Chủ Đề Năng Lượng</h1>
+      <p class="themes-sub">Mỗi viên đá quý thiên nhiên mang một bước sóng riêng biệt, tương tác trực tiếp với luân xa và trường hào quang của bạn. Lựa chọn chủ đề để tìm thấy tạo tác cộng hưởng năng lượng phù hợp nhất.</p>
+    </header>
+
+    <div class="themes-grid">
+      @for (t of themes; track t.slug || t.name || $index) {
+        <article class="theme-card" (click)="goToTheme(t)">
+          <div class="theme-card__media">
+            <img [src]="t.image" [alt]="t.name" loading="lazy">
+            <div class="theme-card__overlay">
+              <span class="theme-tag">{{ t.tag || 'Chủ đề năng lượng' }}</span>
+              <h3 class="serif">{{ t.name }}</h3>
+              <p>{{ t.description }}</p>
+              <div class="theme-card__foot">
+                <span class="theme-count-chip">{{ getProductCountForTheme(t) }} bảo vật</span>
+                <span class="theme-cta-btn">Khám phá &rarr;</span>
+              </div>
+            </div>
+          </div>
+        </article>
+      }
+    </div>
+  } @else {
+    <!-- VIEW 2: TRANG CHI TIẾT CHỦ ĐỀ (NEXT SANG TRANG MỚI) -->
+    <nav class="crumb-nav">
+      <a routerLink="/">Trang chủ</a> <span>/</span> 
+      <a href="javascript:void(0)" (click)="backToThemes()">Chủ đề năng lượng</a> <span>/</span> 
+      <b>{{ selectedTheme.name }}</b>
+    </nav>
+
+    <div class="theme-detail-hero">
+      <button type="button" class="btn-back" (click)="backToThemes()">
+        &larr; Quay lại danh sách chủ đề
+      </button>
+
+      <div class="theme-banner-card">
+        <div class="theme-banner-img">
+          <img [src]="selectedTheme.image" [alt]="selectedTheme.name">
+        </div>
+        <div class="theme-banner-content">
+          <span class="eyebrow"><app-icon name="sparkle" [size]="13"></app-icon> {{ selectedTheme.tag || 'TẦN SỐ CỘNG HƯỞNG' }}</span>
+          <h1 class="serif banner-title">{{ selectedTheme.name }}</h1>
+          <p class="banner-desc">{{ selectedTheme.description }}</p>
+          <div class="banner-meta">
+            <span><app-icon name="gem" [size]="14"></app-icon> {{ products.length }} tạo tác cộng hưởng trực tiếp</span>
+            <span>• Năng lượng tinh khiết chuẩn ngọc học</span>
           </div>
         </div>
-      </article>
-    }
-  </div>
+      </div>
+    </div>
 
-  <!-- Sản phẩm tương ứng với chủ đề đang chọn -->
-  @if (selectedTheme) {
-    <section class="theme-focus">
-      <div class="theme-focus__head">
+    <!-- Danh sách bảo vật thuộc chủ đề này -->
+    <section class="theme-products-sec">
+      <div class="theme-products-head">
         <div>
-          <span class="eyebrow"><app-icon name="gem" [size]="14"></app-icon> Bảo vật cộng hưởng chủ đề</span>
-          <h2 class="serif">
-            {{ selectedTheme.name }}
-            <span class="focus-count">({{ products.length }} tạo tác tinh tuyển)</span>
-          </h2>
-          <p class="focus-desc">{{ selectedTheme.description }}</p>
+          <h2 class="serif sec-title">Tạo Tác Cộng Hưởng Chủ Đề "{{ selectedTheme.name }}"</h2>
+          <p class="sec-sub">Tuyển chọn các tác phẩm mang tần số rung động tương thích nhất.</p>
         </div>
         <a routerLink="/products" class="btn btn--soft">
           Xem toàn bộ cửa hàng &rarr;
@@ -52,10 +72,10 @@
       </div>
 
       <div class="focus-grid">
-        @for (p of products; track p.slug || p.id || p.name) {
+        @for (p of products; track p.slug || p.id || p.name || $index) {
           <article class="p-card" [routerLink]="['/products', p.slug || p.id]">
             <div class="p-media">
-              <img [src]="p.image || 'https://i.pinimg.com/736x/d4/3c/3d/d43c3d69296b0badad1636033dd34e9c.jpg'" [alt]="p.name">
+              <img [src]="p.image" [alt]="p.name" loading="lazy">
               @if (p.badge) {
                 <span class="p-badge">{{ p.badge }}</span>
               }
@@ -77,5 +97,28 @@
         }
       </div>
     </section>
+
+    <!-- Khám phá các chủ đề khác -->
+    <section class="other-themes-sec">
+      <h3 class="serif other-themes-title">Khám Phá Các Chủ Đề Năng Lượng Khác</h3>
+      <div class="other-themes-grid">
+        @for (t of themes; track t.name) {
+          @if (t.slug !== selectedTheme.slug) {
+            <div class="mini-theme-card" (click)="goToTheme(t)">
+              <div class="mini-theme-img">
+                <img [src]="t.image" [alt]="t.name">
+              </div>
+              <div class="mini-theme-info">
+                <span class="mini-tag">{{ t.tag || 'Chủ đề' }}</span>
+                <h4 class="serif">{{ t.name }}</h4>
+                <p>{{ t.description }}</p>
+                <span class="mini-cta">Khám phá &rarr;</span>
+              </div>
+            </div>
+          }
+        }
+      </div>
+    </section>
   }
+
 </div>

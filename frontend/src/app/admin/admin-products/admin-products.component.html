@@ -58,22 +58,32 @@
     <!-- Product Table -->
     <div class="products-table-card">
       <table class="products-table">
+        <colgroup>
+          <col style="width: 76px;">
+          <col style="width: 27%;">
+          <col style="width: 16%;">
+          <col style="width: 18%;">
+          <col style="width: 14%;">
+          <col style="width: 11%;">
+          <col style="width: 10%;">
+          <col style="width: 84px;">
+        </colgroup>
         <thead>
           <tr>
-            <th style="width: 70px;">ẢNH</th>
+            <th style="text-align: center;">ẢNH</th>
             <th>TÊN TÁC PHẨM &amp; MÃ SKU</th>
             <th>DANH MỤC &amp; BST</th>
             <th>LOẠI ĐÁ &amp; BẢN MỆNH</th>
             <th>GIÁ BÁN NIÊM YẾT</th>
             <th>TỒN KHO</th>
             <th>TRẠNG THÁI</th>
-            <th style="text-align: right;">THAO TÁC</th>
+            <th style="text-align: center;">THAO TÁC</th>
           </tr>
         </thead>
         <tbody>
           @for (p of filteredProducts; track p.id || p._id || p.productCode) {
             <tr>
-              <td>
+              <td style="text-align: center;">
                 <img [src]="p.image || 'https://i.pinimg.com/736x/d4/3c/3d/d43c3d69296b0badad1636033dd34e9c.jpg'" [alt]="p.name" class="p-thumb">
               </td>
               <td>
@@ -116,7 +126,7 @@
                 </span>
               </td>
               <td>
-                <div class="table-actions-right">
+                <div class="table-actions-center">
                   <button type="button" class="btn-icon-action" (click)="openEditModal(p)" title="Chỉnh sửa sản phẩm">
                     <app-icon name="edit" [size]="14"></app-icon>
                   </button>

@@ -11,20 +11,27 @@
       <p class="articles-sub">Khám phá ý nghĩa phong thủy, khoa học khoáng vật và nghệ thuật nuôi dưỡng tâm thức cùng bảo vật hộ mệnh.</p>
     </header>
 
+    @if (loading && articles.length === 0) {
+      <div class="articles-loading">
+        <div class="spinner"></div>
+        <p>Đang kết nối tri thức đá quý...</p>
+      </div>
+    }
+
     <div class="articles-grid">
-      @for (a of articles; track a.title) {
+      @for (a of articles; track a._id || a.slug || a.title || $index) {
         <article class="article-card" (click)="readArticle(a)">
           <div class="article-media">
-            <img [src]="a.image || 'https://i.pinimg.com/736x/8b/56/4e/8b564e66f5a26e5a7761873879e15a44.jpg'" [alt]="a.title">
+            <img [src]="a.image || a.thumbnail" [alt]="a.title" loading="lazy">
             <span class="article-badge">{{ a.category || 'CẨM NANG' }}</span>
           </div>
           <div class="article-body">
             <div class="article-meta">
               <span><app-icon name="clock" [size]="13"></app-icon> {{ a.readTime || '5 phút đọc' }}</span>
-              <span>• AMULES Wisdom</span>
+              <span>• {{ a.date || 'AMULES Wisdom' }}</span>
             </div>
             <h2 class="article-title serif">{{ a.title }}</h2>
-            <p class="article-excerpt">{{ a.excerpt || a.description }}</p>
+            <p class="article-excerpt">{{ a.excerpt || a.description || a.summary }}</p>
             <div class="article-read-more">
               Đọc tiếp bài viết &rarr;
             </div>
@@ -44,16 +51,21 @@
         <h1 class="serif">{{ selectedArticle.title }}</h1>
         <div class="detail-meta">
           <span><app-icon name="clock" [size]="14"></app-icon> {{ selectedArticle.readTime || '5 phút đọc' }}</span>
-          <span>• Tác giả: Chuyên gia Ngọc học AMULES</span>
+          <span>• Tác giả: {{ selectedArticle.author || 'Chuyên gia Ngọc học AMULES' }}</span>
+          @if (selectedArticle.date) {
+            <span>• {{ selectedArticle.date }}</span>
+          }
         </div>
       </header>
 
       <div class="detail-hero-img">
-        <img [src]="selectedArticle.image || 'https://i.pinimg.com/736x/8b/56/4e/8b564e66f5a26e5a7761873879e15a44.jpg'" [alt]="selectedArticle.title">
+        <img [src]="selectedArticle.image || selectedArticle.thumbnail" [alt]="selectedArticle.title">
       </div>
 
       <div class="detail-content">
-        <p class="lead">{{ selectedArticle.excerpt }}</p>
+        @if (selectedArticle.excerpt) {
+          <p class="lead">{{ selectedArticle.excerpt }}</p>
+        }
         <div class="body-text">
           <p>{{ selectedArticle.content }}</p>
         </div>

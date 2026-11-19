@@ -180,7 +180,7 @@ export class CheckoutComponent implements OnInit, OnDestroy {
         // Luôn chuyển tiếp mượt mà sang bước Đặt hàng thành công
         this._router.navigate(['/order-success', code], {
           queryParams: {
-            gateway: this.selectedPayment !== 'COD' ? this.selectedPayment : undefined,
+            gateway: this.selectedPayment,
             amount: finalAmount
           }
         });

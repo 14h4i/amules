@@ -24,25 +24,7 @@ export class ReviewsComponent implements OnInit {
     5: '5 sao - Tuyệt vời'
   };
 
-  submittedReviews = [
-    {
-      productName: 'Vòng Tay Nguyệt Quang Moonstone Ánh Lam S925',
-      image: 'https://i.pinimg.com/736x/d4/3c/3d/d43c3d69296b0badad1636033dd34e9c.jpg',
-      date: '29/10/2025',
-      stars: 5,
-      quote:
-        '“Đá ánh lam siêu thực dưới ánh trăng, size 14.5cm vừa khít cổ tay. Rất hài lòng với dịch vụ tư vấn mệnh Thủy của AMULES!”',
-      helpfulCount: 14
-    },
-    {
-      productName: 'Dây Chuyền Trầm Thủy Aquamarine Biển Sâu',
-      image: 'https://i.pinimg.com/1200x/5e/19/ca/5e19cae249717d1321564c81f14a1732.jpg',
-      date: '18/09/2025',
-      stars: 5,
-      quote: '“Mặt đá cắt facet giọt lệ tinh xảo, xích bạc Ý sáng bóng không gây ngứa cổ.”',
-      helpfulCount: 8
-    }
-  ];
+  submittedReviews: any[] = [];
 
   constructor(private _http: HttpClient) {}
 
@@ -52,7 +34,7 @@ export class ReviewsComponent implements OnInit {
         if (list && list.length > 0) {
           const mapped = list.map(r => ({
             productName: r.productName || 'Bảo vật phong thủy AMULES',
-            image: r.image || 'https://i.pinimg.com/736x/d4/3c/3d/d43c3d69296b0badad1636033dd34e9c.jpg',
+            image: r.image || '',
             date: r.createdAt ? new Date(r.createdAt).toLocaleDateString('vi-VN') : '29/10/2025',
             stars: r.stars || r.rating || 5,
             quote: `“${r.content || r.quote || r.title || 'Sản phẩm tuyệt vời!'}”`,

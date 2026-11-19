@@ -109,7 +109,7 @@
         <div class="items-list">
           @for (item of searchedOrder.items; track item.name) {
             <div class="order-item">
-              <img [src]="item.image || 'https://i.pinimg.com/736x/d4/3c/3d/d43c3d69296b0badad1636033dd34e9c.jpg'" [alt]="item.name" class="item-img">
+              <img [src]="item.image" [alt]="item.name" class="item-img">
               <div class="item-info">
                 <span class="item-elem">{{ item.element || 'Bảo vật tương sinh' }}</span>
                 <strong class="item-name">{{ item.name }}</strong>
@@ -137,7 +137,7 @@
 
         <div class="info-box">
           <h4>Phương thức thanh toán</h4>
-          <p><strong>Hình thức:</strong> {{ searchedOrder.paymentMethod === 'COD' ? 'Thanh toán tiền mặt khi nhận hàng (COD)' : 'VNPay / Chuyển khoản trực tuyến' }}</p>
+          <p><strong>Hình thức:</strong> {{ searchedOrder.paymentMethod === 'COD' ? 'Thanh toán tiền mặt khi nhận hàng (COD)' : (searchedOrder.paymentMethod === 'VNPAY' ? 'Cổng thanh toán VNPAY-QR' : (searchedOrder.paymentMethod === 'MOMO' ? 'Ví điện tử MoMo' : (searchedOrder.paymentMethod === 'BANKING' ? 'Chuyển khoản VietQR' : searchedOrder.paymentMethod))) }} ({{ searchedOrder.paymentStatusLabel || (searchedOrder.paymentStatus === 'paid' ? 'Đã thanh toán' : 'Chờ thanh toán') }})</p>
           <p><strong>Ghi chú:</strong> Bảo vật được đóng hộp nhung và thanh tẩy chuông xoay Tây Tạng trước khi xuất xưởng.</p>
 
           @if (isCancelable()) {

@@ -139,7 +139,7 @@
     @for (b of posts; track b.title) {
     <article class="post">
       <div class="post__img">
-        <img [src]="b.image" (error)="onPostImageError($event, b)" [alt]="b.title">
+        <img [src]="b.image" [alt]="b.title">
         <span class="tag tag--pink">{{ b.tag }}</span>
       </div>
       <div class="post__body">
